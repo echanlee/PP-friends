@@ -39,10 +39,20 @@ class Register extends React.Component {
         .then(res => res.json())
         .then(res => { 
           console.log(res); 
+          if(res.response === "Success")
+              //NAVIGATE TO NEW PAGE can use res.ID to get user id 
           this.setState({
             error: res.response
           });
-        });
+        })
+        .catch((error) => {
+          console.log("ERROR connecting to backend");
+          this.setState({
+            error: "Error connecting to backend"
+          });
+        }
+
+        );
     }
   }
 

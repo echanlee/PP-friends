@@ -2,6 +2,7 @@ from flask import Flask, request, render_template
 from flask_cors import CORS 
 from register import registerUser
 
+
 app = Flask(__name__) 
 CORS(app)
 
@@ -12,7 +13,7 @@ def home():
 @app.route('/register', methods=['POST'])
 def register():
     if request.method == 'POST':
-      return registerUser(request)
+      return registerUser(request.form['email'], request.form['password'])
         
 
 if __name__ == '__main__':
