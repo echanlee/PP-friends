@@ -1,19 +1,15 @@
-.App {
+.Register {
   text-align: center;
+  margin: auto;
+  padding: 20px;
 }
 
-.App-logo {
+.Register-logo {
   height: 40vmin;
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
+.Register-header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -24,15 +20,6 @@
   color: white;
 }
 
-.App-link {
+.Register-link {
   color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
