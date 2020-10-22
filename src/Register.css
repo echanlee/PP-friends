@@ -1,15 +1,15 @@
-.App {
+.Register {
   text-align: center;
   margin: auto;
   padding: 20px;
 }
 
-.App-logo {
+.Register-logo {
   height: 40vmin;
   pointer-events: none;
 }
 
-.App-header {
+.Register-header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -20,6 +20,6 @@
   color: white;
 }
 
-.App-link {
+.Register-link {
   color: #61dafb;
 }

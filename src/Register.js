@@ -1,7 +1,7 @@
 import React from 'react';
-import './App.css';
+import './Register.css';
 
-class App extends React.Component {
+class Register extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -62,7 +62,7 @@ class App extends React.Component {
   
   render() {
     return (
-      <div className = "App" >
+      <div className = "Register" >
         <header> Register for PP Friends</header>
         <form id = "registerForm" onSubmit={this.handleSubmit}>
               <input
@@ -96,4 +96,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default Register;
