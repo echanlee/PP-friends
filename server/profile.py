@@ -3,7 +3,7 @@ from mysql.connector import errorcode
 from connect import connectToDB
 
 
-def updateProfile(username, age, bio, gender, education, interests, genderPrefrence):
+def updateProfile(username, age, bio, gender, education, interests, genderPreference):
     try:
         connection = connectToDB()
         if(connection != False):
