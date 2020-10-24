@@ -2,12 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
-HEAD;
-import "semantic-ui-css.semantic.min.css";
-
 import { Router, browserHistory } from "react-router";
 import routes from "./routes";
-development;
 
 ReactDOM.render(
   <Router history={browserHistory} routes={routes} />,

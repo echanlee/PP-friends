@@ -24,6 +24,9 @@ function myApp() {
         education: "",
         interests: "",
       };
+
+      this.handleInputChange = this.handleInputChange.bind(this);
+      this.handleUpdate = this.handleUpdate.bind(this);
     }
 
     handleUpdate = (event) => {
@@ -103,3 +106,5 @@ function myApp() {
 
   ReactDOM.render(<MyProfileForm />, document.getElementById("root"));
 }
+
+export default MyProfileForm;
