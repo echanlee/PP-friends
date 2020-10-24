@@ -1,5 +1,7 @@
 import React from 'react';
 import './Register.css';
+import {browserHistory} from 'react-router';
+
 
 class Register extends React.Component {
   constructor(props) {
@@ -28,25 +30,21 @@ class Register extends React.Component {
     event.preventDefault();
     if(this.checkPasswords()) {
       const myForm = document.getElementById('registerForm');
-      console.log(myForm);
       
       const myRequest = new Request('http://127.0.0.1:5000/register', {
         method: 'POST',
         body: new FormData(myForm),
       });
-
       fetch(myRequest)
         .then(res => res.json())
         .then(res => { 
-          console.log(res); 
           if(res.response === "Success")
-              //NAVIGATE TO NEW PAGE can use res.ID to get user id 
+              // browserHistory.push("profile");
           this.setState({
             error: res.response
           });
         })
         .catch((error) => {
-          console.log("ERROR connecting to backend");
           this.setState({
             error: "Error connecting to backend"
           });
@@ -73,6 +71,7 @@ class Register extends React.Component {
   render() {
     return (
       <div className = "Register" >
+        {this.props.children}
         <header> Register for PP Friends</header>
         <form id = "registerForm" onSubmit={this.handleSubmit}>
               <input
