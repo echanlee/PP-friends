@@ -20,7 +20,8 @@ import { browserHistory } from "react-router";
 
     handleUpdate = (event) => {
       event.preventDefault();
-
+      const id = this.props?.location?.state?.id;
+      console.log(id);
       //TODO: fix this it's not correct
     //   fetch("http://127.0.0.1:5000/profile").then((response) =>
     //   response.json().then((data) => {})
@@ -39,7 +40,7 @@ import { browserHistory } from "react-router";
 
     render() {
       return (
-        <form onUpdate={this.handleUpdate}>
+        <form onSubmit={this.handleUpdate}>
           <h1>My Profile</h1>
 
           <input
@@ -92,7 +93,7 @@ import { browserHistory } from "react-router";
           <p>Bio:</p>
           <input type="text" name="bio" onChange={this.myChangeHandler} />
 
-          <button>Update!</button>
+          <input type="submit" value="Update" />
         </form>
       );
     }

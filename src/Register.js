@@ -36,7 +36,11 @@ class Register extends React.Component {
       fetch(myRequest)
         .then((res) => res.json())
         .then((res) => {
-          if (res.response === "Success") browserHistory.push("profile");
+          if (res.response === "Success") 
+          browserHistory.push({
+            pathname: "/profile",
+            state: {id: res.id}
+          });
           this.setState({
             error: res.response,
           });
