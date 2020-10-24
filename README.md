@@ -13,3 +13,14 @@ npm install react-router
 pip install mysql.connector 
 pip install flask_cors
 pip install flask
+
+
+How to run locally:
+
+Front-end
+npm install (if haven't installed yet)
+npm start
+
+Back-end:
+cd server
+python myapp.py
