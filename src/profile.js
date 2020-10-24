@@ -1,16 +1,6 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import { useEffect, useState } from "react";
-import "./App.css";
+import { browserHistory } from "react-router";
 
-function myApp() {
-  const MyProfileForm = document.getElementById("profileForm");
-
-  useEffect(() => {
-    fetch("http://127.0.0.1:5000/profile").then((response) =>
-      response.json().then((data) => {})
-    );
-  }, []);
 
   class MyProfileForm extends React.Component {
     constructor(props) {
@@ -25,12 +15,16 @@ function myApp() {
         interests: "",
       };
 
-      this.handleInputChange = this.handleInputChange.bind(this);
       this.handleUpdate = this.handleUpdate.bind(this);
     }
 
     handleUpdate = (event) => {
       event.preventDefault();
+
+      //TODO: fix this it's not correct
+    //   fetch("http://127.0.0.1:5000/profile").then((response) =>
+    //   response.json().then((data) => {})
+    // );
       alert("Your profile has been updated!");
     };
 
@@ -104,7 +98,5 @@ function myApp() {
     }
   }
 
-  ReactDOM.render(<MyProfileForm />, document.getElementById("root"));
-}
 
 export default MyProfileForm;
