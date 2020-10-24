@@ -19,12 +19,8 @@ class MyProfileForm extends React.Component {
 
   handleUpdate = (event) => {
     event.preventDefault();
-
-    //TODO: fix this it's not correct
-    //   fetch("http://127.0.0.1:5000/profile").then((response) =>
-    //   response.json().then((data) => {})
-    // );
-
+    const id = this.props?.location?.state?.id;
+    console.log(id);
     alert("Your profile has been updated!");
   };
 
@@ -39,7 +35,7 @@ class MyProfileForm extends React.Component {
 
   render() {
     return (
-      <form onUpdate={this.handleUpdate}>
+      <form onSubmit={this.handleUpdate}>
         <h1>My Profile</h1>
 
         <input
@@ -89,7 +85,7 @@ class MyProfileForm extends React.Component {
         <p>Bio:</p>
         <input type="text" name="bio" onChange={this.myChangeHandler} />
 
-        <button>Update!</button>
+        <input type="submit" value="Update" />
       </form>
     );
   }
