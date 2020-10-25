@@ -1,94 +1,131 @@
 import React from "react";
 import { browserHistory } from "react-router";
+import "./profile.css"
 
-class MyProfileForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: "",
-      age: "null",
-      bio: "",
-      gender: "Female",
-      genderPreference: "Female",
-      education: "",
-      interests: "",
+  class ProfileForm extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        name: "",
+        age: "null",
+        bio: "",
+        gender: "Female",
+        genderPreference: "Female",
+        education: "",
+        interests: "",
+        error: "",
+        maxDistance: 10,
+      };
+
+      this.handleUpdate = this.handleUpdate.bind(this);
+      this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleUpdate = (event) => {
+      event.preventDefault();
+      const id = this.props?.location?.state?.id;
+      console.log(id);
+      const myForm = new FormData (document.getElementById("profileForm"));
+      myForm.append("id", id);
+      const myRequest = new Request("http://127.0.0.1:5000/profile", {
+        method: "POST",
+        body: myForm,
+      });
+
+      fetch(myRequest)
+      .then((res) =>
+        res.json())
+      .then((res) => {
+        if(res.response === "Success")
+          alert("Your profile has been updated!"); //add new route here
+        else {
+          this.setState({
+            error: res.response,
+          });
+        }  
+      })
+      .catch((error) => {
+        this.setState({
+          error: "Error connecting to backend",
+        });
+      });
+     
     };
 
-    this.handleUpdate = this.handleUpdate.bind(this);
+    handleChange = (event) => {
+      const target = event.target;
+      const value = target.value;
+      const name = target.name;
+
+      this.setState({
+        [name]: value,
+      });
+    }
+
+    render() {
+      return (
+        <div className="Profile">
+          <form id="profileForm" onSubmit={this.handleUpdate}>
+            <h1>My Profile</h1>
+
+            <p>Name:</p>
+
+            <input type="text" name="name" value = {this.state.name} onChange={this.handleChange} maxlength="30" />
+
+            <p>Age:</p>
+
+            <input
+              type="number"
+              name="age"
+              min="18"
+              max="100"
+              onChange={this.handleChange}
+              value = {this.state.age}
+            />
+
+            <p>Your Gender:</p>
+
+            <select
+              name = "gender"
+              onChange={this.handleChange}
+              value = {this.state.gender}
+            >
+              <option value="Female">Female</option>
+              <option value ="Male">Male</option>
+              <option value ="Both">Both</option>
+            </select>
+
+            <p>Your Preferred Gender for friends:</p>
+            <select
+              name = "genderPreference"
+              fieldValue={this.state.genderPreference}
+              onChange={this.handleChange}
+              value = {this.state.genderPreference}
+            >
+              <option value="Female">Female</option>
+              <option value ="Male">Male</option>
+              <option value ="Both">Both</option>
+            </select>
+
+            <p>Education/Work:</p>
+            <input type="text" name="education" value = {this.state.education} onChange={this.handleChange} maxlength="30"/>
+
+            <p>Your interests:</p>
+            <input type="text" name="interests" value ={this.state.interests} onChange={this.handleChange} maxlength="255" />
+
+            <p>Bio:</p>
+            <input type="text" name="bio" value = {this.state.bio} onChange={this.handleChange} maxlength="255"/>
+
+            <p>Max Distance:</p>
+            <input type="range" name="maxDistance" value = {this.state.maxDistance} onChange={this.handleChange} min="1" max="99999"/>
+            <text>{this.state.maxDistance}KM</text><br></br>
+
+            <input type="submit" value="Update" />
+          </form>
+          <text>{this.state.error}</text>
+        </div>
+      );
+    }
   }
 
-  handleUpdate = (event) => {
-    event.preventDefault();
-    const id = this.props?.location?.state?.id;
-    console.log(id);
-    alert("Your profile has been updated!");
-  };
-
-  handleChange = (event) => {
-    this.setState({ username: event.target.value });
-    this.setState({ age: event.target.value });
-    this.setState({ bio: event.target.value });
-    this.setState({ gender: event.target.value });
-    this.setState({ education: event.target.value });
-    this.setState({ interests: event.target.value });
-  };
-
-  render() {
-    return (
-      <form onSubmit={this.handleUpdate}>
-        <h1>My Profile</h1>
-
-        <input
-          type="file"
-          name="profile-pic-file"
-          onChange={this.myChangeHandler}
-        />
-
-        <p>Username:</p>
-
-        <input type="text" name="username" onChange={this.myChangeHandler} />
-
-        <p>Age:</p>
-
-        <input
-          type="number"
-          name="age"
-          min="18"
-          max="100"
-          onChange={this.myChangeHandler}
-        />
-
-        <p>Your Gender:</p>
-
-        <select fieldValue={this.state.gender} onChange={this.myChangeHandler}>
-          <option fieldValue="Female">Female</option>
-          <option fieldValue="Male">Male</option>
-          <option fieldValue="Other">Other</option>
-        </select>
-
-        <p>Your Preferred Gender for friends:</p>
-        <select
-          fieldValue={this.state.genderPreference}
-          onChange={this.myChangeHandler}
-        >
-          <option fieldValue="Female">Female</option>
-          <option fieldValue="Male">Male</option>
-          <option fieldValue="Both">Both</option>
-        </select>
-
-        <p>Education/Work:</p>
-        <input type="text" name="education" onChange={this.myChangeHandler} />
-
-        <p>Your interests:</p>
-        <input type="text" name="interests" onChange={this.myChangeHandler} />
-
-        <p>Bio:</p>
-        <input type="text" name="bio" onChange={this.myChangeHandler} />
-
-        <input type="submit" value="Update" />
-      </form>
-    );
-  }
-}
-
-export default MyProfileForm;
+export default ProfileForm;

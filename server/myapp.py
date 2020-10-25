@@ -20,10 +20,10 @@ def register():
 
 @app.route('/profile', methods=['POST'])
 def profile():
-    if profile.method == 'POST':
-        return updateProfile(request.form['username'], request.form['age'],
+    if request.method == 'POST':
+        return updateProfile(request.form['name'], request.form['age'],
                              request.form['bio'], request.form['gender'], request.form['education'],
-                             request.form['interests'], request.form['genderPreference'])
+                             request.form['interests'], request.form['genderPreference'], request.form['id'])
 
 
 if __name__ == '__main__':

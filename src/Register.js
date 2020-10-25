@@ -33,14 +33,16 @@ class Register extends React.Component {
         method: "POST",
         body: new FormData(myForm),
       });
+
       fetch(myRequest)
         .then((res) => res.json())
         .then((res) => {
           if (res.response === "Success") 
-          browserHistory.push({
-            pathname: "/profile",
-            state: {id: res.id}
-          });
+            browserHistory.push({
+              pathname: "/profile",
+              state: {id: res.id}
+            });
+            
           this.setState({
             error: res.response,
           });
