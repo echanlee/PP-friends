@@ -13,8 +13,6 @@ def updateProfile(name, age, bio, gender, education, interests, genderPreference
                 VALUES (%s, %s, %s,%s,%s,%s,%s, %s);'''
             values = (id, name, age, bio, gender, education,
                       interests, genderPreference)
-            print(sql)
-            print (values)
             cursor.execute(sql, values)
             connection.commit()
             cursor.close()
