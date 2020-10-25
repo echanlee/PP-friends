@@ -9,24 +9,17 @@ def loginUser(email, password):
         if(connection != False):
             cursor = connection.cursor(buffered=True)
 
-            if(invalidEmail(email, cursor)):
+            if(invalidEmail(email, cursor, connection)):
                 return {"response": "No account with that Email"}
             
-            if(invalidPassword(email, password, cursor)):
-                return {"response": "Incorrect Password"}
-            
-            sql = "SELECT id FROM Users WHERE email = %s AND password = %s;"
-            values = (email, password)
-            print(values)
-            cursor.execute = (sql, values)
-            id = cursor.fetchone()
-            print(id)
-            # ID isn't working but if you run the query on myadmin it returns the ID
-
+            userId = getId(email, password, cursor, connection)
             connection.commit()
             cursor.close()
+            if(userId == -1):
+                return {"response": "Incorrect Password"}
 
-            return {"response": "Success"}
+            return {"response": "Success",
+                    "id": userId}
             # need to return ID
         
     except mysql.connector.Error as err:
@@ -36,17 +29,19 @@ def loginUser(email, password):
     return {"response": "Something went wrong"}
 
 
-def invalidEmail(email, cursor): 
+def invalidEmail(email, cursor, connection): 
     checkEmailQuery = 'SELECT * FROM Users WHERE email = "'+ email +'"'
     cursor.execute(checkEmailQuery)
     if(cursor.rowcount == 1):
         return False
     return True
 
-def invalidPassword(email, password, cursor): 
-    checkPasswordQuery = 'SELECT password FROM Users WHERE email = "'+ email +'"'
-    cursor.execute(checkPasswordQuery)
-    dbPassword = cursor.fetchone()
-    if(dbPassword[0] == password):
-        return False
-    return True
+def getId(email, password, cursor, connection): 
+    sql = "SELECT id FROM Users WHERE email = %s AND password = %s;"
+    values = (email, password)    
+    cursor.execute(sql, values)
+    
+    if(cursor.rowcount <1):
+        return -1
+    userId = cursor.fetchone()
+    return userId[0]

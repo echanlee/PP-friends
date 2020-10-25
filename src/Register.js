@@ -1,11 +1,6 @@
 import "./Register.css";
 import React from "react";
-// import {
-//   useHistory
-// } from "react-router-dom";
-// import { withRouter } from 'react-router'
-
-import {withRouter} from 'react-router-dom'
+import {withRouter, Link} from 'react-router-dom'
 
 
 class Register extends React.Component {
@@ -105,6 +100,7 @@ class Register extends React.Component {
 
             <text>{this.state.error}</text>
           </form>
+          <Link to="/">I Already Have an Account</Link>
       </div>
     );
   }

@@ -1,4 +1,5 @@
 import React from 'react';
+import {withRouter, Link} from 'react-router-dom'
 
 
 class Login extends React.Component {
@@ -38,8 +39,9 @@ class Login extends React.Component {
         .then(res => res.json())
         .then(res => { 
           console.log(res); 
-            if(res.response === "Success")
+            if(res.response === "Success") {
               alert("Successfully logged in");
+            }
               //will need to redirect to a new page
             this.setState({
               error: res.response
@@ -76,9 +78,10 @@ class Login extends React.Component {
             <text>{this.state.error}</text>
  
         </form>
+        <Link to="/register">Create a new Account</Link>
       </div>
     );
   }
 }
 
-export default Login;
+export default withRouter(Login);
