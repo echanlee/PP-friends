@@ -17,7 +17,7 @@ def registerUser(email, password):
             connection.commit()
             cursor.close()
             return {"response": "Success",
-            "ID": id}
+            "id": id}
 
         
 
