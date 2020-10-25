@@ -1,6 +1,11 @@
-import React from "react";
 import "./Register.css";
-import { browserHistory } from "react-router";
+import React from "react";
+// import {
+//   useHistory
+// } from "react-router-dom";
+// import { withRouter } from 'react-router'
+
+import { withRouter } from "react-router-dom";
 
 class Register extends React.Component {
   constructor(props) {
@@ -37,12 +42,12 @@ class Register extends React.Component {
       fetch(myRequest)
         .then((res) => res.json())
         .then((res) => {
-          if (res.response === "Success") 
-            browserHistory.push({
+          if (res.response === "Success")
+            this.props.history.push({
               pathname: "/profile",
-              state: {id: res.id}
+              state: { id: res.id },
             });
-            
+
           this.setState({
             error: res.response,
           });
@@ -71,7 +76,6 @@ class Register extends React.Component {
   render() {
     return (
       <div className="Register">
-        {this.props.children}
         <header> Register for PP Friends</header>
         <form id="registerForm" onSubmit={this.handleSubmit}>
           <input name="email" type="email" placeholder="Email Address*" />
@@ -103,4 +107,4 @@ class Register extends React.Component {
   }
 }
 
-export default Register;
+export default withRouter(Register);
