@@ -2,6 +2,7 @@ from flask import Flask, request, render_template
 from flask_cors import CORS
 from register import registerUser
 from profile import updateProfile
+from matches import matchUser
 
 app = Flask(__name__)
 CORS(app)
@@ -25,6 +26,12 @@ def profile():
                              request.form['bio'], request.form['gender'], request.form['education'],
                              request.form['interests'], request.form['genderPreference'], request.form['id'])
 
+@app.route('/matches', methods=['POST'])
+def get_matches():
+  if request.method == 'POST':
+    param = request.get_json('userId')
+    response = matchUser(param['userId'])
+    return response
 
 if __name__ == '__main__':
     app.debug = True
