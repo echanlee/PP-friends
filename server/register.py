@@ -10,21 +10,21 @@ def registerUser(email, password):
 
             if(invalidEmail(email, cursor)):
                 return {"response": "Email address is already in use"}
-
             sql = "INSERT INTO Users (location, email, password) VALUES ('', %s, %s);"
             values = (email, password)
             cursor.execute(sql, values)
             id = cursor.lastrowid
             connection.commit()
             cursor.close()
+            return {"response": "Success",
+            "id": id}
+
         
 
     except mysql.connector.Error as err:
         return {"response": err.msg }
 
-    return {"response": "Success",
-            "ID": id}
-
+    return{"response": "Something went wrong"}
 
 def invalidEmail(email, cursor): 
     checkEmailQuery = 'SELECT * FROM Users WHERE email = "'+ email +'"'
