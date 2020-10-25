@@ -2,11 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
-import { Router, browserHistory } from "react-router";
-import routes from "./routes";
+import App from "./App";
 
 ReactDOM.render(
-  <Router history={browserHistory} routes={routes} />,
+  <App/>,
   document.getElementById("root")
 );
 

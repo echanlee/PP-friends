@@ -1,6 +1,6 @@
 import React from "react";
-import { browserHistory } from "react-router";
 import "./profile.css"
+import {withRouter} from 'react-router-dom'
 
   class ProfileForm extends React.Component {
     constructor(props) {
@@ -38,7 +38,7 @@ import "./profile.css"
           res.json())
         .then((res) => {
           if(res.response === "Success")
-            alert("Your profile has been updated!"); //add new route here
+            alert("Your profile has been updated!"); //TODO: ADD SWIPE PAGE
           else {
             this.setState({
               error: res.response,
@@ -140,4 +140,4 @@ import "./profile.css"
     }
   }
 
-export default ProfileForm;
+export default withRouter(ProfileForm);
