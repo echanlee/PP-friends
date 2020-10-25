@@ -23,34 +23,46 @@ import "./profile.css"
 
     handleUpdate = (event) => {
       event.preventDefault();
-      const id = this.props?.location?.state?.id;
-      console.log(id);
-      const myForm = new FormData (document.getElementById("profileForm"));
-      myForm.append("id", id);
-      const myRequest = new Request("http://127.0.0.1:5000/profile", {
-        method: "POST",
-        body: myForm,
-      });
-
-      fetch(myRequest)
-      .then((res) =>
-        res.json())
-      .then((res) => {
-        if(res.response === "Success")
-          alert("Your profile has been updated!"); //add new route here
-        else {
-          this.setState({
-            error: res.response,
-          });
-        }  
-      })
-      .catch((error) => {
-        this.setState({
-          error: "Error connecting to backend",
+      if(this.completedInput()) {
+        const id = this.props?.location?.state?.id;
+        console.log(id);
+        const myForm = new FormData (document.getElementById("profileForm"));
+        myForm.append("id", id);
+        const myRequest = new Request("http://127.0.0.1:5000/profile", {
+          method: "POST",
+          body: myForm,
         });
-      });
-     
+
+        fetch(myRequest)
+        .then((res) =>
+          res.json())
+        .then((res) => {
+          if(res.response === "Success")
+            alert("Your profile has been updated!"); //add new route here
+          else {
+            this.setState({
+              error: res.response,
+            });
+          }  
+        })
+        .catch((error) => {
+          this.setState({
+            error: "Error connecting to backend",
+          });
+        });
+      }
+      else 
+        alert("Please fill in all fields");
     };
+
+    completedInput = () => {
+      const inputs = ['name', 'age', 'bio', 'gender', 'genderPreference', 'education', 'interests'];
+      for(var i =0; i <inputs.length; i++) {
+        if(!this.state[inputs[i]])
+          return false;
+      }
+      return true;
+    }
 
     handleChange = (event) => {
       const target = event.target;
