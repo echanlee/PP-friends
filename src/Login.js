@@ -40,15 +40,17 @@ class Login extends React.Component {
         .then(res => { 
           console.log(res); 
             if(res.response === "Success") {
-              alert("Successfully logged in");
+              this.props
+                .history.push({
+                  pathname: "/main",
+                  state: {id: res.id}
+                });
             }
-              //will need to redirect to a new page
             this.setState({
               error: res.response
             });
         })
         .catch((error) => {
-          console.log("ERROR connecting to backend");
           this.setState({
             error: "Error connecting to backend"
           });
