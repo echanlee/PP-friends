@@ -167,6 +167,18 @@ class SwipeProfiles extends React.Component {
             {error ?
             <text>{error}</text> :
               <div>
+                <p>Name: </p>
+                <text>{this.state.firstName}</text>
+                <p>Age: </p>
+                <text>{this.state.age}</text>
+                <p>Gender: </p>
+                <text>{this.state.gender}</text>
+                <p>Description: </p>
+                <text>{this.state.description}</text>
+                <p>Interests: </p>
+                <text>{this.state.interests}</text>
+                <p>Education / Work: </p>
+                <text>{this.state.workplace}</text> <br></br> <br></br>
                 <button onClick ={() => this.handleSwipe(true)}>Yes</button> <br></br>
                 <button onClick ={() => this.handleSwipe(false)}>No</button>
               </div>
