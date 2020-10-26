@@ -3,6 +3,7 @@ from flask import Flask, request, render_template
 from flask_cors import CORS
 from register import registerUser
 from profile import updateProfile
+from matches import matchUser
 from login import loginUser
 import SwipeDecision
 
@@ -27,6 +28,12 @@ def profile():
                              request.form['bio'], request.form['gender'], request.form['education'],
                              request.form['interests'], request.form['genderPreference'], request.form['id'])
 
+@app.route('/matches', methods=['POST'])
+def get_matches():
+  if request.method == 'POST':
+    param = request.get_json('userId')
+    response = matchUser(param['userId'])
+    return response
 
 @app.route('/register', methods=['POST'])
 def register():

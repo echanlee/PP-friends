@@ -7,6 +7,7 @@ class SwipeProfiles extends React.Component {
     constructor(props){
         super(props);
         this.state = {
+            id: this.props?.location?.state?.id,
             age: '',
             firstName: '',
             description: '',
@@ -162,6 +163,7 @@ class SwipeProfiles extends React.Component {
        return(
           <div className = "SwipeProfile">
             <header>Potential Friends!</header>  
+            <Link to={{pathname: '/matches', state: {id: this.state.id}}}>See matches</Link>
             <br></br>
             <br></br>
             {error ?
@@ -181,6 +183,7 @@ class SwipeProfiles extends React.Component {
                 <text>{this.state.workplace}</text> <br></br> <br></br>
                 <button onClick ={() => this.handleSwipe(true)}>Yes</button> <br></br>
                 <button onClick ={() => this.handleSwipe(false)}>No</button>
+
               </div>
             }
             
