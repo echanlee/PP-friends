@@ -3,19 +3,20 @@ from mysql.connector import errorcode
 from connect import connectToDB
 
 
-def getPotentialMatch(currentUserId):
+def getPotentialMatchList(currentUserId):
     try:
         connection = connectToDB()
         if(connection != False):
             cursor = connection.cursor(buffered=True)
             PotentialMatchQuery = "SELECT shownUser FROM PotentialMatch WHERE currentUser = %s and matchDecision IS NULL"
-            userID = (currentUserId,)      
+            userID = (currentUserId,)    
             cursor.execute(PotentialMatchQuery, userID)
             potentialListId = [i[0] for i in cursor.fetchall()]
 
             connection.commit()
             cursor.close()
-            return {"response": "success", "potentialListId": potentialListId}
+            return {"response": "Success", 
+            "potentialListId": potentialListId}
     
     except mysql.connector.Error as err:
         return {"response": err.msg }
@@ -30,7 +31,10 @@ def showProfile(shownUserId):
             shownUserProfileQuery = "SELECT firstname, interests, description, age, gender, workPlace FROM Profile WHERE userId = %s"
             userID = (shownUserId,) 
             cursor.execute(shownUserProfileQuery, userID)
+            if(cursor.rowcount<1):
+                return {"response": "Error loading user profile"}
             result = cursor.fetchall()
+
             for row in result: 
                 firstName = row[0]
                 interests = row[1]
@@ -42,7 +46,13 @@ def showProfile(shownUserId):
             connection.commit()
             cursor.close()
 
-            return {"response": "success", "firstName": firstName, "interests": interests, "description": description, "age": age, "gender": gender, "workPlace": workPlace}
+            return {"response": "Success", 
+            "firstName": firstName, 
+            "interests": interests, 
+            "description": description, 
+            "age": age, 
+            "gender": gender,
+            "workPlace": workPlace}
     
     except mysql.connector.Error as err:
         return {"response": err.msg }
@@ -53,15 +63,16 @@ def swipeDecision(currentUserId, shownUserId, userDecision):
     try:
         connection = connectToDB()
         if(connection != False):
+            userDecisionCast = userDecision == 'true'
             cursor = connection.cursor(buffered=True)
             updateSwipeDecisionQuery = "UPDATE PotentialMatch SET matchDecision = %s WHERE shownUser = %s and currentUser = %s"
-            insertRow = (userDecision, shownUserId, currentUserId,)
+            insertRow = (userDecisionCast, shownUserId, currentUserId,)
             cursor.execute(updateSwipeDecisionQuery, insertRow)
 
             connection.commit()
             cursor.close()
 
-        return {"response": "success"}
+        return {"response": "Success"}
 
     except mysql.connector.Error as err:
         return {"response": err.msg }
