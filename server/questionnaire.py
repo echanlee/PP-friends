@@ -15,9 +15,9 @@ def updateQuestionnaire (response, id):
             cursor.execute(sql, values)
             connection.commit()
             cursor.close()
-            return{"response":"Success"}
+            return {"response":"Success"}
 
     except mysql.connector.Error as err:
         return {"response": err.msg}
 
-    return{"response": "Something went wrong with receiving the questionnaire responses"}
+    return {"response": "Something went wrong with receiving the questionnaire responses"}
