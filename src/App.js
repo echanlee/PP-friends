@@ -6,6 +6,7 @@ import {
   } from "react-router-dom";
 import Register from "./Register";
 import ProfileForm from "./profile"
+import Login from "./Login"
 
 export default class App extends React.Component {
     render() {
@@ -17,8 +18,11 @@ export default class App extends React.Component {
                         <Route path="/profile">
                             <ProfileForm />
                         </Route>
-                        <Route path="/">
+                        <Route path="/register">
                             <Register />
+                        </Route>
+                        <Route path="/">
+                            <Login />
                         </Route>
                     </Switch>
                 </div>

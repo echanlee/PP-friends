@@ -1,7 +1,9 @@
+
 from flask import Flask, request, render_template
 from flask_cors import CORS
 from register import registerUser
 from profile import updateProfile
+from login import loginUser
 
 app = Flask(__name__)
 CORS(app)
@@ -12,11 +14,10 @@ def home():
     return 'testing'
 
 
-@app.route('/register', methods=['POST'])
-def register():
+@app.route('/login', methods=['POST'])
+def login():
     if request.method == 'POST':
-        return registerUser(request.form['email'], request.form['password'])
-
+      return loginUser(request.form['email'], request.form['password'])
 
 @app.route('/profile', methods=['POST'])
 def profile():
@@ -26,6 +27,11 @@ def profile():
                              request.form['interests'], request.form['genderPreference'], request.form['id'])
 
 
+@app.route('/register', methods=['POST'])
+def register():
+    if request.method == 'POST':
+      return registerUser(request.form['email'], request.form['password'])
+        
 if __name__ == '__main__':
     app.debug = True
     app.run()
