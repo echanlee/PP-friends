@@ -23,7 +23,6 @@ def loginUser(email, password):
             # need to return ID
         
     except mysql.connector.Error as err:
-        print("sql connector issue")
         return {"response": err.msg }
     
     return {"response": "Something went wrong"}

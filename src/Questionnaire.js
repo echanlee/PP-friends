@@ -49,7 +49,6 @@ class Questionnaire extends Component {
       });
     }
     else{
-      console.log(this.state.response.length);
       alert("Please answer all questions");
     }
   };

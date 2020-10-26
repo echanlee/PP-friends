@@ -38,7 +38,6 @@ class SwipeProfiles extends React.Component {
           if(res.response === "Success"){
             var potentialFriendsList = res.potentialListId;
             const displayProfileId = potentialFriendsList.pop();
-            console.log(displayProfileId);
             this.setState({
               potentialFriends: potentialFriendsList,
               displayedUserId: displayProfileId,
@@ -88,7 +87,6 @@ class SwipeProfiles extends React.Component {
                 error: '',
               });
 
-              console.log(this.state);
             } 
             else{             
               this.setState({
