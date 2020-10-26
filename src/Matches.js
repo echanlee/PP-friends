@@ -1,13 +1,12 @@
 import React from 'react';
 import './Matches.css';
-import {browserHistory} from 'react-router';
+import {withRouter, Link} from 'react-router-dom'
 
 class Matches extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            userId: 5,
-            // userId set to 5 for testing purposes
+            userId: this.props?.location?.state?.id,
             potentialUserId: [],
             matchesExist: "not set"
         }
@@ -19,7 +18,6 @@ class Matches extends React.Component {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({"userId": this.state.userId}),
             });
-
         fetch(myRequest)
             .then(response => response.json())
             .then(res => 
@@ -69,6 +67,8 @@ class Matches extends React.Component {
         return(
             <div id='Matches-section'>
                 <h2 id='Matches-header'>Matches</h2>
+                <div>{this.state.userId}</div>
+                <Link to={{pathname: '/main', state: {id: this.state.userId}}}>Back to Swiping!</Link>
                 <div id='Matches-section'>
                     {matchingSection}
                 </div>
@@ -78,4 +78,4 @@ class Matches extends React.Component {
 
 }
 
-export default Matches
+export default withRouter(Matches)
