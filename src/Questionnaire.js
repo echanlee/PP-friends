@@ -47,7 +47,7 @@ class Questionnaire extends Component {
       });
     }
     else
-      alert("Please answer all questions before submitting");
+      alert("Please answer all questions");
   };
 
   getQuestions = () => {
@@ -69,7 +69,7 @@ class Questionnaire extends Component {
       <div>
         <div>
           <h1>PP Friends Questionnaire</h1>
-          <h4>Please answer all questions</h4>
+          <h4>Please answer all questions before submitting</h4>
         </div>
         {this.state.questionBank.length > 0 && this.state.response.length < 16 &&
           this.state.questionBank.map(({question,answers,questionId}) =>(

@@ -9,7 +9,6 @@ import ProfileForm from "./profile"
 import Login from "./Login";
 import SwipeProfiles from "./SwipeProfiles";
 import Matches from "./Matches";
-import Questionnaire from "./Questionnaire";
 
 export default class App extends React.Component {
     render() {
@@ -18,9 +17,6 @@ export default class App extends React.Component {
             <Router>
                 <div>
                     <Switch>
-                        <Route path="/questionnaire">
-                            <Questionnaire />
-                        </Route>
                         <Route path="/profile">
                             <ProfileForm />
                         </Route>
