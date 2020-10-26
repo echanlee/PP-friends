@@ -1,6 +1,7 @@
-import React from "react";
 import "./Register.css";
-import { browserHistory } from "react-router";
+import React from "react";
+import {withRouter, Link} from 'react-router-dom'
+
 
 class Register extends React.Component {
   constructor(props) {
@@ -10,9 +11,10 @@ class Register extends React.Component {
       confirmPassword: "",
       error: "",
     };
-
+    
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    
   }
 
   handleInputChange(event) {
@@ -33,12 +35,13 @@ class Register extends React.Component {
         method: "POST",
         body: new FormData(myForm),
       });
-
+      
       fetch(myRequest)
         .then((res) => res.json())
         .then((res) => {
           if (res.response === "Success") 
-            browserHistory.push({
+            this.props
+            .history.push({
               pathname: "/profile",
               state: {id: res.id}
             });
@@ -71,36 +74,36 @@ class Register extends React.Component {
   render() {
     return (
       <div className="Register">
-        {this.props.children}
-        <header> Register for PP Friends</header>
-        <form id="registerForm" onSubmit={this.handleSubmit}>
-          <input name="email" type="email" placeholder="Email Address*" />
-          <br></br>
-          <input
-            name="password"
-            type="password"
-            value={this.state.password}
-            placeholder="Enter password*"
-            onChange={this.handleInputChange}
-          />
-          <br></br>
-          <input
-            name="confirmPassword"
-            type="password"
-            value={this.state.confirmPassword}
-            placeholder="Re-enter password*"
-            onChange={this.handleInputChange}
-          />
-          <br></br>
+          <header> Register for PP Friends</header>
+          <form id="registerForm" onSubmit={this.handleSubmit}>
+            <input name="email" type="email" placeholder="Email Address*" />
+            <br></br>
+            <input
+              name="password"
+              type="password"
+              value={this.state.password}
+              placeholder="Enter password*"
+              onChange={this.handleInputChange}
+            />
+            <br></br>
+            <input
+              name="confirmPassword"
+              type="password"
+              value={this.state.confirmPassword}
+              placeholder="Re-enter password*"
+              onChange={this.handleInputChange}
+            />
+            <br></br>
 
-          <input type="submit" value="Submit" />
-          <br></br>
+            <input type="submit" value="Submit" />
+            <br></br>
 
-          <text>{this.state.error}</text>
-        </form>
+            <text>{this.state.error}</text>
+          </form>
+          <Link to="/">I Already Have an Account</Link>
       </div>
     );
   }
 }
 
-export default Register;
+export default withRouter(Register);
