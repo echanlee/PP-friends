@@ -6,7 +6,10 @@ import {
   } from "react-router-dom";
 import Register from "./Register";
 import ProfileForm from "./profile"
-import Login from "./Login"
+import Login from "./Login";
+import SwipeProfiles from "./SwipeProfiles";
+import Matches from "./Matches";
+import Questionnaire from './Questionnaire';
 
 export default class App extends React.Component {
     render() {
@@ -20,6 +23,15 @@ export default class App extends React.Component {
                         </Route>
                         <Route path="/register">
                             <Register />
+                        </Route>
+                        <Route path="/main">
+                            <SwipeProfiles />
+                        </Route>
+                        <Route path="/matches">
+                            <Matches />
+                        </Route>
+                        <Route path="/questionnaire">
+                            <Questionnaire />
                         </Route>
                         <Route path="/">
                             <Login />
