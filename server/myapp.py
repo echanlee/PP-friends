@@ -5,7 +5,6 @@ from register import registerUser
 from profile import updateProfile
 from matches import matchUser
 from login import loginUser
-from questionnaire import updateQuestionnaire
 import SwipeDecision
 
 app = Flask(__name__)
@@ -55,12 +54,7 @@ def displayProfile():
 def inputSwipe():
     if request.method == 'POST':
         return SwipeDecision.swipeDecision(request.form['currentUserId'], request.form['shownUserId'], request.form['match'])
-
-@app.route('/questionnaire', methods=['POST'])
-def questionnaire():
-    if request.method == 'POST':
-      return updateQuestionnaire(request.get_json('responses'))
-
+        
 if __name__ == '__main__':
     app.debug = True
     app.run()
