@@ -41,6 +41,7 @@ class SwipeProfiles extends React.Component {
             this.setState({
               potentialFriends: potentialFriendsList,
               displayedUserId: displayProfileId,
+              error: '',
             });
 
             this.displayProfile();
@@ -83,6 +84,7 @@ class SwipeProfiles extends React.Component {
                 interests: res.interests,
                 gender: res.gender,
                 workplace: res.workPlace,
+                error: '',
               });
 
               console.log(this.state);
@@ -131,6 +133,7 @@ class SwipeProfiles extends React.Component {
               this.setState({
                 potentialFriends: potentialList,
                 displayedUserId: newPotentialUserId,
+                error: '',
               });
               this.displayProfile();
             } 
@@ -149,7 +152,7 @@ class SwipeProfiles extends React.Component {
     }
 
     render(){
-      var potentialFriends = this.state.potentialFriends;
+      const potentialFriends = this.state.potentialFriends;
       const displayedUserId = this.state.displayedUserId;
       const error = this.state.error;
       if(displayedUserId === "" && potentialFriends.length === 0 && error ==="") {
@@ -161,9 +164,14 @@ class SwipeProfiles extends React.Component {
             <header>Potential Friends!</header>  
             <br></br>
             <br></br>
-            <button onClick ={() => this.handleSwipe(true)}>Yes</button> <br></br>
-            <button onClick ={() => this.handleSwipe(false)}>No</button>
-            <text>{error}</text>
+            {error ?
+            <text>{error}</text> :
+              <div>
+                <button onClick ={() => this.handleSwipe(true)}>Yes</button> <br></br>
+                <button onClick ={() => this.handleSwipe(false)}>No</button>
+              </div>
+            }
+            
           </div>
         
        ) 
