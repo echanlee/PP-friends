@@ -47,7 +47,7 @@ class Questionnaire extends Component {
       });
     }
     else
-      alert("Please answer all questions");
+      alert("Please answer all questions before submitting");
   };
 
   getQuestions = () => {
