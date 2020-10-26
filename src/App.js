@@ -18,6 +18,9 @@ export default class App extends React.Component {
             <Router>
                 <div>
                     <Switch>
+                        <Route path="/questionnaire">
+                            <Questionnaire />
+                        </Route>
                         <Route path="/profile">
                             <ProfileForm />
                         </Route>
