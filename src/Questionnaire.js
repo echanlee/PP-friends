@@ -15,25 +15,27 @@ class Questionnaire extends Component {
   }
 
   handleSubmit(event){
-  console.log('sad')
     event.preventDefault();
-    if(this.state.response.length === 16){ //checks if all questions have been answered
-      const id =45;//test ID
-      console.log(id);
-      this.storeAnswer(id);
-
+    if(this.state.response.length >= 16){ //checks if all questions have been answered
+      const id = this.props?.location?.state?.id;//test ID
       const myRequest = new Request ('http://127.0.0.1:5000/questionnaire',{
         method: 'POST',
         headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({"responses":this.state.response}),
+        body: JSON.stringify({"responses":this.state.response, 
+                              "userId": id}),
       });
 
       fetch(myRequest)
       .then((res) =>
         res.json())
       .then((res) =>{
-        if(res.response === "Success")
-          alert("Thank you for answering the questionnaire!");
+        if(res.response === "Success"){
+          this.props
+          .history.push({
+            pathname: "/main",
+            state: {id: id}
+          });
+        }
         else {
           this.setState({
             error: res.response,
@@ -46,8 +48,10 @@ class Questionnaire extends Component {
         });
       });
     }
-    else
+    else{
+      console.log(this.state.response.length);
       alert("Please answer all questions");
+    }
   };
 
   getQuestions = () => {
@@ -71,7 +75,7 @@ class Questionnaire extends Component {
           <h1>PP Friends Questionnaire</h1>
           <h4>Please answer all questions before submitting</h4>
         </div>
-        {this.state.questionBank.length > 0 && this.state.response.length < 16 &&
+        {this.state.questionBank.length > 0 &&
           this.state.questionBank.map(({question,answers,questionId}) =>(
             <QuestionBox 
             question={question}

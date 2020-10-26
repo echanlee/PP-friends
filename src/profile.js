@@ -37,8 +37,14 @@ import {withRouter} from 'react-router-dom'
         .then((res) =>
           res.json())
         .then((res) => {
-          if(res.response === "Success")
-            alert("Your profile has been updated!"); //TODO: ADD SWIPE PAGE
+          if(res.response === "Success"){
+            console.log('here');
+            this.props.history.push({
+              pathname: "/questionnaire",
+              state: {id: id}
+            });
+          }
+            
           else {
             this.setState({
               error: res.response,

@@ -6,6 +6,7 @@ from profile import updateProfile
 from matches import matchUser
 from login import loginUser
 import SwipeDecision
+from questionnaire import updateQuestionnaire
 
 app = Flask(__name__)
 CORS(app)
@@ -59,7 +60,8 @@ def inputSwipe():
 @app.route('/questionnaire', methods=['POST'])
 def questionnaire():
     if request.method == 'POST':
-      return updateQuestionnaire(request.get_json('responses'))
+        param = request.get_json('responses')
+        return updateQuestionnaire(param['responses'], param['userId'])
         
 if __name__ == '__main__':
     app.debug = True
