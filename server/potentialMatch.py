@@ -9,9 +9,20 @@ def findPotentialMatches(id):
             cursor = connection.cursor(buffered=True)
 
             genderPreference = getGenderPreference(id, cursor, connection)
+            if genderPreference == "":
+                return {"response": "No Matches", "id": id, "Number of Matches": 0}
+
             potentialIds = getPotentialIds(id, genderPreference, cursor, connection)
+            if len(potentialIds) == 0:
+                return {"response": "No Matches", "id": id, "Number of Matches": 0}
+
             responses = getQuestionnaireResponses(potentialIds, cursor, connection)
-            matchList = getPotentialMatches(id, responses, cursor, connection)
+            if len(responses) == 0:
+                return {"response": "No Matches", "id": id, "Number of Matches": 0}
+            
+            matchList = getPotentialMatches(id, responses, cursor, connection, 0.8),
+            if len(matchList) == 0:
+                return {"response": "No Matches", "id": id, "Number of Matches": 0}
 
             sql = "INSERT INTO PotentialMatch (currentUser, shownUser) VALUES (%s, %s)"
             values = matchList
@@ -23,15 +34,13 @@ def findPotentialMatches(id):
             return {"response": "Success", "numOfMatches":len(matchList)}
     
     except mysql.connector.Error as err: 
-        print("sql connector issue")
         return {"response": err.msg}
 
     return {"response": "Something went wrong"}
 
 def getGenderPreference(id, cursor, connection):
-    sql = "SELECT genderPreference FROM Profile Where userId = %d;"
-    values = (id)
-    cursor.execute(sql, values)
+    sql = f"SELECT genderPreference FROM Profile Where userId = {id};"
+    cursor.execute(sql)
 
     if (cursor.rowcount <1):
         return ""
@@ -39,45 +48,37 @@ def getGenderPreference(id, cursor, connection):
     return genderPreference[0]
 
 def getPotentialIds(id, genderPreference, cursor, connection):
-    sql = "SELECT userId FROM Profile Where genderPreference = %s AND userId <> %d;"
+    sql = "SELECT userId FROM Profile Where gender = %s AND userId <> %s;"
     values = (genderPreference, id)
     cursor.execute(sql, values)
 
-    if (cursor.rowcount <1):
-        return -1
-    idTuple = cursor.fetchall()
-    idList = []
-    for id in idTuple:
-        idList.append(id[0])
+    idList = [ids[0] for ids in cursor.fetchall()]
     return idList
 
 def getQuestionnaireResponses(idList, cursor, connection):
-    #idk if string formatting a list will work for the query, hopefully it does
-    sql = "SELECT * FROM Questionnaire where userId IN %s"
-    values = (idList)
-    cursor.execute(sql, values)
+    #a tuple containing multiple values must be comma separated for the DBAPI paramstyle in python
+    formattedList = ','.join(map(str, idList))
+    sql = f"SELECT * FROM Questionnaire where userId IN ({formattedList})" 
+    cursor.execute(sql)
 
-    if (cursor.rowcount <1):
-        return -1
     responseTuple = cursor.fetchall()
+    return responseTuple
 
 #uses a threshold of 80% compatibility to determine a match
-def getPotentialMatches(id, responses, cursor, connection):
-    sql = "SELECT * FROM Questionnaire where userId = %d"
-    values = (id) 
-    cursor.execute(sql, values) 
+def getPotentialMatches(id, responses, cursor, connection, compatibilityThreshold):
+    sql = f"SELECT * FROM Questionnaire where userId = {id}"
+    cursor.execute(sql) 
 
-    currentUserResponse = cursor.fetchall()
+    currentUserResponse = cursor.fetchone()
     matchList = []
-
     for response in responses:
         compatibilityPercentage = 0
-        for i in range (1,17):
+        for i in range (1, len(currentUserResponse)):
             if response[i] == currentUserResponse[i]:
                 compatibilityPercentage += 1
         
         #appends tuple of current user and matched user 
-        if (compatibilityPercentage/16) >= 0.8:
+        if (compatibilityPercentage/(len(currentUserResponse) - 1)) >= compatibilityThreshold:
             matchList.append((currentUserResponse[0], response[0]))
 
     return matchList

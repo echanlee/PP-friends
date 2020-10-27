@@ -7,6 +7,7 @@ from matches import matchUser
 from login import loginUser
 import SwipeDecision
 from questionnaire import updateQuestionnaire
+from potentialMatch import findPotentialMatches
 
 app = Flask(__name__)
 CORS(app)
@@ -15,7 +16,6 @@ CORS(app)
 @app.route('/')
 def home():
     return 'testing'
-
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -61,7 +61,7 @@ def inputSwipe():
 def questionnaire():
     if request.method == 'POST':
         param = request.get_json('responses')
-        return updateQuestionnaire(param['responses'], param['userId'])
+        return updateQuestionnaire(param['responses'], param['userId']) 
         
 if __name__ == '__main__':
     app.debug = True
