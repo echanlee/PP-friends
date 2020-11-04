@@ -11,8 +11,7 @@ class Matches extends React.Component {
             matchesExist: "not set"
         }
     }
-    componentDidMount() {
-        console.log("mounted");
+    get_matches(){
         const myRequest = new Request('http://127.0.0.1:5000/matches', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -21,10 +20,10 @@ class Matches extends React.Component {
         fetch(myRequest)
             .then(response => response.json())
             .then(res => 
-                (res.userIds.length != 0) ?
+                (res.userIds && res.userIds.length != 0) ?
                     this.setState({
                         matchesExist: "exists", 
-                        userId: res.userIds,
+                        userIds: res.userIds,
                         conversationIds: res.conversationIds, 
                         firstnames: res.firstnames
                     })
@@ -37,6 +36,18 @@ class Matches extends React.Component {
                 console.error(error)
             })
     }
+    componentDidMount() {
+        this.get_matches()
+    }
+    componentDidUpdate(prevProps, prevState){
+        for (var i = 0; i < this.state.userIds.length; ++i){
+            if (this.state.userIds[i] != prevState.userIds[i]) {
+                this.get_matches()
+                break;
+            }
+        }
+        
+    }
 
     render(){
         let matchingSection;
@@ -47,6 +58,7 @@ class Matches extends React.Component {
                 userItems.push(
                     <tr className='pos-user' key={pos_user}>
                         {pos_user}
+                        {this.state.firstnames[i]}
                     </tr>
                 )
             }
