@@ -64,7 +64,6 @@ def insertConvo(userOne, userTwo):
         connection = connectToDB()
         if(connection != False):
             cursor = connection.cursor(buffered=True)
-            print(userOne, userTwo)
             insertConvoRowsQuery = "INSERT INTO Conversation (userOne, userTwo) \
                 SELECT p1.currentUser, p1.shownUser FROM PotentialMatch p1 \
                 WHERE (p1.currentUser = %s or p1.currentUser = %s) AND p1.matchDecision = 1 AND EXISTS \
