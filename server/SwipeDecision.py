@@ -59,6 +59,26 @@ def showProfile(shownUserId):
 
     return{"response": "Something went wrong"}
 
+def insertConvo(userOne, userTwo):
+    try:
+        connection = connectToDB()
+        if(connection != False):
+            cursor = connection.cursor(buffered=True)
+            print(userOne, userTwo)
+            insertConvoRowsQuery = "INSERT INTO Conversation (userOne, userTwo) \
+                SELECT p1.currentUser, p1.shownUser FROM PotentialMatch p1 \
+                WHERE (p1.currentUser = %s or p1.currentUser = %s) AND p1.matchDecision = 1 AND EXISTS \
+                (SELECT * FROM PotentialMatch p2 \
+                    WHERE p2.shownUser = p1.currentUser AND p2.currentUser = p1.shownUser AND p2.matchDecision = 1)"
+            cursor.execute(insertConvoRowsQuery, (userOne, userTwo,))
+            connection.commit()
+            cursor.close()
+        return
+    except mysql.connector.Error as err:
+        print("sad")
+        return {"response": err.msg }
+
+
 def swipeDecision(currentUserId, shownUserId, userDecision):
     try:
         connection = connectToDB()
@@ -72,6 +92,8 @@ def swipeDecision(currentUserId, shownUserId, userDecision):
             connection.commit()
             cursor.close()
 
+            if userDecision == 'true':
+                insertConvo(currentUserId, shownUserId)
         return {"response": "Success"}
 
     except mysql.connector.Error as err:
