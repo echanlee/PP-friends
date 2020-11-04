@@ -75,7 +75,6 @@ def insertConvo(userOne, userTwo):
             cursor.close()
         return
     except mysql.connector.Error as err:
-        print("sad")
         return {"response": err.msg }
 
 
