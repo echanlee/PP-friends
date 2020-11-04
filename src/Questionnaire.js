@@ -15,6 +15,7 @@ class Questionnaire extends Component {
   }
 
   handleSubmit(event){
+    console.log(this.state.response);
     event.preventDefault();
     if(this.state.response.length >= 16){ //checks if all questions have been answered
       const id = this.props?.location?.state?.id;//test ID
@@ -63,9 +64,8 @@ class Questionnaire extends Component {
   componentDidMount() {
     this.getQuestions();
   }
-  storeAnswer = (answer) => {
-    this.setState({
-      response: this.state.response.concat(answer)});
+  storeAnswer = (answer,ID) => {
+    this.state.response[ID-1]=answer;
   }
   render(){
     return(
@@ -81,7 +81,7 @@ class Questionnaire extends Component {
             options={answers}
             ID={questionId}
             key={questionId}
-            selected={answer => this.storeAnswer(answer)}
+            selected={answer => this.storeAnswer(answer,questionId)}
             />
           ))
         }
