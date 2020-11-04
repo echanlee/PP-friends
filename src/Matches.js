@@ -7,7 +7,7 @@ class Matches extends React.Component {
         super(props);
         this.state = {
             userId: this.props?.location?.state?.id,
-            potentialUserId: [],
+            userIds: [],
             matchesExist: "not set"
         }
     }
@@ -21,10 +21,12 @@ class Matches extends React.Component {
         fetch(myRequest)
             .then(response => response.json())
             .then(res => 
-                (res.potentialUserIds.length != 0) ?
+                (res.userIds.length != 0) ?
                     this.setState({
                         matchesExist: "exists", 
-                        potentialUserId: res.potentialUserIds
+                        userId: res.userIds,
+                        conversationIds: res.conversationIds, 
+                        firstnames: res.firstnames
                     })
                     :
                     this.setState({
@@ -40,8 +42,8 @@ class Matches extends React.Component {
         let matchingSection;
         if (this.state.matchesExist == "exists"){
             let userItems = [];
-            for (var i = 0; i < this.state.potentialUserId.length; i++){
-                var pos_user = this.state.potentialUserId[i];
+            for (var i = 0; i < this.state.userIds.length; i++){
+                var pos_user = this.state.userIds[i];
                 userItems.push(
                     <tr className='pos-user' key={pos_user}>
                         {pos_user}
