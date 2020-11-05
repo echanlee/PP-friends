@@ -25,11 +25,8 @@ li a {
 }
 
 li a:hover:not(.active) {
-  background-color: rgb(
-    102,
-    102,
-    102
-  ); /*color change when mouse hovers over the list item on navigation bar*/
+  background-color: rgb(102, 102, 102);
+  /*color change when mouse hovers over the list item on navigation bar*/
 }
 
 .active {
