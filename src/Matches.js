@@ -8,42 +8,9 @@ class Matches extends React.Component {
         this.state = {
             userId: this.props?.location?.state?.id,
             userIds: [],
-            matchesExist: "not set",
-            firstnames: [],
-            name: "",
+            matchesExist: "not set"
         }
-        this.selectUser = this.selectUser.bind(this);
     }
-    selectUser(event) {
-        const userSelected = event.target.value.split("|");
-        const myRequest = new Request('http://127.0.0.1:5000/conversationId', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                "userId": this.state.userId,
-                "friendId": userSelected[0],
-            }),});
-        fetch(myRequest)
-            .then(response => response.json())
-            .then(res => {
-                this.props
-                .history.push({
-                  pathname: "/messages",
-                  state: {
-                      id: this.state.userId,
-                      friendId: userSelected[0],
-                      currentName: this.state.name,
-                      friendName: userSelected[1],
-                      currentConvoId: res.currentConvoId,
-                      friendConvoId: res.friendConvoId
-                }});
-            })
-        .catch((error) => {
-            alert("Something went wrong");
-            console.error(error)
-        });
-    }
-
     get_matches(){
         const myRequest = new Request('http://127.0.0.1:5000/matches', {
             method: 'POST',
@@ -57,8 +24,8 @@ class Matches extends React.Component {
                     this.setState({
                         matchesExist: "exists", 
                         userIds: res.userIds,
-                        firstnames: res.firstnames,
-                        name: res.currentName
+                        conversationIds: res.conversationIds, 
+                        firstnames: res.firstnames
                     })
                     :
                     this.setState({
@@ -82,7 +49,6 @@ class Matches extends React.Component {
         
     }
 
-
     render(){
         let matchingSection;
         if (this.state.matchesExist == "exists"){
@@ -90,9 +56,10 @@ class Matches extends React.Component {
             for (var i = 0; i < this.state.userIds.length; i++){
                 var pos_user = this.state.userIds[i];
                 userItems.push(
-                    <button className='pos-user' key={pos_user} value = {this.state.userIds[i]+"|"+this.state.firstnames[i]} onClick = {this.selectUser}>
+                    <tr className='pos-user' key={pos_user}>
+                        {pos_user}
                         {this.state.firstnames[i]}
-                    </button>
+                    </tr>
                 )
             }
             matchingSection = 
@@ -114,7 +81,7 @@ class Matches extends React.Component {
         return(
             <div id='Matches-section'>
                 <h2 id='Matches-header'>Matches</h2>
-                <div>{this.state.name}</div>
+                <div>{this.state.userId}</div>
                 <Link to={{pathname: '/main', state: {id: this.state.userId}}}>Back to Swiping!</Link>
                 <div id='Matches-section'>
                     {matchingSection}

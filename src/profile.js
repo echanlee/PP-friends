@@ -38,6 +38,7 @@ import {withRouter} from 'react-router-dom'
           res.json())
         .then((res) => {
           if(res.response === "Success"){
+            console.log('here');
             this.props.history.push({
               pathname: "/questionnaire",
               state: {id: id}

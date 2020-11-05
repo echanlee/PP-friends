@@ -67,7 +67,6 @@ class Questionnaire extends Component {
     this.setState({
       response: this.state.response.concat(answer)});
   }
-
   render(){
     return(
       <div>
