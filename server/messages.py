@@ -50,6 +50,5 @@ def addToMessageTable(convoId, friendConvoId, currentId, friendId, message, curs
     sql = f"INSERT INTO Messages (fromUser, toUser, conversationId, content, timeStamp) \
                 VALUES ({currentId}, {friendId}, {convoId}, '{message}', CURRENT_TIMESTAMP), \
                 ({currentId}, {friendId}, {friendConvoId}, '{message}', CURRENT_TIMESTAMP)"
-    print(sql)
     cursor.execute(sql)
 

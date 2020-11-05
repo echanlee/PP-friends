@@ -17,12 +17,9 @@ app.config['SECRET_KEY'] = 'mysecret'
 
 socketIo = SocketIO(app, cors_allowed_origins="*")
 
-
-
 @app.route('/')
 def home():
     return 'testing'
-
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -98,8 +95,6 @@ def handleMessage(data):
     room = data['room']
     send(msg, room=room)
     return None
-
-
 
 @socketIo.on("room")
 def handleMessage(room):
