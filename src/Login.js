@@ -28,7 +28,6 @@ class Login extends React.Component {
     event.preventDefault();
 
       const myForm = document.getElementById('loginForm');
-      console.log(myForm);
       
       const myRequest = new Request('http://127.0.0.1:5000/login', {
         method: 'POST',
@@ -38,7 +37,6 @@ class Login extends React.Component {
       fetch(myRequest)
         .then(res => res.json())
         .then(res => { 
-          console.log(res); 
             if(res.response === "Success") {
               this.props
                 .history.push({
