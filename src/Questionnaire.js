@@ -15,7 +15,6 @@ class Questionnaire extends Component {
   }
 
   handleSubmit(event){
-    console.log(this.state.response);
     event.preventDefault();
     if(this.state.response.length >= 16){ //checks if all questions have been answered
       const id = this.props?.location?.state?.id;//test ID
