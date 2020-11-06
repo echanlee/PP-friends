@@ -193,14 +193,14 @@ class SwipeProfiles extends React.Component {
             </div>
             <br></br>
             <button
-              class="letsTalkButton"
+              class="button letsTalkButton"
               onClick={() => this.handleSwipe(true)}
             >
               Let's Talk!
             </button>{" "}
             <br></br>
             <button
-              class="notInterestedButton"
+              class="button notInterestedButton"
               onClick={() => this.handleSwipe(false)}
             >
               Not Interested.
