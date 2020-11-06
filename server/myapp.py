@@ -82,7 +82,6 @@ def getMessages():
 def sendMessage():
     if request.method == 'POST':
         param = request.get_json('convoId')
-        print(param)
         return messages.sendMessage(param['convoId'], param['friendConvoId'], param['currentId'], param['friendId'], param['message']) 
 
 @socketIo.on('connect')

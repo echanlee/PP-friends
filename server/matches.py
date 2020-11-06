@@ -18,7 +18,7 @@ def matchUser(userId):
             firstnames = []
             
             for pos in cursor.fetchall():
-                if pos[1] not in userIds:
+                if pos[0] not in userIds:
                     userIds.append(pos[0])
                     firstnames.append(pos[1])
             currentName = currentUserName(userId, cursor)
