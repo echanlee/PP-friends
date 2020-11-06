@@ -10,6 +10,7 @@ import Login from "./Login";
 import SwipeProfiles from "./SwipeProfiles";
 import Matches from "./Matches";
 import Questionnaire from './Questionnaire';
+import Messages from './Messages';
 
 export default class App extends React.Component {
     render() {
@@ -32,6 +33,9 @@ export default class App extends React.Component {
                         </Route>
                         <Route path="/questionnaire">
                             <Questionnaire />
+                        </Route>
+                        <Route path="/messages">
+                            <Messages />
                         </Route>
                         <Route path="/">
                             <Login />
