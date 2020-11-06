@@ -7,7 +7,7 @@ def findPotentialMatches(id):
         connection = connectToDB()
         if(connection != False):
             cursor = connection.cursor(buffered=True)
-
+            
             genderPreference = getGenderPreference(id, cursor, connection)
             if genderPreference == "":
                 return {"response": "No Matches", "id": id, "Number of Matches": 0}
@@ -19,8 +19,8 @@ def findPotentialMatches(id):
             responses = getQuestionnaireResponses(potentialIds, cursor, connection)
             if len(responses) == 0:
                 return {"response": "No Matches", "id": id, "Number of Matches": 0}
-            
-            matchList = getPotentialMatches(id, responses, cursor, connection, 0.8),
+
+            matchList = getPotentialMatches(id, responses, cursor, connection, 0.8)
             if len(matchList) == 0:
                 return {"response": "No Matches", "id": id, "Number of Matches": 0}
 
@@ -36,6 +36,10 @@ def findPotentialMatches(id):
     except mysql.connector.Error as err: 
         return {"response": err.msg}
 
+    #error handling in case there are no questionnaire entries in the database for a user
+    except TypeError: 
+        return {"response": "Questionnaire was not filled out", "id": id, "Number of Matches": 0}
+
     return {"response": "Something went wrong"}
 
 def getGenderPreference(id, cursor, connection):
@@ -48,9 +52,13 @@ def getGenderPreference(id, cursor, connection):
     return genderPreference[0]
 
 def getPotentialIds(id, genderPreference, cursor, connection):
-    sql = "SELECT userId FROM Profile Where gender = %s AND userId <> %s;"
-    values = (genderPreference, id)
-    cursor.execute(sql, values)
+    if (genderPreference == "Both"):
+        sql = f"SELECT userId FROM Profile Where userId <> {id};"
+        cursor.execute(sql)
+    else:
+        sql = "SELECT userId FROM Profile Where gender = %s AND userId <> %s;"
+        values = (genderPreference, id)
+        cursor.execute(sql, values)
 
     idList = [ids[0] for ids in cursor.fetchall()]
     return idList

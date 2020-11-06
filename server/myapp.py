@@ -1,4 +1,3 @@
-
 from flask import Flask, request, render_template
 from flask_cors import CORS
 from register import registerUser
@@ -11,7 +10,6 @@ from potentialMatch import findPotentialMatches
 
 app = Flask(__name__)
 CORS(app)
-
 
 @app.route('/')
 def home():
@@ -62,6 +60,12 @@ def questionnaire():
     if request.method == 'POST':
         param = request.get_json('responses')
         return updateQuestionnaire(param['responses'], param['userId']) 
+
+@app.route('/potentialMatch', methods=['POST'])
+def potentialMatch():
+    if request.method == 'POST':
+        param = request.get_json('responses')
+        return findPotentialMatches(param['userId'])
         
 if __name__ == '__main__':
     app.debug = True
