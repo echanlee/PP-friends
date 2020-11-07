@@ -1,4 +1,3 @@
-
 from flask import Flask, request, render_template
 from flask_socketio import SocketIO, send, join_room, leave_room, emit
 from flask_cors import CORS
@@ -8,6 +7,7 @@ import matches
 from login import loginUser
 import SwipeDecision
 from questionnaire import updateQuestionnaire
+from potentialMatch import findPotentialMatches
 import messages
 
 app = Flask(__name__)
@@ -64,8 +64,14 @@ def inputSwipe():
 def questionnaire():
     if request.method == 'POST':
         param = request.get_json('responses')
-        return updateQuestionnaire(param['responses'], param['userId'])
+        return updateQuestionnaire(param['responses'], param['userId']) 
 
+@app.route('/potentialMatch', methods=['POST'])
+def potentialMatch():
+    if request.method == 'POST':
+        param = request.get_json('responses')
+        return findPotentialMatches(param['userId'])
+        
 @app.route('/conversationId', methods=['POST'])
 def conversationId():
     if request.method == 'POST':
