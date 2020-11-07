@@ -7,7 +7,6 @@ class SwipeProfiles extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            id: this.props?.location?.state?.id,
             age: '',
             firstName: '',
             description: '',
@@ -38,6 +37,7 @@ class SwipeProfiles extends React.Component {
           if(res.response === "Success"){
             var potentialFriendsList = res.potentialListId;
             const displayProfileId = potentialFriendsList.pop();
+            console.log(displayProfileId);
             this.setState({
               potentialFriends: potentialFriendsList,
               displayedUserId: displayProfileId,
@@ -87,6 +87,7 @@ class SwipeProfiles extends React.Component {
                 error: '',
               });
 
+              console.log(this.state);
             } 
             else{             
               this.setState({
@@ -103,7 +104,7 @@ class SwipeProfiles extends React.Component {
         }
         else {
           this.setState({
-            error: "There are no potential friends for you"
+            error: "We don't have a user matching with your preference. Please edit your profile and try again later."
           });
         }
 
@@ -161,7 +162,6 @@ class SwipeProfiles extends React.Component {
        return(
           <div className = "SwipeProfile">
             <header>Potential Friends!</header>  
-            <Link to={{pathname: '/matches', state: {id: this.state.id}}}>See matches</Link>
             <br></br>
             <br></br>
             {error ?
@@ -181,10 +181,8 @@ class SwipeProfiles extends React.Component {
                 <text>{this.state.workplace}</text> <br></br> <br></br>
                 <button onClick ={() => this.handleSwipe(true)}>Yes</button> <br></br>
                 <button onClick ={() => this.handleSwipe(false)}>No</button>
-
               </div>
             }
-            
           </div>
         
        ) 
