@@ -1,5 +1,8 @@
-.Register {
+* {
   font-family: 'Montserrat', sans-serif;
+}
+
+.Register {
   margin-left:auto;
   margin-right:auto;
   margin-top: 10%;
@@ -34,7 +37,6 @@
 }
 
 .Register input[type=submit], input[value=submit] {
-  font-family: 'Montserrat', sans-serif;
   color: white;;
   letter-spacing: 1px;
   background-color: #3680A3;
@@ -47,7 +49,6 @@
 }
 
 h1{
-  font-family: 'Montserrat', sans-serif;
   font-weight: bold;
   font-size: 30px;
   color: #E0786C;

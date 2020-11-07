@@ -1,7 +1,8 @@
-
+* {
+    font-family: 'Montserrat', sans-serif;
+}
 
 .Login {
-    font-family: 'Montserrat', sans-serif;
     margin-left:auto;
     margin-right:auto;
     margin-top: 5%;
@@ -12,12 +13,11 @@
     color: #E0786C;
 }
 
-.top{
+.logoBanner{
     font-size: 30px;
     font-weight: bold;
 }
 .Login h1{
-    font-family: 'Montserrat', sans-serif;
     font-weight: bolder;
 }
 
@@ -43,12 +43,10 @@
 }
 
 .Login input[type=submit], input[value=submit] {
-    font-family: 'Montserrat', sans-serif;
     color: white;;
     letter-spacing: 1px;
     background-color: #3680A3;
     border: 3px solid #3680A3;
-
     display: inline-block;
     border-radius: 5px;
     padding: 5px;
