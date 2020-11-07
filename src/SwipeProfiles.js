@@ -92,7 +92,8 @@ class SwipeProfiles extends React.Component {
         });
     } else {
       this.setState({
-        error: "There are no potential friends for you",
+        error:
+          "There are no current potential friends for you within the area.",
       });
     }
   }
