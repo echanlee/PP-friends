@@ -151,6 +151,9 @@ import {withRouter} from 'react-router-dom'
         alert("You need to be above 18 to register");
       } else if (age > 100) {
         alert("Please make sure you have entered a valid birthday");
+      } else if (age >= 18 && age <= 100){
+      }else{
+        alert("Please input valid birthday")
       }
       return age;
     }
