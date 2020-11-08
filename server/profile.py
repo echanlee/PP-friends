@@ -18,15 +18,6 @@ def updateProfile(name, birthday_yr, birthday_mo, birthday_dt, bio, gender, educ
                       interests, genderPreference, birthday, age)
             cursor.execute(sql, values)
 
-            # today = date.today()
-            # age = today.year - birthday.year
-            # if today.month < birthday.month or (today.month == birthday.month and today.day < birthday.day):
-            #     age -= 1
-
-            # UpdateAgeQuery = "UPDATE Profile SET Age = %s WHERE userId = %s"
-            # UpdateAge = (age, id,)
-            # cursor.execute(UpdateAgeQuery, UpdateAge)
-
             connection.commit()
             cursor.close()
             return {"response": "Success"}
