@@ -7,7 +7,9 @@ import {withRouter} from 'react-router-dom'
       super(props);
       this.state = {
         name: "",
-        age: "null",
+        birthday_yr: "YYYY",
+        birthday_mo: "MM",
+        birthday_dt: "DD",
         bio: "",
         gender: "Female",
         genderPreference: "Female",
@@ -23,45 +25,50 @@ import {withRouter} from 'react-router-dom'
 
     handleUpdate = (event) => {
       event.preventDefault();
-      if(this.completedInput()) {
-        const id = this.props?.location?.state?.id;
-        console.log(id);
-        const myForm = new FormData (document.getElementById("profileForm"));
-        myForm.append("id", id);
-        const myRequest = new Request("http://127.0.0.1:5000/profile", {
-          method: "POST",
-          body: myForm,
-        });
+      if (this.checkAge()) {
+        if (this.completedInput()){
 
-        fetch(myRequest)
-        .then((res) =>
-          res.json())
-        .then((res) => {
-          if(res.response === "Success"){
-            this.props.history.push({
-              pathname: "/questionnaire",
-              state: {id: id}
-            });
-          }
-            
-          else {
-            this.setState({
-              error: res.response,
-            });
-          }  
-        })
-        .catch((error) => {
-          this.setState({
-            error: "Error connecting to backend",
+          const id = this.props?.location?.state?.id;
+          console.log(id);
+          const myForm = new FormData (document.getElementById("profileForm"));
+          myForm.append("id", id);
+          const myRequest = new Request("http://127.0.0.1:5000/profile", {
+            method: "POST",
+            body: myForm,
           });
-        });
+
+          fetch(myRequest)
+          .then((res) =>
+            res.json())
+          .then((res) => {
+            if(res.response === "Success"){
+              this.props.history.push({
+                pathname: "/questionnaire",
+                state: {id: id}
+              });
+            }
+            
+            else {
+              this.setState({
+                error: res.response,
+              });
+            }  
+          })
+          .catch((error) => {
+            this.setState({
+              error: "Error connecting to backend",
+            });
+          });
+        }
+        else 
+          alert("Please fill in all fields")
       }
       else 
-        alert("Please fill in all fields");
+        alert("Please enter valid birthday");
     };
 
     completedInput = () => {
-      const inputs = ['name', 'age', 'bio', 'gender', 'genderPreference', 'education', 'interests'];
+      const inputs = ['name', 'birthday_yr','birthday_mo', 'birthday_dt', 'bio', 'gender', 'genderPreference', 'education', 'interests'];
       for(var i =0; i <inputs.length; i++) {
         if(!this.state[inputs[i]])
           return false;
@@ -79,6 +86,39 @@ import {withRouter} from 'react-router-dom'
       });
     }
 
+    checkAge = () => {
+      const birthday_yr = this.state.birthday_yr;
+      const birthday_mo = this.state.birthday_mo;
+      const birthday_dt = this.state.birthday_dt;
+
+      var birthday = Date(birthday_yr, birthday_mo, birthday_dt);
+      
+      var today = new Date();
+      var age = today.getFullYear() - birthday_yr
+      if (today.getMonth() + 1 < birthday.month || (today.getMonth() + 1 === birthday.month && today.getDate < birthday.day)){
+        age -= 1
+      }
+        
+      if (birthday_mo === 2 && birthday_dt > 29){
+        alert("Please enter a valid date")
+        return false;
+      }
+      
+      if (birthday_dt > 30 && (birthday_mo === 4 || birthday_mo === 6 || birthday_mo === 9 || birthday_mo === 11)){
+        alert("Please enter a valid date")
+        return false;
+      }
+      
+      if (age < 18) {
+        alert("You need to be above 18 to register");
+        return false;
+      } else if (age > 100) {
+        alert("Please make sure you have entered a valid birthday");
+        return false;
+      }
+      return true;
+    }
+
     render() {
       return (
         <div className="Profile">
@@ -89,15 +129,33 @@ import {withRouter} from 'react-router-dom'
 
             <input type="text" name="name" value = {this.state.name} onChange={this.handleChange} maxlength="30" />
 
-            <p>Age:</p>
+            <p>Birthday:</p>
 
             <input
-              type="number"
-              name="age"
-              min="18"
-              max="100"
+              type="int"
+              name="birthday_yr"
+              min="1920"
+              max="2100"
               onChange={this.handleChange}
-              value = {this.state.age}
+              value = {this.state.birthday_yr}
+            />
+
+            <input
+              type="int"
+              name="birthday_mo"
+              min="1"
+              max="12"
+              onChange={this.handleChange}
+              value = {this.state.birthday_mo}
+            />
+            
+            <input
+              type="int"
+              name="birthday_dt"
+              min="1"
+              max="31"
+              onChange={this.handleChange}
+              value = {this.state.birthday_dt}
             />
 
             <p>Your Gender:</p>

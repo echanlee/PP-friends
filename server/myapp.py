@@ -29,7 +29,7 @@ def login():
 @app.route('/profile', methods=['POST'])
 def profile():
     if request.method == 'POST':
-        return updateProfile(request.form['name'], request.form['age'],
+        return updateProfile(request.form['name'], request.form['birthday_yr'], request.form['birthday_mo'], request.form['birthday_dt'],
                              request.form['bio'], request.form['gender'], request.form['education'],
                              request.form['interests'], request.form['genderPreference'], request.form['id'])
 
