@@ -115,7 +115,9 @@ class Matches extends React.Component {
             <div id='Matches-section'>
                 <h2 id='Matches-header'>Matches</h2>
                 <div>{this.state.name}</div>
+                <Link to={{pathname: '/viewprofile', state: {id: this.state.userId}}}>View Profile</Link>
                 <Link to={{pathname: '/main', state: {id: this.state.userId}}}>Back to Swiping!</Link>
+                <div>{this.state.userId}</div>
                 <div id='Matches-section'>
                     {matchingSection}
                 </div>

@@ -162,6 +162,7 @@ class SwipeProfiles extends React.Component {
           <div className = "SwipeProfile">
             <header>Potential Friends!</header>  
             <Link to={{pathname: '/matches', state: {id: this.state.id}}}>See matches</Link>
+            <Link to={{pathname: '/viewprofile', state: {id: this.state.id}}}>View Profile</Link>
             <br></br>
             <br></br>
             {error ?
