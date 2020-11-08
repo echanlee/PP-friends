@@ -18,7 +18,6 @@ class ViewProfile extends React.Component {
       };
     }
     componentDidMount(){
-      console.log("fetch profile", this.state.userId)
       const myRequest = new Request('http://127.0.0.1:5000/viewprofile', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -40,7 +39,6 @@ class ViewProfile extends React.Component {
         ).catch((error) => {
             console.error(error)
         })
-        console.log(this.state)
       }
 
     render() {

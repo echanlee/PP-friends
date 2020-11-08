@@ -36,14 +36,12 @@ def create_profile():
 
 @app.route('/viewprofile', methods=['POST'])
 def viewProfile():
-    print('in def view')
     if request.method == 'POST':
         param = request.get_json('userId')
         return profile.getProfile(param['userId'])
 
 @app.route('/editprofile', methods=['POST'])
 def edit_profile():
-    print("in editing profile")
     if request.method == 'POST':
         return profile.updateProfile(request.form['name'], request.form['age'],
                              request.form['bio'], request.form['gender'], request.form['education'],

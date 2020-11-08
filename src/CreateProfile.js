@@ -25,7 +25,6 @@ import {withRouter} from 'react-router-dom'
       event.preventDefault();
       if(this.completedInput()) {
         const id = this.props?.location?.state?.id;
-        console.log(id);
         const myForm = new FormData (document.getElementById("profileForm"));
         myForm.append("id", id);
         const myRequest = new Request("http://127.0.0.1:5000/createprofile", {
