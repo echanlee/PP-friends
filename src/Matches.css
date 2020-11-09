@@ -1,3 +1,7 @@
+* {
+  font-family: 'Montserrat', sans-serif;
+}
+
 #Matches-header {
   text-align: center;
   margin: auto;
@@ -7,25 +11,67 @@
 .pos-user {
   text-align: center;
   margin: auto;
-  display: inline-block;
-  border-radius: 2em;
+  padding: 12px; 
+  display: block;
+  border-radius: 0.2em;
+  width: 200px;
+  background-color:#F8DABB;
+  color: white;
+  border: 1px white; 
+  margin-top: 15px; 
+  font-size: 25px;
   
 }
 
 #Matches-section{
-  background-color: #282c34;
-  min-height: 100vh;
+  min-height: 25vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  font-size: 30px;
+  background-color:white;
+  line-height: 25px;
+  color: #3680a3;
+  text-align: center;
 }
+
 #Matches-congrats {
-  text-align: center
+  text-align: center;
+  color: #3680a3;
+}
+
+#Matches-none {
+  text-align: center;
+  color: #3680a3;
+  font-size: 25px;
 }
 
 .Register-link {
   color: #61dafb;
+}
+
+#viewProfileButton{
+  background-color: #E0786C;
+  text-align: center;
+  color: white;
+  font-size: 15px;
+  padding: 8px;
+  border-radius: 0.2em;
+  border: 1px white; 
+  margin-bottom: 5px;
+  width: 100px;
+  margin-top: 5px;
+  height: 25px;
+}
+
+#swipingButton{
+  background-color: #C4C4C4;
+  text-align: center;
+  color: white;
+  font-size: 15px;
+  padding: 8px;
+  border-radius: 0.2em;
+  margin-top: 5px;
+  width: 100px;
 }
