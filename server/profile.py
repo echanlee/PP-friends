@@ -57,7 +57,7 @@ def getProfile(id):
             result = cursor.fetchone()
             d = {"response": "Success", "name": result[0], "age": result[1],\
                  "bio": result[2], "gender": result[3], "education": result[4],\
-                      "interests": result[5], "genderPreference": result[6], "birthday": result[7], "maxDistance": result[8]}
+                      "interests": result[5], "genderPreference": result[6], "birthday": result[7].strftime('%Y-%m-%d'), "maxDistance": result[8]}
             connection.commit()
             cursor.close()
             return d

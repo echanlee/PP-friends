@@ -142,7 +142,7 @@ import {withRouter, Link} from 'react-router-dom'
             <Link to={{pathname: '/main', state: {id: this.state.userId}}}>Back to Swiping!</Link>
             </li>
             <li>
-            <Link to={{pathname: '/editprofile', state: {id: this.state.userId}}}>Edit Profile</Link>
+            <Link to={{pathname: '/viewprofile', state: {id: this.state.userId}}}>View Profile</Link>
             </li>
           <li>
             <a href="Settings">Settings</a>
@@ -163,8 +163,6 @@ import {withRouter, Link} from 'react-router-dom'
               placeholder = "YYYY-MM-DD"
               onChange={this.handleChange}
               />
-              {this.state.birthday}
-              
 
 
             <p>Your Gender:</p>

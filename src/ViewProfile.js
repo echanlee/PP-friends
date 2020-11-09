@@ -64,7 +64,10 @@ class ViewProfile extends React.Component {
             {this.state.name}
 
             <p>Birthday:</p>
-            {this.state.birthday}
+            <input type="date" name="birthday"
+              value={this.state.birthday}
+              placeholder = "YYYY-MM-DD"
+              />
 
             <p>Your Gender:</p>
 
