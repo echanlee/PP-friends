@@ -71,7 +71,7 @@ def questionnaire():
 def potentialMatch():
     if request.method == 'POST':
         param = request.get_json('responses')
-        findPotentialMatches(param['userId'])
+        return findPotentialMatches(param['userId'])
         
 @app.route('/conversationId', methods=['POST'])
 def conversationId():

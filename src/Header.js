@@ -14,6 +14,9 @@ const Header = (props) => {
                         pathname:'/profile',
                         state:{id: props.id}}} className='inactive' activeClassName="active">Profile</NavLink>
                     <NavLink to={{
+                        pathname:'/messages',
+                        state:{id: props.id}}} className='inactive' activeClassName="active">Messages</NavLink>
+                    <NavLink to={{
                         pathname:'/profile'}} className='inactive' activeClassName="active">Settings</NavLink>
                 </div>
                 <div>

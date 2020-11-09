@@ -32,7 +32,7 @@ class Questionnaire extends Component {
                               "userId": id}),
       }); 
 
-      fetch(matchRequest)
+      fetch(myRequest)
       .then((res) =>
         res.json())
       .then((res) =>{
@@ -40,16 +40,16 @@ class Questionnaire extends Component {
           this.props
           .history.push({
             state: {id: id}
-          });
-        }
+        });
+      }
         else {
           this.setState({
             error: res.response,
           });
         }
       })
-      
-      fetch(myRequest)
+
+      fetch(matchRequest)
       .then((res) =>
         res.json())
       .then((res) =>{
@@ -66,6 +66,7 @@ class Questionnaire extends Component {
           });
         }
       })
+      
       .catch((error) =>{
         this.setState({
           error: "Error connecting to backend",
