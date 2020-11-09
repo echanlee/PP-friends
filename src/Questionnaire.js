@@ -37,6 +37,8 @@ class Questionnaire extends Component {
         res.json())
       .then((res) =>{
         if(res.response === "Success") {
+          //Once the first questionnaire API call is a success, the second matching call is nested to ensure that the two calls
+          //happen in succession
           fetch(matchRequest)
           .then((res) =>
             res.json())
