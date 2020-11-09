@@ -134,7 +134,7 @@ import Header from './Header'
       return (
           
         <div className="Profile">
-          <Header id={this.state.id}/>
+          <Header id={this.state.userId}/>
           <form id="profileForm" onSubmit={this.handleUpdate}>
           <h1>My Profile</h1>
 

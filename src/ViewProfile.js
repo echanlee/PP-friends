@@ -47,7 +47,7 @@ class ViewProfile extends React.Component {
     render() {
       return (
         <div className="Profile">
-          <Header id={this.state.id}/>
+          <Header id={this.state.userId}/>
           <form id="profileForm">
             <h1>View My Profile</h1>
             <p>Name:</p>
