@@ -1,17 +1,16 @@
 import React, {useState} from "react";
 
 const QuestionBox = ({question, options, ID, selected}) => {
-  const [answer, setAnswer] =useState(options);
   return (
-    <div >
+    <div>
       <div >{ID}. {question}</div>
-      {answer.map((text, index) => (
-        <button className = "answerBtn" key={index} onClick={() =>{
-          setAnswer([text]);
-          selected([index]);
-        }}>
+      {options.map((text, index) => (
+        <p>
+        <input type="radio" value={text} name={ID} onClick={() =>{
+          selected(index);
+        }}/>
           {text}
-        </button>
+        </p>
       ))}
     </div>
   )

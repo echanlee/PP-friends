@@ -25,6 +25,30 @@ class Questionnaire extends Component {
                               "userId": id}),
       });
 
+      const matchRequest = new Request ('http://127.0.0.1:5000/potentialMatch',{
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({"responses":this.state.response, 
+                              "userId": id}),
+      }); 
+
+      fetch(matchRequest)
+      .then((res) =>
+        res.json())
+      .then((res) =>{
+        if(res.response === "Success"){
+          this.props
+          .history.push({
+            state: {id: id}
+          });
+        }
+        else {
+          this.setState({
+            error: res.response,
+          });
+        }
+      })
+      
       fetch(myRequest)
       .then((res) =>
         res.json())
@@ -63,9 +87,8 @@ class Questionnaire extends Component {
   componentDidMount() {
     this.getQuestions();
   }
-  storeAnswer = (answer) => {
-    this.setState({
-      response: this.state.response.concat(answer)});
+  storeAnswer = (answer,ID) => {
+    this.state.response[ID-1]=answer;
   }
 
   render(){
@@ -82,7 +105,7 @@ class Questionnaire extends Component {
             options={answers}
             ID={questionId}
             key={questionId}
-            selected={answer => this.storeAnswer(answer)}
+            selected={answer => this.storeAnswer(answer,questionId)}
             />
           ))
         }
