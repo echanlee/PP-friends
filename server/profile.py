@@ -4,7 +4,7 @@ from connect import connectToDB
 from datetime import date
 
 
-def updateProfile(name, birthday_yr, birthday_mo, birthday_dt, bio, gender, education, interests, genderPreference, id, age):
+def updateProfile(name, birthday, bio, gender, education, interests, genderPreference, id, age):
     try:
         connection = connectToDB()
         if(connection != False):
@@ -13,7 +13,6 @@ def updateProfile(name, birthday_yr, birthday_mo, birthday_dt, bio, gender, educ
             sql = '''INSERT INTO Profile (userId, firstname,description, gender, workplace, interests, genderPreference, Birthday, age) 
                 VALUES (%s, %s, %s,%s,%s,%s,%s, %s, %s);'''
             
-            birthday = date(int(birthday_yr), int(birthday_mo), int(birthday_dt))
             values = (id, name, bio, gender, education,
                       interests, genderPreference, birthday, age)
             cursor.execute(sql, values)

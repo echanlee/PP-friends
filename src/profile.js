@@ -7,9 +7,7 @@ import {withRouter} from 'react-router-dom'
       super(props);
       this.state = {
         name: "",
-        birthday_yr: "",
-        birthday_mo: "",
-        birthday_dt: "",
+        birthday: "",
         bio: "",
         gender: "Female",
         genderPreference: "Female",
@@ -17,6 +15,7 @@ import {withRouter} from 'react-router-dom'
         interests: "",
         error: "",
         maxDistance: 10,
+        age: 0,
       };
 
       this.handleUpdate = this.handleUpdate.bind(this);
@@ -26,15 +25,12 @@ import {withRouter} from 'react-router-dom'
     handleUpdate = (event) => {
       event.preventDefault();
       if (this.completedInput()){
-        if (this.checkValideDate()) {
-          if (this.checkAge() > 18 && this.checkAge() < 100){
-
+          this.checkAge();
+          if (this.state.age > 18 && this.state.age < 100){
             const id = this.props?.location?.state?.id;
-            const age = this.checkAge();
-            console.log(id);
             const myForm = new FormData (document.getElementById("profileForm"));
             myForm.append("id", id);
-            myForm.append("age", age);
+            myForm.append("age", this.state.age);
             const myRequest = new Request("http://127.0.0.1:5000/profile", {
               method: "POST",
               body: myForm,
@@ -65,17 +61,14 @@ import {withRouter} from 'react-router-dom'
           else{
           }
         } 
-        else{ 
-          alert("Please enter a valid date");
-        }
-      }
+      
       else{ 
         alert("Please fill in all fields");
       }
     };
 
     completedInput = () => {
-      const inputs = ['name', 'birthday_yr','birthday_mo', 'birthday_dt', 'bio', 'gender', 'genderPreference', 'education', 'interests'];
+      const inputs = ['name', 'birthday', 'bio', 'gender', 'genderPreference', 'education', 'interests'];
       for(var i =0; i <inputs.length; i++) {
         if(!this.state[inputs[i]])
           return false;
@@ -93,57 +86,12 @@ import {withRouter} from 'react-router-dom'
       });
     }
 
-    checkValideDate = () => {
-      const birthday_yr = this.state.birthday_yr;
-      const birthday_mo = this.state.birthday_mo;
-      const birthday_dt = this.state.birthday_dt;
-
-      if (birthday_mo == 4 || birthday_mo == 6 || birthday_mo == 9 || birthday_mo == 11){
-        if (birthday_dt > 30){
-          return false;
-        }
-        else{
-          return true;
-        }
-      }else if(birthday_mo != 2){
-          if (birthday_dt > 31){
-            return false;
-          }
-          else{
-            return true;
-          }
-      }else if (birthday_mo == 2){
-        if(birthday_yr % 4 == 0 || (birthday_yr % 100 == 0 && birthday_yr % 400 == 0)){
-          if(birthday_dt > 29){
-            return false;
-          }
-          else{
-            return true;
-          }
-        }else{
-          if (birthday_dt > 28){
-            return false;
-          }
-          else{
-            return true;
-          }
-        }
-      }else{
-            return true;
-      }
-
-    }
-
     checkAge = () => {
-      const birthday_yr = this.state.birthday_yr;
-      const birthday_mo = this.state.birthday_mo;
-      const birthday_dt = this.state.birthday_dt;
-
-      var birthday = Date(birthday_yr, birthday_mo, birthday_dt);  
+      const birthday = new Date(this.state.birthday);
       var today = new Date();
 
-      var age = today.getFullYear() - birthday_yr
-      if (today.getMonth() + 1 < birthday.month || (today.getMonth() + 1 === birthday.month && today.getDate < birthday.day)){
+      var age = today.getFullYear() - birthday.getFullYear()
+      if (today.getMonth() < birthday.getMonth() || (today.getMonth() === birthday.getMonth() && today.getDate < birthday.getDate())){
         age -= 1
       }
         
@@ -155,7 +103,7 @@ import {withRouter} from 'react-router-dom'
       }else{
         alert("Please input valid birthday")
       }
-      return age;
+      this.state.age = age;
     }
 
     render() {
@@ -170,40 +118,19 @@ import {withRouter} from 'react-router-dom'
 
             <p>Birthday:</p>
 
-            <input
-              type="int"
-              name="birthday_yr"
-              min="1920"
+            <input type="date" name="birthday"
+              value={this.state.birthday}
+              min="1920-01-01" 
+              max="2020-12-31"
+              placeholder = "YYYY-MM-DD"
               onChange={this.handleChange}
-              value = {this.state.birthday_yr}
-              placeholder="YYYY*"
-            />
-
-            <input
-              type="int"
-              name="birthday_mo"
-              min="1"
-              max="12"
-              onChange={this.handleChange}
-              value = {this.state.birthday_mo}
-              placeholder="MM*"
-            />
-            
-            <input
-              type="int"
-              name="birthday_dt"
-              min="1"
-              max="31"
-              onChange={this.handleChange}
-              value = {this.state.birthday_dt}
-              placeholder="DD*"
-            />
+              />
 
             <p>Your Gender:</p>
 
             <select
               name = "gender"
-              onChange={this.handleChange}
+              onChange= {this.handleChange}
               value = {this.state.gender}
             >
               <option value="Female">Female</option>
