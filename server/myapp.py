@@ -50,10 +50,10 @@ def edit_profile():
 
 @app.route('/matches', methods=['POST'])
 def get_matches():
-  if request.method == 'POST':
-    param = request.get_json('userId')
-    response = matches.matchUser(param['userId'])
-    return response
+    if request.method == 'POST':
+        param = request.get_json('userId')
+        response = matches.matchUser(param['userId'])
+        return response
 
 @app.route('/register', methods=['POST'])
 def register():

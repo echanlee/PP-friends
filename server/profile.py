@@ -55,6 +55,8 @@ def getProfile(id):
                 FROM Profile where userId = %s'
             cursor.execute(sql, (id,))
             result = cursor.fetchone()
+            if not result:
+                return {"response": "invalid userId"}
             d = {"response": "Success", "name": result[0], "age": result[1],\
                  "bio": result[2], "gender": result[3], "education": result[4],\
                       "interests": result[5], "genderPreference": result[6], "birthday": result[7].strftime('%Y-%m-%d'), "maxDistance": result[8]}
