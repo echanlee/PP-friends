@@ -161,7 +161,7 @@ class SwipeProfiles extends React.Component {
             </Link>
           </li>
           <li>
-            <a href="Settings">Settings</a>
+          <Link to={{pathname: '/settings', state: {id: this.state.userId}}}>Settings</Link>
           </li>
         </ul>
         <br></br>

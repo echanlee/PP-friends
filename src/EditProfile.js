@@ -8,6 +8,7 @@ import {withRouter, Link} from 'react-router-dom'
       this.state = {
         userId: this.props?.location?.state?.id,
         name: "",
+        birthday: "",
         age: 0,
         bio: "",
         gender: "Female",
@@ -33,7 +34,6 @@ import {withRouter, Link} from 'react-router-dom'
                 .then(res => 
                         this.setState({
                             name: res.name,
-                            age: res.age, 
                             bio: res.bio,
                             gender: res.gender,
                             genderPreference: res.genderPreference,
@@ -71,7 +71,6 @@ import {withRouter, Link} from 'react-router-dom'
                   this.setState({
                     updatedMessage: "Successfully updated your profile!"
                   })
-                  console.log(this.state.birthday.getYear())
                 }
                 else {
                   this.setState({
@@ -85,10 +84,7 @@ import {withRouter, Link} from 'react-router-dom'
                 });
               });
             }
-            else{
-            }
           } 
-        
         else{ 
           alert("Please fill in all fields");
         }
@@ -145,7 +141,7 @@ import {withRouter, Link} from 'react-router-dom'
             <Link to={{pathname: '/viewprofile', state: {id: this.state.userId}}}>View Profile</Link>
             </li>
           <li>
-            <a href="Settings">Settings</a>
+          <Link to={{pathname: '/settings', state: {id: this.state.userId}}}>Settings</Link>
           </li>
         </ul>
           <form id="profileForm" onSubmit={this.handleUpdate}>
