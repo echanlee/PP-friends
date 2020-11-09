@@ -1,4 +1,5 @@
 import React from "react";
+import Header from './Header';
 import "./SwipeProfile.css";
 import { withRouter, Link } from "react-router-dom";
 
@@ -150,17 +151,7 @@ class SwipeProfiles extends React.Component {
     return (
       /*navigation bar and other necessary information about the match*/
       <div className="SwipeProfile">
-        <ul>
-          <li>
-            <a href="Matches.js">Matches</a>
-          </li>
-          <li>
-            <a href="profile.js">My Profile</a>
-          </li>
-          <li>
-            <a href="Settings">Settings</a>
-          </li>
-        </ul>
+        <Header id={this.state.id}/>
         <br></br>
         <header class="pageTitle">Potential Friends!</header>
         <br></br>

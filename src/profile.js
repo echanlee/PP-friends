@@ -1,4 +1,5 @@
 import React from "react";
+import Header from "./Header";
 import "./profile.css"
 import {withRouter} from 'react-router-dom'
 
@@ -110,6 +111,7 @@ import {withRouter} from 'react-router-dom'
     render() {
       return (
         <div className="Profile">
+          <Header/>
           <form id="profileForm" onSubmit={this.handleUpdate}>
             <h1>My Profile</h1>
 
