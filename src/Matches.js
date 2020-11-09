@@ -119,12 +119,13 @@ class Matches extends React.Component {
         }
         return(
             <div id='Matches-section'>
-                 {matchingSection}
-             </div>                          
-                <div>{this.state.name}</div>
-                <Link to={{pathname: '/viewprofile', state: {id: this.state.userId}}}>View Profile</Link>
+                 {matchingSection}                        
+
                 <div class = "swipingButton" id = 'swipingButton'>
                     <Link to={{pathname: '/main', state: {id: this.state.userId}}}>Keep Swiping</Link>
+                </div>
+                <div class = "viewProfileButton" id = 'viewProfileButton'>
+                    <Link to={{pathname: '/viewprofile', state: {id: this.state.userId}}}>View Profile</Link>
                 </div>
             </div>
         )

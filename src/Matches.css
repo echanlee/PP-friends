@@ -44,14 +44,14 @@
 #Matches-none {
   text-align: center;
   color: #3680a3;
+  font-size: 25px;
 }
 
 .Register-link {
   color: #61dafb;
 }
 
-/*
-#messagingButton{
+#viewProfileButton{
   background-color: #E0786C;
   text-align: center;
   color: white;
@@ -60,10 +60,10 @@
   border-radius: 0.2em;
   border: 1px white; 
   margin-bottom: 5px;
-  width: 110px;
-  height: 40px;
+  width: 100px;
+  margin-top: 5px;
+  height: 25px;
 }
-*/
 
 #swipingButton{
   background-color: #C4C4C4;
@@ -73,4 +73,5 @@
   padding: 8px;
   border-radius: 0.2em;
   margin-top: 5px;
+  width: 100px;
 }
