@@ -17,6 +17,6 @@ class TestProfile(unittest.TestCase):
         exp_profile = {"response": "invalid userId"}
         profile = getProfile(userId)
         self.assertEqual(exp_profile, profile)
-        
+
 if __name__ == '__main__':
     unittest.main()
