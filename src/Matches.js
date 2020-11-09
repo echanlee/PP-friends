@@ -82,7 +82,6 @@ class Matches extends React.Component {
         
     }
 
-
     render(){
         let matchingSection;
         if (this.state.matchesExist == "exists"){
@@ -90,10 +89,15 @@ class Matches extends React.Component {
             for (var i = 0; i < this.state.userIds.length; i++){
                 var pos_user = this.state.userIds[i];
                 userItems.push(
-                    <button className='pos-user' key={pos_user} value = {this.state.userIds[i]+"|"+this.state.firstnames[i]} onClick = {this.selectUser}>
+                    <button className='pos-user' 
+                            key={pos_user} 
+                            value = {this.state.userIds[i]+"|"+this.state.firstnames[i]} 
+                            onClick = {this.selectUser}>
                         {this.state.firstnames[i]}
-                    </button>
+                    </button>  
                 )
+                
+
             }
             matchingSection = <h3 id='Matches-congrats'>
                 <p>Congratulations,</p>
@@ -117,8 +121,11 @@ class Matches extends React.Component {
             <div id='Matches-section'>
                 <div id='Matches-section'>
                     {matchingSection}
-                </div>                
-                <Link to={{pathname: '/main', state: {id: this.state.userId}}}>Keep swiping!</Link>
+                </div> 
+                <button id = 'messagingButton'>Say Hello</button> 
+                <div class = "swipingButton" id = 'swipingButton'>
+                    <Link to={{pathname: '/main', state: {id: this.state.userId}}}>Keep Swiping</Link>
+                </div>
             </div>
         )
     }

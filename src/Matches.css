@@ -11,8 +11,15 @@
 .pos-user {
   text-align: center;
   margin: auto;
-  display: inline-block;
-  border-radius: 2em;
+  padding: 12px; 
+  display: block;
+  border-radius: 0.2em;
+  width: 200px;
+  background-color:#F8DABB;
+  color: white;
+  border: 1px white; 
+  margin-top: 15px; 
+  font-size: 25px;
   
 }
 
@@ -41,4 +48,25 @@
 
 .Register-link {
   color: #61dafb;
+}
+
+#messagingButton{
+  background-color: #E0786C;
+  text-align: center;
+  color: white;
+  font-size: 15px;
+  padding: 8px;
+  border-radius: 0.2em;
+  border: 1px white; 
+  margin-bottom: 5px;
+}
+
+#swipingButton{
+  background-color: #C4C4C4;
+  text-align: center;
+  color: white;
+  font-size: 15px;
+  padding: 8px;
+  border-radius: 0.2em;
+  margin-top: 5px;
 }
