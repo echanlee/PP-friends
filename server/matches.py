@@ -1,13 +1,13 @@
 import mysql.connector
 from mysql.connector import errorcode
-from .connect import connectToDB
+from connect import connectToDB
 
 def matchUser(userId):
     try:
         connection = connectToDB()
         if(connection != False):
             cursor = connection.cursor(buffered=True)
-            sql = "SELECT p.userId, p.firstname \
+            sql = "SELECT distinct p.userId, p.firstname \
                     from Profile p where p.userId in \
                     (SELECT userOne FROM Conversation WHERE userTwo = %s)"
 
