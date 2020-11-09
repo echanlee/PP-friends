@@ -3,31 +3,6 @@
 
 Purely Platonic Friends application
 
-For deployment setup, we will be using the Management Sciences servers. To access our application you can visit: https://mansci-db.uwaterloo.ca/~mnsison/.
+For deployment setup, we are using GCP so to access the application you can send us your IP and then clone the repository. Once the repository is cloned you can go to master and in a terminal run `npm install` and then `npm start`. Then in a new terminal run the following commands: `cd server` and then `python myapp.py`
 
-
-Install:
-
-`npm install react-router@3 --save`
-
-`npm install react`
-
-`npm install react-dom`
-
-`npm install react-router`
-
-`pip install mysql.connector `
-
-`pip install flask_cors`
-
-`pip install flask`
-
-How to run locally:
-
-Front-end
-npm install (if haven't installed yet)
-npm start
-
-Back-end:
-cd server
-python myapp.py
+Once those have been run go to http://localhost:3000/ 
