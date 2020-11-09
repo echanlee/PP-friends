@@ -36,35 +36,30 @@ class Questionnaire extends Component {
       .then((res) =>
         res.json())
       .then((res) =>{
-        if(res.response === "Success"){
-          this.props
-          .history.push({
-            state: {id: id}
-        });
+        if(res.response === "Success") {
+          fetch(matchRequest)
+          .then((res) =>
+            res.json())
+          .then((res) => {
+            if(res.response === "Success"){
+              this.props
+              .history.push({
+                pathname: "/main",
+                state: {id: id}
+              });
+          }
+            else {
+              this.setState({
+                error: res.response,
+              });
+            }
+          })
+        }
+        else {
+          this.setState({
+            error: res.response,
+          });
       }
-        else {
-          this.setState({
-            error: res.response,
-          });
-        }
-      })
-
-      fetch(matchRequest)
-      .then((res) =>
-        res.json())
-      .then((res) =>{
-        if(res.response === "Success"){
-          this.props
-          .history.push({
-            pathname: "/main",
-            state: {id: id}
-          });
-        }
-        else {
-          this.setState({
-            error: res.response,
-          });
-        }
       })
       
       .catch((error) =>{
