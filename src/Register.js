@@ -42,7 +42,7 @@ class Register extends React.Component {
           if (res.response === "Success") 
             this.props
             .history.push({
-              pathname: "/profile",
+              pathname: "/createprofile",
               state: {id: res.id}
             });
             

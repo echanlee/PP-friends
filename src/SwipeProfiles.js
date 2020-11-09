@@ -146,19 +146,22 @@ class SwipeProfiles extends React.Component {
     ) {
       this.getPotentialFriendList();
     }
-
     return (
       /*navigation bar and other necessary information about the match*/
       <div className="SwipeProfile">
         <ul>
           <li>
-            <a href="Matches.js">Matches</a>
+            <Link to={{ pathname: "/matches", state: { id: this.state.id } }}>
+            See matches
+            </Link>
           </li>
           <li>
-            <a href="profile.js">My Profile</a>
+            <Link to={{pathname: '/viewprofile', state: {id: this.state.id}}}>
+              View Profile
+            </Link>
           </li>
           <li>
-            <a href="Settings">Settings</a>
+          <Link to={{pathname: '/settings', state: {id: this.state.userId}}}>Settings</Link>
           </li>
         </ul>
         <br></br>
@@ -166,9 +169,6 @@ class SwipeProfiles extends React.Component {
         <br></br>
         <img src="ppFriendsLogo.png"></img>
         <br></br>
-        <Link to={{ pathname: "/matches", state: { id: this.state.id } }}>
-          See matches
-        </Link>
         <br></br>
         <br></br>
         {error ? (

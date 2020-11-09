@@ -32,7 +32,7 @@ import {withRouter} from 'react-router-dom'
             const myForm = new FormData (document.getElementById("profileForm"));
             myForm.append("id", id);
             myForm.append("age", this.state.age);
-            const myRequest = new Request("http://127.0.0.1:5000/profile", {
+            const myRequest = new Request("http://127.0.0.1:5000/createprofile", {
               method: "POST",
               body: myForm,
             });
@@ -59,10 +59,7 @@ import {withRouter} from 'react-router-dom'
               });
             });
           }
-          else{
-          }
         } 
-      
       else{ 
         alert("Please fill in all fields");
       }
@@ -135,7 +132,7 @@ import {withRouter} from 'react-router-dom'
             >
               <option value="Female">Female</option>
               <option value ="Male">Male</option>
-              <option value ="Both">Both</option>
+              <option value ="Other">Other</option>
             </select>
 
             <p>Your Preferred Gender for friends:</p>
