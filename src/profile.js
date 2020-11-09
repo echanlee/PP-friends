@@ -18,6 +18,7 @@ import {withRouter} from 'react-router-dom'
         age: 0,
       };
 
+      
       this.handleUpdate = this.handleUpdate.bind(this);
       this.handleChange = this.handleChange.bind(this);
     }
@@ -121,7 +122,6 @@ import {withRouter} from 'react-router-dom'
             <input type="date" name="birthday"
               value={this.state.birthday}
               min="1920-01-01" 
-              max="2020-12-31"
               placeholder = "YYYY-MM-DD"
               onChange={this.handleChange}
               />
