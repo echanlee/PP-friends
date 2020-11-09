@@ -101,7 +101,7 @@ class Matches extends React.Component {
             }
             matchingSection = <h3 id='Matches-congrats'>
                 <p>Congratulations,</p>
-                <p>You got potential pal-ed!</p> 
+                <p>you have a match!</p> 
                 <p>
                     {userItems}
                 </p>
