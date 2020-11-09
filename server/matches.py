@@ -1,15 +1,16 @@
 import mysql.connector
 from mysql.connector import errorcode
-from connect import connectToDB
+from .connect import connectToDB
 
 def matchUser(userId):
     try:
         connection = connectToDB()
         if(connection != False):
             cursor = connection.cursor(buffered=True)
-            sql = "SELECT DISTINCT p.userId, p.firstname \
-                from ppFriends.Conversation c join ppFriends.Profile p \
-                on (c.userOne = p.userId or c.userTwo = p.userId) where userId != %s"
+            sql = "SELECT p.userId, p.firstname \
+                    from Profile p where p.userId in \
+                    (SELECT userOne FROM Conversation WHERE userTwo = %s)"
+
             cursor.execute(sql, (userId,))
             userIds = []
             firstnames = []
