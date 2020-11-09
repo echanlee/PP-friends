@@ -1,3 +1,7 @@
+* {
+  font-family: 'Montserrat', sans-serif;
+}
+
 #Matches-header {
   text-align: center;
   margin: auto;
@@ -13,17 +17,30 @@
 }
 
 #Matches-section{
-  background-color: #282c34;
-  min-height: 100vh;
+  background-color: #F8DABB;
+  margin-left:auto;
+  margin-right:auto;
+  margin-top: 2%;
+  border-radius: 10px;
+  padding:7%;
+  width:30em;
+  line-height: 25px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #e0786c;
 }
+
 #Matches-congrats {
-  text-align: center
+  text-align: center;
+  color: black;
+}
+
+#Matches-none {
+  text-align: center;
+  color: black;
 }
 
 .Register-link {

@@ -95,17 +95,18 @@ class Matches extends React.Component {
                     </button>
                 )
             }
-            matchingSection = 
-                <div>
-                    <td id='Matches-congrats'>
-                        Congratulations, these people want to be your friend!
-                    </td>
+            matchingSection = <h3 id='Matches-congrats'>
+                Congratulations, these people want to be your friend!
+                <p>
                     {userItems}
-                </div>
+                </p>
+                </h3>
         }
         else if (this.state.matchesExist == "not exists") {
             matchingSection = <h2 id='Matches-none'>
-                Sorry, No one wants to be your friend for now. Please try again later :(
+                Sorry, no one met the matching criteria you set. 
+                We suggest you to edit your profile 
+                Please try again later :(
             </h2>
         }
         else {
@@ -113,8 +114,7 @@ class Matches extends React.Component {
         }
         return(
             <div id='Matches-section'>
-                <h2 id='Matches-header'>Matches</h2>
-                <div>{this.state.name}</div>
+                <h2 id='Matches-header'>Your Matches</h2>
                 <Link to={{pathname: '/main', state: {id: this.state.userId}}}>Back to Swiping!</Link>
                 <div id='Matches-section'>
                     {matchingSection}
