@@ -29,9 +29,10 @@ def login():
 @app.route('/profile', methods=['POST'])
 def profile():
     if request.method == 'POST':
-        return updateProfile(request.form['name'], request.form['age'],
+        return updateProfile(request.form['name'], request.form['birthday'],
                              request.form['bio'], request.form['gender'], request.form['education'],
-                             request.form['interests'], request.form['genderPreference'], request.form['id'])
+                             request.form['interests'], request.form['genderPreference'], request.form['id'], 
+                             request.form['age'])
 
 @app.route('/matches', methods=['POST'])
 def get_matches():
