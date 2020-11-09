@@ -147,7 +147,6 @@ class SwipeProfiles extends React.Component {
     ) {
       this.getPotentialFriendList();
     }
-
     return (
       /*navigation bar and other necessary information about the match*/
       <div className="SwipeProfile">
@@ -157,9 +156,6 @@ class SwipeProfiles extends React.Component {
         <br></br>
         <img src="ppFriendsLogo.png"></img>
         <br></br>
-        <Link to={{ pathname: "/matches", state: { id: this.state.id } }}>
-          See matches
-        </Link>
         <br></br>
         <br></br>
         {error ? (

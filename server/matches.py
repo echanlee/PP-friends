@@ -2,9 +2,6 @@ import mysql.connector
 from mysql.connector import errorcode
 from connect import connectToDB
 
-
-
-
 def matchUser(userId):
     try:
         connection = connectToDB()

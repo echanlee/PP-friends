@@ -85,9 +85,8 @@ class Questionnaire extends Component {
   componentDidMount() {
     this.getQuestions();
   }
-  storeAnswer = (answer) => {
-    this.setState({
-      response: this.state.response.concat(answer)});
+  storeAnswer = (answer,ID) => {
+    this.state.response[ID-1]=answer;
   }
 
   render(){
@@ -104,7 +103,7 @@ class Questionnaire extends Component {
             options={answers}
             ID={questionId}
             key={questionId}
-            selected={answer => this.storeAnswer(answer)}
+            selected={answer => this.storeAnswer(answer,questionId)}
             />
           ))
         }

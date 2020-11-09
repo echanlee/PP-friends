@@ -9,6 +9,14 @@ nav{
     background-color: #f8dabb;
 }
 
+.navbar a {
+    font-weight: bold;
+}
+
+.navbar a:hover {
+    opacity: 1;
+}
+
 .div-header{
     width: 80%;
     height: 100%;
@@ -20,7 +28,8 @@ nav{
 }
 
 .div-header a:hover,
-.div-header a:active {
+.div-header a:active 
+.div-header a.active {
     color: rgb(102, 102, 102);
 }
 
