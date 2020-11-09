@@ -32,40 +32,38 @@ class Questionnaire extends Component {
                               "userId": id}),
       }); 
 
-      fetch(matchRequest)
-      .then((res) =>
-        res.json())
-      .then((res) =>{
-        if(res.response === "Success"){
-          this.props
-          .history.push({
-            state: {id: id}
-          });
-        }
-        else {
-          this.setState({
-            error: res.response,
-          });
-        }
-      })
-      
       fetch(myRequest)
       .then((res) =>
         res.json())
       .then((res) =>{
-        if(res.response === "Success"){
-          this.props
-          .history.push({
-            pathname: "/main",
-            state: {id: id}
-          });
+        if(res.response === "Success") {
+          //Once the first questionnaire API call is a success, the second matching call is nested to ensure that the two calls
+          //happen in succession
+          fetch(matchRequest)
+          .then((res) =>
+            res.json())
+          .then((res) => {
+            if(res.response === "Success"){
+              this.props
+              .history.push({
+                pathname: "/main",
+                state: {id: id}
+              });
+          }
+            else {
+              this.setState({
+                error: res.response,
+              });
+            }
+          })
         }
         else {
           this.setState({
             error: res.response,
           });
-        }
+      }
       })
+      
       .catch((error) =>{
         this.setState({
           error: "Error connecting to backend",

@@ -1,4 +1,5 @@
 import React from "react";
+import Header from './Header';
 import "./SwipeProfile.css";
 import { withRouter, Link } from "react-router-dom";
 
@@ -149,21 +150,7 @@ class SwipeProfiles extends React.Component {
     return (
       /*navigation bar and other necessary information about the match*/
       <div className="SwipeProfile">
-        <ul>
-          <li>
-            <Link to={{ pathname: "/matches", state: { id: this.state.id } }}>
-            See matches
-            </Link>
-          </li>
-          <li>
-            <Link to={{pathname: '/viewprofile', state: {id: this.state.id}}}>
-              View Profile
-            </Link>
-          </li>
-          <li>
-          <Link to={{pathname: '/settings', state: {id: this.state.userId}}}>Settings</Link>
-          </li>
-        </ul>
+        <Header id={this.state.id}/>
         <br></br>
         <header class="pageTitle">Potential Friends!</header>
         <br></br>

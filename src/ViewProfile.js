@@ -1,5 +1,6 @@
 import React from "react";
 import {withRouter, Link} from 'react-router-dom'
+import Header from './Header'
 
 class ViewProfile extends React.Component {
     constructor(props) {
@@ -46,17 +47,7 @@ class ViewProfile extends React.Component {
     render() {
       return (
         <div className="Profile">
-          <ul>
-          <li>
-          <Link to={{pathname: '/main', state: {id: this.state.userId}}}>Back to Swiping!</Link>
-          </li>
-          <li>
-          <Link to={{pathname: '/editprofile', state: {id: this.state.userId}}}>Edit Profile</Link>
-          </li>
-          <li>
-            <a href="Settings">Settings</a>
-          </li>
-        </ul>
+          <Header id={this.state.id}/>
           <form id="profileForm">
             <h1>View My Profile</h1>
             <p>Name:</p>

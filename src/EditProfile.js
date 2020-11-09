@@ -1,6 +1,7 @@
 import React from "react";
 import "./profile.css"
 import {withRouter, Link} from 'react-router-dom'
+import Header from './Header'
 
   class EditProfile extends React.Component {
     constructor(props) {
@@ -133,17 +134,7 @@ import {withRouter, Link} from 'react-router-dom'
       return (
           
         <div className="Profile">
-          <ul>
-            <li>
-            <Link to={{pathname: '/main', state: {id: this.state.userId}}}>Back to Swiping!</Link>
-            </li>
-            <li>
-            <Link to={{pathname: '/viewprofile', state: {id: this.state.userId}}}>View Profile</Link>
-            </li>
-          <li>
-          <Link to={{pathname: '/settings', state: {id: this.state.userId}}}>Settings</Link>
-          </li>
-        </ul>
+          <Header id={this.state.id}/>
           <form id="profileForm" onSubmit={this.handleUpdate}>
           <h1>My Profile</h1>
 
