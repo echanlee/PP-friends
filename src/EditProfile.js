@@ -8,7 +8,7 @@ import {withRouter, Link} from 'react-router-dom'
       this.state = {
         userId: this.props?.location?.state?.id,
         name: "",
-        age: "null",
+        age: 0,
         bio: "",
         gender: "Female",
         genderPreference: "Female",

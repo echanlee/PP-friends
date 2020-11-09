@@ -8,7 +8,7 @@ class ViewProfile extends React.Component {
         userId: this.props?.location?.state?.id,
         name: "",
         birthday: "",
-        age: "null",
+        age: 0,
         bio: "",
         gender: "Female",
         genderPreference: "Female",
