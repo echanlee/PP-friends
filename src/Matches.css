@@ -59,6 +59,8 @@
   border-radius: 0.2em;
   border: 1px white; 
   margin-bottom: 5px;
+  width: 110px;
+  height: 40px;
 }
 
 #swipingButton{
