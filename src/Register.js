@@ -74,31 +74,37 @@ class Register extends React.Component {
   render() {
     return (
       <div className="Register">
-          <header> Register for PP Friends</header>
+          <h1> Join the Community</h1>
           <form id="registerForm" onSubmit={this.handleSubmit}>
-            <input name="email" type="email" placeholder="Email Address*" />
-            <br></br>
-            <input
-              name="password"
-              type="password"
-              value={this.state.password}
-              placeholder="Enter password*"
-              onChange={this.handleInputChange}
-            />
-            <br></br>
-            <input
-              name="confirmPassword"
-              type="password"
-              value={this.state.confirmPassword}
-              placeholder="Re-enter password*"
-              onChange={this.handleInputChange}
-            />
-            <br></br>
+            <div class = "form-group form in-line">
+              <input 
+                name="email" 
+                type="email" 
+                placeholder="Email Address" 
+              />
+              <br></br>
+              <input
+                name="password"
+                type="password"
+                value={this.state.password}
+                placeholder="Enter password"
+                onChange={this.handleInputChange}
+              />
+              <br></br>
+              <input
+                name="confirmPassword"
+                type="password"
+                value={this.state.confirmPassword}
+                placeholder="Re-enter password"
+                onChange={this.handleInputChange}
+              />
+              <br></br>
 
-            <input type="submit" value="Submit" />
-            <br></br>
-
-            <text>{this.state.error}</text>
+              <input type="submit" value="Join" />
+              <br></br>
+              <text>{this.state.error}</text>
+            </div>
+            
           </form>
           <Link to="/">I Already Have an Account</Link>
       </div>

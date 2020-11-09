@@ -7,6 +7,7 @@ class ViewProfile extends React.Component {
       this.state = {
         userId: this.props?.location?.state?.id,
         name: "",
+        birthday: "",
         age: "null",
         bio: "",
         gender: "Female",
@@ -34,6 +35,7 @@ class ViewProfile extends React.Component {
                     genderPreference: res.genderPreference,
                     education: res.education, 
                     interests: res.interests,
+                    birthday: res.birthday,
                     maxDistance: res.maxDistance,
                 })
         ).catch((error) => {
@@ -44,17 +46,25 @@ class ViewProfile extends React.Component {
     render() {
       return (
         <div className="Profile">
+          <ul>
+          <li>
+          <Link to={{pathname: '/main', state: {id: this.state.userId}}}>Back to Swiping!</Link>
+          </li>
+          <li>
+          <Link to={{pathname: '/editprofile', state: {id: this.state.userId}}}>Edit Profile</Link>
+          </li>
+          <li>
+            <a href="Settings">Settings</a>
+          </li>
+        </ul>
           <form id="profileForm">
             <h1>View My Profile</h1>
-            <Link to={{pathname: '/main', state: {id: this.state.userId}}}>Back to Swiping!</Link>
-            <Link to={{pathname: '/editprofile', state: {id: this.state.userId}}}>Edit Profile</Link>
             <p>Name:</p>
 
             {this.state.name}
 
-            <p>Age:</p>
-
-            {this.state.age}
+            <p>Birthday:</p>
+            {this.state.birthday}
 
             <p>Your Gender:</p>
 
@@ -64,7 +74,7 @@ class ViewProfile extends React.Component {
             >
               <option value="Female">Female</option>
               <option value ="Male">Male</option>
-              <option value ="Both">Both</option>
+              <option value ="Other">Other</option>
             </select>
 
             <p>Your Preferred Gender for friends:</p>

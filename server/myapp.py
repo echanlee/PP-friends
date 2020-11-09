@@ -29,10 +29,10 @@ def login():
 @app.route('/createprofile', methods=['POST'])
 def create_profile():
     if request.method == 'POST':
-        return profile.createProfile(request.form['name'], request.form['age'],
+        return profile.createProfile(request.form['name'], request.form['birthday'],
                              request.form['bio'], request.form['gender'], request.form['education'],
-                             request.form['interests'], request.form['genderPreference'], request.form['maxDistance'], 
-                             request.form['id'])
+                             request.form['interests'], request.form['genderPreference'], request.form['maxDistance'],  
+                             request.form['age'], request.form['id'])
 
 @app.route('/viewprofile', methods=['POST'])
 def viewProfile():
@@ -43,10 +43,10 @@ def viewProfile():
 @app.route('/editprofile', methods=['POST'])
 def edit_profile():
     if request.method == 'POST':
-        return profile.updateProfile(request.form['name'], request.form['age'],
+        return profile.updateProfile(request.form['name'], request.form['birthday'],
                              request.form['bio'], request.form['gender'], request.form['education'],
-                             request.form['interests'], request.form['genderPreference'], request.form['maxDistance'], 
-                             request.form['id'])
+                             request.form['interests'], request.form['genderPreference'], request.form['maxDistance'],  
+                             request.form['age'], request.form['id'])
 
 @app.route('/matches', methods=['POST'])
 def get_matches():
