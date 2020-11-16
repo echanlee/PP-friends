@@ -1,3 +1,4 @@
+import "./Login.css";
 import React from 'react';
 import {withRouter, Link} from 'react-router-dom'
 
@@ -28,7 +29,6 @@ class Login extends React.Component {
     event.preventDefault();
 
       const myForm = document.getElementById('loginForm');
-      console.log(myForm);
       
       const myRequest = new Request('http://127.0.0.1:5000/login', {
         method: 'POST',
@@ -38,7 +38,6 @@ class Login extends React.Component {
       fetch(myRequest)
         .then(res => res.json())
         .then(res => { 
-          console.log(res); 
             if(res.response === "Success") {
               this.props
                 .history.push({
@@ -60,18 +59,30 @@ class Login extends React.Component {
   render() {
     return (
       <div className = "Login" >
-        <header> Welcome to PP Friends</header>
+        <div className = "logoBanner">
+        <svg viewBox="0 0 500 200">
+          <path id="curve" fill = "transparent" d="M73.2,200.6c4-6.1,65.5-96.8,178.6-95.6c111.3,1.2,170.8,90.3,175.1,97" />
+          <text width="500">
+          <textPath href="#curve">
+            Making friendly connections.
+          </textPath>
+            </text>
+        </svg>
+        <img src="ppFriendsLogo.png"></img>
+        </div>
+        
+        <h1> Purely Platonic</h1>
         <form id = "loginForm" onSubmit={this.handleSubmit}>
               <input
                   name="email"
                   type="email"
-                  placeholder="Email Address*"
+                  placeholder="Email Address"
                 /><br></br>
                 <input
                   name="password"
                   type="password"
                   value = {this.state.password}
-                  placeholder="Enter password*"
+                  placeholder="Enter password"
                   onChange={this.handleInputChange}
                 /><br></br>
 

@@ -5,11 +5,14 @@ import {
     Route,
   } from "react-router-dom";
 import Register from "./Register";
-import ProfileForm from "./profile"
+import ProfileForm from "./CreateProfile"
 import Login from "./Login";
 import SwipeProfiles from "./SwipeProfiles";
 import Matches from "./Matches";
 import Questionnaire from './Questionnaire';
+import Messages from './Messages';
+import ViewProfile from './ViewProfile';
+import EditProfile from './EditProfile';
 
 export default class App extends React.Component {
     render() {
@@ -18,8 +21,14 @@ export default class App extends React.Component {
             <Router>
                 <div>
                     <Switch>
-                        <Route path="/profile">
+                        <Route path="/createprofile">
                             <ProfileForm />
+                        </Route>
+                        <Route path="/viewprofile">
+                            <ViewProfile />
+                        </Route>
+                        <Route path="/editprofile">
+                            <EditProfile />
                         </Route>
                         <Route path="/register">
                             <Register />
@@ -32,6 +41,9 @@ export default class App extends React.Component {
                         </Route>
                         <Route path="/questionnaire">
                             <Questionnaire />
+                        </Route>
+                        <Route path="/messages">
+                            <Messages />
                         </Route>
                         <Route path="/">
                             <Login />
