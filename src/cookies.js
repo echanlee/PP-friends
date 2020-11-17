@@ -19,5 +19,9 @@ export function getCookie(cname) {
   }
 
   export function clearCookies() {
-    window.document.cookie = "";
+    var cookies = document.cookie.split(";");
+    for (var i = 0; i < cookies.length; i++){   
+        var spcook =  cookies[i].split("=");
+        document.cookie = spcook[0] + "=;expires=Thu, 21 Sep 1979 00:00:01 UTC;";                                
+    }
   }

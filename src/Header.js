@@ -27,7 +27,7 @@ const Header = (props) => {
                 </div>
                 <div class="navbar">
                     <NavLink to={{
-                        pathname:'/'}} className='inactive' activeClassName="active">
+                        pathname:'/login'}} className='inactive' activeClassName="active">
                         <button className='button-header'>Log Out</button>
                     </NavLink>
                 </div>

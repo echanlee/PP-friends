@@ -13,10 +13,12 @@ import Questionnaire from './Questionnaire';
 import Messages from './Messages';
 import ViewProfile from './ViewProfile';
 import EditProfile from './EditProfile';
+import {getCookie} from './cookies';
 
 export default class App extends React.Component {
     render() {
-
+        var id = getCookie("userId");
+        console.log("hello"+ id);
         return (
             <Router>
                 <div>
@@ -45,8 +47,14 @@ export default class App extends React.Component {
                         <Route path="/messages">
                             <Messages />
                         </Route>
-                        <Route path="/">
+                        <Route path="/login">
                             <Login />
+                        </Route>
+                        <Route path="/">
+                            {id === ""?
+                            <Login /> :
+                            <SwipeProfiles />
+                            }
                         </Route>
                     </Switch>
                 </div>
