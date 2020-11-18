@@ -1,0 +1,70 @@
+
+.PageContainer{
+	font-size: 15px;
+	font-weight: 600;
+	padding: 2%;
+	width:50%;
+	height:70%;
+	margin-left:auto;
+	margin-right:auto;
+	align-items: center;
+}
+.MessageContainer{
+	background-color: #f3f3f3;
+	height:500px;
+	margin-top:5%;
+	margin-bottom:10%;
+	margin-left:auto;
+	margin-right:auto;
+	overflow: auto;
+	font-weight: 600;
+	border-radius: 10px;
+}
+.UserOne {
+	background-color: #F8DABB;
+	padding: 15px;
+	width: 70%;
+	margin: 10px;
+	border-radius: 8px;
+	float:right;
+	color: #303030;
+	font-size: 14px;
+}
+.UserTwo {
+	background-color: #4DADB7;
+	padding: 15px;
+	width: 70%;
+	margin: 10px;
+	border-radius: 8px;
+	float:left;
+	color: #303030;
+	align-content: right;
+	font-size: 14px;
+}
+
+.PageContainer input[name="message"] {
+	width: 70%;
+	padding: 3px;
+	border-radius: 5px;
+	border-color:#0081a7;
+}
+.PageContainer button {
+    color: white;;
+    letter-spacing: 1px;
+    background-color: #0081a7;
+    border: 3px solid #0081a7;
+    display: inline-block;
+    border-radius: 5px;
+    padding: 5px;
+	width: 20%;
+	margin: 10px;
+    text-align: center;
+}
+.PageContainer p1{
+	color:white;
+	font-weight: 300;
+}
+
+.PageContainer h1{
+	color: #f07167;
+}

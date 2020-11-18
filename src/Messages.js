@@ -1,7 +1,8 @@
 import React from 'react';
 import io from "socket.io-client";
 import {withRouter, Link} from 'react-router-dom'
-
+import "./Messages.css";
+import Header from './Header';
 
 let endPoint = "http://localhost:5000";
 let socket = io.connect(`${endPoint}`);
@@ -120,20 +121,40 @@ class Messages extends React.Component {
     var names = this.state.messageSender;
     return (
       <div>
-        <Link to={{pathname: '/matches', state: {id: this.state.userId}}}>Back to Matches matches</Link>
+        <Header id={this.state.id}/>
+      <div className = "PageContainer">
+        <p>You are currently messaging:</p>
+         <h1>{"i hate everything"}</h1>
+        <div className = "MessageContainer">
         {messages.length > 0 ?
           messages.map((msg, index) => (
-            <div>
-              <p>{timeStamps[index]}</p>
-              <p>{names[index]} : {msg}</p>
-            </div>
-          )):
-          <header>Start a conversation!</header>}
+            //Checks which user is messaging
+             names[index]==this.state.currentName ?
+              <div className = "UserOne">
+                {console.log("user one")}
+                <p1>{timeStamps[index]}</p1>
+                <p>{names[index]} : {msg}</p>
+              </div>
+              
+            :
+              <div className = "UserTwo">
+                {console.log("user two")}
+                <p1>{timeStamps[index]}</p1>
+                <p>{names[index]} : {msg}</p>
+              </div>
+            ))
+            :
+          <p>Start a conversation!</p>}
+
+        </div>
         <input value={message} name="message" onChange={e => this.onChange(e)} onKeyPress={this.onKeyPress} />
         <button onClick={() =>this.onClick()} >Send Message</button> <br></br>
+        
+      </div>
       </div>
     );
     }
 }
+
 
 export default withRouter(Messages);
