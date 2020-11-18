@@ -126,7 +126,6 @@ class Messages extends React.Component {
     var messages = this.state.messages;
     var timeStamps = this.state.timeStamps;
     var names = this.state.messageSender;
-    console.log(messages);
     return (
       <div>
         <Link to={{pathname: '/matches'}}>Back to Matches matches</Link>

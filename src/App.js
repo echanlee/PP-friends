@@ -18,7 +18,6 @@ import {getCookie} from './cookies';
 export default class App extends React.Component {
     render() {
         var id = getCookie("userId");
-        console.log("hello"+ id);
         return (
             <Router>
                 <div>
