@@ -54,8 +54,8 @@ def addToMessageTable(convoId, friendConvoId, currentId, friendId, message, curs
     cursor.execute(sql)
     return cursor.lastrowid
 
-
 def updateConversationTable(convoId, messageId, cursor):
     sql = f"UPDATE Conversation SET messageId = {messageId}, timeStamp = CURRENT_TIMESTAMP \
             WHERE conversationId = {convoId}"
+
     cursor.execute(sql)
