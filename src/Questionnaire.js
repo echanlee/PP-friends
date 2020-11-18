@@ -3,11 +3,14 @@ import questions from './questions';
 import QuestionBox from './QuestionBtn';
 import './Questionnaire.css';
 import {withRouter} from 'react-router-dom'
+import {getCookie} from './cookies';
+
 
 class Questionnaire extends Component {
   constructor(props){
     super(props);
     this.state = {
+      id: getCookie("userId"),
       questionBank: [],
       response:[]
     };
@@ -17,7 +20,7 @@ class Questionnaire extends Component {
   handleSubmit(event){
     event.preventDefault();
     if(this.state.response.length >= 16){ //checks if all questions have been answered
-      const id = this.props?.location?.state?.id;//test ID
+      const id = this.state.id;
       const myRequest = new Request ('http://127.0.0.1:5000/questionnaire',{
         method: 'POST',
         headers: {'Content-Type':'application/json'},
@@ -47,7 +50,6 @@ class Questionnaire extends Component {
               this.props
               .history.push({
                 pathname: "/main",
-                state: {id: id}
               });
           }
             else {
@@ -90,6 +92,14 @@ class Questionnaire extends Component {
   }
 
   render(){
+
+    if(this.state.id === "") {
+      this.props.history.push({
+        pathname: "/login",
+      });
+      return null;
+  }
+
     return(
       <div>
         <div>

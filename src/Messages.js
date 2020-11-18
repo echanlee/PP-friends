@@ -1,6 +1,7 @@
 import React from 'react';
 import io from "socket.io-client";
 import {withRouter, Link} from 'react-router-dom'
+import {getCookie} from './cookies';
 
 
 let endPoint = "http://localhost:5000";
@@ -10,7 +11,7 @@ class Messages extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-        userId: this.props?.location?.state?.id,
+        userId: getCookie("userId"),
         messages : [],
         messageSender: [],
         timeStamps: [],
@@ -114,13 +115,20 @@ class Messages extends React.Component {
   }
 
   render() {
+    if(this.state.userId === "") {
+      this.props.history.push({
+        pathname: "/login",
+      });
+      return null;
+  }
+
     var message = this.state.message;
     var messages = this.state.messages;
     var timeStamps = this.state.timeStamps;
     var names = this.state.messageSender;
     return (
       <div>
-        <Link to={{pathname: '/matches', state: {id: this.state.userId}}}>Back to Matches matches</Link>
+        <Link to={{pathname: '/matches'}}>Back to Matches matches</Link>
         {messages.length > 0 ?
           messages.map((msg, index) => (
             <div>

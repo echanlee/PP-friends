@@ -1,11 +1,13 @@
 import React from "react";
 import "./profile.css"
 import {withRouter} from 'react-router-dom'
+import {getCookie} from './cookies';
 
   class ProfileForm extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
+        id: getCookie("userId"),
         name: "",
         birthday: "",
         bio: "",
@@ -28,7 +30,7 @@ import {withRouter} from 'react-router-dom'
       if (this.completedInput()){
           this.checkAge();
           if (this.state.age > 18 && this.state.age < 100){
-            const id = this.props?.location?.state?.id;
+            const id = this.state.id;
             const myForm = new FormData (document.getElementById("profileForm"));
             myForm.append("id", id);
             myForm.append("age", this.state.age);
@@ -44,7 +46,6 @@ import {withRouter} from 'react-router-dom'
               if(res.response === "Success"){
                 this.props.history.push({
                   pathname: "/questionnaire",
-                  state: {id: id},
                 });
               }
               else {
@@ -105,6 +106,14 @@ import {withRouter} from 'react-router-dom'
     }
 
     render() {
+      const id = this.state.id;
+      if(id === "") {
+        this.props.history.push({
+          pathname: "/login",
+        });
+        return null;
+      }
+
       return (
         <div className="Profile">
           <form id="profileForm" onSubmit={this.handleUpdate}>
