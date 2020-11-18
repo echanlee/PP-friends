@@ -25,6 +25,14 @@ class Messages extends React.Component {
     this.onClick = this.onClick.bind(this);
   }
 
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+  }
+  
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
+
   componentDidMount = () => {
     const currentConvoId = this.props?.location?.state?.currentConvoId;
     const myRequest = new Request('http://127.0.0.1:5000/getMessages', {
@@ -48,6 +56,7 @@ class Messages extends React.Component {
                         messageSender: [...this.state.messageSender, this.state.friendName],
                         timeStamps: [...this.state.timeStamps, new Date().toUTCString()],
                       });
+                  this.scrollToBottom();
                 });
             })
         .catch((error) => {
@@ -124,28 +133,27 @@ class Messages extends React.Component {
         <Header id={this.state.id}/>
       <div className = "PageContainer">
         <p>You are currently messaging:</p>
-         <h1>{"i hate everything"}</h1>
+         <h1>{this.state.friendName}</h1>
         <div className = "MessageContainer">
         {messages.length > 0 ?
           messages.map((msg, index) => (
             //Checks which user is messaging
              names[index]==this.state.currentName ?
               <div className = "UserOne">
-                {console.log("user one")}
                 <p1>{timeStamps[index]}</p1>
                 <p>{names[index]} : {msg}</p>
               </div>
-              
             :
               <div className = "UserTwo">
-                {console.log("user two")}
                 <p1>{timeStamps[index]}</p1>
                 <p>{names[index]} : {msg}</p>
               </div>
             ))
             :
           <p>Start a conversation!</p>}
-
+          <div style={{ float:"left", clear: "both" }}
+            ref={(el) => { this.messagesEnd = el; }}>
+          </div>
         </div>
         <input value={message} name="message" onChange={e => this.onChange(e)} onKeyPress={this.onKeyPress} />
         <button onClick={() =>this.onClick()} >Send Message</button> <br></br>
@@ -154,6 +162,8 @@ class Messages extends React.Component {
       </div>
     );
     }
+
+    
 }
 
 
