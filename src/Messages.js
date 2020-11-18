@@ -20,13 +20,14 @@ class Messages extends React.Component {
         currentName: this.props?.location?.state?.currentName,
         friendName: this.props?.location?.state?.friendName,
         friendId:  this.props?.location?.state?.friendId,
+        currentConvoId: this.props?.location?.state?.currentConvoId,
     }
     this.onChange = this.onChange.bind(this);
     this.onClick = this.onClick.bind(this);
   }
 
   componentDidMount = () => {
-    const currentConvoId = this.props?.location?.state?.currentConvoId;
+    const currentConvoId = this.state.currentConvoId;
     const myRequest = new Request('http://127.0.0.1:5000/getMessages', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -68,7 +69,7 @@ class Messages extends React.Component {
     const message = this.state.message;
     const name = this.state.currentName;
     const room = this.state.room;
-    const currentConvoId = this.props?.location?.state?.currentConvoId;
+    const currentConvoId = this.state.currentConvoId;
     if (message !== "") {
       socket.emit("message", 
         {
@@ -89,7 +90,6 @@ class Messages extends React.Component {
         fetch(myRequest)
             .then(response => response.json())
             .then(res => {
-              console.log(res);
                 if(res.response != "Success")
                     alert("Something went wrong sending message");
             })
@@ -126,6 +126,7 @@ class Messages extends React.Component {
     var messages = this.state.messages;
     var timeStamps = this.state.timeStamps;
     var names = this.state.messageSender;
+    console.log(messages);
     return (
       <div>
         <Link to={{pathname: '/matches'}}>Back to Matches matches</Link>

@@ -31,7 +31,6 @@ class Matches extends React.Component {
                 .history.push({
                   pathname: "/messages",
                   state: {
-                      id: this.state.userId,
                       friendId: userSelected[0],
                       currentName: this.state.name,
                       friendName: userSelected[1],
