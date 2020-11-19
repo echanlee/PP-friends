@@ -154,7 +154,6 @@ class SwipeProfiles extends React.Component {
       this.getPotentialFriendList();
     }
     return (
-      /*navigation bar and other necessary information about the match*/
       <div className="SwipeProfile">
         <Header id={this.state.id} />
         <br></br>
@@ -171,23 +170,19 @@ class SwipeProfiles extends React.Component {
             <img src="ppFriendsLogo.png"></img>
             <h1>A potential Friend!</h1>
             <div class="profileIntroSection">
-              <br></br>
-              <p>Name 😀: </p>
+              <p>Name 😀 </p>
               <text>{this.state.firstName}</text>
-              <p>Age 🎂: </p>
+              <p>Age 🎂 </p>
               <text>{this.state.age}</text>
-              <br></br>
-              <p>Gender 👫: </p>
+
+              <p>Gender 👫 </p>
               <text>{this.state.gender}</text>
-              <p>Description 😶: </p>
+              <p>Description 😶 </p>
               <text>{this.state.description}</text>
-              <p>Interests 🎨: </p>
+              <p>Interests 🎨 </p>
               <text>{this.state.interests}</text>
-              <p>Education / Work 💻: </p>
+              <p>Education / Work 💻 </p>
               <text>{this.state.workplace}</text>
-              <br></br>
-              <br></br>
-              <br></br>
             </div>
             <br></br>
             <button

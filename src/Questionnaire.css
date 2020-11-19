@@ -36,35 +36,43 @@ input[type="radio"] {
   color: #4dadb7;
 }
 
+div.boxed {
+  overflow: auto;
+  height: 300px;
+}
+
 .boxed {
   /*turqouise box section/background */
-  background-color: #4dadb7;
-  align-items: center;
+  background-color: #f8dabb;
+  align-items: left;
+  text-align: left;
   margin-right: auto;
   margin-left: auto;
-  width: 90%;
-  border-radius: 15px;
-  color: white;
-  padding: 6px;
+  padding: 2%;
+  width: 30em;
+  line-height: 35px;
+  border-radius: 10px;
 }
 
 .boxed p {
-  text-align: center;
+  text-align: left;
 }
 
 .Questions {
-  font-size: 30px;
-  font-weight: bold;
+  font-size: 25px;
 }
+
 .submitButton {
   color: white;
   letter-spacing: 1px;
   background-color: #3680a3;
+  border: 3px solid #3680a3;
   display: inline-block;
   border-radius: 5px;
   padding: 5px;
   width: 175px;
   text-align: center;
+  font-size: 20px;
 }
 
 .submitButton:hover {

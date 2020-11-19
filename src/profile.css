@@ -26,12 +26,13 @@ p {
 
 .ProfileBox {
   background-color: #4dadb7;
-  align-items: center;
-  margin-right: auto;
   margin-left: auto;
-  width: 30%;
-  border-radius: 15px;
-  color: white;
+  margin-right: auto;
+  padding: 5%;
+  width: 20em;
+  text-align: center;
+  line-height: 35px;
+  border-radius: 10px;
 }
 
 .ProfileBox text {
@@ -46,6 +47,7 @@ p {
 
 select {
   font-size: 20px;
+  width: 230px;
 }
 
 .Profile input[type="submit"],
@@ -58,6 +60,10 @@ input[value="submit"] {
   display: inline-block;
   border-radius: 5px;
   padding: 5px;
-  width: 175px;
+  width: 200px;
   text-align: center;
+}
+.Profile input[type="date"],
+input[value="submit"] {
+  width: 230px;
 }

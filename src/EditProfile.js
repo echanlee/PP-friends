@@ -148,12 +148,9 @@ class EditProfile extends React.Component {
         <Header id={this.state.userId} />
         <form id="profileForm" onSubmit={this.handleUpdate}>
           <h1>Update My Profile 👋</h1>
-
           <img src="ppFriendsLogo.png"></img>
           <div className="ProfileBox">
-            <br></br>
-            <p>Name 😀:</p>
-
+            <p>Name 😀</p>
             <input
               type="text"
               name="name"
@@ -162,7 +159,7 @@ class EditProfile extends React.Component {
               maxlength="30"
             />
 
-            <p>Birthday 🎂:</p>
+            <p>Birthday 🎂</p>
 
             <input
               type="date"
@@ -173,7 +170,7 @@ class EditProfile extends React.Component {
               onChange={this.handleChange}
             />
 
-            <p>Your Gender 👫:</p>
+            <p>Your Gender 👫</p>
 
             <select
               name="gender"
@@ -185,7 +182,7 @@ class EditProfile extends React.Component {
               <option value="Other">Other</option>
             </select>
 
-            <p>Your Preferred Gender for friends 🎎:</p>
+            <p>Your Preferred Gender for friends </p>
             <select
               name="genderPreference"
               fieldValue={this.state.genderPreference}
@@ -197,7 +194,7 @@ class EditProfile extends React.Component {
               <option value="Both">Both</option>
             </select>
 
-            <p>Education/Work 💻:</p>
+            <p>Education/Work 💻</p>
             <input
               type="text"
               name="education"
@@ -206,7 +203,7 @@ class EditProfile extends React.Component {
               maxlength="30"
             />
 
-            <p>Your interests 🎨:</p>
+            <p>Your interests 🎨</p>
             <input
               type="text"
               name="interests"
@@ -215,16 +212,17 @@ class EditProfile extends React.Component {
               maxlength="255"
             />
 
-            <p>Bio 😶:</p>
+            <p>Bio 😶</p>
             <input
               type="text"
               name="bio"
               value={this.state.bio}
               onChange={this.handleChange}
               maxlength="255"
+              contenteditable="true"
             />
 
-            <p>Max Distance 🌎:</p>
+            <p>Max Distance 🌎</p>
             <input
               type="range"
               name="maxDistance"

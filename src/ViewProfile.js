@@ -51,16 +51,15 @@ class ViewProfile extends React.Component {
       <div className="Profile">
         <Header id={this.state.userId} />
         <form id="profileForm">
-          <h1>View My Profile 👀</h1>
+          <h1>View My Profile</h1>
           <img src="ppFriendsLogo.png"></img>
           <br></br>
           <div className="ViewProfileBox">
-            <br></br>
-            <p>Name 😀:</p>
+            <p>Name 😀</p>
 
             {this.state.name}
 
-            <p>Birthday 🎂:</p>
+            <p>Birthday 🎂</p>
             <input
               type="date"
               name="birthday"
@@ -68,7 +67,7 @@ class ViewProfile extends React.Component {
               placeholder="YYYY-MM-DD"
             />
 
-            <p>Your Gender 👫:</p>
+            <p>Your Gender 👫</p>
 
             <select name="gender" value={this.state.gender}>
               <option value="Female">Female</option>
@@ -76,23 +75,23 @@ class ViewProfile extends React.Component {
               <option value="Other">Other</option>
             </select>
 
-            <p>Your Preferred Gender for friends 🎎:</p>
+            <p>Your Preferred Gender for friends 🎎</p>
             <select name="genderPreference" value={this.state.genderPreference}>
               <option value="Female">Female</option>
               <option value="Male">Male</option>
               <option value="Both">Both</option>
             </select>
 
-            <p>Education/Work 💻:</p>
+            <p>Education/Work 💻</p>
             {this.state.education}
 
-            <p>Your interests 🎨:</p>
+            <p>Your interests 🎨</p>
             {this.state.interests}
 
-            <p>Bio 😶:</p>
+            <p>Bio 😶</p>
             {this.state.bio}
 
-            <p>Max Distance 🌎:</p>
+            <p>Max Distance 🌎</p>
             <input
               type="range"
               name="maxDistance"

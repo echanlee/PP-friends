@@ -44,22 +44,21 @@ li a:hover:not(.active) {
 .profileIntroSection {
   /*coral section that includes other info in smaller font*/
   background-color: #f8dabb;
-  align-items: center;
-  margin-right: auto;
   margin-left: auto;
-  width: 50%;
-  border-radius: 15px;
-  color: black;
-  font-size: 25px;
+  margin-right: auto;
+  padding: 5%;
+  width: 20em;
+  text-align: center;
+  line-height: 35px;
+  border-radius: 10px;
 }
 .profileIntroSection p {
   color: black;
   font-weight: bold;
-  font-size: 25px;
+  font-size: 20px;
 }
 
 .button {
-  background-color: #e0786c;
   text-align: center;
   color: white;
   border-radius: 5px;
@@ -67,12 +66,15 @@ li a:hover:not(.active) {
   width: 200px;
   height: 50px;
   font-size: 20px;
-  background-color: #4dadb7;
 }
 
 .notInterestedButton {
   /*"no, reject match" button*/
   background-color: #e0786c;
+}
+
+.letsTalkButton {
+  background-color: #4dadb7;
 }
 
 .pageTitle {

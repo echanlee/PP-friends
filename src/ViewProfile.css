@@ -40,11 +40,11 @@ input {
 
 .ViewProfileBox {
   background-color: #f8dabb;
-  align-items: center;
-  margin-right: auto;
   margin-left: auto;
-  width: 30%;
-  border-radius: 15px;
-  color: black;
-  font-size: 25px;
+  margin-right: auto;
+  padding: 5%;
+  width: 20em;
+  text-align: center;
+  line-height: 35px;
+  border-radius: 10px;
 }
