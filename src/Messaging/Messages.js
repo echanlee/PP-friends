@@ -1,7 +1,8 @@
 import React from 'react';
 import io from "socket.io-client";
 import {withRouter, Link} from 'react-router-dom'
-
+import "./Messages.css";
+import Header from './Header';
 
 let endPoint = "http://localhost:5000";
 let socket = io.connect(`${endPoint}`);
@@ -22,6 +23,14 @@ class Messages extends React.Component {
     }
     this.onChange = this.onChange.bind(this);
     this.onClick = this.onClick.bind(this);
+  }
+
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+  }
+  
+  componentDidUpdate() {
+    this.scrollToBottom();
   }
 
   componentDidMount = () => {
@@ -47,6 +56,7 @@ class Messages extends React.Component {
                         messageSender: [...this.state.messageSender, this.state.friendName],
                         timeStamps: [...this.state.timeStamps, new Date().toUTCString()],
                       });
+                  this.scrollToBottom();
                 });
             })
         .catch((error) => {
@@ -120,20 +130,38 @@ class Messages extends React.Component {
     var names = this.state.messageSender;
     return (
       <div>
-        <Link to={{pathname: '/matches', state: {id: this.state.userId}}}>Back to Matches matches</Link>
+        <Header id={this.state.id}/>
+      <div className = "PageContainer">
+        <p>You are currently messaging:</p>
+         <h1>{this.state.friendName}</h1>
+        <div className = "MessageContainer">
         {messages.length > 0 ?
           messages.map((msg, index) => (
-            <div>
-              <p>{timeStamps[index]}</p>
-              <p>{names[index]} : {msg}</p>
-            </div>
-          )):
-          <header>Start a conversation!</header>}
-        <input value={message} name="message" onChange={e => this.onChange(e)} onKeyPress={this.onKeyPress} />
-        <button onClick={() =>this.onClick()} >Send Message</button> <br></br>
+             names[index]==this.state.currentName ?
+              <div className = "UserOne">
+                <p1>{timeStamps[index]}</p1>
+                <p>{names[index]} : {msg}</p>
+              </div> :
+              <div className = "UserTwo">
+                <p1>{timeStamps[index]}</p1>
+                <p>{names[index]} : {msg}</p>
+              </div>
+            )):
+          <p>Start a conversation!</p>}
+
+          <div style={{ float:"left", clear: "both" }}
+            ref={(el) => { this.messagesEnd = el; }}>
+          </div>
+          
+          <input value={message} name="message" onChange={e => this.onChange(e)} onKeyPress={this.onKeyPress} />
+          <button onClick={() =>this.onClick()} >Send Message</button> <br></br>
+            
+        </div>  
+      </div>
       </div>
     );
     }
 }
+
 
 export default withRouter(Messages);
