@@ -9,6 +9,7 @@
 	margin-right:auto;
 	align-items: center;
 }
+
 .MessageContainer{
 	background-color: #f3f3f3;
 	height:500px;
@@ -20,6 +21,7 @@
 	font-weight: 600;
 	border-radius: 10px;
 }
+
 .UserOne {
 	background-color: #F8DABB;
 	padding: 15px;
@@ -42,23 +44,26 @@
 	font-size: 14px;
 }
 
-.PageContainer input[name="message"] {
+
+.MessageContainer input[name="message"] {
+	bottom: 5px;
 	width: 70%;
-	padding: 3px;
+	padding: 5px;
+	margin-left: 5px;
 	border-radius: 5px;
+	position: sticky;
 	border-color:#0081a7;
 }
-.PageContainer button {
+.MessageContainer button{
     color: white;;
-    letter-spacing: 1px;
     background-color: #0081a7;
-    border: 3px solid #0081a7;
-    display: inline-block;
     border-radius: 5px;
-    padding: 5px;
+	padding: 5px;
 	width: 20%;
 	margin: 10px;
-    text-align: center;
+	position: sticky;
+	text-align: center;
+	bottom:5px;
 }
 .PageContainer p1{
 	color:white;

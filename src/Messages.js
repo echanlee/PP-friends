@@ -137,33 +137,30 @@ class Messages extends React.Component {
         <div className = "MessageContainer">
         {messages.length > 0 ?
           messages.map((msg, index) => (
-            //Checks which user is messaging
              names[index]==this.state.currentName ?
               <div className = "UserOne">
                 <p1>{timeStamps[index]}</p1>
                 <p>{names[index]} : {msg}</p>
-              </div>
-            :
+              </div> :
               <div className = "UserTwo">
                 <p1>{timeStamps[index]}</p1>
                 <p>{names[index]} : {msg}</p>
               </div>
-            ))
-            :
+            )):
           <p>Start a conversation!</p>}
+
           <div style={{ float:"left", clear: "both" }}
             ref={(el) => { this.messagesEnd = el; }}>
           </div>
-        </div>
-        <input value={message} name="message" onChange={e => this.onChange(e)} onKeyPress={this.onKeyPress} />
-        <button onClick={() =>this.onClick()} >Send Message</button> <br></br>
-        
+          
+          <input value={message} name="message" onChange={e => this.onChange(e)} onKeyPress={this.onKeyPress} />
+          <button onClick={() =>this.onClick()} >Send Message</button> <br></br>
+            
+        </div>  
       </div>
       </div>
     );
     }
-
-    
 }
 
 
