@@ -2,57 +2,48 @@ import mysql.connector
 from mysql.connector import errorcode
 from connect import connectToDB
 
-def getPreviewMessages(messageId, cursor):
-    sql = f"SELECT messageId, fromUser, content from Messages where messageId in {messageId}"
-    cursor.execute(sql)
+def getMessagedUsers(userId, cursor):
+    sql = f"SELECT distinct c.conversationId, c.userTwo, p.firstname, c.messageId, c.timeStamp, m.fromUser, m.content FROM Conversation c \
+                join Messages m on c.messageId = m.messageId join Profile p on c.userTwo = p.userId WHERE c.userOne = {userId}"
+    cursor.execute(sql, )
     res = cursor.fetchall()
-    d = {}
-    for pair in res:
-        d[pair[0]] = [pair[1], pair[2]]
-    return d
+    messaged_user_ids = []
+    messaged_user_names = []
+    message_ids = []
+    timeStamp = []
+    messageSender = []
+    messageContent = []
+    for pos in res:
+        messaged_user_ids.append(pos[1])
+        messaged_user_names.append(pos[2])
+        message_ids.append(pos[3])
+        timeStamp.append(pos[4])
+        messageSender.append(pos[5])
+        messageContent.append(pos[6])
+    return messaged_user_ids, messaged_user_names, message_ids, timeStamp, messageSender, messageContent
+    
+
+def getNotMessagedUsers(userId, cursor):
+    sql = f"SELECT distinct c.conversationId, c.userTwo, p.firstname FROM Conversation c \
+                join Profile p on c.userTwo = p.userId WHERE userOne = {userId} and ISNULL(c.messageId)"
+    cursor.execute(sql, )
+    res = cursor.fetchall()
+    not_messaged_user_ids = []
+    not_messaged_user_names = []
+    for pos in res:
+        not_messaged_user_ids.append(pos[1])
+        not_messaged_user_names.append(pos[2])
+    return not_messaged_user_ids, not_messaged_user_names
 
 def matchUser(userId):
-    print("trying to match user")
     try:
         connection = connectToDB()
         if(connection != False):
             cursor = connection.cursor(buffered=True)
 
-            sql = f"SELECT distinct c.conversationId, c.userTwo, p.firstname, c.messageId, c.timeStamp FROM Conversation c \
-                join Profile p on c.userTwo = p.userId WHERE userOne = {userId}"
-            cursor.execute(sql)
-            res = cursor.fetchall()
-
-            not_messaged_user_ids = []
-            not_messaged_user_names = []
-            messaged_user_ids = []
-            messaged_user_names = []
-            message_ids = []
-            timeStamp = []
-            print(res)
-            for pos in res:
-                if not pos[3]:
-                    not_messaged_user_ids.append(pos[1])
-                    not_messaged_user_names.append(pos[2])
-                    
-                else:
-                    messaged_user_ids.append(pos[1])
-                    messaged_user_names.append(pos[2])
-                    messageIds.append(pos[3])
-                    timeStamp.append(pos[4])
-            print("here")
             currentName = currentUserName(userId, cursor)
-            print("huh", messaged_user_ids)
-            messageSender = []
-            messageContent = []
-            if messaged_user_ids:
-                messageContentMatch = getPreviewMessages(messaged_user_ids, cursor)
-                messageSender = []
-                messageContent = []
-                for message_id in message_ids:
-                    messageSender.append(messageContentMatch[message_id][0])
-                    messageContent.append(messageContentMatch[message_id][1])
-
+            messaged_user_ids, messaged_user_names, message_ids, timeStamp, messageSender, messageContent = getMessagedUsers(userId, cursor)
+            not_messaged_user_ids, not_messaged_user_names = getNotMessagedUsers(userId, cursor)
             userIds = not_messaged_user_ids + messaged_user_ids
 
             d = {"response": "Success", "userIds": userIds, "currentName": currentName, 

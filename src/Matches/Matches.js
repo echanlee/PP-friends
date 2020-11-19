@@ -18,10 +18,11 @@ class Matches extends React.Component {
             messageIds: [],
             messageSender: [],
             messageContent: [],
+            timeStamp: [],
         }
-        this.selectUser = this.selectUser.bind(this);
+        this.selectUserMessage = this.selectUserMessage.bind(this);
     }
-    selectUser(event) {
+    selectUserMessage(event) {
         const userSelected = event.target.value.split("|");
         const myRequest = new Request('http://127.0.0.1:5000/conversationId', {
             method: 'POST',
@@ -72,6 +73,7 @@ class Matches extends React.Component {
                         messageIds: res.messageIds,
                         messageSender: res.messageSender,
                         messageContent: res.messageContent,
+                        timeStamp: res.timeStamp,
                     })
                     :
                     this.setState({
@@ -104,13 +106,25 @@ class Matches extends React.Component {
             if (this.state.messagedUserIds && this.state.messagedUserIds.length > 0){
                 for (var i = 0; i < this.state.messagedUserIds.length; i++){
                     var pos_user = this.state.messagedUserIds[i];
+                    let messageSenderName;
+                    if (this.state.messageSender[i] == this.userId){
+                        messageSenderName = this.state.currentName;
+                    }
+                    else {
+                        messageSenderName = this.state.messagedUserNames[i]
+                    }
                     messagedUserItems.push(
-                        <button className='pos-user' 
-                                key={pos_user} 
-                                value = {this.state.messagedUserIds[i]+"|"+this.state.messagedUserNames[i]} 
-                                onClick = {this.selectUser}>
-                            {this.state.messagedUserNames[i]}
-                        </button>  
+                        <div>
+                            <Link to={{pathname: '/viewfriendprofile', state: {id: this.state.userId, friendId: this.state.messagedUserIds[i]}}}>{this.state.messagedUserNames[i]}</Link>
+                            <button className='pos-user' 
+                                    key={pos_user+"|message"}
+                                    value = {this.state.messagedUserIds[i]+"|"+this.state.messagedUserNames[i]} 
+                                    onClick = {this.selectUserMessage}>
+
+                                <p>{messageSenderName}: {this.state.messageContent[i]}</p>
+                                <p>timestamp: {this.state.timeStamp[i]}</p>
+                            </button>  
+                        </div>
                     )
                 }
             }
@@ -121,7 +135,7 @@ class Matches extends React.Component {
                         <button className='pos-user' 
                                 key={pos_user} 
                                 value = {this.state.notMessagedUserIds[i]+"|"+this.state.notMessagedUserNames[i]} 
-                                onClick = {this.selectUser}>
+                                onClick = {this.selectUserMessage}>
                             {this.state.notMessagedUserNames[i]}
                         </button>  
                     )
