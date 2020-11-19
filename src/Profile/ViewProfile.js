@@ -1,6 +1,6 @@
 import React from "react";
 import {withRouter, Link} from 'react-router-dom'
-import Header from './Header'
+import Header from '../Header/Header'
 
 class ViewProfile extends React.Component {
     constructor(props) {
