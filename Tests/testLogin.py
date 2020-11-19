@@ -2,68 +2,39 @@ import unittest
 from server.login import loginUser
 
 class TestLogin(unittest.TestCase):
-    def test_blank_email_blank_password(self):
-        email = ''
-        password=''
-        exp_login = {"response": "No account with that Email"}
-        login = loginUser(email,password)
-        self.assertEqual(exp_login, login)
-    
-    def test_blank_email_invalid_password(self):
-        email = ''
-        password= '-1'
-        exp_login = {"response": "No account with that Email"}
-        login = loginUser(email,password)
-        self.assertEqual(exp_login, login)
-    
-    def test_blank_email_valid_password(self):
-        email = ''
-        password= 'test'
-        exp_login = {"response": "No account with that Email"}
-        login = loginUser(email,password)
-        self.assertEqual(exp_login, login)
+    def test_blank_invalid_email(self):
+        #email tests
+        email_values=['','-1']
+        #password tests
+        password_values=['','-1','password']
 
-    def test_invalid_email_blank_password(self):
-        email = '-1'
-        password= ''
-        exp_login = {"response": "No account with that Email"}
-        login = loginUser(email,password)
-        self.assertEqual(exp_login, login)
-    
-    def test_invalid_email_invalid_password(self):
-        email = '-1'
-        password= '-1'
-        exp_login = {"response": "No account with that Email"}
-        login = loginUser(email,password)
-        self.assertEqual(exp_login, login)
+        for i in email_values:
+            for j in password_values:
+                exp_login={"response":"No account with that Email"}
+                login=loginUser(i,j)
+                self.assertEqual(exp_login,login)
 
-    def test_invalid_email_valid_password(self):
-        email = '-1'
-        password= 'test'
-        exp_login = {"response": "No account with that Email"}
-        login = loginUser(email,password)
-        self.assertEqual(exp_login, login)
+    def test_blank_invalid_password(self):
+        #email tests
+        email='test@test.com'
+        #password tests
+        password_values=['','-1']
 
-    def test_valid_email_blank_password(self):
-        email = 'nadine@gmail.com'
-        password= ''
-        exp_login = {"response": "Incorrect Password"}
-        login = loginUser(email,password)
-        self.assertEqual(exp_login, login)
 
-    def test_valid_email_invalid_password(self):
-        email = 'nadine@gmail.com'
-        password= '-1'
-        exp_login = {"response": "Incorrect Password"}
-        login = loginUser(email,password)
-        self.assertEqual(exp_login, login)
+        for j in password_values:
+            exp_login={"response":"Incorrect Password"}
+            login=loginUser(email,j)
+            self.assertEqual(exp_login,login)
 
-    def test_valid_email_valid_password(self):
-        email = 'test@test.com'
-        password= 'password'
-        exp_login = {"response": "Success","id":16}
-        login = loginUser(email,password)
-        self.assertEqual(exp_login, login)
+    def test_valid_email_password(self):
+        #email tests
+        email='test@test.com'
+        #password tests
+        password='password'
+
+        exp_login={"response":"Success","id":16}
+        login=loginUser(email,password)
+        self.assertEqual(exp_login,login)
 
 if __name__ == '__main__':
     unittest.main()
