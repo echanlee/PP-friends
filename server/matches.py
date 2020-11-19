@@ -2,25 +2,64 @@ import mysql.connector
 from mysql.connector import errorcode
 from connect import connectToDB
 
+def getPreviewMessages(messageId, cursor):
+    sql = f"SELECT messageId, fromUser, content from Messages where messageId in {messageId}"
+    cursor.execute(sql)
+    res = cursor.fetchall()
+    d = {}
+    for pair in res:
+        d[pair[0]] = [pair[1], pair[2]]
+    return d
+
 def matchUser(userId):
+    print("trying to match user")
     try:
         connection = connectToDB()
         if(connection != False):
             cursor = connection.cursor(buffered=True)
-            sql = "SELECT distinct p.userId, p.firstname \
-                    from Profile p where p.userId in \
-                    (SELECT userOne FROM Conversation WHERE userTwo = %s)"
 
-            cursor.execute(sql, (userId,))
-            userIds = []
-            firstnames = []
-            
-            for pos in cursor.fetchall():
-                if pos[0] not in userIds:
-                    userIds.append(pos[0])
-                    firstnames.append(pos[1])
+            sql = f"SELECT distinct c.conversationId, c.userTwo, p.firstname, c.messageId, c.timeStamp FROM Conversation c \
+                join Profile p on c.userTwo = p.userId WHERE userOne = {userId}"
+            cursor.execute(sql)
+            res = cursor.fetchall()
+
+            not_messaged_user_ids = []
+            not_messaged_user_names = []
+            messaged_user_ids = []
+            messaged_user_names = []
+            message_ids = []
+            timeStamp = []
+            print(res)
+            for pos in res:
+                if not pos[3]:
+                    not_messaged_user_ids.append(pos[1])
+                    not_messaged_user_names.append(pos[2])
+                    
+                else:
+                    messaged_user_ids.append(pos[1])
+                    messaged_user_names.append(pos[2])
+                    messageIds.append(pos[3])
+                    timeStamp.append(pos[4])
+            print("here")
             currentName = currentUserName(userId, cursor)
-            d = {"response": "Success", "userIds": userIds, "firstnames": firstnames, "currentName": currentName}
+            print("huh", messaged_user_ids)
+            messageSender = []
+            messageContent = []
+            if messaged_user_ids:
+                messageContentMatch = getPreviewMessages(messaged_user_ids, cursor)
+                messageSender = []
+                messageContent = []
+                for message_id in message_ids:
+                    messageSender.append(messageContentMatch[message_id][0])
+                    messageContent.append(messageContentMatch[message_id][1])
+
+            userIds = not_messaged_user_ids + messaged_user_ids
+
+            d = {"response": "Success", "userIds": userIds, "currentName": currentName, 
+                "notMessagedUserIds": not_messaged_user_ids, "messagedUserIds": messaged_user_ids, 
+                "notMessagedUserNames": not_messaged_user_names, "messagedUserNames": messaged_user_names, 
+                "messageIds": message_ids, "messageSender": messageSender, "messageContent": messageContent, "timeStamp": timeStamp}
+            print(d)
             return d
 
     except mysql.connector.Error as err:
@@ -31,6 +70,7 @@ def currentUserName(userId, cursor):
     cursor.execute(sql)
     name = cursor.fetchone()[0]
     return name
+    
 
 def getConversationIds(currentUser, friendUser):
      try:

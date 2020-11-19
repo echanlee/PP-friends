@@ -91,7 +91,7 @@ def potentialMatch():
 def conversationId():
     if request.method == 'POST':
         param = request.get_json('userId')
-        return matches.getConversationIds(param['userId'], param['friendId'])     
+        return matches.getConversationIds(param['userId'], param['friendId'])       
 
 @app.route('/getMessages', methods=['POST'])
 def getMessages():
