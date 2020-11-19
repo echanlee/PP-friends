@@ -33,8 +33,9 @@ def sendMessage(convoId, friendConvoId, currentId, friendId, message):
         connection = connectToDB()
         if(connection != False):
             cursor = connection.cursor(buffered=True)
-            addToMessageTable(convoId, friendConvoId, currentId, friendId, message, cursor)
-            updateConversationTable(convoId, friendConvoId, message, cursor)
+            messageId = addToMessageTable(convoId, friendConvoId, currentId, friendId, message, cursor)
+            updateConversationTable(convoId, messageId, cursor)
+            updateConversationTable(friendConvoId, messageId + 1, cursor)
             connection.commit()
             cursor.close()
             return {"response": "Success"}
@@ -51,8 +52,10 @@ def addToMessageTable(convoId, friendConvoId, currentId, friendId, message, curs
                 VALUES ({currentId}, {friendId}, {convoId}, '{message}', CURRENT_TIMESTAMP), \
                 ({currentId}, {friendId}, {friendConvoId}, '{message}', CURRENT_TIMESTAMP)"
     cursor.execute(sql)
+    return cursor.lastrowid
 
-def updateConversationTable(convoId, friendConvoId, message, cursor):
-    sql = f"UPDATE Conversation SET content = '{message}', timeStamp = CURRENT_TIMESTAMP \
-            WHERE conversationId = {convoId} OR conversationId = {friendConvoId}"
+def updateConversationTable(convoId, messageId, cursor):
+    sql = f"UPDATE Conversation SET messageId = {messageId}, timeStamp = CURRENT_TIMESTAMP \
+            WHERE conversationId = {convoId}"
+
     cursor.execute(sql)
