@@ -1,7 +1,7 @@
 import React from "react";
 import "./profile.css"
 import {withRouter, Link} from 'react-router-dom'
-import Header from './Header'
+import Header from '../Header/Header'
 
   class EditProfile extends React.Component {
     constructor(props) {
