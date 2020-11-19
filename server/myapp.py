@@ -121,6 +121,11 @@ def handleMessage(room):
     join_room(room)
     return None
 
+@socketIo.on("leaveRoom")
+def handleMessage(room):
+    leave_room(room)
+    return None
+
 if __name__ == '__main__':
     app.debug = True
     app.run()
