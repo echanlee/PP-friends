@@ -3,6 +3,9 @@
   font-family: "Montserrat", sans-serif;
 }
 
+.p {
+  font-size: 20px;
+}
 .SwipeProfile {
   text-align: center;
   margin: auto;
@@ -39,35 +42,37 @@ li a:hover:not(.active) {
 }
 
 .profileIntroSection {
-  /*turquoise section that includes other info in smaller font*/
-  background-color: #4dadb7;
+  /*coral section that includes other info in smaller font*/
+  background-color: #f8dabb;
   align-items: center;
   margin-right: auto;
   margin-left: auto;
-  width: 30%;
-  border-radius: 12px;
+  width: 50%;
+  border-radius: 15px;
+  color: black;
+  font-size: 25px;
+}
+.profileIntroSection p {
+  color: black;
+  font-weight: bold;
+  font-size: 25px;
 }
 
 .button {
-  width: 240px;
-  color: white;
-  padding: 10px 35px;
+  background-color: #e0786c;
   text-align: center;
+  color: white;
+  border-radius: 5px;
+  border: 1px white;
+  width: 200px;
+  height: 50px;
   font-size: 20px;
-  position: relative;
-  margin: 1px 1px;
-  text-decoration: none;
-  cursor: pointer;
-  border-radius: 15px; /*added rounded corners to buttons*/
-}
-.letsTalkButton {
-  /*"yes, let's match" button */
-  background-color: #e96a6a;
+  background-color: #4dadb7;
 }
 
 .notInterestedButton {
   /*"no, reject match" button*/
-  background-color: #3680a3;
+  background-color: #e0786c;
 }
 
 .pageTitle {
@@ -76,26 +81,22 @@ li a:hover:not(.active) {
 
 .letsTalkButton:hover {
   /*when user hovers over this button, color of button changes*/
-  background-color: #e25959;
+  background-color: #4ccbda;
   color: white;
-  border: 3px solid;
 }
 
 .letsTalkButton:focus {
   /*when user selects this button, color of button changes*/
-  background-color: #e96a6a;
+  background-color: #4ccbda;
   color: white;
-  border: 3px solid;
 }
 
 .notInterestedButton:hover {
-  background-color: #22779e;
+  background-color: grey;
   color: white;
-  border: 3px solid;
 }
 
 .notInterestedButton:focus {
-  background-color: #3680a3;
+  background-color: rgb(75, 75, 75);
   color: white;
-  border: 3px solid;
 }

@@ -1,5 +1,63 @@
+* {
+  /*all elements to inherit same font*/
+  font-family: "Montserrat", sans-serif;
+}
+
 .Profile {
-    text-align: center;
-    margin: auto;
-    padding: 20px;
-  }
+  text-align: center;
+  margin: auto;
+  padding: 50px;
+}
+
+* {
+  font-family: "Montserrat", sans-serif;
+}
+h1 {
+  font-weight: bold;
+  font-size: 30px;
+  color: black;
+}
+
+p {
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+}
+
+.ProfileBox {
+  background-color: #4dadb7;
+  align-items: center;
+  margin-right: auto;
+  margin-left: auto;
+  width: 30%;
+  border-radius: 15px;
+  color: white;
+}
+
+.ProfileBox text {
+  font-size: 20px;
+  color: black;
+  font-weight: bold;
+}
+
+.updatedMessage {
+  text-align: center;
+}
+
+select {
+  font-size: 20px;
+}
+
+.Profile input[type="submit"],
+input[value="submit"] {
+  color: white;
+  letter-spacing: 1px;
+  font-size: 20px;
+  background-color: #3680a3;
+  border: 3px solid #3680a3;
+  display: inline-block;
+  border-radius: 5px;
+  padding: 5px;
+  width: 175px;
+  text-align: center;
+}

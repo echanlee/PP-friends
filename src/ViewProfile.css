@@ -1,0 +1,50 @@
+* {
+  /*all elements to inherit same font*/
+  font-family: "Montserrat", sans-serif;
+}
+
+.ViewProfile {
+  text-align: center;
+  margin: auto;
+  padding: 50px;
+}
+
+* {
+  font-family: "Montserrat", sans-serif;
+}
+
+.ViewProfile p {
+  font-size: 50px;
+  color: black;
+}
+
+p {
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+}
+
+.ViewProfileBox text {
+  color: black;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+select {
+  font-size: 20px;
+}
+
+input {
+  font-size: 20px;
+}
+
+.ViewProfileBox {
+  background-color: #f8dabb;
+  align-items: center;
+  margin-right: auto;
+  margin-left: auto;
+  width: 30%;
+  border-radius: 15px;
+  color: black;
+  font-size: 25px;
+}

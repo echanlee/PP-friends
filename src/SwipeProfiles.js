@@ -1,5 +1,5 @@
 import React from "react";
-import Header from './Header';
+import Header from "./Header";
 import "./SwipeProfile.css";
 import { withRouter, Link } from "react-router-dom";
 
@@ -93,8 +93,14 @@ class SwipeProfiles extends React.Component {
         });
     } else {
       this.setState({
-        error:
-          "There are no current potential friends for you within the area.",
+        error: (
+          <p>
+            <img src="sad-penguin.svg"></img>
+            <br></br>
+            There are no current potential friends for you within the area.{" "}
+            <br></br>Try updating your profile or come back later!
+          </p>
+        ),
       });
     }
   }
@@ -150,11 +156,11 @@ class SwipeProfiles extends React.Component {
     return (
       /*navigation bar and other necessary information about the match*/
       <div className="SwipeProfile">
-        <Header id={this.state.id}/>
+        <Header id={this.state.id} />
         <br></br>
         <header class="pageTitle">Potential Friends!</header>
         <br></br>
-        <img src="ppFriendsLogo.png"></img>
+
         <br></br>
         <br></br>
         <br></br>
@@ -162,21 +168,25 @@ class SwipeProfiles extends React.Component {
           <text>{error}</text>
         ) : (
           <div>
-            <p>Name: </p>
-            <text>{this.state.firstName}</text>
-            <p>Age: </p>
-            <text>{this.state.age}</text>
-            <br></br>
+            <img src="ppFriendsLogo.png"></img>
+            <h1>A potential Friend!</h1>
             <div class="profileIntroSection">
               <br></br>
-              <p>Gender: </p>
+              <p>Name 😀: </p>
+              <text>{this.state.firstName}</text>
+              <p>Age 🎂: </p>
+              <text>{this.state.age}</text>
+              <br></br>
+              <p>Gender 👫: </p>
               <text>{this.state.gender}</text>
-              <p>Description: </p>
+              <p>Description 😶: </p>
               <text>{this.state.description}</text>
-              <p>Interests: </p>
+              <p>Interests 🎨: </p>
               <text>{this.state.interests}</text>
-              <p>Education / Work: </p>
+              <p>Education / Work 💻: </p>
               <text>{this.state.workplace}</text>
+              <br></br>
+              <br></br>
               <br></br>
             </div>
             <br></br>
@@ -184,14 +194,15 @@ class SwipeProfiles extends React.Component {
               class="button letsTalkButton"
               onClick={() => this.handleSwipe(true)}
             >
-              Let's Talk!
+              Let's Talk
             </button>{" "}
+            <br></br>
             <br></br>
             <button
               class="button notInterestedButton"
               onClick={() => this.handleSwipe(false)}
             >
-              Not Interested.
+              Not Interested
             </button>
           </div>
         )}

@@ -1,7 +1,6 @@
 import "./Register.css";
 import React from "react";
-import {withRouter, Link} from 'react-router-dom'
-
+import { withRouter, Link } from "react-router-dom";
 
 class Register extends React.Component {
   constructor(props) {
@@ -11,10 +10,9 @@ class Register extends React.Component {
       confirmPassword: "",
       error: "",
     };
-    
+
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    
   }
 
   handleInputChange(event) {
@@ -35,17 +33,16 @@ class Register extends React.Component {
         method: "POST",
         body: new FormData(myForm),
       });
-      
+
       fetch(myRequest)
         .then((res) => res.json())
         .then((res) => {
-          if (res.response === "Success") 
-            this.props
-            .history.push({
+          if (res.response === "Success")
+            this.props.history.push({
               pathname: "/createprofile",
-              state: {id: res.id}
+              state: { id: res.id },
             });
-            
+
           this.setState({
             error: res.response,
           });
@@ -74,39 +71,35 @@ class Register extends React.Component {
   render() {
     return (
       <div className="Register">
-          <h1> Join the Community</h1>
-          <form id="registerForm" onSubmit={this.handleSubmit}>
-            <div class = "form-group form in-line">
-              <input 
-                name="email" 
-                type="email" 
-                placeholder="Email Address" 
-              />
-              <br></br>
-              <input
-                name="password"
-                type="password"
-                value={this.state.password}
-                placeholder="Enter password"
-                onChange={this.handleInputChange}
-              />
-              <br></br>
-              <input
-                name="confirmPassword"
-                type="password"
-                value={this.state.confirmPassword}
-                placeholder="Re-enter password"
-                onChange={this.handleInputChange}
-              />
-              <br></br>
+        <img src="ppFriendsLogo.png"></img>
+        <h1> Join the Community</h1>
+        <form id="registerForm" onSubmit={this.handleSubmit}>
+          <div class="form-group form in-line">
+            <input name="email" type="email" placeholder="Email Address" />
+            <br></br>
+            <input
+              name="password"
+              type="password"
+              value={this.state.password}
+              placeholder="Enter password"
+              onChange={this.handleInputChange}
+            />
+            <br></br>
+            <input
+              name="confirmPassword"
+              type="password"
+              value={this.state.confirmPassword}
+              placeholder="Re-enter password"
+              onChange={this.handleInputChange}
+            />
+            <br></br>
 
-              <input type="submit" value="Join" />
-              <br></br>
-              <text>{this.state.error}</text>
-            </div>
-            
-          </form>
-          <Link to="/">I Already Have an Account</Link>
+            <input type="submit" value="Join" />
+            <br></br>
+            <text>{this.state.error}</text>
+          </div>
+        </form>
+        <Link to="/">I Already Have an Account</Link>
       </div>
     );
   }
