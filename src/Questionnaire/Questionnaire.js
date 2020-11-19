@@ -3,7 +3,7 @@ import questions from './questions';
 import QuestionBox from './QuestionBtn';
 import './Questionnaire.css';
 import {withRouter} from 'react-router-dom'
-import {getCookie} from './cookies';
+import {getCookie} from '../cookies';
 
 
 class Questionnaire extends Component {

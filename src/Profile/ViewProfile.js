@@ -1,8 +1,7 @@
 import React from "react";
 import {withRouter, Link} from 'react-router-dom'
-import Header from './Header'
-import {getCookie} from './cookies';
-
+import {getCookie} from '../cookies';
+import Header from '../Header/Header'
 
 class ViewProfile extends React.Component {
     constructor(props) {

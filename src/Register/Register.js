@@ -1,7 +1,7 @@
 import "./Register.css";
 import React from "react";
 import {withRouter, Link} from 'react-router-dom'
-import {setCookie, clearCookies} from './cookies';
+import {setCookie, clearCookies} from '../cookies';
 
 
 class Register extends React.Component {

@@ -1,7 +1,7 @@
 import React from "react";
 import "./profile.css"
 import {withRouter} from 'react-router-dom'
-import {getCookie} from './cookies';
+import {getCookie} from '../cookies';
 
   class ProfileForm extends React.Component {
     constructor(props) {

@@ -1,8 +1,8 @@
 import React from "react";
 import "./profile.css"
 import {withRouter, Link} from 'react-router-dom'
-import Header from './Header'
-import {getCookie} from './cookies';
+import {getCookie} from '../cookies';
+import Header from '../Header/Header'
 
   class EditProfile extends React.Component {
     constructor(props) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import './Matches.css';
 import {withRouter, Link} from 'react-router-dom'
-import {getCookie} from './cookies';
+import {getCookie} from '../cookies';
 
 class Matches extends React.Component {
     constructor(props){

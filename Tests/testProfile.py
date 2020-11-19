@@ -5,9 +5,9 @@ from server.matches import matchUser
 class TestProfile(unittest.TestCase):
     def test_get_valid_profile(self):
         userId = 11
-        exp_profile = {"response": "Success", "name": 'melo2', "age": 21,\
-                 "bio": 'sad', "gender": 'Female', "education": 'loo',\
-                      "interests": 'sad', "genderPreference": 'Female', "maxDistance": 10
+        exp_profile = {"response": "Success", "name": 'Melody Lui', "age": 23,\
+                 "bio": 'I love coding :)', "birthday":'1997-04-01', "gender": 'Female', "education": 'Student',\
+                      "interests": 'Coding', "genderPreference": 'Female', "maxDistance": 48510
                       }
         profile = getProfile(userId)
         self.assertEqual(exp_profile, profile)
