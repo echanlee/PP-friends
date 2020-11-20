@@ -1,12 +1,13 @@
 import React from "react";
 import "./Matches.css";
 import { withRouter, Link } from "react-router-dom";
+import { getCookie } from "../cookies";
 
 class Matches extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userId: this.props?.location?.state?.id,
+      userId: getCookie("userId"),
       userIds: [],
       matchesExist: "not set",
       firstnames: [],
@@ -30,7 +31,6 @@ class Matches extends React.Component {
         this.props.history.push({
           pathname: "/messages",
           state: {
-            id: this.state.userId,
             friendId: userSelected[0],
             currentName: this.state.name,
             friendName: userSelected[1],

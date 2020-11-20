@@ -1,6 +1,7 @@
 import "./Register.css";
 import React from "react";
 import { withRouter, Link } from "react-router-dom";
+import { setCookie, clearCookies } from "../cookies";
 
 class Register extends React.Component {
   constructor(props) {
@@ -37,11 +38,12 @@ class Register extends React.Component {
       fetch(myRequest)
         .then((res) => res.json())
         .then((res) => {
-          if (res.response === "Success")
+          if (res.response === "Success") {
+            setCookie("userId", res.id);
             this.props.history.push({
               pathname: "/createprofile",
-              state: { id: res.id },
             });
+          }
 
           this.setState({
             error: res.response,
@@ -69,6 +71,7 @@ class Register extends React.Component {
   }
 
   render() {
+    clearCookies();
     return (
       <div className="Register">
         <img src="ppFriendsLogo.png"></img>

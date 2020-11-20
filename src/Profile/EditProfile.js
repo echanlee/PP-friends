@@ -1,13 +1,14 @@
 import React from "react";
 import "./profile.css";
 import { withRouter, Link } from "react-router-dom";
-import Header from "./Header";
+import { getCookie } from "../cookies";
+import Header from "../Header/Header";
 
 class EditProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userId: this.props?.location?.state?.id,
+      userId: getCookie("userId"),
       name: "",
       birthday: "",
       age: 0,
@@ -143,6 +144,13 @@ class EditProfile extends React.Component {
   };
 
   render() {
+    const id = this.state.id;
+    if (id === "") {
+      this.props.history.push({
+        pathname: "/login",
+      });
+      return null;
+    }
     return (
       <div className="Profile">
         <Header id={this.state.userId} />

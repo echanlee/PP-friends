@@ -1,13 +1,14 @@
 import React from "react";
-import Header from "./Header";
+import Header from "../Header/Header";
 import "./SwipeProfile.css";
 import { withRouter, Link } from "react-router-dom";
+import { getCookie } from "../cookies";
 
 class SwipeProfiles extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: this.props?.location?.state?.id,
+      id: getCookie("userId"),
       age: "",
       firstName: "",
       description: "",
@@ -25,7 +26,7 @@ class SwipeProfiles extends React.Component {
   }
 
   getPotentialFriendList() {
-    const id = this.props?.location?.state?.id;
+    const id = this.state.id;
     var formData = new FormData();
     formData.append("userId", id);
     const myRequest = new Request("http://127.0.0.1:5000/getPotentialFriends", {
@@ -106,9 +107,8 @@ class SwipeProfiles extends React.Component {
   }
 
   handleSwipe(choice) {
-    console.log(choice);
     const displayId = this.state.displayedUserId;
-    const currentUserId = this.props?.location?.state?.id;
+    const currentUserId = this.state.id;
     var formData = new FormData();
     formData.append("currentUserId", currentUserId);
     formData.append("shownUserId", displayId);
@@ -143,9 +143,18 @@ class SwipeProfiles extends React.Component {
   }
 
   render() {
+    const id = this.state.id;
     const potentialFriends = this.state.potentialFriends;
     const displayedUserId = this.state.displayedUserId;
     const error = this.state.error;
+
+    if (id === "") {
+      this.props.history.push({
+        pathname: "/login",
+      });
+      return null;
+    }
+
     if (
       displayedUserId === "" &&
       potentialFriends.length === 0 &&
@@ -153,6 +162,7 @@ class SwipeProfiles extends React.Component {
     ) {
       this.getPotentialFriendList();
     }
+
     return (
       <div className="SwipeProfile">
         <Header id={this.state.id} />
