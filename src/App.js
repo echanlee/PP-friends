@@ -4,6 +4,8 @@ import {
     Switch,
     Route,
   } from "react-router-dom";
+
+import {getCookie} from './cookies';
 import Register from "./Register/Register";
 import ProfileForm from "./Profile/CreateProfile"
 import Login from "./Login/Login";
@@ -16,7 +18,7 @@ import EditProfile from './Profile/EditProfile';
 
 export default class App extends React.Component {
     render() {
-
+        var id = getCookie("userId");
         return (
             <Router>
                 <div>
@@ -45,8 +47,14 @@ export default class App extends React.Component {
                         <Route path="/messages">
                             <Messages />
                         </Route>
-                        <Route path="/">
+                        <Route path="/login">
                             <Login />
+                        </Route>
+                        <Route path="/">
+                            {id === ""?
+                            <Login /> :
+                            <SwipeProfiles />
+                            }
                         </Route>
                     </Switch>
                 </div>

@@ -2,12 +2,13 @@ import React from "react";
 import Header from '../Header/Header';
 import "./SwipeProfile.css";
 import { withRouter, Link } from "react-router-dom";
+import {getCookie} from '../cookies';
 
 class SwipeProfiles extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: this.props?.location?.state?.id,
+      id: getCookie("userId"),
       age: "",
       firstName: "",
       description: "",
@@ -25,7 +26,7 @@ class SwipeProfiles extends React.Component {
   }
 
   getPotentialFriendList() {
-    const id = this.props?.location?.state?.id;
+    const id = this.state.id;
     var formData = new FormData();
     formData.append("userId", id);
     const myRequest = new Request("http://127.0.0.1:5000/getPotentialFriends", {
@@ -100,9 +101,8 @@ class SwipeProfiles extends React.Component {
   }
 
   handleSwipe(choice) {
-    console.log(choice);
     const displayId = this.state.displayedUserId;
-    const currentUserId = this.props?.location?.state?.id;
+    const currentUserId = this.state.id;
     var formData = new FormData();
     formData.append("currentUserId", currentUserId);
     formData.append("shownUserId", displayId);
@@ -137,9 +137,19 @@ class SwipeProfiles extends React.Component {
   }
 
   render() {
+    
+    const id = this.state.id;
     const potentialFriends = this.state.potentialFriends;
     const displayedUserId = this.state.displayedUserId;
     const error = this.state.error;
+
+    if(id === "") {
+      this.props.history.push({
+        pathname: "/login",
+      });
+      return null;
+    }
+
     if (
       displayedUserId === "" &&
       potentialFriends.length === 0 &&
@@ -147,54 +157,57 @@ class SwipeProfiles extends React.Component {
     ) {
       this.getPotentialFriendList();
     }
+
+    
+
     return (
       /*navigation bar and other necessary information about the match*/
       <div className="SwipeProfile">
-        <Header id={this.state.id}/>
         <br></br>
         <header class="pageTitle">Potential Friends!</header>
         <br></br>
-        <img src="ppFriendsLogo.png"></img>
-        <br></br>
-        <br></br>
-        <br></br>
-        {error ? (
-          <text>{error}</text>
-        ) : (
-          <div>
-            <p>Name: </p>
-            <text>{this.state.firstName}</text>
-            <p>Age: </p>
-            <text>{this.state.age}</text>
+            <Header id={id}/>
+            <img src="ppFriendsLogo.png"></img>
             <br></br>
-            <div class="profileIntroSection">
-              <br></br>
-              <p>Gender: </p>
-              <text>{this.state.gender}</text>
-              <p>Description: </p>
-              <text>{this.state.description}</text>
-              <p>Interests: </p>
-              <text>{this.state.interests}</text>
-              <p>Education / Work: </p>
-              <text>{this.state.workplace}</text>
-              <br></br>
-            </div>
             <br></br>
-            <button
-              class="button letsTalkButton"
-              onClick={() => this.handleSwipe(true)}
-            >
-              Let's Talk!
-            </button>{" "}
             <br></br>
-            <button
-              class="button notInterestedButton"
-              onClick={() => this.handleSwipe(false)}
-            >
-              Not Interested.
-            </button>
-          </div>
-        )}
+            {error ? (
+              <text>{error}</text>
+            ) : (
+              <div>
+                <p>Name: </p>
+                <text>{this.state.firstName}</text>
+                <p>Age: </p>
+                <text>{this.state.age}</text>
+                <br></br>
+                <div class="profileIntroSection">
+                  <br></br>
+                  <p>Gender: </p>
+                  <text>{this.state.gender}</text>
+                  <p>Description: </p>
+                  <text>{this.state.description}</text>
+                  <p>Interests: </p>
+                  <text>{this.state.interests}</text>
+                  <p>Education / Work: </p>
+                  <text>{this.state.workplace}</text>
+                  <br></br>
+                </div>
+                <br></br>
+                <button
+                  class="button letsTalkButton"
+                  onClick={() => this.handleSwipe(true)}
+                >
+                  Let's Talk!
+                </button>{" "}
+                <br></br>
+                <button
+                  class="button notInterestedButton"
+                  onClick={() => this.handleSwipe(false)}
+                >
+                  Not Interested.
+                </button>
+              </div>
+            )}
       </div>
     );
   }
