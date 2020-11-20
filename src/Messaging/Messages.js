@@ -138,7 +138,7 @@ class Messages extends React.Component {
     var names = this.state.messageSender;
     return (
       <div>
-        <Header id={this.state.id}/>
+        <Header id={this.state.userId}/>
       <div className = "PageContainer">
         <p>You are currently messaging:</p>
          <h1>{this.state.friendName}</h1>
@@ -170,6 +170,5 @@ class Messages extends React.Component {
     );
     }
 }
-
 
 export default withRouter(Messages);
