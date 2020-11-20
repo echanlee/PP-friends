@@ -54,6 +54,11 @@ class Messages extends React.Component {
         });
   };
 
+  componentWillUnmount= () => {
+    const currentRoom = this.state.currentConvoId;
+    socket.emit("leaveRoom", currentRoom);
+  }
+
 
   // On Change
   onChange = e => {
