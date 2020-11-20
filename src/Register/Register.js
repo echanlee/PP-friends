@@ -78,7 +78,7 @@ class Register extends React.Component {
     return (
       <div className="Register">
           <h1> Join the Community</h1>
-          <form id="registerForm" onSubmit={this.handleSubmit}>
+          <form data-testid="form" id="registerForm" onSubmit={this.handleSubmit}>
             <div class = "form-group form in-line">
               <input 
                 name="email" 
@@ -103,7 +103,7 @@ class Register extends React.Component {
               />
               <br></br>
 
-              <input type="submit" value="Join" />
+              <input data-testid="submit" type="submit" value="Join" />
               <br></br>
               <text>{this.state.error}</text>
             </div>
