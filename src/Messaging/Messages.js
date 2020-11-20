@@ -2,7 +2,11 @@ import React from 'react';
 import io from "socket.io-client";
 import {withRouter, Link} from 'react-router-dom'
 import "./Messages.css";
+<<<<<<< HEAD
 import Header from '../Header/Header';
+=======
+import Header from './Header';
+>>>>>>> development
 
 let endPoint = "http://localhost:5000";
 let socket = io.connect(`${endPoint}`);
@@ -130,7 +134,11 @@ class Messages extends React.Component {
     var names = this.state.messageSender;
     return (
       <div>
+<<<<<<< HEAD
         <Header id={this.state.userId}/>
+=======
+        <Header id={this.state.id}/>
+>>>>>>> development
       <div className = "PageContainer">
         <p>You are currently messaging:</p>
          <h1>{this.state.friendName}</h1>
