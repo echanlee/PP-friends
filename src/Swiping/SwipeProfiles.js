@@ -143,46 +143,52 @@ class SwipeProfiles extends React.Component {
     const storedLatitude = storedLocation[1];
 
     var currentLocation = await getLocation();
-    const currentLongitude = currentLocation.coords.longitude;
-    const currentLatitude = currentLocation.coords.latitude;
-    
-    var checkValidLongitude = isFinite(currentLongitude) && Math.abs(currentLongitude) <= 180;
-    var checkValidLatitude = isFinite(currentLatitude) && Math.abs(currentLatitude) <= 90;
 
-    if(checkValidLongitude && checkValidLatitude){ 
+    if (currentLocation != undefined){ 
+    
+      const currentLongitude = currentLocation?.coords?.longitude;
+      const currentLatitude = currentLocation?.coords?.latitude;
+    
+      var checkValidLongitude = isFinite(currentLongitude) && Math.abs(currentLongitude) <= 180;
+      var checkValidLatitude = isFinite(currentLatitude) && Math.abs(currentLatitude) <= 90;
+
+      if(checkValidLongitude && checkValidLatitude){ 
       
-      if(storedLongitude === currentLongitude && storedLatitude === currentLatitude){
-        console.log("test6")
-      }
-      else{
+        if(storedLongitude === currentLongitude && storedLatitude === currentLatitude){
+        }
+        else{
       
-        const id = this.state.id;     
-        setCookie("longitude", currentLongitude);
-        setCookie("latitude", currentLatitude);
+          const id = this.state.id;     
+          setCookie("longitude", currentLongitude);
+          setCookie("latitude", currentLatitude);
      
 
-        const myRequest = new Request("http://127.0.0.1:5000/location", {
-          method: "POST",
-          body: JSON.stringify({"userID": id, "longitude": currentLongitude, "latitude": currentLatitude,})
-        ,});
+          const myRequest = new Request("http://127.0.0.1:5000/location", {
+            method: "POST",
+            body: JSON.stringify({"userID": id, "longitude": currentLongitude, "latitude": currentLatitude,})
+          ,});
       
-        fetch(myRequest)
-        .then((res) => res.json())
-        .then((res) => {
-          if(res.response === "Success") {
-            console.log("updated location")
-          }
-          else{
-            console.log("error location update")
-          };
-        })
-        .catch((error) => {
-          this.setState({
-            error: "Error connecting to backend",
+          fetch(myRequest)
+          .then((res) => res.json())
+          .then((res) => {
+            if(res.response === "Success") {
+              console.log("updated location")
+            }
+            else{
+              console.log("error location update")
+            };
+          })
+          .catch((error) => {
+            this.setState({
+              error: "Error connecting to backend",
+            });
           });
-        });
-      }     
+        }     
+      }
     }
+    else{
+      console.log("error getting user location")
+    } 
   }
 
   render() {
