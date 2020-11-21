@@ -23,6 +23,7 @@ class Matches extends React.Component {
         this.selectUserMessage = this.selectUserMessage.bind(this);
     }
     selectUserMessage(event) {
+        console.log(event.target.value)
         const userSelected = event.target.value.split("|");
         const myRequest = new Request('http://127.0.0.1:5000/conversationId', {
             method: 'POST',
