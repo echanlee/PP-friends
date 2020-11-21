@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template
 from flask_socketio import SocketIO, send, join_room, leave_room, emit
 from flask_cors import CORS
-from register import registerUser
+from server.register import registerUser
 import profile
 import matches
 from login import loginUser
