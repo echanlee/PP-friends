@@ -1,7 +1,4 @@
-import React from 'react';
-import EditProfile from './EditProfile'
 import "@testing-library/jest-dom/extend-expect";
-import {BrowserRouter as Router} from 'react-router-dom';
 import { render, fireEvent, act, getByPlaceholderText, getByTestId } from '@testing-library/react';
 
 const completedInput = jest.fn((inputs)=>{

@@ -1,5 +1,5 @@
 import React from 'react';
-import Register from './Register'
+import Register from '../Register/Register'
 import "@testing-library/jest-dom/extend-expect";
 import {BrowserRouter as Router} from 'react-router-dom';
 import { render, fireEvent, act, getByPlaceholderText, getByTestId } from '@testing-library/react';
