@@ -5,7 +5,7 @@ from server.register import registerUser
 import profile
 import server.matches
 from server.login import loginUser
-import SwipeDecision
+import server.SwipeDecision
 from questionnaire import updateQuestionnaire
 from potentialMatch import findPotentialMatches
 import messages
