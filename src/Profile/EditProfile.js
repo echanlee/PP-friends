@@ -157,8 +157,11 @@ class EditProfile extends React.Component {
         <form id="profileForm" onSubmit={this.handleUpdate}>
           <h1>Update My Profile 👋</h1>
           <img src="ppFriendsLogo.png"></img>
-          <div className="ProfileBox">
-            <p>Name 😀</p>
+          <br></br>
+          <br></br>
+
+          <div className="formgroup">
+            <label for="User">Name 😀</label>
             <input
               type="text"
               name="name"
@@ -166,8 +169,11 @@ class EditProfile extends React.Component {
               onChange={this.handleChange}
               maxlength="30"
             />
-
-            <p>Birthday 🎂</p>
+          </div>
+          <br></br>
+          <br></br>
+          <div class="formgroup">
+            <label for="Birthday">Birthday 🎂</label>
 
             <input
               type="date"
@@ -177,8 +183,12 @@ class EditProfile extends React.Component {
               placeholder="YYYY-MM-DD"
               onChange={this.handleChange}
             />
+          </div>
 
-            <p>Your Gender 👫</p>
+          <br></br>
+          <br></br>
+          <div class="formgroup">
+            <label for="Gender">Gender 👫</label>
 
             <select
               name="gender"
@@ -189,8 +199,15 @@ class EditProfile extends React.Component {
               <option value="Male">Male</option>
               <option value="Other">Other</option>
             </select>
+          </div>
 
-            <p>Your Preferred Gender for friends </p>
+          <br></br>
+          <br></br>
+          <div class="formgroup">
+            <label for="GenderPreference">
+              Your Preferred Gender for friends 🎎
+            </label>
+
             <select
               name="genderPreference"
               fieldValue={this.state.genderPreference}
@@ -201,8 +218,13 @@ class EditProfile extends React.Component {
               <option value="Male">Male</option>
               <option value="Both">Both</option>
             </select>
+          </div>
 
-            <p>Education/Work 💻</p>
+          <br></br>
+          <br></br>
+          <div class="formgroup">
+            <label for="Education">Education/Work 💻</label>
+
             <input
               type="text"
               name="education"
@@ -210,8 +232,13 @@ class EditProfile extends React.Component {
               onChange={this.handleChange}
               maxlength="30"
             />
+          </div>
 
-            <p>Your interests 🎨</p>
+          <br></br>
+          <br></br>
+          <div class="formgroup">
+            <label for="Interests">Your interests 🎨</label>
+
             <input
               type="text"
               name="interests"
@@ -219,8 +246,12 @@ class EditProfile extends React.Component {
               onChange={this.handleChange}
               maxlength="255"
             />
+          </div>
 
-            <p>Bio 😶</p>
+          <br></br>
+          <br></br>
+          <div class="formgroup">
+            <label for="Bio">Bio 😶</label>
             <input
               type="text"
               name="bio"
@@ -229,8 +260,12 @@ class EditProfile extends React.Component {
               maxlength="255"
               contenteditable="true"
             />
+          </div>
+          <br></br>
+          <br></br>
 
-            <p>Max Distance 🌎</p>
+          <div class="formgroup">
+            <label for="Distance">Max Distance 🌎</label>
             <input
               type="range"
               name="maxDistance"
@@ -243,10 +278,13 @@ class EditProfile extends React.Component {
             <br></br>
             <br></br>
           </div>
-          <br></br>
-
-          <input type="submit" value="Update" />
-          {this.state.updatedMessage}
+          <div class="rectangle2">
+            <p>Profile Picture</p>
+          </div>
+          <div class="updateProfileButton">
+            <input type="submit" value="Update" />
+            {this.state.updatedMessage}
+          </div>
         </form>
       </div>
     );

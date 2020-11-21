@@ -86,7 +86,7 @@ class Login extends React.Component {
           />
           <br></br>
 
-          <input type="submit" value="Submit" />
+          <input type="submit" value="Login" />
           <br></br>
 
           <text>{this.state.error}</text>

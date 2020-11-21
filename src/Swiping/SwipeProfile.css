@@ -11,35 +11,6 @@
   margin: auto;
   position: relative;
 }
-ul {
-  /*unordered list for navigation bar*/
-  background-color: #f8dabb;
-  list-style-type: none;
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
-}
-
-li {
-  float: left; /*to get navigation bar items to slide next to each other*/
-}
-
-li a {
-  text-align: center;
-  padding: 14px 16px;
-  display: block;
-  color: black;
-  text-decoration: none;
-}
-
-li a:hover:not(.active) {
-  background-color: rgb(102, 102, 102);
-  /*color change when mouse hovers over the list item on navigation bar*/
-}
-
-.active {
-  background-color: #f7dfc7;
-}
 
 .profileIntroSection {
   /*coral section that includes other info in smaller font*/

@@ -1,0 +1,72 @@
+label {
+  font-size: 25px;
+  color: #333;
+
+  width: 500px;
+  text-align: left;
+  float: left;
+  clear: left;
+  padding-left: 31em;
+}
+
+.formgroup input {
+  height: 20px;
+  width: 300px;
+  border: 1px solid #000;
+  margin-top: 10px;
+  margin-left: -300px;
+  padding: 5px;
+  text-align: left;
+  border-radius: 5px;
+}
+
+select {
+  margin-left: -290px;
+}
+
+.Profile input[type="date"],
+input[value="date"] {
+  font-size: 25px;
+  border-radius: 5px;
+  margin-left: -290px;
+}
+
+.rectangle {
+  position: absolute;
+  width: 1260px;
+  height: 618px;
+  left: 309px;
+  top: 250px;
+  border-radius: 22px;
+  background: #f8dabb;
+  border-radius: 22px;
+  z-index: -1;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.Profile {
+  text-align: center;
+  margin: auto;
+  padding: 50px;
+}
+
+.rectangle p {
+  position: absolute;
+  width: 170px;
+  height: 36px;
+  left: 190px;
+  top: -23px;
+  font-size: 25px;
+  line-height: 23px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+  font-weight: normal;
+}

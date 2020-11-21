@@ -12,10 +12,20 @@ class Matches extends React.Component {
       matchesExist: "not set",
       firstnames: [],
       name: "",
+      userIds: [],
+      notMessagedUserIds: [],
+      notMessagedUserNames: [],
+      messagedUserIds: [],
+      messagedUserNames: [],
+      messageIds: [],
+      messageSender: [],
+      messageContent: [],
+      timeStamp: [],
     };
-    this.selectUser = this.selectUser.bind(this);
+    this.selectUserMessage = this.selectUserMessage.bind(this);
   }
-  selectUser(event) {
+  selectUserMessage(event) {
+    console.log(event.target.value);
     const userSelected = event.target.value.split("|");
     const myRequest = new Request("http://127.0.0.1:5000/conversationId", {
       method: "POST",
@@ -56,10 +66,17 @@ class Matches extends React.Component {
       .then((res) =>
         res.userIds && res.userIds.length != 0
           ? this.setState({
+              name: res.currentName,
               matchesExist: "exists",
               userIds: res.userIds,
-              firstnames: res.firstnames,
-              name: res.currentName,
+              notMessagedUserIds: res.notMessagedUserIds,
+              notMessagedUserNames: res.notMessagedUserNames,
+              messagedUserIds: res.messagedUserIds,
+              messagedUserNames: res.messagedUserNames,
+              messageIds: res.messageIds,
+              messageSender: res.messageSender,
+              messageContent: res.messageContent,
+              timeStamp: res.timeStamp,
             })
           : this.setState({
               matchesExist: "not exists",
@@ -69,6 +86,7 @@ class Matches extends React.Component {
         console.error(error);
       });
   }
+
   componentDidMount() {
     this.get_matches();
   }
@@ -82,43 +100,124 @@ class Matches extends React.Component {
   }
 
   render() {
+    if (this.state.userId === "") {
+      this.props.history.push({
+        pathname: "/login",
+      });
+      return null;
+    }
+
     let matchingSection;
+
     if (this.state.matchesExist == "exists") {
-      let userItems = [];
-      for (var i = 0; i < this.state.userIds.length; i++) {
-        var pos_user = this.state.userIds[i];
-        userItems.push(
-          <button
-            className="pos-user"
-            key={pos_user}
-            value={this.state.userIds[i] + "|" + this.state.firstnames[i]}
-            onClick={this.selectUser}
-          >
-            {this.state.firstnames[i]}
-          </button>
+      let messagedUserItems = [];
+      let notMessagedUserItems = [];
+      if (this.state.messagedUserIds && this.state.messagedUserIds.length > 0) {
+        for (var i = 0; i < this.state.messagedUserIds.length; i++) {
+          var pos_user = this.state.messagedUserIds[i];
+          let messageSenderName;
+          if (this.state.messageSender[i] == this.userId) {
+            messageSenderName = this.state.currentName;
+          } else {
+            messageSenderName = this.state.messagedUserNames[i];
+          }
+          messagedUserItems.push(
+            <div>
+              <Link
+                to={{
+                  pathname: "/viewfriendprofile",
+                  state: {
+                    id: this.state.userId,
+                    friendId: this.state.messagedUserIds[i],
+                  },
+                }}
+              >
+                {this.state.messagedUserNames[i]}
+              </Link>
+              <button
+                className="pos-user"
+                key={pos_user + "|message"}
+                value={
+                  this.state.messagedUserIds[i] +
+                  "|" +
+                  this.state.messagedUserNames[i]
+                }
+                onClick={this.selectUserMessage}
+              >
+                <p>
+                  {messageSenderName}: {this.state.messageContent[i]}
+                </p>
+                <p>timestamp: {this.state.timeStamp[i]}</p>
+              </button>
+            </div>
+          );
+        }
+      }
+      if (
+        this.state.notMessagedUserIds &&
+        this.state.notMessagedUserIds.length > 0
+      ) {
+        for (var i = 0; i < this.state.notMessagedUserIds.length; i++) {
+          var pos_user = this.state.notMessagedUserIds[i];
+          notMessagedUserItems.push(
+            <button
+              className="pos-user"
+              key={pos_user}
+              value={
+                this.state.notMessagedUserIds[i] +
+                "|" +
+                this.state.notMessagedUserNames[i]
+              }
+              onClick={this.selectUserMessage}
+            >
+              {this.state.notMessagedUserNames[i]}
+            </button>
+          );
+        }
+      }
+      if (
+        this.state.messagedUserIds.length > 0 &&
+        this.state.notMessagedUserIds.length > 0
+      ) {
+        console.log(this.state.messagedUserIds, this.state.notMessagedUserIds);
+        matchingSection = (
+          <h3 id="Matches-congrats">
+            <p>Congratulations,meh</p>
+            <p>you have a match!</p>
+            <p>Messaged Users</p>
+            <p>{messagedUserItems}</p>
+            <p>Not Messaged Users</p>
+            <p>{notMessagedUserItems}</p>
+          </h3>
+        );
+      } else if (messagedUserItems.length > 0) {
+        matchingSection = (
+          <h3 id="Matches-congrats">
+            <p>Congratulations,</p>
+            <p>you have a match!</p>
+            <p>Messaged Users</p>
+            <p>{messagedUserItems}</p>
+          </h3>
+        );
+      } else if (notMessagedUserItems.length > 0) {
+        matchingSection = (
+          <h3 id="Matches-congrats">
+            <p>Congratulations,</p>
+            <p>you have a match!</p>
+            <p>Not Messaged Users</p>
+            <p>{notMessagedUserItems}</p>
+          </h3>
         );
       }
-      matchingSection = (
-        <h3 id="Matches-congrats">
-          <img src="happy-penguin.svg"></img>
-          <p>Congratulations, you have a match! </p>
-          <div className="matchingBox">
-            <br></br>
-            <h2>{userItems}</h2>
-            <br></br>
-          </div>
-        </h3>
-      );
     } else if (this.state.matchesExist == "not exists") {
       matchingSection = (
         <h2 id="Matches-none">
-          <img src="sad-penguin.svg"></img>
           <p>Sorry, no one met the matching criteria you set.</p>
           <p>
             We suggest you to edit your profile, or wait for more users to join
             our community.
           </p>
-          <p>Please try again later!</p>
+          <p>Please try again later :(</p>
         </h2>
       );
     } else {
@@ -128,20 +227,11 @@ class Matches extends React.Component {
       <div id="Matches-section">
         {matchingSection}
 
-        <br></br>
         <div class="swipingButton" id="swipingButton">
-          <Link to={{ pathname: "/main", state: { id: this.state.userId } }}>
-            <p>Keep Swiping </p>
-          </Link>
+          <Link to={{ pathname: "/main" }}>Keep Swiping</Link>
         </div>
-
-        <br></br>
         <div class="viewProfileButton" id="viewProfileButton">
-          <Link
-            to={{ pathname: "/viewprofile", state: { id: this.state.userId } }}
-          >
-            <p> View Profile</p>
-          </Link>
+          <Link to={{ pathname: "/viewprofile" }}>View Profile</Link>
         </div>
       </div>
     );

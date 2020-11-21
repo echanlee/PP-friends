@@ -74,7 +74,6 @@ class Register extends React.Component {
     clearCookies();
     return (
       <div className="Register">
-        <img src="ppFriendsLogo.png"></img>
         <h1> Join the Community</h1>
         <form id="registerForm" onSubmit={this.handleSubmit}>
           <div class="form-group form in-line">
