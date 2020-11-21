@@ -4,7 +4,7 @@ from flask_cors import CORS
 from server.register import registerUser
 import profile
 import server.matches
-from login import loginUser
+from server.login import loginUser
 import SwipeDecision
 from questionnaire import updateQuestionnaire
 from potentialMatch import findPotentialMatches
