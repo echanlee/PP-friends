@@ -166,12 +166,7 @@ class SwipeProfiles extends React.Component {
     return (
       <div className="SwipeProfile">
         <Header id={this.state.id} />
-        <br></br>
-        <header class="pageTitle">Potential Friends!</header>
-        <br></br>
 
-        <br></br>
-        <br></br>
         <br></br>
         {error ? (
           <text>{error}</text>
