@@ -1,13 +1,14 @@
 import React from "react";
 import "./profile.css"
 import {withRouter, Link} from 'react-router-dom'
+import {getCookie} from '../cookies';
 import Header from '../Header/Header'
 
   class EditProfile extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        userId: this.props?.location?.state?.id,
+        userId: getCookie("userId"),
         name: "",
         birthday: "",
         age: 0,
@@ -55,7 +56,7 @@ import Header from '../Header/Header'
         if (this.completedInput()){
             this.checkAge();
             if (this.state.age > 18 && this.state.age < 100){
-              const id = this.props?.location?.state?.id;
+              const id = this.state.userId;
               const myForm = new FormData (document.getElementById("profileForm"));
               myForm.append("id", id);
               myForm.append("age", this.state.age);
@@ -131,6 +132,14 @@ import Header from '../Header/Header'
       }
 
     render() {
+      const id = this.state.id;
+      if(id === "") {
+        this.props.history.push({
+          pathname: "/login",
+        });
+        return null;
+      }
+
       return (
           
         <div className="Profile">

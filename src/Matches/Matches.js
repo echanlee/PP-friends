@@ -1,12 +1,14 @@
 import React from 'react';
 import './Matches.css';
 import {withRouter, Link} from 'react-router-dom'
+import {getCookie} from '../cookies';
 
 class Matches extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            userId: this.props?.location?.state?.id,
+            userId: getCookie("userId"),
+            userIds: [],
             matchesExist: "not set",
             firstnames: [],
             name: "",
@@ -39,7 +41,6 @@ class Matches extends React.Component {
                 .history.push({
                   pathname: "/messages",
                   state: {
-                      id: this.state.userId,
                       friendId: userSelected[0],
                       currentName: this.state.name,
                       friendName: userSelected[1],
@@ -100,7 +101,15 @@ class Matches extends React.Component {
     }
 
     render(){
+        if(this.state.userId === "") {
+            this.props.history.push({
+              pathname: "/login",
+            });
+            return null;
+        }
+
         let matchingSection;
+
         if (this.state.matchesExist == "exists"){
             let messagedUserItems = [];
             let notMessagedUserItems = [];
@@ -193,10 +202,10 @@ class Matches extends React.Component {
                  {matchingSection}                        
 
                 <div class = "swipingButton" id = 'swipingButton'>
-                    <Link to={{pathname: '/main', state: {id: this.state.userId}}}>Keep Swiping</Link>
+                    <Link to={{pathname: '/main'}}>Keep Swiping</Link>
                 </div>
                 <div class = "viewProfileButton" id = 'viewProfileButton'>
-                    <Link to={{pathname: '/viewprofile', state: {id: this.state.userId}}}>View Profile</Link>
+                    <Link to={{pathname: '/viewprofile'}}>View Profile</Link>
                 </div>
             </div>
         )
