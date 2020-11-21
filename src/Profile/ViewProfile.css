@@ -35,8 +35,10 @@ input[value="date"] {
   position: absolute;
   width: 1260px;
   height: 618px;
-  left: 309px;
-  top: 250px;
+  left: 20%;
+  top: 30%;
+  margin-top: -60px;
+  margin-left: -50px;
   border-radius: 22px;
   background: #f8dabb;
   border-radius: 22px;

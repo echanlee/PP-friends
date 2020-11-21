@@ -134,6 +134,7 @@ class Matches extends React.Component {
               >
                 {this.state.messagedUserNames[i]}
               </Link>
+
               <button
                 className="pos-user"
                 key={pos_user + "|message"}
@@ -144,10 +145,11 @@ class Matches extends React.Component {
                 }
                 onClick={this.selectUserMessage}
               >
-                <p>
+                <p class="convoSection">
+                  {" "}
                   {messageSenderName}: {this.state.messageContent[i]}
                 </p>
-                <p>timestamp: {this.state.timeStamp[i]}</p>
+                <p class="timeSection">{this.state.timeStamp[i]}</p>
               </button>
             </div>
           );
@@ -182,10 +184,10 @@ class Matches extends React.Component {
         console.log(this.state.messagedUserIds, this.state.notMessagedUserIds);
         matchingSection = (
           <h3 id="Matches-congrats">
-            <p>Congratulations,meh</p>
-            <p>you have a match!</p>
-            <p>Messaged Users</p>
-            <p>{messagedUserItems}</p>
+            <img src="happy-penguin.svg"></img>
+            <p>Congratulations, you have a match!</p>
+            <h2>Messaged Users</h2>
+            <h3>{messagedUserItems}</h3>
             <p>Not Messaged Users</p>
             <p>{notMessagedUserItems}</p>
           </h3>
@@ -193,17 +195,19 @@ class Matches extends React.Component {
       } else if (messagedUserItems.length > 0) {
         matchingSection = (
           <h3 id="Matches-congrats">
-            <p>Congratulations,</p>
-            <p>you have a match!</p>
-            <p>Messaged Users</p>
-            <p>{messagedUserItems}</p>
+            <img src="happy-penguin.svg"></img>
+            <h4>Congratulations, you have a match!</h4>
+            <h6>Messaged Users</h6>
+            <div className="containerBox">
+              <p>{messagedUserItems}</p>
+            </div>
           </h3>
         );
       } else if (notMessagedUserItems.length > 0) {
         matchingSection = (
           <h3 id="Matches-congrats">
-            <p>Congratulations,</p>
-            <p>you have a match!</p>
+            <img src="happy-penguin.svg"></img>
+            <p>Congratulations, you have a match!</p>
             <p>Not Messaged Users</p>
             <p>{notMessagedUserItems}</p>
           </h3>
@@ -230,6 +234,7 @@ class Matches extends React.Component {
         <div class="swipingButton" id="swipingButton">
           <Link to={{ pathname: "/main" }}>Keep Swiping</Link>
         </div>
+        <br></br>
         <div class="viewProfileButton" id="viewProfileButton">
           <Link to={{ pathname: "/viewprofile" }}>View Profile</Link>
         </div>
