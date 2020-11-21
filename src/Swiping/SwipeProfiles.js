@@ -178,37 +178,34 @@ class SwipeProfiles extends React.Component {
         ) : (
           <div>
             <img src="ppFriendsLogo.png"></img>
-            <h1>A potential Friend!</h1>
-            <div class="profileIntroSection">
-              <p>Name 😀 </p>
-              <text>{this.state.firstName}</text>
-              <p>Age 🎂 </p>
-              <text>{this.state.age}</text>
-
-              <p>Gender 👫 </p>
-              <text>{this.state.gender}</text>
-              <p>Description 😶 </p>
-              <text>{this.state.description}</text>
-              <p>Interests 🎨 </p>
-              <text>{this.state.interests}</text>
-              <p>Education / Work 💻 </p>
-              <text>{this.state.workplace}</text>
-            </div>
-            <br></br>
-            <button
-              class="button letsTalkButton"
-              onClick={() => this.handleSwipe(true)}
-            >
-              Let's Talk
-            </button>{" "}
-            <br></br>
-            <br></br>
-            <button
-              class="button notInterestedButton"
-              onClick={() => this.handleSwipe(false)}
-            >
-              Not Interested
-            </button>
+            <h1>A potential Friend!</h1> 
+           <div class = "row">
+              <div class="column left">
+                <div class = "profileLeft">
+                  <img src = "profilepic.png" alt = "profilepic" width="150"></img>
+                  <h1>{this.state.firstName}, ({this.state.age})</h1>
+                  <button class="button letsTalkButton" onClick={() => this.handleSwipe(true)}>
+                    Let's Talk
+                  </button>
+                  <br></br>
+                  <button class="button notInterestedButton" onClick={() => this.handleSwipe(false)}>
+                      Not Interested
+                  </button>
+                </div>                
+              </div>
+              <div class="column right">
+                <div class="profileIntroSection">
+                  <p>Gender 👫 </p>
+                  <text>{this.state.gender}</text>
+                  <p>Description 😶 </p>
+                  <text>{this.state.description}</text>
+                  <p>Interests 🎨 </p>
+                  <text>{this.state.interests}</text>
+                  <p>Education / Work 💻 </p>
+                  <text>{this.state.workplace}</text>
+                </div>
+              </div>
+            </div> 
           </div>
         )}
       </div>
