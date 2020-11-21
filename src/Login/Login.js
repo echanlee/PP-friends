@@ -1,6 +1,7 @@
 import "./Login.css";
 import React from 'react';
-import {withRouter, Link} from 'react-router-dom'
+import {withRouter, Link} from 'react-router-dom';
+import {setCookie, clearCookies} from '../cookies';
 
 
 class Login extends React.Component {
@@ -28,8 +29,7 @@ class Login extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
 
-      const myForm = document.getElementById('loginForm');
-      
+      const myForm = document.getElementById('loginForm');      
       const myRequest = new Request('http://127.0.0.1:5000/login', {
         method: 'POST',
         body: new FormData(myForm),
@@ -39,10 +39,10 @@ class Login extends React.Component {
         .then(res => res.json())
         .then(res => { 
             if(res.response === "Success") {
+              setCookie("userId", res.id);
               this.props
                 .history.push({
                   pathname: "/main",
-                  state: {id: res.id}
                 });
             }
             this.setState({
@@ -57,6 +57,8 @@ class Login extends React.Component {
   }
 
   render() {
+    clearCookies();
+
     return (
       <div className = "Login" >
         <div className = "logoBanner">

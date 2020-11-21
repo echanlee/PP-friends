@@ -1,7 +1,9 @@
 import React from 'react';
 import io from "socket.io-client";
 import {withRouter, Link} from 'react-router-dom'
-
+import {getCookie} from '../cookies';
+import "./Messages.css";
+import Header from '../Header/Header';
 
 let endPoint = "http://localhost:5000";
 let socket = io.connect(`${endPoint}`);
@@ -10,7 +12,7 @@ class Messages extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-        userId: this.props?.location?.state?.id,
+        userId: getCookie("userId"),
         messages : [],
         messageSender: [],
         timeStamps: [],
@@ -19,13 +21,22 @@ class Messages extends React.Component {
         currentName: this.props?.location?.state?.currentName,
         friendName: this.props?.location?.state?.friendName,
         friendId:  this.props?.location?.state?.friendId,
+        currentConvoId: this.props?.location?.state?.currentConvoId,
     }
     this.onChange = this.onChange.bind(this);
     this.onClick = this.onClick.bind(this);
   }
 
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+  }
+  
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
+
   componentDidMount = () => {
-    const currentConvoId = this.props?.location?.state?.currentConvoId;
+    const currentConvoId = this.state.currentConvoId;
     const myRequest = new Request('http://127.0.0.1:5000/getMessages', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -47,6 +58,7 @@ class Messages extends React.Component {
                         messageSender: [...this.state.messageSender, this.state.friendName],
                         timeStamps: [...this.state.timeStamps, new Date().toUTCString()],
                       });
+                  this.scrollToBottom();
                 });
             })
         .catch((error) => {
@@ -72,7 +84,7 @@ class Messages extends React.Component {
     const message = this.state.message;
     const name = this.state.currentName;
     const room = this.state.room;
-    const currentConvoId = this.props?.location?.state?.currentConvoId;
+    const currentConvoId = this.state.currentConvoId;
     if (message !== "") {
       socket.emit("message", 
         {
@@ -93,7 +105,6 @@ class Messages extends React.Component {
         fetch(myRequest)
             .then(response => response.json())
             .then(res => {
-              console.log(res);
                 if(res.response != "Success")
                     alert("Something went wrong sending message");
             })
@@ -119,23 +130,47 @@ class Messages extends React.Component {
   }
 
   render() {
+    if(this.state.userId === "") {
+      this.props.history.push({
+        pathname: "/login",
+      });
+      return null;
+  }
+
     var message = this.state.message;
     var messages = this.state.messages;
     var timeStamps = this.state.timeStamps;
     var names = this.state.messageSender;
     return (
       <div>
-        <Link to={{pathname: '/matches', state: {id: this.state.userId}}}>Back to Matches matches</Link>
+        <Header id={this.state.userId}/>
+      <div className = "PageContainer">
+        <p>You are currently messaging:</p>
+         <h1>{this.state.friendName}</h1>
+        <div className = "MessageContainer">
         {messages.length > 0 ?
           messages.map((msg, index) => (
-            <div>
-              <p>{timeStamps[index]}</p>
-              <p>{names[index]} : {msg}</p>
-            </div>
-          )):
-          <header>Start a conversation!</header>}
-        <input value={message} name="message" onChange={e => this.onChange(e)} onKeyPress={this.onKeyPress} />
-        <button onClick={() =>this.onClick()} >Send Message</button> <br></br>
+             names[index]==this.state.currentName ?
+              <div className = "UserOne">
+                <p1>{timeStamps[index]}</p1>
+                <p>{names[index]} : {msg}</p>
+              </div> :
+              <div className = "UserTwo">
+                <p1>{timeStamps[index]}</p1>
+                <p>{names[index]} : {msg}</p>
+              </div>
+            )):
+          <p>Start a conversation!</p>}
+
+          <div style={{ float:"left", clear: "both" }}
+            ref={(el) => { this.messagesEnd = el; }}>
+          </div>
+          
+          <input value={message} name="message" onChange={e => this.onChange(e)} onKeyPress={this.onKeyPress} />
+          <button onClick={() =>this.onClick()} >Send Message</button> <br></br>
+            
+        </div>  
+      </div>
       </div>
     );
     }
