@@ -4,7 +4,6 @@ export function getLocation(){
 
         return new Promise ((res,rej) => {
             navigator.geolocation.getCurrentPosition(res, rej, {timeout:10000})
-            console.log("getlocation test3");
         })
  
     }

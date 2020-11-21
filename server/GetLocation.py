@@ -21,4 +21,4 @@ def getLocation(userID, longitude, latitude):
 
         return {"response": err.msg}
 
-    return {"response": "Something went wrong creating profile"}
+    return {"response": "Something went wrong with getting user location"}
