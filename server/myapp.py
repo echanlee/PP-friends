@@ -6,9 +6,9 @@ import profile
 import server.matches
 from server.login import loginUser
 import server.SwipeDecision
-from questionnaire import updateQuestionnaire
-from potentialMatch import findPotentialMatches
-import messages
+from server.questionnaire import updateQuestionnaire
+from server.potentialMatch import findPotentialMatches
+import server.messages
 
 app = Flask(__name__)
 CORS(app)
