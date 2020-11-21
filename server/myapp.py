@@ -21,6 +21,13 @@ socketIo = SocketIO(app, cors_allowed_origins="*")
 def home():
     return app.send_static_file('index.js')
 
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', debug=False, port=os.environ.get('PORT', 80))
+
+@app.errorhandler(404)
+def not_found(e):
+    return app.send_static_file('index.js')
+
 @app.route('/login', methods=['POST'])
 def login():
     if request.method == 'POST':
