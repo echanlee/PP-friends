@@ -10,7 +10,7 @@ from server.questionnaire import updateQuestionnaire
 from server.potentialMatch import findPotentialMatches
 import server.messages
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='./src', static_url_path='/')
 CORS(app)
 
 app.config['SECRET_KEY'] = 'mysecret'
@@ -19,7 +19,7 @@ socketIo = SocketIO(app, cors_allowed_origins="*")
 
 @app.route('/')
 def home():
-    return 'testing'
+    return app.send_static_file('index.js')
 
 @app.route('/login', methods=['POST'])
 def login():
