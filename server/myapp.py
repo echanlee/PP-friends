@@ -1,14 +1,14 @@
 from flask import Flask, request, render_template
 from flask_socketio import SocketIO, send, join_room, leave_room, emit
 from flask_cors import CORS
-from register import registerUser
+from server.register import registerUser
 import profile
-import matches
-from login import loginUser
-import SwipeDecision
-from questionnaire import updateQuestionnaire
-from potentialMatch import findPotentialMatches
-import messages
+import server.matches
+from server.login import loginUser
+import server.SwipeDecision
+from server.questionnaire import updateQuestionnaire
+from server.potentialMatch import findPotentialMatches
+import server.messages
 
 app = Flask(__name__)
 CORS(app)
