@@ -1,7 +1,60 @@
 import React from "react";
+import "./profile.css"
+import {withRouter, Link} from 'react-router-dom'
+import {getCookie} from '../cookies';
+import Header from '../Header/Header'
+
+  class EditProfile extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        userId: getCookie("userId"),
+        name: "",
+        birthday: "",
+        age: 0,
+        bio: "",
+        gender: "Female",
+        genderPreference: "Female",
+        education: "",
+        interests: "",
+        error: "",
+        maxDistance: 10,
+        updateStatus: "",
+      };
+
+      this.handleUpdate = this.handleUpdate.bind(this);
+      this.handleChange = this.handleChange.bind(this);
+    }
+    componentDidMount(){
+        const myRequest = new Request('http://127.0.0.1:5000/viewprofile', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({"userId": this.state.userId}),
+            });
+            fetch(myRequest)
+                .then(response => response.json())
+                .then(res => 
+                        this.setState({
+                            name: res.name,
+                            bio: res.bio,
+                            gender: res.gender,
+                            genderPreference: res.genderPreference,
+                            education: res.education, 
+                            interests: res.interests,
+                            maxDistance: res.maxDistance,
+                            birthday: res.birthday,
+                            updatedMessage: "",
+                        })
+            ).catch((error) => {
+                console.error(error)
+        })
+
 import "./profile.css";
 import { withRouter, Link } from "react-router-dom";
+<<<<<<< Updated upstream:src/Profile/EditProfile.js
 import { getCookie } from "../cookies";
+=======
+>>>>>>> Stashed changes:src/EditProfile.js
 import Header from "../Header/Header";
 
 class EditProfile extends React.Component {
@@ -51,31 +104,30 @@ class EditProfile extends React.Component {
       });
   }
 
-  handleUpdate = (event) => {
-    event.preventDefault();
-    if (this.completedInput()) {
-      this.checkAge();
-      if (this.state.age > 18 && this.state.age < 100) {
-        const id = this.props?.location?.state?.id;
-        const myForm = new FormData(document.getElementById("profileForm"));
-        myForm.append("id", id);
-        myForm.append("age", this.state.age);
-        const myRequest = new Request("http://127.0.0.1:5000/editprofile", {
-          method: "POST",
-          body: myForm,
-        });
-        /*his.setState(state => 
-  ({ style: Object.assign(state.style, { backgroundColor: 'red' } })) */
+      handleUpdate = (event) => {
+        event.preventDefault();
+        if (this.completedInput()){
+            this.checkAge();
+            if (this.state.age > 18 && this.state.age < 100){
+              const id = this.state.userId;
+              const myForm = new FormData (document.getElementById("profileForm"));
+              myForm.append("id", id);
+              myForm.append("age", this.state.age);
+              const myRequest = new Request("http://127.0.0.1:5000/editprofile", {
+                method: "POST",
+                body: myForm,
+});
+/*his.setState(state => 
+({ style: Object.assign(state.style, { backgroundColor: 'red' } })) */
 
-        fetch(myRequest)
-          .then((res) => res.json())
-          .then((res) => {
-            if (res.response === "Success") {
-              this.setState({
-                updatedMessage: (
-                  <p>You have successfully updated your profile!</p>
-                ),
-              });
+fetch(myRequest)
+  .then((res) => res.json())
+  .then((res) => {
+    if (res.response === "Success") {
+      this.setState({
+        updatedMessage: (
+          <p>You have successfully updated your profile!</p>
+        ), });
             } else {
               this.setState({
                 error: res.response,
@@ -131,7 +183,6 @@ class EditProfile extends React.Component {
     ) {
       age -= 1;
     }
-
     if (age < 18) {
       alert("You need to be above 18 to register");
     } else if (age > 100) {
@@ -143,6 +194,7 @@ class EditProfile extends React.Component {
     this.state.age = age;
   };
 
+<<<<<<< Updated upstream:src/Profile/EditProfile.js
   render() {
     const id = this.state.id;
     if (id === "") {
@@ -174,6 +226,29 @@ class EditProfile extends React.Component {
           <br></br>
           <div class="formgroup">
             <label for="Birthday">Birthday 🎂</label>
+=======
+    render() {
+      const id = this.state.id;
+      if(id === "") {
+        this.props.history.push({
+          pathname: "/login",
+        });
+        return null;
+      }
+
+      return (
+          
+        <div className="Profile">
+          <Header id={this.state.userId}/>
+          <form id="profileForm" onSubmit={this.handleUpdate}>
+          <h1>My Profile</h1>
+
+            <p>Name:</p>
+
+            <input type="text" name="name" value = {this.state.name} onChange={this.handleChange} maxlength="30" />
+
+            <p>Birthday 🎂</p>
+>>>>>>> Stashed changes:src/EditProfile.js
 
             <input
               type="date"
@@ -277,6 +352,7 @@ class EditProfile extends React.Component {
             <text>{this.state.maxDistance}KM</text>
             <br></br>
             <br></br>
+<<<<<<< Updated upstream:src/Profile/EditProfile.js
           </div>
           <div class="rectangle2">
             <p>Profile Picture</p>
@@ -285,6 +361,13 @@ class EditProfile extends React.Component {
             <input type="submit" value="Update" />
             {this.state.updatedMessage}
           </div>
+=======
+     
+          <br></br>
+
+          <input type="submit" value="Update" />
+          {this.state.updatedMessage}
+>>>>>>> Stashed changes:src/EditProfile.js
         </form>
       </div>
     );

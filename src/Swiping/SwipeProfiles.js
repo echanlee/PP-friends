@@ -1,5 +1,13 @@
 import React from "react";
+<<<<<<< Updated upstream:src/Swiping/SwipeProfiles.js
 import Header from "../Header/Header";
+=======
+
+import Header from "./Header";
+
+//import Header from '../Header/Header';
+
+>>>>>>> Stashed changes:src/SwipeProfiles.js
 import "./SwipeProfile.css";
 import { withRouter, Link } from "react-router-dom";
 import { getCookie } from "../cookies";
@@ -165,11 +173,11 @@ class SwipeProfiles extends React.Component {
 
     return (
       <div className="SwipeProfile">
-        <Header id={this.state.id} />
         <br></br>
         <header class="pageTitle">Potential Friends!</header>
         <br></br>
-
+        <Header id={id} />
+        <img src="ppFriendsLogo.png"></img>
         <br></br>
         <br></br>
         <br></br>
@@ -177,37 +185,36 @@ class SwipeProfiles extends React.Component {
           <text>{error}</text>
         ) : (
           <div>
-            <img src="ppFriendsLogo.png"></img>
-            <h1>A potential Friend!</h1>
+            <p>Name: </p>
+            <text>{this.state.firstName}</text>
+            <p>Age: </p>
+            <text>{this.state.age}</text>
+            <br></br>
             <div class="profileIntroSection">
-              <p>Name 😀 </p>
-              <text>{this.state.firstName}</text>
-              <p>Age 🎂 </p>
-              <text>{this.state.age}</text>
-
-              <p>Gender 👫 </p>
+              <br></br>
+              <p>Gender: </p>
               <text>{this.state.gender}</text>
-              <p>Description 😶 </p>
+              <p>Description: </p>
               <text>{this.state.description}</text>
-              <p>Interests 🎨 </p>
+              <p>Interests: </p>
               <text>{this.state.interests}</text>
-              <p>Education / Work 💻 </p>
+              <p>Education / Work: </p>
               <text>{this.state.workplace}</text>
+              <br></br>
             </div>
             <br></br>
             <button
               class="button letsTalkButton"
               onClick={() => this.handleSwipe(true)}
             >
-              Let's Talk
+              Let's Talk!
             </button>{" "}
-            <br></br>
             <br></br>
             <button
               class="button notInterestedButton"
               onClick={() => this.handleSwipe(false)}
             >
-              Not Interested
+              Not Interested.
             </button>
           </div>
         )}

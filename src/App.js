@@ -15,7 +15,10 @@ import Questionnaire from './Questionnaire/Questionnaire';
 import Messages from './Messaging/Messages';
 import ViewProfile from './Profile/ViewProfile';
 import EditProfile from './Profile/EditProfile';
+<<<<<<< Updated upstream
 import ViewFriendProfile from './Matches/ViewFriendProfile';
+=======
+>>>>>>> Stashed changes
 
 export default class App extends React.Component {
     render() {

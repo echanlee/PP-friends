@@ -113,13 +113,20 @@ class ProfileForm extends React.Component {
   };
 
   render() {
+    const id = this.state.id;
+    if (id === "") {
+      this.props.history.push({
+        pathname: "/login",
+      });
+      return null;
+    }
+
     return (
       <div className="Profile">
         <form id="profileForm" onSubmit={this.handleUpdate}>
-          <h1>My Profile 👋</h1>
-          <img src="ppFriendsLogo.png"></img>
-          <br></br>
-          <p>Name 😀</p>
+          <h1>My Profile</h1>
+
+          <p>Name:</p>
 
           <input
             type="text"
@@ -129,7 +136,7 @@ class ProfileForm extends React.Component {
             maxlength="30"
           />
 
-          <p>Birthday 🎂</p>
+          <p>Birthday:</p>
 
           <input
             type="date"
@@ -140,7 +147,7 @@ class ProfileForm extends React.Component {
             onChange={this.handleChange}
           />
 
-          <p>Your Gender 👫</p>
+          <p>Your Gender:</p>
 
           <select
             name="gender"
@@ -152,7 +159,7 @@ class ProfileForm extends React.Component {
             <option value="Other">Other</option>
           </select>
 
-          <p>Your Preferred Gender for friends</p>
+          <p>Your Preferred Gender for friends:</p>
           <select
             name="genderPreference"
             fieldValue={this.state.genderPreference}
@@ -164,7 +171,7 @@ class ProfileForm extends React.Component {
             <option value="Both">Both</option>
           </select>
 
-          <p>Education/Work 💻</p>
+          <p>Education/Work:</p>
           <input
             type="text"
             name="education"
@@ -173,7 +180,7 @@ class ProfileForm extends React.Component {
             maxlength="30"
           />
 
-          <p>Your interests 🎨</p>
+          <p>Your interests:</p>
           <input
             type="text"
             name="interests"
@@ -182,7 +189,7 @@ class ProfileForm extends React.Component {
             maxlength="255"
           />
 
-          <p>Bio 😶</p>
+          <p>Bio:</p>
           <input
             type="text"
             name="bio"
@@ -191,19 +198,19 @@ class ProfileForm extends React.Component {
             maxlength="255"
           />
 
-          <p>Max Distance 🌎</p>
+          <p>Max Distance:</p>
           <input
             type="range"
             name="maxDistance"
             value={this.state.maxDistance}
             onChange={this.handleChange}
             min="1"
-            max="500"
+            max="99999"
           />
           <text>{this.state.maxDistance}KM</text>
           <br></br>
-          <br></br>
-          <input type="submit" value="Get Started!" />
+
+          <input type="submit" value="Update" />
         </form>
         <text>{this.state.error}</text>
       </div>
