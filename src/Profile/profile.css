@@ -7,6 +7,7 @@
   font-weight: bold;
   font-size: 30px;
   color: black;
+  text-align: center;
 }
 
 .Profile p {
@@ -23,9 +24,7 @@
 input[value="Update"] {
   position: absolute;
   left: 65%;
-  bottom: 8%;
-  margin-top: -60px;
-  margin-left: -50px;
+  margin-top: 2.8%;
   color: white;
   letter-spacing: 1px;
   background-color: #3680a3;
@@ -33,7 +32,6 @@ input[value="Update"] {
   display: inline-block;
   border-radius: 5px;
   width: 175px;
-
   font-size: 20px;
   height: 35px;
 }
@@ -44,8 +42,7 @@ input[value="submit"] {
 }
 
 select {
-  font-size: 25px;
-  float: -500px;
+  font-size: 20px;
 }
 
 .Profile input[type="date"],
@@ -54,20 +51,19 @@ input[value="date"] {
 }
 
 .Profile input {
-  font-size: 25px;
+  font-size: 20px;
 }
 .rectangle2 {
   position: absolute;
-  width: 1260px;
-  height: 618px;
-  left: 20%;
-  top: 30%;
-  margin-top: -60px;
-  margin-left: -50px;
-
+  width: 1200px;
+  height: 460px;
+  padding: 5%;
+  margin-top: -40%;
+  margin-left: 0%;
+  border-radius: 22px;
+  border-radius: 22px;
   z-index: -1;
   background: #4dadb7;
-  border-radius: 22px;
 }
 
 select option {

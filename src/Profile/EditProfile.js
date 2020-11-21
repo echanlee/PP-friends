@@ -152,140 +152,143 @@ class EditProfile extends React.Component {
       return null;
     }
     return (
-      <div className="Profile">
+      <div>
+        {" "}
         <Header id={this.state.userId} />
-        <form id="profileForm" onSubmit={this.handleUpdate}>
-          <h1>Update My Profile 👋</h1>
-          <img src="ppFriendsLogo.png"></img>
-          <br></br>
-          <br></br>
-
-          <div className="formgroup">
-            <label for="User">Name 😀</label>
-            <input
-              type="text"
-              name="name"
-              value={this.state.name}
-              onChange={this.handleChange}
-              maxlength="30"
-            />
-          </div>
-          <br></br>
-          <br></br>
-          <div class="formgroup">
-            <label for="Birthday">Birthday 🎂</label>
-
-            <input
-              type="date"
-              name="birthday"
-              value={this.state.birthday}
-              min="1920-01-01"
-              placeholder="YYYY-MM-DD"
-              onChange={this.handleChange}
-            />
-          </div>
-
-          <br></br>
-          <br></br>
-          <div class="formgroup">
-            <label for="Gender">Gender 👫</label>
-
-            <select
-              name="gender"
-              onChange={this.handleChange}
-              value={this.state.gender}
-            >
-              <option value="Female">Female</option>
-              <option value="Male">Male</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-
-          <br></br>
-          <br></br>
-          <div class="formgroup">
-            <label for="GenderPreference">
-              Your Preferred Gender for friends 🎎
-            </label>
-
-            <select
-              name="genderPreference"
-              fieldValue={this.state.genderPreference}
-              onChange={this.handleChange}
-              value={this.state.genderPreference}
-            >
-              <option value="Female">Female</option>
-              <option value="Male">Male</option>
-              <option value="Both">Both</option>
-            </select>
-          </div>
-
-          <br></br>
-          <br></br>
-          <div class="formgroup">
-            <label for="Education">Education/Work 💻</label>
-
-            <input
-              type="text"
-              name="education"
-              value={this.state.education}
-              onChange={this.handleChange}
-              maxlength="30"
-            />
-          </div>
-
-          <br></br>
-          <br></br>
-          <div class="formgroup">
-            <label for="Interests">Your interests 🎨</label>
-
-            <input
-              type="text"
-              name="interests"
-              value={this.state.interests}
-              onChange={this.handleChange}
-              maxlength="255"
-            />
-          </div>
-
-          <br></br>
-          <br></br>
-          <div class="formgroup">
-            <label for="Bio">Bio 😶</label>
-            <input
-              type="text"
-              name="bio"
-              value={this.state.bio}
-              onChange={this.handleChange}
-              maxlength="255"
-              contenteditable="true"
-            />
-          </div>
-          <br></br>
-          <br></br>
-
-          <div class="formgroup">
-            <label for="Distance">Max Distance 🌎</label>
-            <input
-              type="range"
-              name="maxDistance"
-              value={this.state.maxDistance}
-              onChange={this.handleChange}
-              min="1"
-              max="500"
-            />
-            <text>{this.state.maxDistance}KM</text>
+        <div className="Profile">
+          <form id="profileForm" onSubmit={this.handleUpdate}>
+            <h1>Update My Profile 👋</h1>
+            <img src="ppFriendsLogo.png"></img>
             <br></br>
             <br></br>
-          </div>
-          <div class="rectangle2">
-            <p>Profile Picture</p>
-          </div>
-          <div class="updateProfileButton">
-            <input type="submit" value="Update" />
-            {this.state.updatedMessage}
-          </div>
-        </form>
+
+            <div className="formgroup">
+              <label for="User">Name 😀</label>
+              <input
+                type="text"
+                name="name"
+                value={this.state.name}
+                onChange={this.handleChange}
+                maxlength="30"
+              />
+            </div>
+            <br></br>
+            <br></br>
+            <div class="formgroup">
+              <label for="Birthday">Birthday 🎂</label>
+
+              <input
+                type="date"
+                name="birthday"
+                value={this.state.birthday}
+                min="1920-01-01"
+                placeholder="YYYY-MM-DD"
+                onChange={this.handleChange}
+              />
+            </div>
+
+            <br></br>
+            <br></br>
+            <div class="formgroup">
+              <label for="Gender">Gender 👫</label>
+
+              <select
+                name="gender"
+                onChange={this.handleChange}
+                value={this.state.gender}
+              >
+                <option value="Female">Female</option>
+                <option value="Male">Male</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <br></br>
+            <br></br>
+            <div class="formgroup">
+              <label for="GenderPreference">
+                Your Preferred Gender for friends 🎎
+              </label>
+
+              <select
+                name="genderPreference"
+                fieldValue={this.state.genderPreference}
+                onChange={this.handleChange}
+                value={this.state.genderPreference}
+              >
+                <option value="Female">Female</option>
+                <option value="Male">Male</option>
+                <option value="Both">Both</option>
+              </select>
+            </div>
+
+            <br></br>
+            <br></br>
+            <div class="formgroup">
+              <label for="Education">Education/Work 💻</label>
+
+              <input
+                type="text"
+                name="education"
+                value={this.state.education}
+                onChange={this.handleChange}
+                maxlength="30"
+              />
+            </div>
+
+            <br></br>
+            <br></br>
+            <div class="formgroup">
+              <label for="Interests">Your interests 🎨</label>
+
+              <input
+                type="text"
+                name="interests"
+                value={this.state.interests}
+                onChange={this.handleChange}
+                maxlength="255"
+              />
+            </div>
+
+            <br></br>
+            <br></br>
+            <div class="formgroup">
+              <label for="Bio">Bio 😶</label>
+              <input
+                type="text"
+                name="bio"
+                value={this.state.bio}
+                onChange={this.handleChange}
+                maxlength="255"
+                contenteditable="true"
+              />
+            </div>
+            <br></br>
+            <br></br>
+
+            <div class="formgroup">
+              <label for="Distance">Max Distance 🌎</label>
+              <input
+                type="range"
+                name="maxDistance"
+                value={this.state.maxDistance}
+                onChange={this.handleChange}
+                min="1"
+                max="500"
+              />
+              <text>{this.state.maxDistance}KM</text>
+              <br></br>
+              <br></br>
+            </div>
+            <div class="rectangle2">
+              <p>Profile Picture</p>
+            </div>
+            <div class="updateProfileButton">
+              <input type="submit" value="Update" />
+              {this.state.updatedMessage}
+            </div>
+          </form>
+        </div>
       </div>
     );
   }
