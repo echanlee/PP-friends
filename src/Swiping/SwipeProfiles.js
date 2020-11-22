@@ -1,9 +1,10 @@
 import React from "react";
-import Header from '../Header/Header';
+import Header from "../Header/Header";
 import "./SwipeProfile.css";
 import { withRouter, Link } from "react-router-dom";
 import {getCookie, setCookie} from '../cookies';
 import {getLocation} from '../GetLocation';
+
 
 class SwipeProfiles extends React.Component {
   constructor(props) {
@@ -97,6 +98,9 @@ class SwipeProfiles extends React.Component {
       this.setState({
         error: (
           <p>
+
+            <img src="sad-penguin.svg"></img>
+
             <br></br>
             There are no current potential friends for you within the area.{" "}
             <br></br>Try updating your profile or come back later!
@@ -141,6 +145,7 @@ class SwipeProfiles extends React.Component {
         });
       });
   }
+
 
   async componentDidMount(){
     const storedLocation = getCookie("location");
@@ -222,11 +227,19 @@ class SwipeProfiles extends React.Component {
         <Header id={this.state.id} />
 
         <br></br>
+        <header class="pageTitle">Potential Friends!</header>
+        <br></br>
+
+        <br></br>
+        <br></br>
+        <br></br>
+
         {error ? (
           <text>{error}</text>
         ) : (
           <div>
             <img src="ppFriendsLogo.png"></img>
+
             <h1>A potential Friend!</h1> 
            <div class = "row">
               <div class="column left">

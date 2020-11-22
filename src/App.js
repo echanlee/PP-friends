@@ -15,6 +15,7 @@ import Questionnaire from './Questionnaire/Questionnaire';
 import Messages from './Messaging/Messages';
 import ViewProfile from './Profile/ViewProfile';
 import EditProfile from './Profile/EditProfile';
+import ViewFriendProfile from './Matches/ViewFriendProfile';
 
 export default class App extends React.Component {
     render() {
@@ -28,6 +29,9 @@ export default class App extends React.Component {
                         </Route>
                         <Route path="/viewprofile">
                             <ViewProfile />
+                        </Route>
+                        <Route path="/viewfriendprofile">
+                            <ViewFriendProfile />
                         </Route>
                         <Route path="/editprofile">
                             <EditProfile />
