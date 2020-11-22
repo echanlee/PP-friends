@@ -12,7 +12,7 @@ import server.messages
 # import sys
 # import logging 
 
-app = Flask(__name__, static_folder='../src', static_url_path='/')
+app = Flask(__name__, static_url_path='/', template_folder='../src')
 CORS(app)
 # app.logger.addHandler(logging.StreamHandler(sys.stdout))
 # app.logger.setLevel(logging.ERROR)
@@ -23,7 +23,7 @@ socketIo = SocketIO(app, cors_allowed_origins="*")
 
 @app.route('/')
 def home():
-    return app.send_static_file('Login.js')
+    return render_template("index.js")
 
 # makes app run on the standard port
 if __name__ == "__main__":
