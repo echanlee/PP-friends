@@ -69,9 +69,6 @@ def insertConvo(userOne, userTwo):
             insertConvoRowsQuery = "INSERT INTO Conversation (userOne, userTwo) values \
                 (%s, %s)"
             cursor.execute(insertConvoRowsQuery, (userOne, userTwo,))
-
-            insertConvoRowsQuery = "INSERT INTO Conversation (userOne, userTwo) values \
-                (%s, %s)"
             cursor.execute(insertConvoRowsQuery, (userTwo, userOne,))
 
             connection.commit()
@@ -98,9 +95,9 @@ def swipeDecision(currentUserId, shownUserId, userDecision):
             cursor.execute(checkOppositeDecisionQuery, selectRow)
             res = cursor.fetchone()
             if res:
-                x = res[0]
+                res = res[0]
             else:
-                x = 0
+                res = 0
 
             cursor.close()
             if userDecision == 'true' and res:

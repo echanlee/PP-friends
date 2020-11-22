@@ -140,7 +140,7 @@ class Matches extends React.Component {
                     var pos_user = this.state.notMessagedUserIds[i];
                     notMessagedUserItems.push(
                         <div>
-                            <Link to={{pathname: '/viewfriendprofile', state: {id: this.state.userId, friendId: this.state.messagedUserIds[i]}}}>{this.state.messagedUserNames[i]}</Link>
+                            <Link to={{pathname: '/viewfriendprofile', state: {id: this.state.userId, friendId: this.state.notMessagedUserIds[i]}}}>{this.state.notMessagedUserNames[i]}</Link>
                             <button className='pos-user' 
                                     key={pos_user} 
                                     value = {this.state.notMessagedUserIds[i]+"|"+this.state.notMessagedUserNames[i]} 
@@ -167,8 +167,7 @@ class Matches extends React.Component {
             }
             else if (messagedUserItems.length > 0) {
                 matchingSection =  <h3 id='Matches-congrats'>
-                        <p>Congratulations,</p>
-                        <p>you have a match!</p> 
+                        <p>You don't have any new matches</p>
                         <p>Messaged Users</p>
                         <p>    
                             {messagedUserItems}
