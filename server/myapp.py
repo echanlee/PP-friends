@@ -12,7 +12,7 @@ import server.messages
 # import sys
 # import logging 
 
-app = Flask(__name__, static_folder='public', static_url_path='/', )
+app = Flask(__name__, static_folder='../public', static_url_path='/')
 CORS(app)
 # app.logger.addHandler(logging.StreamHandler(sys.stdout))
 # app.logger.setLevel(logging.ERROR)
