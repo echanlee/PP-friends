@@ -23,7 +23,7 @@ socketIo = SocketIO(app, cors_allowed_origins="*")
 
 @app.route('/')
 def home():
-    return app.send_static_file('index.js')
+    return app.send_static_file('App.js')
 
 # makes app run on the standard port
 if __name__ == "__main__":
