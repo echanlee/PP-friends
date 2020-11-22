@@ -8,9 +8,9 @@ config = {
     'host': '35.239.244.129',
     'database': 'ppFriends',
     'client_flags': [ClientFlag.SSL],
-    'ssl_ca': 'ssl/server-ca.pem',
-    'ssl_cert': 'ssl/client-cert.pem',
-    'ssl_key': 'ssl/client-key.pem'
+    'ssl_ca': '../ssl/server-ca.pem',
+    'ssl_cert': '../ssl/client-cert.pem',
+    'ssl_key': '../ssl/client-key.pem'
 }
 
 def connectToDB():
