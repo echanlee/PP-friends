@@ -1,28 +1,68 @@
 * {
   /*all elements to inherit same font*/
   font-family: "Montserrat", sans-serif;
+  box-sizing: border-box;
 }
 
 .p {
   font-size: 20px;
-}
-.SwipeProfile {
-  text-align: center;
-  margin: auto;
-  position: relative;
+
 }
 
-.profileIntroSection {
-  /*coral section that includes other info in smaller font*/
-  background-color: #f8dabb;
+.column {
+  float: left;
+  padding: 10px;
+}
+
+.left{
+  width: 50%;
+  /* background-color:grey; */
+}
+
+.right{
+  width: 50%;
+  /* background-color:blue; */
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.SwipeProfile {
+  text-align: center;
+}
+
+.profileLeft{
   margin-left: auto;
-  margin-right: auto;
+  margin-right: 0;
   padding: 5%;
   width: 20em;
   text-align: center;
   line-height: 35px;
   border-radius: 10px;
 }
+
+.profileLeft img{
+  border-radius: 50%;
+}
+>>>>>>> development
+
+.profileIntroSection {
+  /*coral section that includes other info in smaller font*/
+  background-color: #f8dabb;
+
+  margin-left: 0;
+  margin-right: auto;
+  padding: 5%;
+  width: 20em;
+  text-align: left;
+  line-height: 35px;
+  border-radius: 10px;
+}
+
+>>>>>>> development
 .profileIntroSection p {
   color: black;
   font-weight: bold;
@@ -37,6 +77,7 @@
   width: 200px;
   height: 50px;
   font-size: 20px;
+
 }
 
 .notInterestedButton {
@@ -45,6 +86,9 @@
 }
 
 .letsTalkButton {
+
+  margin-top: 40%;
+
   background-color: #4dadb7;
 }
 
@@ -60,16 +104,21 @@
 
 .letsTalkButton:focus {
   /*when user selects this button, color of button changes*/
-  background-color: #4ccbda;
+
+  background-color: #4dadb7;
+
   color: white;
 }
 
 .notInterestedButton:hover {
-  background-color: grey;
+
+  background-color: #b9645b;
   color: white;
 }
 
 .notInterestedButton:focus {
-  background-color: rgb(75, 75, 75);
+
+  background-color: #e0786c;
+
   color: white;
 }

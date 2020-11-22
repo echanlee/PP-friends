@@ -102,6 +102,7 @@ class Register extends React.Component {
           </div>
         </form>
         <Link to="/">I Already Have an Account</Link>
+
       </div>
     );
   }

@@ -9,6 +9,7 @@ import SwipeDecision
 from questionnaire import updateQuestionnaire
 from potentialMatch import findPotentialMatches
 import messages
+from GetLocation import getLocation
 
 app = Flask(__name__)
 CORS(app)
@@ -86,6 +87,12 @@ def potentialMatch():
     if request.method == 'POST':
         param = request.get_json('responses')
         return findPotentialMatches(param['userId'])
+
+@app.route('/location', methods=['POST'])
+def storeLocation():
+    if request.method == 'POST':
+        param = request.get_json('userID')
+        return getLocation(param['userID'], param['longitude'], param['latitude'])
         
 @app.route('/conversationId', methods=['POST'])
 def conversationId():
@@ -119,6 +126,11 @@ def handleMessage(data):
 @socketIo.on("room")
 def handleMessage(room):
     join_room(room)
+    return None
+
+@socketIo.on("leaveRoom")
+def handleMessage(room):
+    leave_room(room)
     return None
 
 if __name__ == '__main__':
