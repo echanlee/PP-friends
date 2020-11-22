@@ -9,13 +9,13 @@ import server.SwipeDecision
 from server.questionnaire import updateQuestionnaire
 from server.potentialMatch import findPotentialMatches
 import server.messages
-import sys
-import logging 
+# import sys
+# import logging 
 
-app = Flask(__name__, static_folder='/src', static_url_path='/')
+app = Flask(__name__, static_folder='../src', static_url_path='/')
 CORS(app)
-app.logger.addHandler(logging.StreamHandler(sys.stdout))
-app.logger.setLevel(logging.ERROR)
+# app.logger.addHandler(logging.StreamHandler(sys.stdout))
+# app.logger.setLevel(logging.ERROR)
 
 app.config['SECRET_KEY'] = 'mysecret'
 
@@ -25,16 +25,14 @@ socketIo = SocketIO(app, cors_allowed_origins="*")
 def home():
     return app.send_static_file('index.js')
 
+# makes app run on the standard port
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=False, port=os.environ.get('PORT', 80))
 
-@app.errorhandler(404)
-def not_found(e):
-    return app.send_static_file('index.js')
-
-@app.errorhandler(500)
-def internal_error(e):
-    return app.send_static_file('index.js')
+# Error handling in case the url path does not exist, takes them back to main page
+# @app.errorhandler(404)
+# def not_found(e):
+#     return app.send_static_file('index.js')
 
 @app.route('/login', methods=['POST'])
 def login():
