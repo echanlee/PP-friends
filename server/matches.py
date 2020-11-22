@@ -3,7 +3,7 @@ from mysql.connector import errorcode
 from connect import connectToDB
 
 def getMessagedUsers(userId, cursor):
-    sql = f"SELECT distinct c.conversationId, c.userTwo, p.firstname, c.messageId, c.timeStamp, m.fromUser, m.content FROM Conversation c \
+    sql = f"SELECT distinct c.userTwo, p.firstname, c.messageId, c.timeStamp, m.fromUser, m.content FROM Conversation c \
                 join Messages m on c.messageId = m.messageId join Profile p on c.userTwo = p.userId WHERE c.userOne = {userId}"
     cursor.execute(sql, )
     res = cursor.fetchall()
@@ -14,25 +14,25 @@ def getMessagedUsers(userId, cursor):
     messageSender = []
     messageContent = []
     for pos in res:
-        messaged_user_ids.append(pos[1])
-        messaged_user_names.append(pos[2])
-        message_ids.append(pos[3])
-        timeStamp.append(pos[4])
-        messageSender.append(pos[5])
-        messageContent.append(pos[6])
+        messaged_user_ids.append(pos[0])
+        messaged_user_names.append(pos[1])
+        message_ids.append(pos[2])
+        timeStamp.append(pos[3])
+        messageSender.append(pos[4])
+        messageContent.append(pos[5])
     return messaged_user_ids, messaged_user_names, message_ids, timeStamp, messageSender, messageContent
     
 
 def getNotMessagedUsers(userId, cursor):
-    sql = f"SELECT distinct c.conversationId, c.userTwo, p.firstname FROM Conversation c \
+    sql = f"SELECT distinct c.userTwo, p.firstname FROM Conversation c \
                 join Profile p on c.userTwo = p.userId WHERE userOne = {userId} and ISNULL(c.messageId)"
     cursor.execute(sql, )
     res = cursor.fetchall()
     not_messaged_user_ids = []
     not_messaged_user_names = []
     for pos in res:
-        not_messaged_user_ids.append(pos[1])
-        not_messaged_user_names.append(pos[2])
+        not_messaged_user_ids.append(pos[0])
+        not_messaged_user_names.append(pos[1])
     return not_messaged_user_ids, not_messaged_user_names
 
 def matchUser(userId):
@@ -50,7 +50,6 @@ def matchUser(userId):
                 "notMessagedUserIds": not_messaged_user_ids, "messagedUserIds": messaged_user_ids, 
                 "notMessagedUserNames": not_messaged_user_names, "messagedUserNames": messaged_user_names, 
                 "messageIds": message_ids, "messageSender": messageSender, "messageContent": messageContent, "timeStamp": timeStamp}
-            print(d)
             return d
 
     except mysql.connector.Error as err:
