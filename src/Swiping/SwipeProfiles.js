@@ -1,8 +1,9 @@
 import React from "react";
-import Header from "../Header/Header";
+import Header from '../Header/Header';
 import "./SwipeProfile.css";
 import { withRouter, Link } from "react-router-dom";
-import { getCookie } from "../cookies";
+import {getCookie, setCookie} from '../cookies';
+import {getLocation} from '../GetLocation';
 
 class SwipeProfiles extends React.Component {
   constructor(props) {
@@ -96,7 +97,6 @@ class SwipeProfiles extends React.Component {
       this.setState({
         error: (
           <p>
-            <img src="sad-penguin.svg"></img>
             <br></br>
             There are no current potential friends for you within the area.{" "}
             <br></br>Try updating your profile or come back later!
@@ -140,6 +140,60 @@ class SwipeProfiles extends React.Component {
           error: "Error connecting to backend",
         });
       });
+  }
+
+  async componentDidMount(){
+    const storedLocation = getCookie("location");
+    const storedLongitude = storedLocation[0];
+    const storedLatitude = storedLocation[1];
+
+    var currentLocation = await getLocation();
+
+    if (currentLocation != undefined){ 
+    
+      const currentLongitude = currentLocation?.coords?.longitude;
+      const currentLatitude = currentLocation?.coords?.latitude;
+    
+      var checkValidLongitude = isFinite(currentLongitude) && Math.abs(currentLongitude) <= 180;
+      var checkValidLatitude = isFinite(currentLatitude) && Math.abs(currentLatitude) <= 90;
+
+      if(checkValidLongitude && checkValidLatitude){ 
+      
+        if(storedLongitude === currentLongitude && storedLatitude === currentLatitude){
+        }
+        else{
+      
+          const id = this.state.id;     
+          setCookie("longitude", currentLongitude);
+          setCookie("latitude", currentLatitude);
+     
+
+          const myRequest = new Request("http://127.0.0.1:5000/location", {
+            method: "POST",
+            body: JSON.stringify({"userID": id, "longitude": currentLongitude, "latitude": currentLatitude,})
+          ,});
+      
+          fetch(myRequest)
+          .then((res) => res.json())
+          .then((res) => {
+            if(res.response === "Success") {
+              console.log("updated location")
+            }
+            else{
+              console.log("error location update")
+            };
+          })
+          .catch((error) => {
+            this.setState({
+              error: "Error connecting to backend",
+            });
+          });
+        }     
+      }
+    }
+    else{
+      console.log("error getting user location")
+    } 
   }
 
   render() {
@@ -192,7 +246,7 @@ class SwipeProfiles extends React.Component {
                 <div class="profileIntroSection">
                   <p>Gender 👫 </p>
                   <text>{this.state.gender}</text>
-                  <p>Description 😶 </p>
+                  <p>Biography 😶 </p>
                   <text>{this.state.description}</text>
                   <p>Interests 🎨 </p>
                   <text>{this.state.interests}</text>
