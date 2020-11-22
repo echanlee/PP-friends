@@ -9,13 +9,9 @@ import server.SwipeDecision
 from server.questionnaire import updateQuestionnaire
 from server.potentialMatch import findPotentialMatches
 import server.messages
-# import sys
-# import logging 
 
 app = Flask(__name__, static_folder='../build', static_url_path='')
 CORS(app)
-# app.logger.addHandler(logging.StreamHandler(sys.stdout))
-# app.logger.setLevel(logging.ERROR)
 
 app.config['SECRET_KEY'] = 'mysecret'
 
