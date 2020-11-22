@@ -12,7 +12,7 @@ import server.messages
 # import sys
 # import logging 
 
-app = Flask(__name__, static_folder='build', static_url_path='')
+app = Flask(__name__, static_folder='../build', static_url_path='')
 CORS(app)
 # app.logger.addHandler(logging.StreamHandler(sys.stdout))
 # app.logger.setLevel(logging.ERROR)
@@ -32,7 +32,7 @@ if __name__ == "__main__":
 # Error handling in case the url path does not exist, takes them back to main page
 @app.errorhandler(404)
 def not_found(e):
-    return app.send_static_file('index.js')
+    return app.send_static_file('index.html')
 
 @app.route('/login', methods=['POST'])
 def login():
