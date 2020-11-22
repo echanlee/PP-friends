@@ -23,7 +23,7 @@ def home():
 
 # makes app run on the standard port
 if __name__ == "__main__":
-    app.run(host='127.0.0.0', debug=False, port=os.environ.get('PORT', 80))
+    app.run(host='0.0.0.0', debug=False, port=os.environ.get('PORT', 80))
 
 # Error handling in case the url path does not exist, takes them back to main page
 @app.errorhandler(404)
