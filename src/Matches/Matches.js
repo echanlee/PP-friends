@@ -122,7 +122,7 @@ class Matches extends React.Component {
                     }
                     messagedUserItems.push(
                         <div>
-                            {/* <Link to={{pathname: '/viewfriendprofile', state: {id: this.state.userId, friendId: this.state.messagedUserIds[i]}}}>{this.state.messagedUserNames[i]}</Link> */}
+                            <Link to={{pathname: '/viewfriendprofile', state: {id: this.state.userId, friendId: this.state.messagedUserIds[i]}}}>{this.state.messagedUserNames[i]}</Link>
                             <button className='pos-user' 
                                     key={pos_user}
                                     value = {this.state.messagedUserIds[i]+"|"+this.state.messagedUserNames[i]} 
@@ -139,12 +139,15 @@ class Matches extends React.Component {
                 for (var i = 0; i < this.state.notMessagedUserIds.length; i++){
                     var pos_user = this.state.notMessagedUserIds[i];
                     notMessagedUserItems.push(
-                        <button className='pos-user' 
-                                key={pos_user} 
-                                value = {this.state.notMessagedUserIds[i]+"|"+this.state.notMessagedUserNames[i]} 
-                                onClick = {this.selectUser}>
-                            {this.state.notMessagedUserNames[i]}
-                        </button>  
+                        <div>
+                            <Link to={{pathname: '/viewfriendprofile', state: {id: this.state.userId, friendId: this.state.messagedUserIds[i]}}}>{this.state.messagedUserNames[i]}</Link>
+                            <button className='pos-user' 
+                                    key={pos_user} 
+                                    value = {this.state.notMessagedUserIds[i]+"|"+this.state.notMessagedUserNames[i]} 
+                                    onClick = {this.selectUser}>
+                                {this.state.notMessagedUserNames[i]}
+                            </button>  
+                        </div>
                     )
                 }
             }
