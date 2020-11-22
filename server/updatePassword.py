@@ -9,7 +9,6 @@ def updatePassword(userID, oldPassword, newPassword):
             cursor = connection.cursor(buffered=True)
 
             if(confirmOldPassword(userID, oldPassword, cursor)):
-                print("test old password")
                 return {"response": "Your current password is incorrect"}
                 
             updatePasswordSql = "UPDATE Users SET password = %s WHERE id = %s"
@@ -29,7 +28,6 @@ def confirmOldPassword(userID, oldPassword, cursor):
     value = (userID,)
     cursor.execute(checkPasswordQuery, value)
     result = cursor.fetchone()[0]
-    print(result)
     if (result != oldPassword):
         return True
     return False
