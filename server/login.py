@@ -3,7 +3,6 @@ from mysql.connector import errorcode
 from server.connect import connectToDB
 
 def loginUser(email, password):
-
     try:
         connection = connectToDB()
         if(connection != False):
@@ -21,7 +20,7 @@ def loginUser(email, password):
             return {"response": "Success",
                     "id": userId}
             # need to return ID
-        
+        return {"test":"here"}
     except mysql.connector.Error as err:
         return {"response": err.msg }
     
