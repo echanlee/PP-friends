@@ -25,7 +25,7 @@ def home():
 # Error handling in case the url path does not exist, takes them back to main page
 @app.errorhandler(404)
 def not_found(e):
-    return app.send_static_file('index.html')
+    return send_from_directory(app.static_folder, 'index.html')
 
 @app.route('/login', methods=['POST'])
 @cross_origin()
@@ -59,7 +59,7 @@ def edit_profile():
 def get_matches():
     if request.method == 'POST':
         param = request.get_json('userId')
-        response = matches.matchUser(param['userId'])
+        response = server.matches.matchUser(param['userId'])
         return response
 
 @app.route('/register', methods=['POST'])
@@ -70,17 +70,17 @@ def register():
 @app.route('/getPotentialFriends', methods=['POST'])
 def getFriends():
     if request.method == 'POST':
-        return SwipeDecision.getPotentialMatchList(request.form['userId'])
+        return server.SwipeDecision.getPotentialMatchList(request.form['userId'])
 
 @app.route('/displayProfile', methods=['POST'])
 def displayProfile():
     if request.method == 'POST':
-        return SwipeDecision.showProfile(request.form['userId'])
+        return server.SwipeDecision.showProfile(request.form['userId'])
 
 @app.route('/swipe', methods=['POST'])
 def inputSwipe():
     if request.method == 'POST':
-        return SwipeDecision.swipeDecision(request.form['currentUserId'], request.form['shownUserId'], request.form['match'])
+        return server.SwipeDecision.swipeDecision(request.form['currentUserId'], request.form['shownUserId'], request.form['match'])
 
 @app.route('/questionnaire', methods=['POST'])
 def questionnaire():
@@ -98,19 +98,19 @@ def potentialMatch():
 def conversationId():
     if request.method == 'POST':
         param = request.get_json('userId')
-        return matches.getConversationIds(param['userId'], param['friendId'])     
+        return server.matches.getConversationIds(param['userId'], param['friendId'])     
 
 @app.route('/getMessages', methods=['POST'])
 def getMessages():
     if request.method == 'POST':
         param = request.get_json('convoId')
-        return messages.getMessages(param['convoId'])   
+        return server.messages.getMessages(param['convoId'])   
 
 @app.route('/sendMessage', methods=['POST'])
 def sendMessage():
     if request.method == 'POST':
         param = request.get_json('convoId')
-        return messages.sendMessage(param['convoId'], param['friendConvoId'], param['currentId'], param['friendId'], param['message']) 
+        return server.messages.sendMessage(param['convoId'], param['friendConvoId'], param['currentId'], param['friendId'], param['message']) 
 
 @socketIo.on('connect')
 def on_Connect():
