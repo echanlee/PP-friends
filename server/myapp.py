@@ -3,7 +3,7 @@ from flask_socketio import SocketIO, send, join_room, leave_room, emit
 from flask_cors import CORS, cross_origin
 from server.register import registerUser
 import profile
-import os
+import os 
 import server.matches
 from server.login import loginUser
 import server.SwipeDecision
@@ -17,7 +17,7 @@ cors = CORS(app)
 app.config['SECRET_KEY'] = 'mysecret'
 
 socketIo = SocketIO(app, cors_allowed_origins="*")
-
+port = int(os.environ.get('PORT', 5000))
 @app.route('/')
 def home():
     print("test")
@@ -141,5 +141,5 @@ def handleMessage(room):
 
 # makes app run on the standard port
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', debug=False, port=os.environ.get('PORT', 80))
+    app.run(host='0.0.0.0', port=port)
     socketIo.run(app)
