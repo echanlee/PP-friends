@@ -113,26 +113,26 @@ def sendMessage():
         param = request.get_json('convoId')
         return messages.sendMessage(param['convoId'], param['friendConvoId'], param['currentId'], param['friendId'], param['message']) 
 
-@socketIo.on('connect')
-def on_Connect():
-    return None
+# @socketIo.on('connect')
+# def on_Connect():
+#     return None
 
-@socketIo.on("message")
-def handleMessage(data):
-    msg = data['msg']
-    room = data['room']
-    send(msg, room=room)
-    return None
+# @socketIo.on("message")
+# def handleMessage(data):
+#     msg = data['msg']
+#     room = data['room']
+#     send(msg, room=room)
+#     return None
 
-@socketIo.on("room")
-def handleMessage(room):
-    join_room(room)
-    return None
+# @socketIo.on("room")
+# def handleMessage(room):
+#     join_room(room)
+#     return None
 
-@socketIo.on("leaveRoom")
-def handleMessage(room):
-    leave_room(room)
-    return None
+# @socketIo.on("leaveRoom")
+# def handleMessage(room):
+#     leave_room(room)
+#     return None
 
 # if __name__ == '__main__':
 #     app.debug = True
