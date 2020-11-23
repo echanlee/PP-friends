@@ -3,6 +3,7 @@ from mysql.connector import errorcode
 from server.connect import connectToDB
 
 def loginUser(email, password):
+    return {"here":"inside login"}
     try:
         connection = connectToDB()
         if(connection != False):
