@@ -13,7 +13,6 @@ class ViewFriendProfile extends React.Component {
         age: 0,
         bio: "",
         gender: "Female",
-        genderPreference: "Female",
         education: "",
         interests: "",
         error: "",
@@ -34,7 +33,6 @@ class ViewFriendProfile extends React.Component {
                     age: res.age, 
                     bio: res.bio,
                     gender: res.gender,
-                    genderPreference: res.genderPreference,
                     education: res.education, 
                     interests: res.interests,
                     birthday: res.birthday,
@@ -104,16 +102,6 @@ class ViewFriendProfile extends React.Component {
               <option value="Female">Female</option>
               <option value ="Male">Male</option>
               <option value ="Other">Other</option>
-            </select>
-
-            <p>{displayName} Preferred Gender for friends:</p>
-            <select
-              name = "genderPreference"
-              value = {this.state.genderPreference}
-            >
-              <option value="Female">Female</option>
-              <option value ="Male">Male</option>
-              <option value ="Both">Both</option>
             </select>
 
             <p>Education/Work:</p>

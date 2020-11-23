@@ -151,7 +151,7 @@ class Matches extends React.Component {
                     )
                 }
             }
-            if (this.state.messagedUserIds != [] && this.state.notMessagedUserIds.length != []){
+            if (this.state.messagedUserIds === undefined && this.state.notMessagedUserIds.length === undefined){
                 matchingSection =  <h3 id='Matches-congrats'>
                         <p>Congratulations, </p>
                         <p>you have a match!</p> 
@@ -168,6 +168,7 @@ class Matches extends React.Component {
             else if (messagedUserItems.length > 0) {
                 matchingSection =  <h3 id='Matches-congrats'>
                         <p>You don't have any new matches</p>
+                        <p>Please keep swiping or check back later!</p>
                         <p>Messaged Users</p>
                         <p>    
                             {messagedUserItems}
@@ -178,6 +179,7 @@ class Matches extends React.Component {
                 matchingSection =  <h3 id='Matches-congrats'>
                         <p>Congratulations,</p>
                         <p>you have a match!</p> 
+                        <p>There are friends you haven't messaged yet :)</p>
                         <p>Not Messaged Users</p>
                         <p> 
                             {notMessagedUserItems}
