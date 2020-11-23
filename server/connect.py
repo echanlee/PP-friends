@@ -16,8 +16,9 @@ config = {
 def connectToDB():
     try:
         connection = mysql.connector.connect(**config)
+        return connection
         if connection.is_connected():
             return connection
         return False
     except:
-        return False
+        return "catch"
