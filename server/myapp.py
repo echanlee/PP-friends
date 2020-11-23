@@ -32,9 +32,7 @@ def not_found(e):
 @cross_origin()
 def login():
     if request.method == 'POST':
-        return {"test": "here"}
-    #   return loginUser(request.form['email'], request.form['password'])
-        return "testing"
+      return loginUser(request.form['email'], request.form['password'])
 
 @app.route('/createprofile', methods=['POST'])
 def create_profile():
