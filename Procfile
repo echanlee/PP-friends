@@ -1,1 +1,1 @@
-web: gunicorn server.myapp:app
+web: gunicorn --bind 54.173.229.200:80 server.myapp:app
