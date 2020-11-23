@@ -33,7 +33,8 @@ def not_found(e):
 def login():
     print("test2")
     if request.method == 'POST':
-      return loginUser(request.form['email'], request.form['password'])
+    #   return loginUser(request.form['email'], request.form['password'])
+        return "test"
 
 @app.route('/createprofile', methods=['POST'])
 def create_profile():
