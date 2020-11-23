@@ -30,7 +30,7 @@ class Login extends React.Component {
 
       const myForm = document.getElementById('loginForm');
       
-      const myRequest = new Request('https://pp-friends.herokuapp.com/api/login', {
+      const myRequest = new Request('${process.env.REACT_APP_BACKEND_URL}api/login', {
         method: 'POST',
         body: new FormData(myForm),
       });
