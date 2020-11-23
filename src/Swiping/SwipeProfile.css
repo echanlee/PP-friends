@@ -6,7 +6,6 @@
 
 .p {
   font-size: 20px;
-
 }
 
 .column {
@@ -14,12 +13,12 @@
   padding: 10px;
 }
 
-.left{
+.left {
   width: 50%;
   /* background-color:grey; */
 }
 
-.right{
+.right {
   width: 50%;
   /* background-color:blue; */
 }
@@ -34,7 +33,7 @@
   text-align: center;
 }
 
-.profileLeft{
+.profileLeft {
   margin-left: auto;
   margin-right: 0;
   padding: 5%;
@@ -44,15 +43,13 @@
   border-radius: 10px;
 }
 
-.profileLeft img{
+.profileLeft img {
   border-radius: 50%;
 }
->>>>>>> development
 
 .profileIntroSection {
   /*coral section that includes other info in smaller font*/
   background-color: #f8dabb;
-
   margin-left: 0;
   margin-right: auto;
   padding: 5%;
@@ -62,7 +59,6 @@
   border-radius: 10px;
 }
 
->>>>>>> development
 .profileIntroSection p {
   color: black;
   font-weight: bold;
@@ -77,16 +73,15 @@
   width: 200px;
   height: 50px;
   font-size: 20px;
-
 }
 
 .notInterestedButton {
   /*"no, reject match" button*/
   background-color: #e0786c;
+  margin-top: 2%;
 }
 
 .letsTalkButton {
-
   margin-top: 40%;
 
   background-color: #4dadb7;
@@ -111,13 +106,11 @@
 }
 
 .notInterestedButton:hover {
-
   background-color: #b9645b;
   color: white;
 }
 
 .notInterestedButton:focus {
-
   background-color: #e0786c;
 
   color: white;
