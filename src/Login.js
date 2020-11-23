@@ -34,7 +34,8 @@ class Login extends React.Component {
         method: 'POST',
         body: new FormData(myForm),
       });
-
+      console.log("test")
+      console.log(myRequest)
       fetch(myRequest)
         .then(res => res.json())
         .then(res => { 
