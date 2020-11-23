@@ -25,7 +25,7 @@ import Header from './Header'
       this.handleChange = this.handleChange.bind(this);
     }
     componentDidMount(){
-        const myRequest = new Request('http://127.0.0.1:5000/viewprofile', {
+        const myRequest = new Request('https://pp-friends.herokuapp.com/viewprofile', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({"userId": this.state.userId}),
@@ -59,7 +59,7 @@ import Header from './Header'
               const myForm = new FormData (document.getElementById("profileForm"));
               myForm.append("id", id);
               myForm.append("age", this.state.age);
-              const myRequest = new Request("http://127.0.0.1:5000/editprofile", {
+              const myRequest = new Request("https://pp-friends.herokuapp.com/editprofile", {
                 method: "POST",
                 body: myForm,
               });

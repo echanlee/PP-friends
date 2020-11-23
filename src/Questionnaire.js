@@ -18,14 +18,14 @@ class Questionnaire extends Component {
     event.preventDefault();
     if(this.state.response.length >= 16){ //checks if all questions have been answered
       const id = this.props?.location?.state?.id;//test ID
-      const myRequest = new Request ('http://127.0.0.1:5000/questionnaire',{
+      const myRequest = new Request ('https://pp-friends.herokuapp.com/questionnaire',{
         method: 'POST',
         headers: {'Content-Type':'application/json'},
         body: JSON.stringify({"responses":this.state.response, 
                               "userId": id}),
       });
 
-      const matchRequest = new Request ('http://127.0.0.1:5000/potentialMatch',{
+      const matchRequest = new Request ('https://pp-friends.herokuapp.com/potentialMatch',{
         method: 'POST',
         headers: {'Content-Type':'application/json'},
         body: JSON.stringify({"responses":this.state.response, 

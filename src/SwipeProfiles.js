@@ -28,7 +28,7 @@ class SwipeProfiles extends React.Component {
     const id = this.props?.location?.state?.id;
     var formData = new FormData();
     formData.append("userId", id);
-    const myRequest = new Request("http://127.0.0.1:5000/getPotentialFriends", {
+    const myRequest = new Request("https://pp-friends.herokuapp.com/getPotentialFriends", {
       method: "POST",
       body: formData,
     });
@@ -63,7 +63,7 @@ class SwipeProfiles extends React.Component {
     if (displayId) {
       var formData = new FormData();
       formData.append("userId", displayId);
-      const myRequest = new Request("http://127.0.0.1:5000/displayProfile", {
+      const myRequest = new Request("https://pp-friends.herokuapp.com/displayProfile", {
         method: "POST",
         body: formData,
       });
@@ -107,7 +107,7 @@ class SwipeProfiles extends React.Component {
     formData.append("currentUserId", currentUserId);
     formData.append("shownUserId", displayId);
     formData.append("match", choice);
-    const myRequest = new Request("http://127.0.0.1:5000/swipe", {
+    const myRequest = new Request("https://pp-friends.herokuapp.com/swipe", {
       method: "POST",
       body: formData,
     });

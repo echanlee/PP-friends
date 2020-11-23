@@ -3,7 +3,7 @@ import io from "socket.io-client";
 import {withRouter, Link} from 'react-router-dom'
 
 
-let endPoint = "http://localhost:5000";
+let endPoint = "https://pp-friends.herokuapp.com";
 let socket = io.connect(`${endPoint}`);
 
 class Messages extends React.Component {
@@ -26,7 +26,7 @@ class Messages extends React.Component {
 
   componentDidMount = () => {
     const currentConvoId = this.props?.location?.state?.currentConvoId;
-    const myRequest = new Request('http://127.0.0.1:5000/getMessages', {
+    const myRequest = new Request('https://pp-friends.herokuapp.com/getMessages', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({"convoId": currentConvoId,})
@@ -80,7 +80,7 @@ class Messages extends React.Component {
           room: room,
         }
       );
-      const myRequest = new Request('http://127.0.0.1:5000/sendMessage', {
+      const myRequest = new Request('https://pp-friends.herokuapp.com/sendMessage', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

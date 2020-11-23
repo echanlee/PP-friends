@@ -32,7 +32,7 @@ import {withRouter} from 'react-router-dom'
             const myForm = new FormData (document.getElementById("profileForm"));
             myForm.append("id", id);
             myForm.append("age", this.state.age);
-            const myRequest = new Request("http://127.0.0.1:5000/createprofile", {
+            const myRequest = new Request("https://pp-friends.herokuapp.com/createprofile", {
               method: "POST",
               body: myForm,
             });

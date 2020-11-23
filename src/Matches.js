@@ -16,7 +16,7 @@ class Matches extends React.Component {
     }
     selectUser(event) {
         const userSelected = event.target.value.split("|");
-        const myRequest = new Request('http://127.0.0.1:5000/conversationId', {
+        const myRequest = new Request('https://pp-friends.herokuapp.com/conversationId', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -45,7 +45,7 @@ class Matches extends React.Component {
     }
 
     get_matches(){
-        const myRequest = new Request('http://127.0.0.1:5000/matches', {
+        const myRequest = new Request('https://pp-friends.herokuapp.com/matches', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({"userId": this.state.userId}),

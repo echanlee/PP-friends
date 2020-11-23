@@ -31,7 +31,7 @@ class Register extends React.Component {
     event.preventDefault();
     if (this.checkPasswords()) {
       const myForm = document.getElementById("registerForm");
-      const myRequest = new Request("http://127.0.0.1:5000/register", {
+      const myRequest = new Request("https://pp-friends.herokuapp.com/register", {
         method: "POST",
         body: new FormData(myForm),
       });
