@@ -1,6 +1,6 @@
 import mysql.connector
 from mysql.connector import errorcode
-from connect import connectToDB
+from server.connect import connectToDB
 from datetime import date
 
 
