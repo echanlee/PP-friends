@@ -14,8 +14,8 @@ from server.GetLocation import getLocation
 import server.updateEmail
 import server.updatePassword
 
-app = Flask(__name__)
-CORS(app)
+app = Flask(__name__, static_folder='../build', static_url_path='')
+cors = CORS(app)
 
 app.config['SECRET_KEY'] = 'mysecret'
 
