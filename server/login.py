@@ -20,7 +20,6 @@ def loginUser(email, password):
             return {"response": "Success",
                     "id": userId}
             # need to return ID
-        return {"test":"here"}
     except mysql.connector.Error as err:
         return {"response": err.msg }
     
