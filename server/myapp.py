@@ -20,6 +20,7 @@ socketIo = SocketIO(app, cors_allowed_origins="*")
 
 @app.route('/')
 def home():
+    print("test")
     return send_from_directory(app.static_folder, 'index.html')
 
 # Error handling in case the url path does not exist, takes them back to main page
@@ -30,6 +31,7 @@ def not_found(e):
 @app.route('/api/login', methods=['POST'])
 @cross_origin()
 def login():
+    print("test2")
     if request.method == 'POST':
       return loginUser(request.form['email'], request.form['password'])
 
