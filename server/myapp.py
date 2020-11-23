@@ -28,7 +28,7 @@ def home():
 def not_found(e):
     return app.send_static_file('index.html')
 
-@app.route('/api/login', methods=['POST'])
+@app.route('/login', methods=['POST'])
 @cross_origin()
 def login():
     print("test2")
