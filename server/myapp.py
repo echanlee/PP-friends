@@ -3,7 +3,7 @@ from flask_socketio import SocketIO, send, join_room, leave_room, emit
 from flask_cors import CORS, cross_origin
 from server.register import registerUser
 import profile
-import os 
+import os
 import server.matches
 from server.login import loginUser
 import server.SwipeDecision
