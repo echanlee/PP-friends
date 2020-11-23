@@ -30,14 +30,17 @@ class Login extends React.Component {
 
       const myForm = document.getElementById('loginForm');
       
-      const myRequest = new Request('/api/login', {
+      const myRequest = new Request('https://pp-friends.herokuapp.com/login', {
         method: 'POST',
         body: new FormData(myForm),
       });
       console.log("test")
       console.log(myRequest)
       fetch(myRequest)
-        .then(res => res.json())
+      .then((res) => {
+        console.log(res);
+        console.log("here");
+        res.json();})
         .then(res => { 
             if(res.response === "Success") {
               this.props
@@ -51,6 +54,7 @@ class Login extends React.Component {
             });
         })
         .catch((error) => {
+          console.log(error)
           this.setState({
             error: "Error connecting to backend"
           });
