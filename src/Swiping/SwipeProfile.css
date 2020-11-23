@@ -78,6 +78,7 @@
 .notInterestedButton {
   /*"no, reject match" button*/
   background-color: #e0786c;
+  margin-top: 2%;
 }
 
 .letsTalkButton {
