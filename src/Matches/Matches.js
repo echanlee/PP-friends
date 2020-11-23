@@ -114,7 +114,6 @@ class Matches extends React.Component {
       });
       return null;
     }
-        // console.log(messagedUserIds, notMessagedUserIds)
         let matchingSection;
         if (this.state.matchesExist == "exists"){
             let messagedUserItems = [];
