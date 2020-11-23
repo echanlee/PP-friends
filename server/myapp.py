@@ -11,7 +11,7 @@ from server.questionnaire import updateQuestionnaire
 from server.potentialMatch import findPotentialMatches
 import server.messages
 
-app = Flask(__name__, static_folder='./build', static_url_path='')
+app = Flask(__name__, static_folder='../build', static_url_path='')
 CORS(app)
 
 app.config['SECRET_KEY'] = 'mysecret'
