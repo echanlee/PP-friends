@@ -24,7 +24,7 @@
 input[value="Update"] {
   position: absolute;
   left: 65%;
-  margin-top: 2.8%;
+  margin-top: 0.5%;
   color: white;
   letter-spacing: 1px;
   background-color: #3680a3;
@@ -56,12 +56,13 @@ input[value="date"] {
 .rectangle2 {
   position: absolute;
   width: 1200px;
-  height: 460px;
+  height: 560px;
   padding: 5%;
   margin-top: -40%;
-  margin-left: 0%;
+  margin-left: 5%;
   border-radius: 22px;
   z-index: -1;
+  background: #f8dabb;
   background: #4dadb7;
 }
 
