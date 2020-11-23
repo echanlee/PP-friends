@@ -10,9 +10,9 @@ import server.SwipeDecision
 from server.questionnaire import updateQuestionnaire
 from server.potentialMatch import findPotentialMatches
 import server.messages
-from GetLocation import getLocation
-import updateEmail
-import updatePassword
+from server.GetLocation import getLocation
+import server.updateEmail
+import server.updatePassword
 
 app = Flask(__name__)
 CORS(app)
@@ -73,12 +73,12 @@ def register():
 @app.route('/updateEmail', methods=['POST'])
 def update_Email():
     if request.method == 'POST':
-        return updateEmail.updateEmail(request.form['id'], request.form['email'])
+        return server.updateEmail.updateEmail(request.form['id'], request.form['email'])
 
 @app.route('/updatePassword', methods=['POST'])
 def update_Password():
     if request.method == 'POST':
-        return updatePassword.updatePassword(request.form['id'], request.form['oldPassword'], request.form['newPassword'])
+        return server.updatePassword.updatePassword(request.form['id'], request.form['oldPassword'], request.form['newPassword'])
 
 @app.route('/getPotentialFriends', methods=['POST'])
 def getFriends():
