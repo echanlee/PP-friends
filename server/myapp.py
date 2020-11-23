@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, send_from_directory
 from flask_socketio import SocketIO, send, join_room, leave_room, emit
 from flask_cors import CORS, cross_origin
 from server.register import registerUser
@@ -20,7 +20,7 @@ socketIo = SocketIO(app, cors_allowed_origins="*")
 
 @app.route('/')
 def home():
-    return app.send_static_file("index.html")
+    return send_from_directory(app.static_folder, 'index.html')
 
 # Error handling in case the url path does not exist, takes them back to main page
 @app.errorhandler(404)
