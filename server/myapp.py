@@ -11,7 +11,7 @@ from server.questionnaire import updateQuestionnaire
 from server.potentialMatch import findPotentialMatches
 import server.messages
 
-app = Flask(__name__, static_folder='../build', static_url_path='')
+app = Flask(__name__, static_folder='build', static_url_path='')
 CORS(app)
 
 app.config['SECRET_KEY'] = 'mysecret'
@@ -23,8 +23,8 @@ def home():
     return app.send_static_file("index.html")
 
 # makes app run on the standard port
-if __name__ == "__main__":
-    app.run(host='0.0.0.0', debug=False, port=os.environ.get('PORT', 80))
+# if __name__ == "__main__":
+#     app.run(host='0.0.0.0', debug=False, port=os.environ.get('PORT', 80))
 
 # Error handling in case the url path does not exist, takes them back to main page
 @app.errorhandler(404)
