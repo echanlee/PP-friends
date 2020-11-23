@@ -1,0 +1,117 @@
+* {
+  /*all elements to inherit same font*/
+  font-family: "Montserrat", sans-serif;
+  box-sizing: border-box;
+}
+
+.p {
+  font-size: 20px;
+}
+
+.column {
+  float: left;
+  padding: 10px;
+}
+
+.left {
+  width: 50%;
+  /* background-color:grey; */
+}
+
+.right {
+  width: 50%;
+  /* background-color:blue; */
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.SwipeProfile {
+  text-align: center;
+}
+
+.profileLeft {
+  margin-left: auto;
+  margin-right: 0;
+  padding: 5%;
+  width: 20em;
+  text-align: center;
+  line-height: 35px;
+  border-radius: 10px;
+}
+
+.profileLeft img {
+  border-radius: 50%;
+}
+
+.profileIntroSection {
+  /*coral section that includes other info in smaller font*/
+  background-color: #f8dabb;
+  margin-left: 0;
+  margin-right: auto;
+  padding: 5%;
+  width: 20em;
+  text-align: left;
+  line-height: 35px;
+  border-radius: 10px;
+}
+
+.profileIntroSection p {
+  color: black;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.button {
+  text-align: center;
+  color: white;
+  border-radius: 5px;
+  border: 1px white;
+  width: 200px;
+  height: 50px;
+  font-size: 20px;
+}
+
+.notInterestedButton {
+  /*"no, reject match" button*/
+  background-color: #e0786c;
+  margin-top: 2%;
+}
+
+.letsTalkButton {
+  margin-top: 40%;
+
+  background-color: #4dadb7;
+}
+
+.pageTitle {
+  font-size: 30px;
+}
+
+.letsTalkButton:hover {
+  /*when user hovers over this button, color of button changes*/
+  background-color: #4ccbda;
+  color: white;
+}
+
+.letsTalkButton:focus {
+  /*when user selects this button, color of button changes*/
+
+  background-color: #4dadb7;
+
+  color: white;
+}
+
+.notInterestedButton:hover {
+  background-color: #b9645b;
+  color: white;
+}
+
+.notInterestedButton:focus {
+  background-color: #e0786c;
+
+  color: white;
+}

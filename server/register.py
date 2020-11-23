@@ -10,7 +10,7 @@ def registerUser(email, password):
 
             if(invalidEmail(email, cursor)):
                 return {"response": "Email address is already in use"}
-            sql = "INSERT INTO Users (location, email, password) VALUES ('', %s, %s);"
+            sql = "INSERT INTO Users (email, password) VALUES (%s, %s);"
             values = (email, password)
             cursor.execute(sql, values)
             id = cursor.lastrowid

@@ -1,0 +1,61 @@
+* {
+  /*all elements to inherit same font*/
+  font-family: "Montserrat", sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 50px;
+  border: 1px solid #f8dabb;
+  background-color: #f8dabb;
+}
+
+.navbar a {
+  font-weight: bold;
+}
+
+.navbar a:hover {
+  opacity: 1;
+}
+
+.div-header {
+  width: 80%;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.div-header a:hover,
+.div-header a:active .div-header a.active {
+  color: rgb(102, 102, 102);
+}
+
+.inactive {
+  height: 100%;
+  width: 30px;
+  padding: 0 40px;
+}
+
+.button-header {
+  width: 100%;
+  margin: 5px 0;
+  background-color: #0081a7;
+  padding: 5px;
+  font-weight: 600;
+  border-radius: 10px;
+  color: white;
+  text-decoration: none;
+}
+
+.button-header:hover {
+  background-color: #f07167;
+}

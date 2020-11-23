@@ -10,9 +10,12 @@ import server.SwipeDecision
 from server.questionnaire import updateQuestionnaire
 from server.potentialMatch import findPotentialMatches
 import server.messages
+from GetLocation import getLocation
+import updateEmail
+import updatePassword
 
-app = Flask(__name__, static_folder='../build', static_url_path='')
-cors = CORS(app)
+app = Flask(__name__)
+CORS(app)
 
 app.config['SECRET_KEY'] = 'mysecret'
 
@@ -67,6 +70,16 @@ def register():
     if request.method == 'POST':
         return registerUser(request.form['email'], request.form['password'])
 
+@app.route('/updateEmail', methods=['POST'])
+def update_Email():
+    if request.method == 'POST':
+        return updateEmail.updateEmail(request.form['id'], request.form['email'])
+
+@app.route('/updatePassword', methods=['POST'])
+def update_Password():
+    if request.method == 'POST':
+        return updatePassword.updatePassword(request.form['id'], request.form['oldPassword'], request.form['newPassword'])
+
 @app.route('/getPotentialFriends', methods=['POST'])
 def getFriends():
     if request.method == 'POST':
@@ -93,6 +106,12 @@ def potentialMatch():
     if request.method == 'POST':
         param = request.get_json('responses')
         return findPotentialMatches(param['userId'])
+
+@app.route('/location', methods=['POST'])
+def storeLocation():
+    if request.method == 'POST':
+        param = request.get_json('userID')
+        return getLocation(param['userID'], param['longitude'], param['latitude'])
         
 @app.route('/conversationId', methods=['POST'])
 def conversationId():

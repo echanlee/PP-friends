@@ -15,19 +15,18 @@ const Header = (props) => {
                         state:{id: props.id}}} className='inactive' activeClassName="active">Matches</NavLink>
                     <NavLink to={{
                         pathname:'/viewprofile',
-                        state:{id: props.id}}} className='inactive' activeClassName="active">View Profile</NavLink>
+                        state:{id: props.id, friendId: -1}}} className='inactive' activeClassName="active" replace>View Profile</NavLink>
                     <NavLink to={{
                         pathname:'/editprofile',
                         state:{id: props.id}}} className='inactive' activeClassName="active">Edit Profile</NavLink>
                     <NavLink to={{
-                        pathname:'/messages',
-                        state:{id: props.id}}} className='inactive' activeClassName="active">Messages</NavLink>
+                        pathname:'/updateEmail'}} className='inactive' activeClassName="active">Change Email</NavLink>
                     <NavLink to={{
-                        pathname:'/profile'}} className='inactive' activeClassName="active">Settings</NavLink>
+                        pathname:'/updatePassword'}} className='inactive' activeClassName="active">Change Password</NavLink>
                 </div>
                 <div class="navbar">
                     <NavLink to={{
-                        pathname:'/'}} className='inactive' activeClassName="active">
+                        pathname:'/login'}} className='inactive' activeClassName="active">
                         <button className='button-header'>Log Out</button>
                     </NavLink>
                 </div>

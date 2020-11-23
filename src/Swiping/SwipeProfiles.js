@@ -1,13 +1,15 @@
 import React from "react";
-import Header from './Header';
+import Header from "../Header/Header";
 import "./SwipeProfile.css";
 import { withRouter, Link } from "react-router-dom";
+import { getCookie, setCookie } from "../cookies";
+import { getLocation } from "../GetLocation";
 
 class SwipeProfiles extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: this.props?.location?.state?.id,
+      id: getCookie("userId"),
       age: "",
       firstName: "",
       description: "",
@@ -25,7 +27,7 @@ class SwipeProfiles extends React.Component {
   }
 
   getPotentialFriendList() {
-    const id = this.props?.location?.state?.id;
+    const id = this.state.id;
     var formData = new FormData();
     formData.append("userId", id);
     const myRequest = new Request("https://pp-friends.herokuapp.com/getPotentialFriends", {
@@ -93,16 +95,21 @@ class SwipeProfiles extends React.Component {
         });
     } else {
       this.setState({
-        error:
-          "There are no current potential friends for you within the area.",
+        error: (
+          <p>
+            <img src="sad-penguin.svg"></img>
+            <br></br>
+            There are no current potential friends for you within the area.{" "}
+            <br></br>Try updating your profile or come back later!
+          </p>
+        ),
       });
     }
   }
 
   handleSwipe(choice) {
-    console.log(choice);
     const displayId = this.state.displayedUserId;
-    const currentUserId = this.props?.location?.state?.id;
+    const currentUserId = this.state.id;
     var formData = new FormData();
     formData.append("currentUserId", currentUserId);
     formData.append("shownUserId", displayId);
@@ -136,10 +143,75 @@ class SwipeProfiles extends React.Component {
       });
   }
 
+  async componentDidMount() {
+    const storedLocation = getCookie("location");
+    const storedLongitude = storedLocation[0];
+    const storedLatitude = storedLocation[1];
+
+    var currentLocation = await getLocation();
+
+    if (currentLocation != undefined) {
+      const currentLongitude = currentLocation?.coords?.longitude;
+      const currentLatitude = currentLocation?.coords?.latitude;
+
+      var checkValidLongitude =
+        isFinite(currentLongitude) && Math.abs(currentLongitude) <= 180;
+      var checkValidLatitude =
+        isFinite(currentLatitude) && Math.abs(currentLatitude) <= 90;
+
+      if (checkValidLongitude && checkValidLatitude) {
+        if (
+          storedLongitude === currentLongitude &&
+          storedLatitude === currentLatitude
+        ) {
+        } else {
+          const id = this.state.id;
+          setCookie("longitude", currentLongitude);
+          setCookie("latitude", currentLatitude);
+
+          const myRequest = new Request("https://pp-friends.herokuapp.com/location", {
+            method: "POST",
+            body: JSON.stringify({
+              userID: id,
+              longitude: currentLongitude,
+              latitude: currentLatitude,
+            }),
+          });
+
+          fetch(myRequest)
+            .then((res) => res.json())
+            .then((res) => {
+              if (res.response === "Success") {
+                console.log("updated location");
+              } else {
+                console.log("error location update");
+              }
+            })
+            .catch((error) => {
+              this.setState({
+                error: "Error connecting to backend",
+              });
+            });
+        }
+      }
+    } else {
+      console.log("error getting user location");
+    }
+  }
+
   render() {
+    const id = this.state.id;
     const potentialFriends = this.state.potentialFriends;
     const displayedUserId = this.state.displayedUserId;
     const error = this.state.error;
+
+    if (id === "") {
+      this.props.history.push({
+        pathname: "/login",
+      });
+      return null;
+    }
+
     if (
       displayedUserId === "" &&
       potentialFriends.length === 0 &&
@@ -147,52 +219,61 @@ class SwipeProfiles extends React.Component {
     ) {
       this.getPotentialFriendList();
     }
+
     return (
-      /*navigation bar and other necessary information about the match*/
       <div className="SwipeProfile">
-        <Header id={this.state.id}/>
+        <Header id={this.state.id} />
+
         <br></br>
         <header class="pageTitle">Potential Friends!</header>
         <br></br>
-        <img src="ppFriendsLogo.png"></img>
+
         <br></br>
         <br></br>
         <br></br>
+
         {error ? (
           <text>{error}</text>
         ) : (
           <div>
-            <p>Name: </p>
-            <text>{this.state.firstName}</text>
-            <p>Age: </p>
-            <text>{this.state.age}</text>
-            <br></br>
-            <div class="profileIntroSection">
-              <br></br>
-              <p>Gender: </p>
-              <text>{this.state.gender}</text>
-              <p>Description: </p>
-              <text>{this.state.description}</text>
-              <p>Interests: </p>
-              <text>{this.state.interests}</text>
-              <p>Education / Work: </p>
-              <text>{this.state.workplace}</text>
-              <br></br>
+            <img src="ppFriendsLogo.png"></img>
+            <h1>A potential Friend!</h1>
+            <div class="row">
+              <div class="column left">
+                <div class="profileLeft">
+                  <img src="profilepic.png" alt="profilepic" width="150"></img>
+                  <h1>
+                    {this.state.firstName}, ({this.state.age})
+                  </h1>
+                  <button
+                    class="button letsTalkButton"
+                    onClick={() => this.handleSwipe(true)}
+                  >
+                    Let's Talk
+                  </button>
+                  <br></br>
+
+                  <button
+                    class="button notInterestedButton"
+                    onClick={() => this.handleSwipe(false)}
+                  >
+                    Not Interested
+                  </button>
+                </div>
+              </div>
+              <div class="column right">
+                <div class="profileIntroSection">
+                  <p>Gender 👫 </p>
+                  <text>{this.state.gender}</text>
+                  <p>Biography 😶 </p>
+                  <text>{this.state.description}</text>
+                  <p>Interests 🎨 </p>
+                  <text>{this.state.interests}</text>
+                  <p>Education / Work 💻 </p>
+                  <text>{this.state.workplace}</text>
+                </div>
+              </div>
             </div>
-            <br></br>
-            <button
-              class="button letsTalkButton"
-              onClick={() => this.handleSwipe(true)}
-            >
-              Let's Talk!
-            </button>{" "}
-            <br></br>
-            <button
-              class="button notInterestedButton"
-              onClick={() => this.handleSwipe(false)}
-            >
-              Not Interested.
-            </button>
           </div>
         )}
       </div>

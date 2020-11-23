@@ -1,6 +1,7 @@
 import mysql.connector
 from mysql.connector import errorcode
 from server.connect import connectToDB
+from server.potentialMatch import findPotentialMatches 
 
 
 def getPotentialMatchList(currentUserId):
@@ -8,6 +9,7 @@ def getPotentialMatchList(currentUserId):
         connection = connectToDB()
         if(connection != False):
             cursor = connection.cursor(buffered=True)
+            findPotentialMatches(currentUserId)
             PotentialMatchQuery = "SELECT shownUser FROM PotentialMatch WHERE currentUser = %s and matchDecision IS NULL"
             userID = (currentUserId,)    
             cursor.execute(PotentialMatchQuery, userID)
@@ -64,12 +66,11 @@ def insertConvo(userOne, userTwo):
         connection = connectToDB()
         if(connection != False):
             cursor = connection.cursor(buffered=True)
-            insertConvoRowsQuery = "INSERT INTO Conversation (userOne, userTwo) \
-                SELECT p1.currentUser, p1.shownUser FROM PotentialMatch p1 \
-                WHERE (p1.currentUser = %s or p1.currentUser = %s) AND p1.matchDecision = 1 AND EXISTS \
-                (SELECT * FROM PotentialMatch p2 \
-                    WHERE p2.shownUser = p1.currentUser AND p2.currentUser = p1.shownUser AND p2.matchDecision = 1)"
+            insertConvoRowsQuery = "INSERT INTO Conversation (userOne, userTwo) values \
+                (%s, %s)"
             cursor.execute(insertConvoRowsQuery, (userOne, userTwo,))
+            cursor.execute(insertConvoRowsQuery, (userTwo, userOne,))
+
             connection.commit()
             cursor.close()
         return
@@ -88,9 +89,18 @@ def swipeDecision(currentUserId, shownUserId, userDecision):
             cursor.execute(updateSwipeDecisionQuery, insertRow)
 
             connection.commit()
-            cursor.close()
+            
+            checkOppositeDecisionQuery = "SELECT matchDecision from PotentialMatch WHERE shownUser = %s and currentUser = %s"
+            selectRow = (currentUserId, shownUserId,)
+            cursor.execute(checkOppositeDecisionQuery, selectRow)
+            res = cursor.fetchone()
+            if res:
+                res = res[0]
+            else:
+                res = 0
 
-            if userDecision == 'true':
+            cursor.close()
+            if userDecision == 'true' and res:
                 insertConvo(currentUserId, shownUserId)
         return {"response": "Success"}
 

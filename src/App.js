@@ -4,19 +4,25 @@ import {
     Switch,
     Route,
   } from "react-router-dom";
-import Register from "./Register";
-import ProfileForm from "./CreateProfile"
-import Login from "./Login";
-import SwipeProfiles from "./SwipeProfiles";
-import Matches from "./Matches";
-import Questionnaire from './Questionnaire';
-import Messages from './Messages';
-import ViewProfile from './ViewProfile';
-import EditProfile from './EditProfile';
+
+import {getCookie} from './cookies';
+import Register from "./Register/Register";
+import ProfileForm from "./Profile/CreateProfile"
+import Login from "./Login/Login";
+import SwipeProfiles from "./Swiping/SwipeProfiles";
+import Matches from "./Matches/Matches";
+import Questionnaire from './Questionnaire/Questionnaire';
+import Messages from './Messaging/Messages';
+import ViewProfile from './Profile/ViewProfile';
+import EditProfile from './Profile/EditProfile';
+import UpdateEmail from "./Setting/UpdateEmail";
+import UpdatePassword from "./Setting/UpdatePassword";
+
+import ViewFriendProfile from './Matches/ViewFriendProfile';
 
 export default class App extends React.Component {
     render() {
-
+        var id = getCookie("userId");
         return (
             <Router>
                 <div>
@@ -26,6 +32,9 @@ export default class App extends React.Component {
                         </Route>
                         <Route path="/viewprofile">
                             <ViewProfile />
+                        </Route>
+                        <Route path="/viewfriendprofile">
+                            <ViewFriendProfile />
                         </Route>
                         <Route path="/editprofile">
                             <EditProfile />
@@ -45,8 +54,20 @@ export default class App extends React.Component {
                         <Route path="/messages">
                             <Messages />
                         </Route>
-                        <Route path="/">
+                        <Route path= "/updateEmail">
+                            <UpdateEmail />
+                        </Route> 
+                        <Route path= "/updatePassword">
+                            <UpdatePassword />
+                        </Route> 
+                        <Route path="/login">
                             <Login />
+                        </Route>
+                        <Route path="/">
+                            {id === ""?
+                            <Login /> :
+                            <SwipeProfiles />
+                            }
                         </Route>
                     </Switch>
                 </div>
