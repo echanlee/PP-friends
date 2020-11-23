@@ -66,8 +66,7 @@ class ViewProfile extends React.Component {
               <img src="ppFriendsLogo.png"></img>
               <br></br>
               <br></br>
-
-              <div class="formgroup">
+              <div class="rectangle">
                 <label for="User">Name 😀</label>
                 <input name={this.state.name} value={this.state.name} />
 
@@ -146,8 +145,7 @@ class ViewProfile extends React.Component {
                 <text>{this.state.error}</text>
                 <br></br>
                 <br></br>
-              </div>
-              <div class="rectangle">
+
                 <p>Profile Picture</p>
               </div>
             </form>

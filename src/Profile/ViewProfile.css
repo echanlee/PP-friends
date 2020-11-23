@@ -8,16 +8,12 @@
 }
 
 .Profile input {
-  height: 1%;
+  height: 7%;
   width: 20%;
   border: 1px solid #000;
-  margin-top: 1%;
   padding: 0.2%;
   text-align: left;
   border-radius: 5px;
-}
-
-.Profile {
 }
 
 .Profile input[type="date"],
@@ -31,7 +27,7 @@ input[value="date"] {
   width: 85%;
   height: 60%;
   padding: 5%;
-  margin-top: -33%;
+  margin-top: 0%;
   margin-left: 5%;
   border-radius: 22px;
   z-index: -1;
