@@ -37,11 +37,8 @@ class Login extends React.Component {
       console.log("test")
       console.log(myRequest)
       fetch(myRequest)
-      .then((res) => {
-        console.log(res);
-        console.log("here");
-        res.json();})
-        .then(res => { 
+      .then((res) => res.json())
+        .then(res => { console.log(res) 
             if(res.response === "Success") {
               this.props
                 .history.push({
