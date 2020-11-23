@@ -10,6 +10,8 @@ from questionnaire import updateQuestionnaire
 from potentialMatch import findPotentialMatches
 import messages
 from GetLocation import getLocation
+import updateEmail
+import updatePassword
 
 app = Flask(__name__)
 CORS(app)
@@ -60,6 +62,16 @@ def get_matches():
 def register():
     if request.method == 'POST':
         return registerUser(request.form['email'], request.form['password'])
+
+@app.route('/updateEmail', methods=['POST'])
+def update_Email():
+    if request.method == 'POST':
+        return updateEmail.updateEmail(request.form['id'], request.form['email'])
+
+@app.route('/updatePassword', methods=['POST'])
+def update_Password():
+    if request.method == 'POST':
+        return updatePassword.updatePassword(request.form['id'], request.form['oldPassword'], request.form['newPassword'])
 
 @app.route('/getPotentialFriends', methods=['POST'])
 def getFriends():
