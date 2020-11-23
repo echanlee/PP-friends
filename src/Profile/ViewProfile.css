@@ -1,34 +1,37 @@
-label {
+.Profile label {
   font-size: 20px;
   color: #333;
-  width: 900px;
+  width: 20%;
   text-align: left;
+  margin-left: 45%;
   float: left;
-  padding-left: 35em;
 }
 
-.formgroup input {
-  height: 30px;
-  width: 200px;
+.Profile input {
+  height: 1%;
+  width: 20%;
   border: 1px solid #000;
-  margin-top: 10px;
-  padding: 5px;
+  margin-top: 1%;
+  padding: 0.2%;
   text-align: left;
   border-radius: 5px;
 }
 
+.Profile {
+}
+
 .Profile input[type="date"],
 input[value="date"] {
-  font-size: 25px;
+  font-size: 20px;
   border-radius: 5px;
 }
 
 .rectangle {
   position: absolute;
-  width: 1200px;
-  height: 560px;
+  width: 85%;
+  height: 60%;
   padding: 5%;
-  margin-top: -40%;
+  margin-top: -33%;
   margin-left: 5%;
   border-radius: 22px;
   z-index: -1;
@@ -38,15 +41,15 @@ input[value="date"] {
 .Profile {
   text-align: center;
   margin: auto;
-  padding: 50px;
+  padding: 3%;
 }
 
 .rectangle p {
   position: absolute;
-  width: 170px;
-  height: 36px;
-  left: 190px;
-  top: -23px;
+  width: 60%;
+  height: 6%;
+  left: 18%;
+  top: -2%;
   font-size: 20px;
   line-height: 23px;
   display: flex;

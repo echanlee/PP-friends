@@ -162,124 +162,117 @@ class EditProfile extends React.Component {
             <br></br>
             <br></br>
 
-            <div className="formgroup">
-              <label for="User">Name 😀</label>
-              <input
-                type="text"
-                name="name"
-                value={this.state.name}
-                onChange={this.handleChange}
-                maxlength="30"
-              />
-            </div>
-            <br></br>
-            <br></br>
-            <div class="formgroup">
-              <label for="Birthday">Birthday 🎂</label>
-
-              <input
-                type="date"
-                name="birthday"
-                value={this.state.birthday}
-                min="1920-01-01"
-                placeholder="YYYY-MM-DD"
-                onChange={this.handleChange}
-              />
-            </div>
+            <label for="User">Name 😀</label>
+            <input
+              type="text"
+              name="name"
+              value={this.state.name}
+              onChange={this.handleChange}
+              maxlength="30"
+            />
 
             <br></br>
             <br></br>
-            <div class="formgroup">
-              <label for="Gender">Gender 👫</label>
 
-              <select
-                name="gender"
-                onChange={this.handleChange}
-                value={this.state.gender}
-              >
-                <option value="Female">Female</option>
-                <option value="Male">Male</option>
-                <option value="Other">Other</option>
-              </select>
-            </div>
+            <label for="Birthday">Birthday 🎂</label>
+
+            <input
+              type="date"
+              name="birthday"
+              value={this.state.birthday}
+              min="1920-01-01"
+              placeholder="YYYY-MM-DD"
+              onChange={this.handleChange}
+            />
 
             <br></br>
             <br></br>
-            <div class="formgroup">
-              <label for="GenderPreference">
-                Your Preferred Gender for friends 🎎
-              </label>
 
-              <select
-                name="genderPreference"
-                fieldValue={this.state.genderPreference}
-                onChange={this.handleChange}
-                value={this.state.genderPreference}
-              >
-                <option value="Female">Female</option>
-                <option value="Male">Male</option>
-                <option value="Both">Both</option>
-              </select>
-            </div>
+            <label for="Gender">Gender 👫</label>
+
+            <select
+              name="gender"
+              onChange={this.handleChange}
+              value={this.state.gender}
+            >
+              <option value="Female">Female</option>
+              <option value="Male">Male</option>
+              <option value="Other">Other</option>
+            </select>
 
             <br></br>
             <br></br>
-            <div class="formgroup">
-              <label for="Education">Education/Work 💻</label>
 
-              <input
-                type="text"
-                name="education"
-                value={this.state.education}
-                onChange={this.handleChange}
-                maxlength="30"
-              />
-            </div>
+            <label for="GenderPreference">
+              Your Preferred Gender for friends 🎎
+            </label>
 
-            <br></br>
-            <br></br>
-            <div class="formgroup">
-              <label for="Interests">Your interests 🎨</label>
-
-              <input
-                type="text"
-                name="interests"
-                value={this.state.interests}
-                onChange={this.handleChange}
-                maxlength="255"
-              />
-            </div>
+            <select
+              name="genderPreference"
+              fieldValue={this.state.genderPreference}
+              onChange={this.handleChange}
+              value={this.state.genderPreference}
+            >
+              <option value="Female">Female</option>
+              <option value="Male">Male</option>
+              <option value="Both">Both</option>
+            </select>
 
             <br></br>
             <br></br>
-            <div class="formgroup">
-              <label for="Bio">Bio 😶</label>
-              <input
-                type="text"
-                name="bio"
-                value={this.state.bio}
-                onChange={this.handleChange}
-                maxlength="255"
-                contenteditable="true"
-              />
-            </div>
+
+            <label for="Education">Education/Work 💻</label>
+
+            <input
+              type="text"
+              name="education"
+              value={this.state.education}
+              onChange={this.handleChange}
+              maxlength="30"
+            />
+
             <br></br>
             <br></br>
 
-            <div class="formgroup">
-              <label for="Distance">Max Distance 🌎</label>
-              <input
-                type="range"
-                name="maxDistance"
-                value={this.state.maxDistance}
-                onChange={this.handleChange}
-                min="1"
-                max="500"
-              />
-              <text>{this.state.maxDistance}KM</text>
-              <br></br>
-              <br></br>
-            </div>
+            <label for="Interests">Your interests 🎨</label>
+
+            <input
+              type="text"
+              name="interests"
+              value={this.state.interests}
+              onChange={this.handleChange}
+              maxlength="255"
+            />
+
+            <br></br>
+            <br></br>
+
+            <label for="Bio">Bio 😶</label>
+            <input
+              type="text"
+              name="bio"
+              value={this.state.bio}
+              onChange={this.handleChange}
+              maxlength="255"
+              contenteditable="true"
+            />
+
+            <br></br>
+            <br></br>
+
+            <label for="Distance">Max Distance 🌎</label>
+            <input
+              type="range"
+              name="maxDistance"
+              value={this.state.maxDistance}
+              onChange={this.handleChange}
+              min="1"
+              max="500"
+            />
+            <text>{this.state.maxDistance}KM</text>
+            <br></br>
+            <br></br>
+
             <div class="rectangle2">
               <p>Profile Picture</p>
             </div>
