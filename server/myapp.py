@@ -31,8 +31,8 @@ def not_found(e):
 @app.route('/login', methods=['POST'])
 @cross_origin()
 def login():
-    return {"test": "here"}
     if request.method == 'POST':
+        return {"test": "here"}
     #   return loginUser(request.form['email'], request.form['password'])
         return "testing"
 
