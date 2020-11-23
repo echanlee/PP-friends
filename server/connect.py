@@ -20,6 +20,6 @@ def connectToDB():
             return connection
         return connection
     except:
-        return "anything"
+        return connection
     
 
