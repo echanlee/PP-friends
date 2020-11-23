@@ -92,8 +92,9 @@ class Questionnaire extends Component {
 
     return (
       <div>
-        <div>
+        <div class="ppQuestionnaire">
           <h1>PP Friends Questionnaire</h1>
+          <img src="question-penguin.svg"></img>
           <h2>Let's get to know you!</h2>
           <h4>Please answer all questions before submitting</h4>
         </div>
