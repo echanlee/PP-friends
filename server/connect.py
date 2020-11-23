@@ -1,4 +1,3 @@
-  
 import mysql.connector
 from mysql.connector import errorcode
 
@@ -13,5 +12,5 @@ def connectToDB():
         if connection.is_connected():
             return connection
         return False
-    except Exception as e:
-        return str(e)
+    except:
+        return False
