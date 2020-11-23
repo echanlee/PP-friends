@@ -20,6 +20,7 @@ class Questionnaire extends Component {
     event.preventDefault();
     if (this.state.response.length >= 16) {
       //checks if all questions have been answered
+      console.log(this.state.response.length)
       const id = this.state.id;
       const myRequest = new Request("https://pp-friends.herokuapp.com/questionnaire", {
         method: "POST",
@@ -37,6 +38,8 @@ class Questionnaire extends Component {
         .then((res) => res.json())
         .then((res) => {
           if (res.response === "Success") {
+            console.log(this.state.response.length)
+            console.log(res)
             //Once the first questionnaire API call is a success, the second matching call is nested to ensure that the two calls
             //happen in succession
             fetch(matchRequest)

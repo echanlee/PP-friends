@@ -5,6 +5,13 @@ import {getCookie} from '../cookies';
 import "./Messages.css";
 import Header from '../Header/Header';
 
+// const PORT = process.env.PORT || 80;
+// const INDEX = '/index.html';
+
+// const server = express()
+//   .use((req, res) => res.sendFile(INDEX, {root: __dirname}))
+//   .listen(PORT, () => console.log (`Listening on ${PORT}`));
+
 let endPoint = "https://pp-friends.herokuapp.com";
 let socket = io.connect(`${endPoint}`);
 
