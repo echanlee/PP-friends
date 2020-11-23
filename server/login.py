@@ -5,7 +5,7 @@ from server.connect import connectToDB
 def loginUser(email, password):
     try:
         connection = connectToDB()
-        return {"connection": connection}
+        # return {"connection": connection}
         if(connection != False):
             cursor = connection.cursor(buffered=True)
 
