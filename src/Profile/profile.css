@@ -1,5 +1,85 @@
-.Profile {
-    text-align: center;
-    margin: auto;
-    padding: 20px;
-  }
+* {
+  /*all elements to inherit same font*/
+  font-family: "Montserrat", sans-serif;
+}
+
+.Profile h1 {
+  font-weight: bold;
+  font-size: 30px;
+  color: black;
+  text-align: center;
+}
+
+.Profile p {
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+}
+
+.updatedMessage {
+  text-align: center;
+}
+
+.updateProfileButton input[type="submit"],
+input[value="Update"] {
+  position: absolute;
+  left: 65%;
+  margin-top: 2.8%;
+  color: white;
+  letter-spacing: 1px;
+  background-color: #3680a3;
+  border: 3px solid #3680a3;
+  display: inline-block;
+  border-radius: 5px;
+  width: 175px;
+  font-size: 20px;
+  height: 35px;
+}
+
+.Profile input[type="date"],
+input[value="submit"] {
+  width: 230px;
+}
+
+select {
+  font-size: 20px;
+}
+
+.Profile input[type="date"],
+input[value="date"] {
+  font-size: 20px;
+}
+
+.Profile input {
+  font-size: 20px;
+}
+.rectangle2 {
+  position: absolute;
+  width: 1200px;
+  height: 460px;
+  padding: 5%;
+  margin-top: -40%;
+  margin-left: 0%;
+  border-radius: 22px;
+  z-index: -1;
+  background: #4dadb7;
+}
+
+select option {
+  font-size: 20px;
+}
+
+.rectangle2 p {
+  position: absolute;
+  width: 170px;
+  height: 36px;
+  left: 190px;
+  top: -23px;
+  font-size: 25px;
+  line-height: 23px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+  font-weight: normal;
+}

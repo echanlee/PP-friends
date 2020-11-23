@@ -1,44 +1,63 @@
+.pos-user {
+  margin: auto;
+  width: 100%;
+  padding: 12px;
+  display: block;
+  border-radius: 15px;
+
+  margin-top: 10px;
+  font-size: 20px;
+}
+
+.convoSection,
+.timeSection {
+  display: inline;
+}
+
+.convoSection {
+  float: left;
+}
+
+.timeSection {
+  float: right;
+}
+
 * {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 #Matches-header {
-  text-align: center;
   margin: auto;
   padding: 20px;
 }
 
-.pos-user {
-  text-align: center;
-  margin: auto;
-  padding: 12px; 
-  display: block;
-  border-radius: 0.2em;
-  width: 200px;
-  background-color:#F8DABB;
-  color: white;
-  border: 1px white; 
-  margin-top: 15px; 
-  font-size: 25px;
-  
-}
-
-#Matches-section{
+#Matches-section {
   min-height: 25vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: 30px;
-  background-color:white;
+  background-color: white;
   line-height: 25px;
   color: #3680a3;
   text-align: center;
 }
 
-#Matches-congrats {
+#Matches-congrats p {
+  color: black;
+}
+
+.containerBox {
+  background-color: #3680a3b9;
+  width: 1000px;
+  border-radius: 15px;
+}
+
+h3 p {
+  font-size: 20px;
   text-align: center;
-  color: #3680a3;
+  display: block;
 }
 
 #Matches-none {
@@ -51,27 +70,24 @@
   color: #61dafb;
 }
 
-#viewProfileButton{
-  background-color: #E0786C;
-  text-align: center;
+#viewProfileButton {
+  background-color: #e0786c;
   color: white;
-  font-size: 15px;
-  padding: 8px;
-  border-radius: 0.2em;
-  border: 1px white; 
-  margin-bottom: 5px;
-  width: 100px;
-  margin-top: 5px;
-  height: 25px;
+
+  display: inline-block;
+  border-radius: 5px;
+  padding: 5px;
+  width: 175px;
+  text-align: center;
 }
 
-#swipingButton{
-  background-color: #C4C4C4;
-  text-align: center;
+#swipingButton {
+  background-color: #c4c4c4;
   color: white;
-  font-size: 15px;
-  padding: 8px;
-  border-radius: 0.2em;
-  margin-top: 5px;
-  width: 100px;
+
+  display: inline-block;
+  border-radius: 5px;
+  padding: 5px;
+  width: 175px;
+  text-align: center;
 }

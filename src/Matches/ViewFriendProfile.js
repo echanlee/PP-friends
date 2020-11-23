@@ -112,7 +112,6 @@ class ViewFriendProfile extends React.Component {
 
             <p>Bio:</p>
             {this.state.bio}
-
           </form>
           <text>{this.state.error}</text>
         </div>

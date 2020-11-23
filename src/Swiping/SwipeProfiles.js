@@ -1,9 +1,10 @@
 import React from "react";
-import Header from '../Header/Header';
+import Header from "../Header/Header";
 import "./SwipeProfile.css";
 import { withRouter, Link } from "react-router-dom";
 import {getCookie, setCookie} from '../cookies';
 import {getLocation} from '../GetLocation';
+
 
 class SwipeProfiles extends React.Component {
   constructor(props) {
@@ -95,8 +96,16 @@ class SwipeProfiles extends React.Component {
         });
     } else {
       this.setState({
-        error:
-          "There are no current potential friends for you within the area.",
+        error: (
+          <p>
+
+            <img src="sad-penguin.svg"></img>
+
+            <br></br>
+            There are no current potential friends for you within the area.{" "}
+            <br></br>Try updating your profile or come back later!
+          </p>
+        ),
       });
     }
   }
@@ -136,6 +145,7 @@ class SwipeProfiles extends React.Component {
         });
       });
   }
+
 
   async componentDidMount(){
     const storedLocation = getCookie("location");
@@ -192,13 +202,12 @@ class SwipeProfiles extends React.Component {
   }
 
   render() {
-    
     const id = this.state.id;
     const potentialFriends = this.state.potentialFriends;
     const displayedUserId = this.state.displayedUserId;
     const error = this.state.error;
 
-    if(id === "") {
+    if (id === "") {
       this.props.history.push({
         pathname: "/login",
       });
@@ -213,56 +222,54 @@ class SwipeProfiles extends React.Component {
       this.getPotentialFriendList();
     }
 
-    
-
     return (
-      /*navigation bar and other necessary information about the match*/
       <div className="SwipeProfile">
+        <Header id={this.state.id} />
+
         <br></br>
         <header class="pageTitle">Potential Friends!</header>
         <br></br>
-            <Header id={id}/>
+
+        <br></br>
+        <br></br>
+        <br></br>
+
+        {error ? (
+          <text>{error}</text>
+        ) : (
+          <div>
             <img src="ppFriendsLogo.png"></img>
-            <br></br>
-            <br></br>
-            <br></br>
-            {error ? (
-              <text>{error}</text>
-            ) : (
-              <div>
-                <p>Name: </p>
-                <text>{this.state.firstName}</text>
-                <p>Age: </p>
-                <text>{this.state.age}</text>
-                <br></br>
-                <div class="profileIntroSection">
+
+            <h1>A potential Friend!</h1> 
+           <div class = "row">
+              <div class="column left">
+                <div class = "profileLeft">
+                  <img src = "profilepic.png" alt = "profilepic" width="150"></img>
+                  <h1>{this.state.firstName}, ({this.state.age})</h1>
+                  <button class="button letsTalkButton" onClick={() => this.handleSwipe(true)}>
+                    Let's Talk
+                  </button>
                   <br></br>
-                  <p>Gender: </p>
-                  <text>{this.state.gender}</text>
-                  <p>Description: </p>
-                  <text>{this.state.description}</text>
-                  <p>Interests: </p>
-                  <text>{this.state.interests}</text>
-                  <p>Education / Work: </p>
-                  <text>{this.state.workplace}</text>
-                  <br></br>
-                </div>
-                <br></br>
-                <button
-                  class="button letsTalkButton"
-                  onClick={() => this.handleSwipe(true)}
-                >
-                  Let's Talk!
-                </button>{" "}
-                <br></br>
-                <button
-                  class="button notInterestedButton"
-                  onClick={() => this.handleSwipe(false)}
-                >
-                  Not Interested.
-                </button>
+                  <button class="button notInterestedButton" onClick={() => this.handleSwipe(false)}>
+                      Not Interested
+                  </button>
+                </div>                
               </div>
-            )}
+              <div class="column right">
+                <div class="profileIntroSection">
+                  <p>Gender 👫 </p>
+                  <text>{this.state.gender}</text>
+                  <p>Biography 😶 </p>
+                  <text>{this.state.description}</text>
+                  <p>Interests 🎨 </p>
+                  <text>{this.state.interests}</text>
+                  <p>Education / Work 💻 </p>
+                  <text>{this.state.workplace}</text>
+                </div>
+              </div>
+            </div> 
+          </div>
+        )}
       </div>
     );
   }

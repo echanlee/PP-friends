@@ -1,7 +1,7 @@
-import React from 'react';
-import './Matches.css';
-import {withRouter, Link} from 'react-router-dom'
-import {getCookie} from '../cookies';
+import React from "react";
+import "./Matches.css";
+import { withRouter, Link } from "react-router-dom";
+import { getCookie } from "../cookies";
 
 class Matches extends React.Component {
     constructor(props){
@@ -51,7 +51,7 @@ class Matches extends React.Component {
             alert("Something went wrong");
             console.error(error)
         });
-    }
+  }
 
     get_matches(){
         const myRequest = new Request('http://127.0.0.1:5000/matches', {
@@ -84,27 +84,36 @@ class Matches extends React.Component {
             .catch((error) => {
                 console.error(error)
             })
-    }
+  }
 
-    componentDidMount() {
-        this.get_matches()
+  componentDidMount() {
+    this.get_matches();
+  }
+  componentDidUpdate(prevProps, prevState) {
+    for (var i = 0; i < this.state.userIds.length; ++i) {
+      if (this.state.userIds[i] != prevState.userIds[i]) {
+        this.get_matches();
+        break;
+      }
     }
-    componentDidUpdate(prevProps, prevState){
-        for (var i = 0; i < this.state.userIds.length; ++i){
-            if (this.state.userIds[i] != prevState.userIds[i]) {
-                this.get_matches()
-                break;
-            }
-        }
+  }
+  get_button_colour(i){
+    let buttonColour
+    if (i%2 == 0){
+        buttonColour = "blue"
     }
-
-    render(){
-        if(this.state.userId === "") {
-            this.props.history.push({
-              pathname: "/login",
-            });
-            return null;
-        }
+    else {
+        buttonColour = "yellow"
+    }
+    return buttonColour
+  }
+  render() {
+    if (this.state.userId === "") {
+      this.props.history.push({
+        pathname: "/login",
+      });
+      return null;
+    }
 
         let matchingSection;
         if (this.state.matchesExist == "exists"){
@@ -123,7 +132,7 @@ class Matches extends React.Component {
                     messagedUserItems.push(
                         <div>
                             <Link to={{pathname: '/viewfriendprofile', state: {id: this.state.userId, friendId: this.state.messagedUserIds[i]}}}>{this.state.messagedUserNames[i]}</Link>
-                            <button className='pos-user' 
+                            <button className={[this.get_button_colour(i), 'pos-user'].join(' ')}
                                     key={pos_user}
                                     value = {this.state.messagedUserIds[i]+"|"+this.state.messagedUserNames[i]} 
                                     onClick = {this.selectUser}>
@@ -141,7 +150,7 @@ class Matches extends React.Component {
                     notMessagedUserItems.push(
                         <div>
                             <Link to={{pathname: '/viewfriendprofile', state: {id: this.state.userId, friendId: this.state.notMessagedUserIds[i]}}}>{this.state.notMessagedUserNames[i]}</Link>
-                            <button className='pos-user' 
+                            <button className={[this.get_button_colour(i), 'pos-user'].join(' ')}
                                     key={pos_user} 
                                     value = {this.state.notMessagedUserIds[i]+"|"+this.state.notMessagedUserNames[i]} 
                                     onClick = {this.selectUser}>
@@ -152,65 +161,68 @@ class Matches extends React.Component {
                 }
             }
             if (this.state.messagedUserIds === undefined && this.state.notMessagedUserIds.length === undefined){
-                matchingSection =  <h3 id='Matches-congrats'>
-                        <p>Congratulations, </p>
-                        <p>you have a match!</p> 
-                        <p>Messaged Users</p>
-                        <p>    
-                            {messagedUserItems}
-                        </p>
-                        <p>Not Messaged Users</p>
-                        <p> 
-                            {notMessagedUserItems}
-                        </p>
-                        </h3>
+                matchingSection = (
+                    <h3 id="Matches-congrats">
+                      <img src="happy-penguin.svg"></img>
+                      <p>Congratulations, you have a match!</p>
+                      <h2>Messaged Users</h2>
+                      <h3>{messagedUserItems}</h3>
+                      <p>Not Messaged Users</p>
+                      <p>{notMessagedUserItems}</p>
+                    </h3>
+                  );
             }
             else if (messagedUserItems.length > 0) {
-                matchingSection =  <h3 id='Matches-congrats'>
-                        <p>You don't have any new matches</p>
-                        <p>Please keep swiping or check back later!</p>
-                        <p>Messaged Users</p>
-                        <p>    
-                            {messagedUserItems}
-                        </p>
-                        </h3>
+                matchingSection =  
+                    <h3 id="Matches-congrats">
+                        <img src="happy-penguin.svg"></img>
+                        <h4>Congratulations, you have a match!</h4>
+                        <h6>You don't have any new matches</h6>
+                        <h6>Please keep swiping or check back later!</h6>
+                        <h6>Messaged Users</h6>
+                        <div className="containerBox">
+                        <p>{messagedUserItems}</p>
+                        </div>
+                    </h3>
             }
             else if (notMessagedUserItems.length > 0) {
-                matchingSection =  <h3 id='Matches-congrats'>
-                        <p>Congratulations,</p>
-                        <p>you have a match!</p> 
+                matchingSection =  
+                        <h3 id="Matches-congrats">
+                        <img src="happy-penguin.svg"></img>
+                        <p>Congratulations, you have a match!</p>
                         <p>There are friends you haven't messaged yet :)</p>
                         <p>Not Messaged Users</p>
-                        <p> 
-                            {notMessagedUserItems}
-                        </p>
-                        </h3>
+                        <p>{notMessagedUserItems}</p>
+                      </h3>
             }
-        }
-        else if (this.state.matchesExist == "not exists") {
-            matchingSection = <h2 id='Matches-none'>
-                <p>Sorry, no one met the matching criteria you set.</p> 
-                <p>We suggest you to edit your profile, or wait for more users to join our community.</p> 
+            } else if (this.state.matchesExist == "not exists") {
+            matchingSection = (
+                <h2 id="Matches-none">
+                <p>Sorry, no one met the matching criteria you set.</p>
+                <p>
+                    We suggest you to edit your profile, or wait for more users to join
+                    our community.
+                </p>
                 <p>Please try again later :(</p>
-            </h2>
-        }
-        else {
-            matchingSection = <h2></h2>
-        }
-        return(
-            <div id='Matches-section'>
-                 {matchingSection}                        
+                </h2>
+            );
+            } else {
+            matchingSection = <h2></h2>;
+            }
+    return (
+      <div id="Matches-section">
+        {matchingSection}
 
-                <div class = "swipingButton" id = 'swipingButton'>
-                    <Link to={{pathname: '/main'}}>Keep Swiping</Link>
-                </div>
-                <div class = "viewProfileButton" id = 'viewProfileButton'>
-                    <Link to={{pathname: '/viewprofile'}}>View Profile</Link>
-                </div>
-            </div>
-        )
-    }
-
+        <div class="swipingButton" id="swipingButton">
+          <Link to={{ pathname: "/main" }}>Keep Swiping</Link>
+        </div>
+        <br></br>
+        <div class="viewProfileButton" id="viewProfileButton">
+          <Link to={{ pathname: "/viewprofile" }}>View Profile</Link>
+        </div>
+      </div>
+    );
+  }
 }
 
-export default withRouter(Matches)
+export default withRouter(Matches);
