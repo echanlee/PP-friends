@@ -16,7 +16,7 @@ cors = CORS(app)
 
 app.config['SECRET_KEY'] = 'mysecret'
 
-socketIo = SocketIO(app, cors_allowed_origins="*")
+# socketIo = SocketIO(app, cors_allowed_origins="*")
 
 @app.route('/')
 def home():
