@@ -142,4 +142,4 @@ def handleMessage(room):
 # makes app run on the standard port
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=False, port=os.environ.get('PORT', 80))
-    socketIo.run(app)
+    # socketIo.run(app)
