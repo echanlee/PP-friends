@@ -17,6 +17,7 @@ import ViewProfile from './Profile/ViewProfile';
 import EditProfile from './Profile/EditProfile';
 import UpdateEmail from "./UpdateEmail";
 import UpdatePassword from "./UpdatePassword";
+import ViewFriendProfile from './Matches/ViewFriendProfile';
 
 export default class App extends React.Component {
     render() {
@@ -30,6 +31,9 @@ export default class App extends React.Component {
                         </Route>
                         <Route path="/viewprofile">
                             <ViewProfile />
+                        </Route>
+                        <Route path="/viewfriendprofile">
+                            <ViewFriendProfile />
                         </Route>
                         <Route path="/editprofile">
                             <EditProfile />

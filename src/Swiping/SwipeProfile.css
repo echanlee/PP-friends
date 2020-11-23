@@ -1,73 +1,95 @@
 * {
   /*all elements to inherit same font*/
   font-family: "Montserrat", sans-serif;
+  box-sizing: border-box;
+}
+
+.p {
+  font-size: 20px;
+
+}
+
+.column {
+  float: left;
+  padding: 10px;
+}
+
+.left{
+  width: 50%;
+  /* background-color:grey; */
+}
+
+.right{
+  width: 50%;
+  /* background-color:blue; */
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
 }
 
 .SwipeProfile {
   text-align: center;
-  margin: auto;
-  position: relative;
-}
-ul {
-  /*unordered list for navigation bar*/
-  background-color: #f8dabb;
-  list-style-type: none;
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
 }
 
-li {
-  float: left; /*to get navigation bar items to slide next to each other*/
-}
-
-li a {
+.profileLeft{
+  margin-left: auto;
+  margin-right: 0;
+  padding: 5%;
+  width: 20em;
   text-align: center;
-  padding: 14px 16px;
-  display: block;
-  color: black;
-  text-decoration: none;
+  line-height: 35px;
+  border-radius: 10px;
 }
 
-li a:hover:not(.active) {
-  background-color: rgb(102, 102, 102);
-  /*color change when mouse hovers over the list item on navigation bar*/
+.profileLeft img{
+  border-radius: 50%;
 }
-
-.active {
-  background-color: #f7dfc7;
-}
+>>>>>>> development
 
 .profileIntroSection {
-  /*turquoise section that includes other info in smaller font*/
-  background-color: #4dadb7;
-  align-items: center;
+  /*coral section that includes other info in smaller font*/
+  background-color: #f8dabb;
+
+  margin-left: 0;
   margin-right: auto;
-  margin-left: auto;
-  width: 30%;
-  border-radius: 12px;
+  padding: 5%;
+  width: 20em;
+  text-align: left;
+  line-height: 35px;
+  border-radius: 10px;
+}
+
+>>>>>>> development
+.profileIntroSection p {
+  color: black;
+  font-weight: bold;
+  font-size: 20px;
 }
 
 .button {
-  width: 240px;
-  color: white;
-  padding: 10px 35px;
   text-align: center;
+  color: white;
+  border-radius: 5px;
+  border: 1px white;
+  width: 200px;
+  height: 50px;
   font-size: 20px;
-  position: relative;
-  margin: 1px 1px;
-  text-decoration: none;
-  cursor: pointer;
-  border-radius: 15px; /*added rounded corners to buttons*/
-}
-.letsTalkButton {
-  /*"yes, let's match" button */
-  background-color: #e96a6a;
+
 }
 
 .notInterestedButton {
   /*"no, reject match" button*/
-  background-color: #3680a3;
+  background-color: #e0786c;
+}
+
+.letsTalkButton {
+
+  margin-top: 40%;
+
+  background-color: #4dadb7;
 }
 
 .pageTitle {
@@ -76,26 +98,27 @@ li a:hover:not(.active) {
 
 .letsTalkButton:hover {
   /*when user hovers over this button, color of button changes*/
-  background-color: #e25959;
+  background-color: #4ccbda;
   color: white;
-  border: 3px solid;
 }
 
 .letsTalkButton:focus {
   /*when user selects this button, color of button changes*/
-  background-color: #e96a6a;
+
+  background-color: #4dadb7;
+
   color: white;
-  border: 3px solid;
 }
 
 .notInterestedButton:hover {
-  background-color: #22779e;
+
+  background-color: #b9645b;
   color: white;
-  border: 3px solid;
 }
 
 .notInterestedButton:focus {
-  background-color: #3680a3;
+
+  background-color: #e0786c;
+
   color: white;
-  border: 3px solid;
 }
