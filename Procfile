@@ -1,1 +1,1 @@
-web: gunicorn --bind 0.0.0.0:80 server.myapp:app
+web: python server.myapp.py
