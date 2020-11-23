@@ -2,7 +2,7 @@ from flask import Flask, request, render_template, send_from_directory
 from flask_socketio import SocketIO, send, join_room, leave_room, emit
 from flask_cors import CORS, cross_origin
 from server.register import registerUser
-import profile
+import server.profile
 import os
 import server.matches
 from server.login import loginUser
@@ -36,7 +36,7 @@ def login():
 @app.route('/createprofile', methods=['POST'])
 def create_profile():
     if request.method == 'POST':
-        return profile.createProfile(request.form['name'], request.form['birthday'],
+        return server.profile.createProfile(request.form['name'], request.form['birthday'],
                              request.form['bio'], request.form['gender'], request.form['education'],
                              request.form['interests'], request.form['genderPreference'], request.form['maxDistance'],  
                              request.form['age'], request.form['id'])
@@ -45,12 +45,12 @@ def create_profile():
 def viewProfile():
     if request.method == 'POST':
         param = request.get_json('userId')
-        return profile.getProfile(param['userId'])
+        return server.profile.getProfile(param['userId'])
 
 @app.route('/editprofile', methods=['POST'])
 def edit_profile():
     if request.method == 'POST':
-        return profile.updateProfile(request.form['name'], request.form['birthday'],
+        return server.profile.updateProfile(request.form['name'], request.form['birthday'],
                              request.form['bio'], request.form['gender'], request.form['education'],
                              request.form['interests'], request.form['genderPreference'], request.form['maxDistance'],  
                              request.form['age'], request.form['id'])
