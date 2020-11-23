@@ -13,11 +13,9 @@ class ViewFriendProfile extends React.Component {
         age: 0,
         bio: "",
         gender: "Female",
-        genderPreference: "Female",
         education: "",
         interests: "",
         error: "",
-        maxDistance: 10,
       };
       this.selectUserMessage = this.selectUserMessage.bind(this);
     }
@@ -35,11 +33,9 @@ class ViewFriendProfile extends React.Component {
                     age: res.age, 
                     bio: res.bio,
                     gender: res.gender,
-                    genderPreference: res.genderPreference,
                     education: res.education, 
                     interests: res.interests,
                     birthday: res.birthday,
-                    maxDistance: res.maxDistance,
                 })
         ).catch((error) => {
             console.error(error)
@@ -108,16 +104,6 @@ class ViewFriendProfile extends React.Component {
               <option value ="Other">Other</option>
             </select>
 
-            <p>{displayName} Preferred Gender for friends:</p>
-            <select
-              name = "genderPreference"
-              value = {this.state.genderPreference}
-            >
-              <option value="Female">Female</option>
-              <option value ="Male">Male</option>
-              <option value ="Both">Both</option>
-            </select>
-
             <p>Education/Work:</p>
             {this.state.education}
 
@@ -126,10 +112,6 @@ class ViewFriendProfile extends React.Component {
 
             <p>Bio:</p>
             {this.state.bio}
-
-            <p>Max Distance:</p>
-            <input type="range" name="maxDistance" value = {this.state.maxDistance} min="1" max="99999"/>
-            <text>{this.state.maxDistance}KM</text><br></br>
           </form>
           <text>{this.state.error}</text>
         </div>
