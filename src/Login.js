@@ -30,7 +30,7 @@ class Login extends React.Component {
 
       const myForm = document.getElementById('loginForm');
       
-      const myRequest = new Request('http://127.0.0.1:5000/login', {
+      const myRequest = new Request('/login', {
         method: 'POST',
         body: new FormData(myForm),
       });
