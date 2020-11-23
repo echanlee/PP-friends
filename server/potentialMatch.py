@@ -2,6 +2,12 @@ import mysql.connector
 from mysql.connector import errorcode
 from connect import connectToDB
 
+def findExistingMatches(cursor, id):
+    existingMatch = "SELECT shownUser from PotentialMatch where currentUser = %s"
+    cursor.execute(existingMatch, (id,))
+    existingIds = [i[0] for i in cursor.fetchall()]
+    return existingIds
+
 def findPotentialMatches(id):
     try:
         connection = connectToDB()
@@ -12,7 +18,9 @@ def findPotentialMatches(id):
             if genderPreference == "":
                 return {"response": "No Matches", "id": id, "Number of Matches": 0}
 
+            existingIds = findExistingMatches(cursor, id)
             potentialIds = getPotentialIds(id, genderPreference, cursor, connection)
+            potentialIds = [i for i in potentialIds if i not in existingIds]
             if len(potentialIds) == 0:
                 return {"response": "No Matches", "id": id, "Number of Matches": 0}
 
@@ -26,7 +34,6 @@ def findPotentialMatches(id):
 
             sql = "INSERT INTO PotentialMatch (currentUser, shownUser) VALUES (%s, %s)"
             values = matchList
-
             cursor.executemany(sql, values)
             connection.commit()
             cursor.close()

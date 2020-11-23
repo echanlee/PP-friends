@@ -17,6 +17,7 @@ import ViewProfile from './Profile/ViewProfile';
 import EditProfile from './Profile/EditProfile';
 import UpdateEmail from "./Setting/UpdateEmail";
 import UpdatePassword from "./Setting/UpdatePassword";
+
 import ViewFriendProfile from './Matches/ViewFriendProfile';
 
 export default class App extends React.Component {
