@@ -20,7 +20,7 @@ socketIo = SocketIO(app, cors_allowed_origins="*")
 
 @app.route('/')
 def home():
-    return send_from_directory(app.static_folder, 'index.html')
+    return self.request.url
 
 # Error handling in case the url path does not exist, takes them back to main page
 @app.errorhandler(404)
