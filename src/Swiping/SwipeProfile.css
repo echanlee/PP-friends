@@ -14,12 +14,12 @@
   padding: 10px;
 }
 
-.left{
+.left {
   width: 50%;
   /* background-color:grey; */
 }
 
-.right{
+.right {
   width: 50%;
   /* background-color:blue; */
 }
@@ -34,7 +34,7 @@
   text-align: center;
 }
 
-.profileLeft{
+.profileLeft {
   margin-left: auto;
   margin-right: 0;
   padding: 5%;
@@ -44,7 +44,7 @@
   border-radius: 10px;
 }
 
-.profileLeft img{
+.profileLeft img {
   border-radius: 50%;
 }
 >>>>>>> development

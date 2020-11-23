@@ -2,9 +2,8 @@ import React from "react";
 import Header from "../Header/Header";
 import "./SwipeProfile.css";
 import { withRouter, Link } from "react-router-dom";
-import {getCookie, setCookie} from '../cookies';
-import {getLocation} from '../GetLocation';
-
+import { getCookie, setCookie } from "../cookies";
+import { getLocation } from "../GetLocation";
 
 class SwipeProfiles extends React.Component {
   constructor(props) {
@@ -98,9 +97,7 @@ class SwipeProfiles extends React.Component {
       this.setState({
         error: (
           <p>
-
             <img src="sad-penguin.svg"></img>
-
             <br></br>
             There are no current potential friends for you within the area.{" "}
             <br></br>Try updating your profile or come back later!
@@ -146,59 +143,60 @@ class SwipeProfiles extends React.Component {
       });
   }
 
-
-  async componentDidMount(){
+  async componentDidMount() {
     const storedLocation = getCookie("location");
     const storedLongitude = storedLocation[0];
     const storedLatitude = storedLocation[1];
 
     var currentLocation = await getLocation();
 
-    if (currentLocation != undefined){ 
-    
+    if (currentLocation != undefined) {
       const currentLongitude = currentLocation?.coords?.longitude;
       const currentLatitude = currentLocation?.coords?.latitude;
-    
-      var checkValidLongitude = isFinite(currentLongitude) && Math.abs(currentLongitude) <= 180;
-      var checkValidLatitude = isFinite(currentLatitude) && Math.abs(currentLatitude) <= 90;
 
-      if(checkValidLongitude && checkValidLatitude){ 
-      
-        if(storedLongitude === currentLongitude && storedLatitude === currentLatitude){
-        }
-        else{
-      
-          const id = this.state.id;     
+      var checkValidLongitude =
+        isFinite(currentLongitude) && Math.abs(currentLongitude) <= 180;
+      var checkValidLatitude =
+        isFinite(currentLatitude) && Math.abs(currentLatitude) <= 90;
+
+      if (checkValidLongitude && checkValidLatitude) {
+        if (
+          storedLongitude === currentLongitude &&
+          storedLatitude === currentLatitude
+        ) {
+        } else {
+          const id = this.state.id;
           setCookie("longitude", currentLongitude);
           setCookie("latitude", currentLatitude);
-     
 
           const myRequest = new Request("http://127.0.0.1:5000/location", {
             method: "POST",
-            body: JSON.stringify({"userID": id, "longitude": currentLongitude, "latitude": currentLatitude,})
-          ,});
-      
-          fetch(myRequest)
-          .then((res) => res.json())
-          .then((res) => {
-            if(res.response === "Success") {
-              console.log("updated location")
-            }
-            else{
-              console.log("error location update")
-            };
-          })
-          .catch((error) => {
-            this.setState({
-              error: "Error connecting to backend",
-            });
+            body: JSON.stringify({
+              userID: id,
+              longitude: currentLongitude,
+              latitude: currentLatitude,
+            }),
           });
-        }     
+
+          fetch(myRequest)
+            .then((res) => res.json())
+            .then((res) => {
+              if (res.response === "Success") {
+                console.log("updated location");
+              } else {
+                console.log("error location update");
+              }
+            })
+            .catch((error) => {
+              this.setState({
+                error: "Error connecting to backend",
+              });
+            });
+        }
       }
+    } else {
+      console.log("error getting user location");
     }
-    else{
-      console.log("error getting user location")
-    } 
   }
 
   render() {
@@ -239,21 +237,28 @@ class SwipeProfiles extends React.Component {
         ) : (
           <div>
             <img src="ppFriendsLogo.png"></img>
-
-            <h1>A potential Friend!</h1> 
-           <div class = "row">
+            <h1>A potential Friend!</h1>
+            <div class="row">
               <div class="column left">
-                <div class = "profileLeft">
-                  <img src = "profilepic.png" alt = "profilepic" width="150"></img>
-                  <h1>{this.state.firstName}, ({this.state.age})</h1>
-                  <button class="button letsTalkButton" onClick={() => this.handleSwipe(true)}>
+                <div class="profileLeft">
+                  <img src="profilepic.png" alt="profilepic" width="150"></img>
+                  <h1>
+                    {this.state.firstName}, ({this.state.age})
+                  </h1>
+                  <button
+                    class="button letsTalkButton"
+                    onClick={() => this.handleSwipe(true)}
+                  >
                     Let's Talk
                   </button>
                   <br></br>
-                  <button class="button notInterestedButton" onClick={() => this.handleSwipe(false)}>
-                      Not Interested
+                  <button
+                    class="button notInterestedButton"
+                    onClick={() => this.handleSwipe(false)}
+                  >
+                    Not Interested
                   </button>
-                </div>                
+                </div>
               </div>
               <div class="column right">
                 <div class="profileIntroSection">
@@ -267,7 +272,7 @@ class SwipeProfiles extends React.Component {
                   <text>{this.state.workplace}</text>
                 </div>
               </div>
-            </div> 
+            </div>
           </div>
         )}
       </div>
