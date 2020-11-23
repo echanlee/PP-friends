@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template
 from flask_socketio import SocketIO, send, join_room, leave_room, emit
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 from server.register import registerUser
 import profile
 import os
@@ -28,6 +28,7 @@ def not_found(e):
     return app.send_static_file('index.html')
 
 @app.route('/api/login', methods=['POST'])
+@cross_origin()
 def login():
     if request.method == 'POST':
       return loginUser(request.form['email'], request.form['password'])
