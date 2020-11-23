@@ -30,7 +30,7 @@ class Login extends React.Component {
 
       const myForm = document.getElementById('loginForm');
       
-      const myRequest = new Request('http://0.0.0.0:80/login', {
+      const myRequest = new Request('/api/login', {
         method: 'POST',
         body: new FormData(myForm),
       });

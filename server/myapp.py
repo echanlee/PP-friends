@@ -27,7 +27,7 @@ def home():
 def not_found(e):
     return app.send_static_file('index.html')
 
-@app.route('/login', methods=['POST'])
+@app.route('/api/login', methods=['POST'])
 def login():
     if request.method == 'POST':
       return loginUser(request.form['email'], request.form['password'])
