@@ -34,7 +34,7 @@ def login():
     print("test2")
     if request.method == 'POST':
     #   return loginUser(request.form['email'], request.form['password'])
-        return {"test": "test"}
+        return "testing"
 
 @app.route('/createprofile', methods=['POST'])
 def create_profile():
