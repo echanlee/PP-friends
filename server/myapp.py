@@ -11,7 +11,7 @@ from server.questionnaire import updateQuestionnaire
 from server.potentialMatch import findPotentialMatches
 import server.messages
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../build', static_url_path='')
 cors = CORS(app)
 
 app.config['SECRET_KEY'] = 'mysecret'
@@ -20,7 +20,7 @@ socketIo = SocketIO(app, cors_allowed_origins="*")
 
 @app.route('/')
 def home():
-    return request.url
+    return send_from_directory(app.static_folder, 'index.html')
 
 # Error handling in case the url path does not exist, takes them back to main page
 @app.errorhandler(404)
