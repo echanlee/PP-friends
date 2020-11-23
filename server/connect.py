@@ -21,4 +21,4 @@ def connectToDB():
             return connection
         return False
     except Exception as e:
-        return e
+        return str(e)
