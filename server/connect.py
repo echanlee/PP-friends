@@ -20,5 +20,5 @@ def connectToDB():
         if connection.is_connected():
             return connection
         return False
-    except mysql.connector.Error as e:
+    except Exception as e:
         return e
