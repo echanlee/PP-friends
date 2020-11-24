@@ -17,6 +17,7 @@ class Questionnaire extends Component {
   }
 
   handleSubmit(event) {
+    console.log(this.state.response.length)
     event.preventDefault();
     if (this.state.response.length >= 16) {
       //checks if all questions have been answered
