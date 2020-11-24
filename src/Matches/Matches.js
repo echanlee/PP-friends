@@ -114,7 +114,6 @@ class Matches extends React.Component {
       });
       return null;
     }
-
         let matchingSection;
         if (this.state.matchesExist == "exists"){
             let messagedUserItems = [];
@@ -160,7 +159,7 @@ class Matches extends React.Component {
                     )
                 }
             }
-            if (this.state.messagedUserIds === undefined && this.state.notMessagedUserIds.length === undefined){
+            if (this.state.messagedUserIds.length !== 0 && this.state.notMessagedUserIds.length !== 0){
                 matchingSection = (
                     <h3 id="Matches-congrats">
                       <img src="happy-penguin.svg"></img>
