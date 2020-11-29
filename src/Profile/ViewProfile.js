@@ -20,6 +20,7 @@ class ViewProfile extends React.Component {
       interests: "",
       error: "",
       maxDistance: 10,
+      profilePicture: null,
     };
   }
   componentDidMount() {
@@ -41,6 +42,7 @@ class ViewProfile extends React.Component {
           interests: res.interests,
           birthday: res.birthday,
           maxDistance: res.maxDistance,
+          profilePicture: res.profilePicture,
         })
       )
       .catch((error) => {
@@ -147,6 +149,9 @@ class ViewProfile extends React.Component {
                 <br></br>
 
                 <p>Profile Picture</p>
+                {this.state.profilePicture 
+                && <img src={this.state.profilePicture}></img>
+              }
               </div>
             </form>
           </div>

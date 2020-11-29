@@ -181,7 +181,7 @@ class ProfileForm extends React.Component {
             onChange={this.handleChange}
             maxlength="255"
           />
-
+          
           <p>Bio 😶</p>
           <input
             type="text"
@@ -200,6 +200,9 @@ class ProfileForm extends React.Component {
             min="1"
             max="500"
           />
+
+          <p >Upload image:</p>
+            <input type="file" id="img" name="img" accept="image/*"></input>
           <text>{this.state.maxDistance}KM</text>
           <br></br>
           <br></br>

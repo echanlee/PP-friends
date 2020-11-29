@@ -16,6 +16,7 @@ class SwipeProfiles extends React.Component {
       interests: "",
       gender: "",
       workplace: "",
+      profilePicture: null,
       potentialFriends: [],
       displayedUserId: "",
       error: "",
@@ -80,6 +81,7 @@ class SwipeProfiles extends React.Component {
               interests: res.interests,
               gender: res.gender,
               workplace: res.workPlace,
+              profilePicture: res.profilePicture,
               error: "",
             });
           } else {
@@ -204,6 +206,7 @@ class SwipeProfiles extends React.Component {
     const potentialFriends = this.state.potentialFriends;
     const displayedUserId = this.state.displayedUserId;
     const error = this.state.error;
+    const profilePicture = this.state.profilePicture
 
     if (id === "") {
       this.props.history.push({
@@ -241,7 +244,10 @@ class SwipeProfiles extends React.Component {
             <div class="row">
               <div class="column left">
                 <div class="profileLeft">
-                  <img src="profilepic.png" alt="profilepic" width="150"></img>
+                  {profilePicture 
+                  ? <img src={profilePicture} alt="profilepic" width="150"></img>
+                  :<img src="profilepic.png" alt="profilepic" width="150"></img>
+                  }
                   <h1>
                     {this.state.firstName}, ({this.state.age})
                   </h1>

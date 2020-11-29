@@ -20,6 +20,7 @@ class EditProfile extends React.Component {
       error: "",
       maxDistance: 10,
       updateStatus: "",
+      profilePicture: null,
     };
 
     this.handleUpdate = this.handleUpdate.bind(this);
@@ -43,6 +44,7 @@ class EditProfile extends React.Component {
           interests: res.interests,
           maxDistance: res.maxDistance,
           birthday: res.birthday,
+          profilePicture: res.profilePicture,
           updatedMessage: "",
         })
       )
@@ -75,6 +77,7 @@ class EditProfile extends React.Component {
                 updatedMessage: (
                   <p>You have successfully updated your profile!</p>
                 ),
+                profilePicture: res.imageURL,
               });
             } else {
               this.setState({
@@ -273,8 +276,18 @@ class EditProfile extends React.Component {
               <br></br>
               <br></br>
 
-              <p>Profile Picture</p>
+              <p>Profile Picture</p><br></br>
+              {this.state.profilePicture 
+                && <img src={this.state.profilePicture}></img>
+              }
             </div>
+            <p >Update image:</p>
+                <input 
+                  type="file" 
+                  id="img" 
+                  name="img" 
+                  accept="image/*">
+                </input>
             <div class="updateProfileButton">
               <input type="submit" value="Update" />
               {this.state.updatedMessage}

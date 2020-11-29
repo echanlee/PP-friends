@@ -35,7 +35,7 @@ def create_profile():
         return profile.createProfile(request.form['name'], request.form['birthday'],
                              request.form['bio'], request.form['gender'], request.form['education'],
                              request.form['interests'], request.form['genderPreference'], request.form['maxDistance'],  
-                             request.form['age'], request.form['id'])
+                             request.form['age'], request.form['id'], request.files['img'])
 
 @app.route('/viewprofile', methods=['POST'])
 def viewProfile():
@@ -49,7 +49,7 @@ def edit_profile():
         return profile.updateProfile(request.form['name'], request.form['birthday'],
                              request.form['bio'], request.form['gender'], request.form['education'],
                              request.form['interests'], request.form['genderPreference'], request.form['maxDistance'],  
-                             request.form['age'], request.form['id'])
+                             request.form['age'], request.form['id'], request.files["img"])
 
 @app.route('/matches', methods=['POST'])
 def get_matches():
