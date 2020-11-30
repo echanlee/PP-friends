@@ -16,21 +16,21 @@ def findPotentialMatches(id):
             
             genderPreference = getGenderPreference(id, cursor, connection)
             if genderPreference == "":
-                return {"response": "gender", "id": id, "Number of Matches": 0}
+                return {"response": "No Matches", "id": id, "Number of Matches": 0}
 
             existingIds = findExistingMatches(cursor, id)
             potentialIds = getPotentialIds(id, genderPreference, cursor, connection)
             potentialIds = [i for i in potentialIds if i not in existingIds]
             if len(potentialIds) == 0:
-                return {"response": "No potentialIds", "id": id, "Number of Matches": 0}
+                return {"response": "No Matches", "id": id, "Number of Matches": 0}
 
             responses = getQuestionnaireResponses(potentialIds, cursor, connection)
             if len(responses) == 0:
-                return {"response": "No responses", "id": id, "Number of Matches": 0}
+                return {"response": "No Matches", "id": id, "Number of Matches": 0}
 
             matchList = getPotentialMatches(id, responses, cursor, connection, 0.8)
             if len(matchList) == 0:
-                return {"response": "Success", "id": id, "Number of Matches": 0}
+                return {"response": "No Matches", "id": id, "Number of Matches": 0}
 
             sql = "INSERT INTO PotentialMatch (currentUser, shownUser) VALUES (%s, %s)"
             values = matchList
