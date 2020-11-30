@@ -66,8 +66,6 @@ class EditProfile extends React.Component {
           method: "POST",
           body: myForm,
         });
-        /*his.setState(state => 
-  ({ style: Object.assign(state.style, { backgroundColor: 'red' } })) */
 
         fetch(myRequest)
           .then((res) => res.json())
@@ -122,6 +120,13 @@ class EditProfile extends React.Component {
     });
   };
 
+  removePicture = () => {
+    console.log("helloo");
+    this.setState({
+      profilePicture: null,
+    });
+  }
+
   checkAge = () => {
     const birthday = new Date(this.state.birthday);
     var today = new Date();
@@ -156,7 +161,6 @@ class EditProfile extends React.Component {
     }
     return (
       <div>
-        {" "}
         <Header id={this.state.userId} />
         <div className="Profile">
           <form id="profileForm" onSubmit={this.handleUpdate}>
@@ -288,11 +292,13 @@ class EditProfile extends React.Component {
                   name="img" 
                   accept="image/*">
                 </input>
+                <p >Update image:</p>
             <div class="updateProfileButton">
               <input type="submit" value="Update" />
               {this.state.updatedMessage}
             </div>
           </form>
+          <button onClick = {this.removePicture}>Remove picture</button>
         </div>
       </div>
     );
