@@ -121,7 +121,6 @@ class EditProfile extends React.Component {
   };
 
   removePicture = () => {
-    console.log("helloo");
     this.setState({
       profilePicture: null,
     });

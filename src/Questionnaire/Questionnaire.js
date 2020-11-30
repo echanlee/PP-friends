@@ -32,19 +32,15 @@ class Questionnaire extends Component {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ responses: this.state.response, userId: id }),
       });
-      console.log("clicked");
       fetch(myRequest)
         .then((res) => res.json())
         .then((res) => {
-          console.log(res);
           if (res.response === "Success") {
-            console.log("questionnaire!");
             //Once the first questionnaire API call is a success, the second matching call is nested to ensure that the two calls
             //happen in succession
             fetch(matchRequest)
               .then((res) => res.json())
               .then((res) => {
-                console.log(res);
                 if (res.response === "Success") {
                   this.props.history.push({
                     pathname: "/main",
