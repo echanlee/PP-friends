@@ -58,6 +58,12 @@ def get_matches():
         response = matches.matchUser(param['userId'])
         return response
 
+@app.route('/unmatch', methods=['POST'])
+def unmath():
+    if request.method == 'POST':
+        param = request.get_json('userId')
+        return matches.unmatch(param['userId'], param['friendId'])  
+
 @app.route('/register', methods=['POST'])
 def register():
     if request.method == 'POST':

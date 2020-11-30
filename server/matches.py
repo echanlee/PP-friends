@@ -81,4 +81,33 @@ def getConversationIds(currentUser, friendUser):
      except mysql.connector.Error as err:
         return {"response": err.msg }
 
+def unmatch(currentUser, friendUser):
+    try:
+        connection = connectToDB()
+        if(connection != False):
+            cursor = connection.cursor(buffered=True)
+            change_potentialMatch = f"UPDATE PotentialMatch SET matchDecision = 0 WHERE currentUser = %s AND shownUser = %s"
+            delete_conversation = f"DELETE from Conversation WHERE userOne = %s and userTwo = %s"
+            delete_messages = f"DELETE from Messages WHERE fromUser = %s and toUser = %s"
+            insert_unmatch = f"INSERT into Unmatch (userOne, userTwo) values (%s, %s)"
+
+            cursor.execute(change_potentialMatch, (currentUser, friendUser))
+            cursor.execute(change_potentialMatch, (friendUser, currentUser))
+
+            cursor.execute(delete_conversation, (currentUser, friendUser))
+            cursor.execute(delete_conversation, (friendUser, currentUser))
+
+            cursor.execute(delete_messages, (currentUser, friendUser))
+            cursor.execute(delete_messages, (friendUser, currentUser))
+
+            cursor.execute(insert_unmatch, (currentUser, friendUser))
+            cursor.execute(insert_unmatch, (friendUser, currentUser))
+
+            connection.commit()
+            cursor.close()
+
+            return matchUser(currentUser)
+
+    except mysql.connector.Error as err:
+        return {"response": err.msg } 
 
