@@ -20,8 +20,7 @@
   text-align: center;
 }
 
-.updateProfileButton input[type="submit"],
-input[value="Update"] {
+.updateProfileButton input[value="Update"] {
   position: absolute;
   left: 65%;
   margin-top: 34%;
