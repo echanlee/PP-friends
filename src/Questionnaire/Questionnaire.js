@@ -77,9 +77,7 @@ class Questionnaire extends Component {
         countanswer++
       }
     })
-    if (countanswer==16){
-      return 1
-  }
+    return countanswer==16
 }
 
   getQuestions = () => {
