@@ -59,3 +59,41 @@ nav {
 .button-header:hover {
   background-color: #f07167;
 }
+.dropbtn {
+  background-color: #f8dabb;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f07167;
+  width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: white;
+  border-color: white;
+  font-size: 16px;
+  padding: 16px;
+  text-decoration: none;
+  display: block;
+  text-align: center;
+  font-weight: 500;
+
+}
+
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {  color: #f07167;}
