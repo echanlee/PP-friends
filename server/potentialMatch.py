@@ -22,7 +22,7 @@ def findPotentialMatches(id):
             potentialIds = getPotentialIds(id, genderPreference, cursor, connection)
             potentialIds = [i for i in potentialIds if i not in existingIds]
             if len(potentialIds) == 0:
-                return {"response": "No potential matches using preferred gender", "id": id, "Number of Matches": 0}
+                return {"response": "Success", "id": id, "Number of Matches": 0}
 
             responses = getQuestionnaireResponses(potentialIds, cursor, connection)
             if len(responses) == 0:
