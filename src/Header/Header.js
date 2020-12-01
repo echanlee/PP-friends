@@ -19,7 +19,7 @@ const Header = (props) => {
                         pathname:'/viewprofile',
                         state:{id: props.id, friendId: -1}}} className='inactive' activeClassName="active" replace>View Profile</NavLink>
                     <div class = "dropdown">
-                        <button class="dropbtn">Settings</button>
+                        <button class="dropbtn">Settings<i class="arrow down"></i></button>
                         <div class="dropdown-content">
                             <NavLink to={{
                                 pathname:'/editprofile',
