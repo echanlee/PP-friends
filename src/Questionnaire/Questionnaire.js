@@ -18,7 +18,7 @@ class Questionnaire extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    if (this.state.response.length >= 16) {
+    if (this.checkResponses()) {
       //checks if all questions have been answered
       const id = this.state.id;
       const myRequest = new Request("http://127.0.0.1:5000/questionnaire", {
@@ -68,6 +68,18 @@ class Questionnaire extends Component {
       alert("Please answer all questions");
     }
   }
+
+  checkResponses(){
+    var countanswer=0;
+    this.state.response.map(answer=>{
+      if(answer == 0 || answer == 1){
+        countanswer++
+      }
+    })
+    if (countanswer==16){
+      return 1
+  }
+}
 
   getQuestions = () => {
     questions().then((question) => {
