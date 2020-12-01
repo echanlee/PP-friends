@@ -78,7 +78,7 @@ class UpdateEmail extends React.Component {
             
             <form id="newEmailForm" onSubmit={this.handleSubmit}>
             <h1>Update Email</h1>
-              <p>please enter your new email address:</p> 
+              <p>Please enter your new email address:</p> 
               <input 
                 name="email" 
                 type="email" 
@@ -86,6 +86,7 @@ class UpdateEmail extends React.Component {
                 placeholder="New Email Address"
                 onChange={this.handleInputChange} 
               />
+              <br></br>
               <input name="UpdateEmail"type="submit" value="Update" /> 
               <text>{this.state.error}</text>
             </form>

@@ -107,7 +107,7 @@ class UpdatePassword extends React.Component {
         return (
           <div>
             <Header id={this.state.userId}/>
-            <div className = "ahhh">
+            <div className = "Password">
             <form id="newPasswordForm" onSubmit={this.handleSubmit}>
             <div className="updatePassword">
             <h1>Change Password</h1>
@@ -116,7 +116,7 @@ class UpdatePassword extends React.Component {
                 name="oldPassword" 
                 type="password" 
                 value={this.state.oldPassword}
-                placeholder="current password"
+                placeholder="Current Password"
                 onChange={this.handleInputChange} 
               />
               <br></br>
@@ -125,7 +125,7 @@ class UpdatePassword extends React.Component {
                 name="newPassword"
                 type="Password"
                 value={this.state.newPassword}
-                placeholder="new password"
+                placeholder="New Password"
                 onChange={this.handleInputChange}
               />
               <br></br>
@@ -134,7 +134,7 @@ class UpdatePassword extends React.Component {
                 name="confirmPassword"
                 type="password"
                 value={this.state.confirmPassword}
-                placeholder="Re-enter new password"
+                placeholder="Re-enter New Password"
                 onChange={this.handleInputChange}
               />
               <br></br>
