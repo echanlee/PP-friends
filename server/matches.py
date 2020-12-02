@@ -1,6 +1,6 @@
 import mysql.connector
 from mysql.connector import errorcode
-from server.connect import connectToDB
+from connect import connectToDB
 
 def getMessagedUsers(userId, cursor):
     sql = f"SELECT distinct c.userTwo, p.firstname, c.messageId, c.timeStamp, m.fromUser, m.content FROM Conversation c \

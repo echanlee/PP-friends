@@ -1,7 +1,7 @@
 import os, uuid
 import mysql.connector
 from mysql.connector import errorcode
-from server.connect import connectToDB
+from connect import connectToDB
 
 def saveImage(image, userId, newUser = False):
     if not newUser:

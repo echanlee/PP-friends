@@ -245,8 +245,8 @@ class SwipeProfiles extends React.Component {
               <div class="column left">
                 <div class="profileLeft">
                   {profilePicture 
-                  ? <img src={profilePicture} alt="profilepic" width="150"></img>
-                  :<img src="profilepic.png" alt="profilepic" width="150"></img>
+                  ? <img src={profilePicture} alt="profilepic"></img>
+                  :<img src="profilepic.png" alt="profilepic"></img>
                   }
                   <h1>
                     {this.state.firstName}, ({this.state.age})

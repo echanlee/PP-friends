@@ -1,8 +1,8 @@
 import mysql.connector
 from mysql.connector import errorcode
-from server.connect import connectToDB
+from connect import connectToDB
 from datetime import date
-from server.profilePicture import saveImage
+from profilePicture import saveImage
 
 
 def createProfile(name, birthday, bio, gender, education, interests, genderPreference, maxDistance, age, id, image):
