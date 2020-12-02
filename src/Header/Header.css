@@ -43,7 +43,7 @@ nav {
 
 .inactive {
   height: 100%;
-  width: 100%x;
+  width: 100%;
   padding: 0 40px;
 }
 
@@ -66,7 +66,7 @@ nav {
 
 .dropbtn {
   background-color: #f8dabb;
-  padding: 16px;
+  padding: 10px;
   font-size: 16px;
   font-weight: 600;
   border: none;
@@ -109,11 +109,12 @@ nav {
   border-radius: 5px;
 }
 .arrow {
-  border: solid black;
-  border-width: 0 3px 3px 0;
+  border: solid #8b8b8b;
+  border-width: 0 2px 2px 0;
   display: inline-block;
-  padding: 3px;
-  margin-left: 8px;
+  padding: 4px;
+  margin-left: 20px;
+  margin-bottom: 3px;
 }
 .down {
   transform: rotate(45deg);
