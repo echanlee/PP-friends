@@ -46,20 +46,24 @@ def getPotentialMatchList(currentUserId):
 
                             findMaxDistance = "SELECT maxDistance FROM Profile WHERE userId = %s"
                             cursor.execute(findMaxDistance, userID)
-                            maxDistance = cursor.fetchone()[0]
+                            maxDistanceCurrentUser = cursor.fetchone()[0]
+                            cursor.execute(findMaxDistance, (potentialListId[pmatch],))
+                            maxDistancePotentialUser = cursor.fetchone()[0]
 
-                            if (distance <= maxDistance):
+                            if ((distance <= maxDistanceCurrentUser) & (distance <= maxDistancePotentialUser)):
                                 newPotentialMatchList.append(potentialListId[pmatch])
                                 
                             else:
                                 pass
+
                         else:
                             newPotentialMatchList.append(potentialListId[pmatch])
                             
                 else:
                     newPotentialMatchList = potentialListId
             else:
-                newPotentialMatchList = potentialListId     
+                newPotentialMatchList = potentialListId  
+              
             connection.commit()
             cursor.close()
             return {"response": "Success", 
