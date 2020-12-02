@@ -2,6 +2,7 @@ import mysql.connector
 from mysql.connector import errorcode
 from connect import connectToDB
 from potentialMatch import findPotentialMatches 
+from math import cos, asin, sqrt, pi
 
 
 def getPotentialMatchList(currentUserId):
@@ -15,15 +16,61 @@ def getPotentialMatchList(currentUserId):
             cursor.execute(PotentialMatchQuery, userID)
             potentialListId = [i[0] for i in cursor.fetchall()]
 
+            newPotentialMatchList = []
+
+            if(len(potentialListId) != 0):
+
+                findLocation = "SELECT longitude, latitude FROM Users WHERE id = %s"
+                cursor.execute(findLocation, userID)
+                currentUserLocation = cursor.fetchall()
+
+                if(currentUserLocation[0][0] != None):
+                    for i in currentUserLocation:
+                        currentUserLongitude = float(i[0])
+                        currentUserLatitude = float(i[1])
+
+                    for pmatch in range(len(potentialListId)):
+                        ID = (potentialListId[pmatch],)
+                        cursor.execute(findLocation, ID)
+                        potentialMatchLocation = cursor.fetchall()  
+
+                        if(potentialMatchLocation[0][0] != None):
+
+                            for i in potentialMatchLocation:
+                                potentialMatchLongitude = float(i[0])
+                                potentialMatchLatitude = float(i[1])
+                                
+                            p = pi/180
+                            a = 0.5 - cos((currentUserLatitude-potentialMatchLatitude)*p)/2 + cos(potentialMatchLatitude*p) * cos(currentUserLatitude*p) * (1-cos((currentUserLongitude-potentialMatchLongitude)*p))/2
+                            distance = 12742 * asin(sqrt(a)) 
+
+                            findMaxDistance = "SELECT maxDistance FROM Profile WHERE userId = %s"
+                            cursor.execute(findMaxDistance, userID)
+                            maxDistance = cursor.fetchone()[0]
+
+                            if (distance <= maxDistance):
+                                newPotentialMatchList.append(potentialListId[pmatch])
+                                
+                            else:
+                                pass
+                        else:
+                            newPotentialMatchList.append(potentialListId[pmatch])
+                            
+                else:
+                    newPotentialMatchList = potentialListId
+            else:
+                newPotentialMatchList = potentialListId     
             connection.commit()
             cursor.close()
             return {"response": "Success", 
-            "potentialListId": potentialListId}
+            "potentialListId": newPotentialMatchList}
     
     except mysql.connector.Error as err:
         return {"response": err.msg }
 
     return{"response": "Something went wrong"}
+
+getPotentialMatchList(59)
 
 def showProfile(shownUserId):
     try:
