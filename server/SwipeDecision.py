@@ -74,8 +74,6 @@ def getPotentialMatchList(currentUserId):
 
     return{"response": "Something went wrong"}
 
-getPotentialMatchList(59)
-
 def showProfile(shownUserId):
     try:
         connection = connectToDB()
