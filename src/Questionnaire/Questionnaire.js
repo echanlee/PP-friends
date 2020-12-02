@@ -12,13 +12,14 @@ class Questionnaire extends Component {
       id: getCookie("userId"),
       questionBank: [],
       response: [],
+      error:"",
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    if (this.state.response.length >= 16) {
+    if (this.checkResponses()) {
       //checks if all questions have been answered
       const id = this.state.id;
       const myRequest = new Request("http://127.0.0.1:5000/questionnaire", {
@@ -68,6 +69,16 @@ class Questionnaire extends Component {
       alert("Please answer all questions");
     }
   }
+
+  checkResponses(){
+    var countanswer=0;
+    this.state.response.map(answer=>{
+      if(answer == 0 || answer == 1){
+        countanswer++
+      }
+    })
+    return countanswer==16
+}
 
   getQuestions = () => {
     questions().then((question) => {
@@ -119,6 +130,9 @@ class Questionnaire extends Component {
         <button class="submitButton" onClick={this.handleSubmit}>
           Get Started!
         </button>
+        <div class="text">
+            <text>{this.state.error}</text>
+        </div>
       </div>
     );
   }

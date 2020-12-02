@@ -99,3 +99,8 @@ div.boxed {
   min-width: 50px;
   text-align: center;
 }
+
+.text {
+  text-align: center;
+  margin-top: 5%;
+}
