@@ -16,7 +16,7 @@ def findPotentialMatches(id):
             
             genderPreference = getGenderPreference(id, cursor, connection)
             if genderPreference == "":
-                return {"response": "No preferred gender specified by user", "id": id, "Number of Matches": 0}
+                return {"response": "Success", "id": id, "Number of Matches": 0}
 
             existingIds = findExistingMatches(cursor, id)
             potentialIds = getPotentialIds(id, genderPreference, cursor, connection)
@@ -26,7 +26,7 @@ def findPotentialMatches(id):
 
             responses = getQuestionnaireResponses(potentialIds, cursor, connection)
             if len(responses) == 0:
-                return {"response": "No potential matches using questionnaire responses", "id": id, "Number of Matches": 0}
+                return {"response": "Success", "id": id, "Number of Matches": 0}
 
             #when the matchList is not empty, potential matches are added to the PotentialMatch table
             matchList = getPotentialMatches(id, responses, cursor, connection, 0.8)
