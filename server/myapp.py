@@ -6,7 +6,8 @@ import profile
 import matches
 from login import loginUser
 import SwipeDecision
-from questionnaire import updateQuestionnaire
+from questionnaire import addQuestionnaire
+from questionnaire import editQuestionnaire
 from potentialMatch import findPotentialMatches
 import messages
 from GetLocation import getLocation
@@ -92,7 +93,13 @@ def inputSwipe():
 def questionnaire():
     if request.method == 'POST':
         param = request.get_json('responses')
-        return updateQuestionnaire(param['responses'], param['userId']) 
+        return addQuestionnaire(param['responses'], param['userId'])
+
+@app.route('/updateQuestionnaire', methods=['POST'])
+def updateQuestionnaire():
+    if request.method == 'POST':
+        param = request.get_json('responses')
+        return editQuestionnaire(param['responses'], param['userId'])
 
 @app.route('/potentialMatch', methods=['POST'])
 def potentialMatch():
