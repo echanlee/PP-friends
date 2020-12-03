@@ -13,7 +13,7 @@ import Header from '../Header/Header';
 //   .listen(PORT, () => console.log (`Listening on ${PORT}`));
 
 let endPoint = "https://pp-friends.herokuapp.com";
-let socket = io.connect(`${endPoint}`);
+let socket = io.connect();
 
 class Messages extends React.Component {
   constructor(props){
