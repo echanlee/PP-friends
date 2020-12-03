@@ -33,18 +33,18 @@ def updateProfile(name, birthday, bio, gender, education, interests, genderPrefe
         connection = connectToDB()
         if(connection != False):
             
-            image_url = saveImage(image, id)
+            imageUrl = saveImage(image, id)
             cursor = connection.cursor(buffered=True)
             sql = '''UPDATE Profile SET firstname = %s, age = %s, description = %s, gender = %s, \
                 workplace = %s, interests = %s, genderPreference = %s, maxDistance = %s, Birthday = %s \
                 , picture = %s WHERE userId = %s;'''
             values = (name, age, bio, gender, education,
-                      interests, genderPreference, maxDistance, birthday, image_url, id)
+                      interests, genderPreference, maxDistance, birthday, imageUrl, id)
             cursor.execute(sql, values)
             connection.commit()
             cursor.close()
             return {"response": "Success",
-                    "imageURL": image_url}
+                    "imageURL": imageUrl}
 
     except mysql.connector.Error as err:
         return {"response": err.msg}
