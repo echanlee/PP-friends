@@ -211,7 +211,7 @@ class ProfileForm extends React.Component {
 
                   <label for="Interests">Your interests 🎨</label>
 
-                  <input
+                  <textarea
                     type="text"
                     name="interests"
                     value={this.state.interests}
@@ -223,7 +223,7 @@ class ProfileForm extends React.Component {
                   <br></br>
 
                   <label for="Bio">Bio 😶</label>
-                  <input
+                  <textarea
                     type="text"
                     name="bio"
                     value={this.state.bio}
