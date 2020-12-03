@@ -172,17 +172,17 @@ class EditProfile extends React.Component {
                     {this.state.profilePicture 
                       && <img src={this.state.profilePicture}></img>
                     }
-                  <p >Update image:</p>
+                  <p >Upload New image:</p>
                       <input 
                         type="file" 
                         id="img" 
                         name="img" 
                         accept="image/*">
                       </input>
-                      <p >Update image:</p>
-                  <button onClick = {this.removePicture}>Remove picture</button>
+                    <br></br>
+                  <button class = "removepic" onClick = {this.removePicture}>Remove picture</button>
                   <div class="updateProfileButton">
-                    <input type="submit" value="Update" />
+                    <input type="submit" value="Update Profile" />
                     {this.state.updatedMessage}
                   </div>
                 </div>
@@ -306,6 +306,7 @@ class EditProfile extends React.Component {
 
                 </div>
               </div>
+
             </div>
           </form>
         </div>
