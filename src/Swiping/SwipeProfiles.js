@@ -4,6 +4,7 @@ import "./SwipeProfile.css";
 import { withRouter, Link } from "react-router-dom";
 import { getCookie, setCookie } from "../cookies";
 import { getLocation } from "../GetLocation";
+import LoadingSpinner from "../Profile/LoadingSpinner";
 
 class SwipeProfiles extends React.Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class SwipeProfiles extends React.Component {
       potentialFriends: [],
       displayedUserId: "",
       error: "",
+      loading: true,
     };
 
     this.getPotentialFriendList = this.getPotentialFriendList.bind(this);
@@ -44,6 +46,7 @@ class SwipeProfiles extends React.Component {
             potentialFriends: potentialFriendsList,
             displayedUserId: displayProfileId,
             error: "",
+            loading: false,
           });
 
           this.displayProfile();
@@ -200,6 +203,7 @@ class SwipeProfiles extends React.Component {
   }
 
   render() {
+    const loading = this.state.loading;
     const id = this.state.id;
     const potentialFriends = this.state.potentialFriends;
     const displayedUserId = this.state.displayedUserId;
@@ -226,14 +230,14 @@ class SwipeProfiles extends React.Component {
 
         <br></br>
         <header class="pageTitle">Potential Friends!</header>
+
         <br></br>
 
         <br></br>
         <br></br>
         <br></br>
-
-        {error ? (
-          <text>{error}</text>
+        {loading ? (
+          <LoadingSpinner /> && <div className="Loading"></div>
         ) : (
           <div>
             <img src="ppFriendsLogo.png"></img>
