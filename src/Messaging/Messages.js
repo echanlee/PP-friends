@@ -12,8 +12,8 @@ import Header from '../Header/Header';
 //   .use((req, res) => res.sendFile(INDEX, {root: __dirname}))
 //   .listen(PORT, () => console.log (`Listening on ${PORT}`));
 
-let endPoint = "https://pp-friends.herokuapp.com";
-let socket = io.connect();
+let endPoint = "https://pp-friends.herokuapp.com/messages";
+let socket = io.connect(`${endPoint}`);
 
 class Messages extends React.Component {
   constructor(props){
