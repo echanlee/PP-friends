@@ -66,14 +66,13 @@ class ViewProfile extends React.Component {
               <img src="ppFriendsLogo.png"></img>
               <br></br>
               <br></br>
-
-              <div class="formgroup">
+              <div class="rectangle">
                 <label for="User">Name 😀</label>
                 <input name={this.state.name} value={this.state.name} />
-              </div>
-              <br></br>
-              <br></br>
-              <div class="formgroup">
+
+                <br></br>
+                <br></br>
+
                 <label for="Birthday">Birthday 🎂</label>
                 <input
                   type="date"
@@ -81,22 +80,20 @@ class ViewProfile extends React.Component {
                   value={this.state.birthday}
                   placeholder="YYYY-MM-DD"
                 />
-              </div>
 
-              <br></br>
-              <br></br>
-              <div class="formgroup">
+                <br></br>
+                <br></br>
+
                 <label for="Gender">Gender 👫</label>
                 <select name="gender" value={this.state.gender}>
                   <option value="Female">Female</option>
                   <option value="Male">Male</option>
                   <option value="Other">Other</option>
                 </select>
-              </div>
 
-              <br></br>
-              <br></br>
-              <div class="formgroup">
+                <br></br>
+                <br></br>
+
                 <label for="GenderPreference">
                   Your Preferred Gender for friends 🎎
                 </label>
@@ -108,38 +105,34 @@ class ViewProfile extends React.Component {
                   <option value="Male">Male</option>
                   <option value="Both">Both</option>
                 </select>
-              </div>
 
-              <br></br>
-              <br></br>
-              <div class="formgroup">
+                <br></br>
+                <br></br>
+
                 <label for="Education">Education/Work 💻</label>
                 <input
                   name={this.state.education}
                   value={this.state.education}
                 />
-              </div>
 
-              <br></br>
-              <br></br>
-              <div class="formgroup">
+                <br></br>
+                <br></br>
+
                 <label for="Interests">Your interests 🎨</label>
                 <input
                   name={this.state.interests}
                   value={this.state.interests}
                 />
-              </div>
 
-              <br></br>
-              <br></br>
-              <div class="formgroup">
+                <br></br>
+                <br></br>
+
                 <label for="Bio">Bio 😶</label>
                 <input name={this.state.bio} value={this.state.bio} />
-              </div>
-              <br></br>
-              <br></br>
 
-              <div class="formgroup">
+                <br></br>
+                <br></br>
+
                 <label for="Distance">Max Distance 🌎</label>
                 <input
                   type="range"
@@ -152,9 +145,8 @@ class ViewProfile extends React.Component {
                 <text>{this.state.error}</text>
                 <br></br>
                 <br></br>
-                <div class="rectangle">
-                  <p>Profile Picture</p>
-                </div>
+
+                <p>Profile Picture</p>
               </div>
             </form>
           </div>

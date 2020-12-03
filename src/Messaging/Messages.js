@@ -145,7 +145,8 @@ class Messages extends React.Component {
       <div>
         <Header id={this.state.userId}/>
       <div className = "PageContainer">
-        <p>You are currently messaging:</p>
+        <br></br>
+        <h2>You are currently messaging:</h2>
          <h1>{this.state.friendName}</h1>
         <div className = "MessageContainer">
         {messages.length > 0 ?
