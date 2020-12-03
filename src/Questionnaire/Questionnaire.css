@@ -6,8 +6,7 @@
 .ppQuestionnaire img {
   display: block;
   width: 8%;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left:47%;
 }
 
 h1 {
@@ -52,7 +51,7 @@ h4 {
 
 div.boxed {
   overflow: auto;
-  height: 300px;
+  height: 350px;
 }
 
 .boxed {
@@ -84,7 +83,7 @@ div.boxed {
   font-size: 20px;
   margin: 0;
   position: absolute;
-  left: 43%;
+  left: 47%;
 }
 
 .submitButton:hover {
@@ -167,10 +166,10 @@ div.boxed {
 }
  
 .boxed::-webkit-scrollbar-thumb {
-  background: #f07167; 
+  background: #3680a3; 
   border-radius: 10px;
 }
 
 .boxed::-webkit-scrollbar-thumb:hover {
-  background: #a14a44; 
+  background: #2a637e; 
 }
