@@ -1,1 +1,1 @@
-web: bin/proximo gunicorn server.myapp:app
+web: bin/proximo gunicorn -k flask_sockets.worker server.myapp:app
