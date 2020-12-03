@@ -11,70 +11,61 @@ def getPotentialMatchList(currentUserId):
         if(connection != False):
             cursor = connection.cursor(buffered=True)
             findPotentialMatches(currentUserId)
-            PotentialMatchQuery = "SELECT shownUser FROM PotentialMatch WHERE currentUser = %s and matchDecision IS NULL"
+            PotentialMatchQuery = "SELECT shownUser, u.longitude, u.latitude, p.maxDistance FROM PotentialMatch pm, Users u, Profile p WHERE currentUser = %s and matchDecision IS NULL and u.id = pm.shownUser and p.userId = u.id"
             userID = (currentUserId,)    
             cursor.execute(PotentialMatchQuery, userID)
+            potentialMatchList = cursor.fetchall()
+
             potentialListId = [i[0] for i in cursor.fetchall()]
 
-            newPotentialMatchList = []
+            findLocation = "SELECT Users.longitude, Users.latitude, Profile.maxDistance FROM Users INNER JOIN Profile ON Users.id=Profile.userId WHERE Users.id = %s"
+            cursor.execute(findLocation, userID)
+            currentUserLocation = cursor.fetchone()
+            if(currentUserLocation[0] != None):
+                currentUserLongitude = float(currentUserLocation[0])
+                currentUserLatitude = float(currentUserLocation[1])
+                currentUserMaxDistance = float(currentUserLocation[2])
 
-            if(len(potentialListId) != 0):
+                if(len(potentialMatchList) != 0):
+                    potentialListId = getMatchWithinMaxDistance(potentialMatchList, currentUserLongitude, currentUserLatitude, currentUserMaxDistance)  
 
-                findLocation = "SELECT Users.longitude, Users.latitude, Profile.maxDistance FROM Users INNER JOIN Profile ON Users.id=Profile.userId WHERE Users.id = %s"
-                cursor.execute(findLocation, userID)
-                currentUserLocation = cursor.fetchone()
-                currentUserLongitude = readLocation(currentUserLocation)[0]
-                currentUserLatitude = readLocation(currentUserLocation)[1]
-                currentUserMaxDistance = readLocation(currentUserLocation)[2]
-
-                if(currentUserLongitude != None):
-
-                    for pmatch in range(len(potentialListId)):
-                        ID = (potentialListId[pmatch],)
-                        cursor.execute(findLocation, ID)
-                        potentialMatchLocation = cursor.fetchone() 
-                        potentialMatchLongitude = readLocation(potentialMatchLocation)[0]
-                        potentialMatchLatitude = readLocation(potentialMatchLocation)[1]
-                        potentialMatchMaxDistance = readLocation(potentialMatchLocation)[2]
-
-                        if(potentialMatchLongitude != None):
-                            distance = calculateDistance(currentUserLongitude, currentUserLatitude, potentialMatchLongitude, potentialMatchLatitude)
-
-                            if ((distance <= currentUserMaxDistance) & (distance <= potentialMatchMaxDistance)):
-                                newPotentialMatchList.append(potentialListId[pmatch])
-                                
-                            else:
-                                pass
-                        else:
-                            newPotentialMatchList.append(potentialListId[pmatch])       
-                else:
-                    newPotentialMatchList = potentialListId
-            else:
-                newPotentialMatchList = potentialListId  
-              
             connection.commit()
             cursor.close()
+
             return {"response": "Success", 
-            "potentialListId": newPotentialMatchList}
+            "potentialListId": potentialListId}
     
     except mysql.connector.Error as err:
         return {"response": err.msg }
 
     return{"response": "Something went wrong"}
 
-def readLocation(location):
-
-    longitude = float(location[0]) 
-    latitude = float(location[1])
-    maxDistance = int(location[2])
-
-    return longitude, latitude, maxDistance
-
 def calculateDistance(long1, lat1, long2, lat2):
     p = pi/180
-    a = 0.5 - cos((lat1-lat2)*p)/2 + cos(lat2*p) * cos(lat1*p) * (1-cos((long1-long2)*p))/2
+    a = 0.5 - cos((lat2-lat1)*p)/2 + cos(lat1*p) * cos(lat2*p) * (1-cos((long2-long1)*p))/2
     distance = 12742 * asin(sqrt(a))
     return distance
+
+def getMatchWithinMaxDistance(potentialMatchList, currentUserLongitude, currentUserLatitude, currentUserMaxDistance):
+    newPotentialMatchList = []
+
+
+    for pmatch in range(len(potentialMatchList)):
+        if(potentialMatchList[pmatch][1] != None):
+            potentialMatchLongitude = float(potentialMatchList[pmatch][1])
+            potentialMatchLatitude = float(potentialMatchList[pmatch][2])
+            potentialMatchMaxDistance = float(potentialMatchList[pmatch][3])
+
+            distance = calculateDistance(potentialMatchLongitude, potentialMatchLatitude,currentUserLongitude, currentUserLatitude)
+    
+            if ((distance <= currentUserMaxDistance) and (distance <= potentialMatchMaxDistance)):
+                newPotentialMatchList.append(potentialMatchList[pmatch][0])     
+        else:
+            newPotentialMatchList.append(potentialMatchList[pmatch][0])
+
+    return newPotentialMatchList
+
+getPotentialMatchList(25)
 
 def showProfile(shownUserId):
     try:
@@ -159,5 +150,3 @@ def swipeDecision(currentUserId, shownUserId, userDecision):
         return {"response": err.msg }
 
     return{"response": "Something went wrong"}
-
-getPotentialMatchList(25)
