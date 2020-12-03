@@ -20,11 +20,13 @@ class EditProfile extends React.Component {
       error: "",
       maxDistance: 10,
       updateStatus: "",
+      loadingVariable: true,
     };
 
     this.handleUpdate = this.handleUpdate.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
+
   componentDidMount() {
     const myRequest = new Request("http://127.0.0.1:5000/viewprofile", {
       method: "POST",
@@ -44,6 +46,7 @@ class EditProfile extends React.Component {
           maxDistance: res.maxDistance,
           birthday: res.birthday,
           updatedMessage: "",
+          loadingVariable: false,
         })
       )
       .catch((error) => {
@@ -144,6 +147,7 @@ class EditProfile extends React.Component {
   };
 
   render() {
+    const loadingVariable = this.state.loadingVariable;
     const id = this.state.id;
     if (id === "") {
       this.props.history.push({
@@ -151,11 +155,12 @@ class EditProfile extends React.Component {
       });
       return null;
     }
+
     return (
-      <div>
-        {" "}
-        <Header id={this.state.userId} />
-        <div className="Profile">
+      
+      {loadingVariable ? <LoadingSpinner />  : (<Header id={this.state.userId} />
+        <div>
+          <div className="Profile">
           <form id="profileForm" onSubmit={this.handleUpdate}>
             <h1>Update My Profile 👋</h1>
             <img src="ppFriendsLogo.png"></img>
@@ -169,13 +174,10 @@ class EditProfile extends React.Component {
                 value={this.state.name}
                 onChange={this.handleChange}
                 maxlength="30"
-              />
-
+              >
               <br></br>
               <br></br>
-
               <label for="Birthday">Birthday 🎂</label>
-
               <input
                 type="date"
                 name="birthday"
@@ -184,12 +186,9 @@ class EditProfile extends React.Component {
                 placeholder="YYYY-MM-DD"
                 onChange={this.handleChange}
               />
-
               <br></br>
               <br></br>
-
               <label for="Gender">Gender 👫</label>
-
               <select
                 name="gender"
                 onChange={this.handleChange}
@@ -199,14 +198,11 @@ class EditProfile extends React.Component {
                 <option value="Male">Male</option>
                 <option value="Other">Other</option>
               </select>
-
               <br></br>
               <br></br>
-
               <label for="GenderPreference">
                 Your Preferred Gender for friends 🎎
               </label>
-
               <select
                 name="genderPreference"
                 fieldValue={this.state.genderPreference}
@@ -217,12 +213,9 @@ class EditProfile extends React.Component {
                 <option value="Male">Male</option>
                 <option value="Both">Both</option>
               </select>
-
               <br></br>
               <br></br>
-
               <label for="Education">Education/Work 💻</label>
-
               <input
                 type="text"
                 name="education"
@@ -230,12 +223,9 @@ class EditProfile extends React.Component {
                 onChange={this.handleChange}
                 maxlength="30"
               />
-
               <br></br>
               <br></br>
-
               <label for="Interests">Your interests 🎨</label>
-
               <input
                 type="text"
                 name="interests"
@@ -243,10 +233,8 @@ class EditProfile extends React.Component {
                 onChange={this.handleChange}
                 maxlength="255"
               />
-
               <br></br>
               <br></br>
-
               <label for="Bio">Bio 😶</label>
               <input
                 type="text"
@@ -256,10 +244,8 @@ class EditProfile extends React.Component {
                 maxlength="255"
                 contenteditable="true"
               />
-
               <br></br>
               <br></br>
-
               <label for="Distance">Max Distance 🌎</label>
               <input
                 type="range"
@@ -272,18 +258,16 @@ class EditProfile extends React.Component {
               <text>{this.state.maxDistance}KM</text>
               <br></br>
               <br></br>
-
               <p>Profile Picture</p>
-            </div>
             <div class="updateProfileButton">
               <input type="submit" value="Update" />
               {this.state.updatedMessage}
-            </div>
-          </form>
-        </div>
       </div>
-    );
-  }
-}
+      </div>
+      </div>
+      </form>
+      </div>
+      })
+    )
 
 export default withRouter(EditProfile);
