@@ -127,7 +127,7 @@ class UpdateQuestionnaire extends Component {
             </div>
         <br></br>
         <button class="submitButton" onClick={this.handleSubmit}>
-          Update Responses
+          Update
         </button>
         <h4 class="err">{this.state.error}</h4>
       </div>
