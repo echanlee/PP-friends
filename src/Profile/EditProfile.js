@@ -161,8 +161,7 @@ class EditProfile extends React.Component {
             <img src="ppFriendsLogo.png"></img>
             <br></br>
             <br></br>
-
-            <div className="formgroup">
+            <div class="rectangle2">
               <label for="User">Name 😀</label>
               <input
                 type="text"
@@ -171,10 +170,10 @@ class EditProfile extends React.Component {
                 onChange={this.handleChange}
                 maxlength="30"
               />
-            </div>
-            <br></br>
-            <br></br>
-            <div class="formgroup">
+
+              <br></br>
+              <br></br>
+
               <label for="Birthday">Birthday 🎂</label>
 
               <input
@@ -185,11 +184,10 @@ class EditProfile extends React.Component {
                 placeholder="YYYY-MM-DD"
                 onChange={this.handleChange}
               />
-            </div>
 
-            <br></br>
-            <br></br>
-            <div class="formgroup">
+              <br></br>
+              <br></br>
+
               <label for="Gender">Gender 👫</label>
 
               <select
@@ -201,11 +199,10 @@ class EditProfile extends React.Component {
                 <option value="Male">Male</option>
                 <option value="Other">Other</option>
               </select>
-            </div>
 
-            <br></br>
-            <br></br>
-            <div class="formgroup">
+              <br></br>
+              <br></br>
+
               <label for="GenderPreference">
                 Your Preferred Gender for friends 🎎
               </label>
@@ -220,11 +217,10 @@ class EditProfile extends React.Component {
                 <option value="Male">Male</option>
                 <option value="Both">Both</option>
               </select>
-            </div>
 
-            <br></br>
-            <br></br>
-            <div class="formgroup">
+              <br></br>
+              <br></br>
+
               <label for="Education">Education/Work 💻</label>
 
               <input
@@ -234,11 +230,10 @@ class EditProfile extends React.Component {
                 onChange={this.handleChange}
                 maxlength="30"
               />
-            </div>
 
-            <br></br>
-            <br></br>
-            <div class="formgroup">
+              <br></br>
+              <br></br>
+
               <label for="Interests">Your interests 🎨</label>
 
               <input
@@ -248,11 +243,10 @@ class EditProfile extends React.Component {
                 onChange={this.handleChange}
                 maxlength="255"
               />
-            </div>
 
-            <br></br>
-            <br></br>
-            <div class="formgroup">
+              <br></br>
+              <br></br>
+
               <label for="Bio">Bio 😶</label>
               <input
                 type="text"
@@ -262,11 +256,10 @@ class EditProfile extends React.Component {
                 maxlength="255"
                 contenteditable="true"
               />
-            </div>
-            <br></br>
-            <br></br>
 
-            <div class="formgroup">
+              <br></br>
+              <br></br>
+
               <label for="Distance">Max Distance 🌎</label>
               <input
                 type="range"
@@ -279,8 +272,7 @@ class EditProfile extends React.Component {
               <text>{this.state.maxDistance}KM</text>
               <br></br>
               <br></br>
-            </div>
-            <div class="rectangle2">
+
               <p>Profile Picture</p>
             </div>
             <div class="updateProfileButton">

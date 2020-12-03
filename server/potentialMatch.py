@@ -2,6 +2,12 @@ import mysql.connector
 from mysql.connector import errorcode
 from connect import connectToDB
 
+def findExistingMatches(cursor, id):
+    existingMatch = "SELECT shownUser from PotentialMatch where currentUser = %s"
+    cursor.execute(existingMatch, (id,))
+    existingIds = [i[0] for i in cursor.fetchall()]
+    return existingIds
+
 def findPotentialMatches(id):
     try:
         connection = connectToDB()
@@ -10,27 +16,27 @@ def findPotentialMatches(id):
             
             genderPreference = getGenderPreference(id, cursor, connection)
             if genderPreference == "":
-                return {"response": "No Matches", "id": id, "Number of Matches": 0}
+                return {"response": "Success", "id": id, "Number of Matches": 0}
 
+            existingIds = findExistingMatches(cursor, id)
             potentialIds = getPotentialIds(id, genderPreference, cursor, connection)
+            potentialIds = [i for i in potentialIds if i not in existingIds]
             if len(potentialIds) == 0:
-                return {"response": "No Matches", "id": id, "Number of Matches": 0}
+                return {"response": "Success", "id": id, "Number of Matches": 0}
 
             responses = getQuestionnaireResponses(potentialIds, cursor, connection)
             if len(responses) == 0:
-                return {"response": "No Matches", "id": id, "Number of Matches": 0}
+                return {"response": "Success", "id": id, "Number of Matches": 0}
 
+            #when the matchList is not empty, potential matches are added to the PotentialMatch table
             matchList = getPotentialMatches(id, responses, cursor, connection, 0.8)
-            if len(matchList) == 0:
-                return {"response": "No Matches", "id": id, "Number of Matches": 0}
-
-            sql = "INSERT INTO PotentialMatch (currentUser, shownUser) VALUES (%s, %s)"
-            values = matchList
-
-            cursor.executemany(sql, values)
-            connection.commit()
-            cursor.close()
-
+            if len(matchList) != 0:             
+                sql = "INSERT INTO PotentialMatch (currentUser, shownUser) VALUES (%s, %s)"
+                values = matchList
+                cursor.executemany(sql, values)
+                connection.commit()
+                cursor.close()
+            #response will always be Success with or without matches
             return {"response": "Success", "numOfMatches":len(matchList)}
     
     except mysql.connector.Error as err: 

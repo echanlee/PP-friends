@@ -15,6 +15,9 @@ import Questionnaire from './Questionnaire/Questionnaire';
 import Messages from './Messaging/Messages';
 import ViewProfile from './Profile/ViewProfile';
 import EditProfile from './Profile/EditProfile';
+import UpdateEmail from "./Setting/UpdateEmail";
+import UpdatePassword from "./Setting/UpdatePassword";
+
 import ViewFriendProfile from './Matches/ViewFriendProfile';
 
 export default class App extends React.Component {
@@ -51,6 +54,12 @@ export default class App extends React.Component {
                         <Route path="/messages">
                             <Messages />
                         </Route>
+                        <Route path= "/updateEmail">
+                            <UpdateEmail />
+                        </Route> 
+                        <Route path= "/updatePassword">
+                            <UpdatePassword />
+                        </Route> 
                         <Route path="/login">
                             <Login />
                         </Route>
