@@ -162,6 +162,6 @@ if __name__ == "__main__":
     socketIo.run(
         app,
         host=os.getenv('IP', '174.129.240.180'),
-        port=int(os.getenv('PORT', 8080)),
+        port=int(os.getenv('PORT', 1080)),
         debug=False
     )
