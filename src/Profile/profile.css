@@ -27,18 +27,38 @@
   color: black;
 }
 
+.profilepic{
+  margin-left: 20%;
+  min-width:400px;
+}
+
 .profilepic img{
   object-fit:cover;
   border-radius: 50%;
-  width:300px;
-  height:300px;
+  width:200px;
+  height:200px;
 }
 
 .updatedMessage {
   text-align: center;
 }
 
-.updateProfileButton input[value="Update"] {
+.updateProfileButton input[value="Update Profile"] {
+  color: white;
+  letter-spacing: 1px;
+  background-color: #3680a3;
+  border: 3px solid #3680a3;
+  display: inline-block;
+  border-radius: 5px;
+  padding: 5px;
+  width: 20%;
+  margin-top: 20px;
+  margin-right:30%;
+  text-align: center;
+  margin-left:30%;
+}
+
+.profilepic input[value="Let's get started"]{
   color: white;
   letter-spacing: 1px;
   background-color: #3680a3;
@@ -51,8 +71,34 @@
   margin-right:30%;
   text-align: center;
   margin-left:30%;
-
 }
+
+.removepic{
+  color: white;
+  letter-spacing: 1px;
+  background-color: #7e7e7e;
+  border: 3px solid #7e7e7e;
+  display: inline-block;
+  border-radius: 5px;
+  padding: 5px;
+  width: 20%;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.profilepic input[type="file"]{
+  color: white;
+  letter-spacing: 1px;
+  background-color: #7e7e7e;
+  border: 3px solid #7e7e7e;
+  display: inline-block;
+  border-radius: 5px;
+  padding: 5px;
+  width: 80%;
+  margin-top: 20px;
+  text-align: center;
+}
+
 
 .Profile input[type = "text"]{
   width:150px;
@@ -82,9 +128,18 @@ select {
   border-radius: 10px;
 }
 
+.rectangle3 {
+  background-color: #f8dabb;
+  padding:10%;
+  text-align: left;
+  border-radius: 10px;
+  width: 70%;
+  min-width: 600px;
+
+}
+
 select option {
   font-size: 20px;
-  
 }
 
 /* .rectangle2 p {

@@ -2,7 +2,7 @@ import React from "react";
 import {withRouter, Link} from 'react-router-dom'
 import {getCookie} from '../cookies';
 import Header from '../Header/Header';
-import "./setting.css";
+import "./UpdatePassword.css";
 
 
 class UpdatePassword extends React.Component {
@@ -105,43 +105,46 @@ class UpdatePassword extends React.Component {
 
     render() {
         return (
-            <div className="updatePassword">
+          <div>
             <Header id={this.state.userId}/>
+            <div className = "Password">
             <form id="newPasswordForm" onSubmit={this.handleSubmit}>
+            <div className="updatePassword">
             <h1>Change Password</h1>
-              <p>Please enter your current password</p> 
+              <label for ="oldPassword">Old Password</label>
               <input 
                 name="oldPassword" 
                 type="password" 
                 value={this.state.oldPassword}
-                placeholder="current password"
+                placeholder="Current Password"
                 onChange={this.handleInputChange} 
               />
               <br></br>
-              <p>Please enter your new password</p>
+              <label for ="newPassword">New Password</label>
               <input
                 name="newPassword"
                 type="Password"
                 value={this.state.newPassword}
-                placeholder="new password"
+                placeholder="New Password"
                 onChange={this.handleInputChange}
               />
               <br></br>
-              <p>Please re-enter your new password</p>
+              <label for ="confirmPassword">Confirm Password</label>
               <input
                 name="confirmPassword"
                 type="password"
                 value={this.state.confirmPassword}
-                placeholder="Re-enter new password"
+                placeholder="Re-enter New Password"
                 onChange={this.handleInputChange}
               />
               <br></br>
-
-                <br></br>
-              <input type="submit" value="Update" /> <br></br>
+              <input type="submit" value="Update"/> 
               <text>{this.state.error}</text>
+              </div>
             </form>
-            </div>
+            
+            </div>  
+            </div>  
         );
     }
   

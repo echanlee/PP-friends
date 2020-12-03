@@ -2,7 +2,7 @@ import React from "react";
 import {withRouter, Link} from 'react-router-dom'
 import {getCookie} from '../cookies';
 import Header from '../Header/Header';
-import "./setting.css";
+import "./UpdateEmail.css";
 
 
 class UpdateEmail extends React.Component {
@@ -72,11 +72,13 @@ class UpdateEmail extends React.Component {
 
     render() {
         return (
-            <div className="updateEmail">
+          <div>
             <Header id={this.state.userId}/>
+            <div className="updateEmail">
+            
             <form id="newEmailForm" onSubmit={this.handleSubmit}>
             <h1>Update Email</h1>
-              <p>Please enter your new email address</p> 
+              <p>Please enter your new email address:</p> 
               <input 
                 name="email" 
                 type="email" 
@@ -84,13 +86,12 @@ class UpdateEmail extends React.Component {
                 placeholder="New Email Address"
                 onChange={this.handleInputChange} 
               />
-                <br></br>
-                <br></br>
-              <input type="submit" value="Update" /> 
               <br></br>
+              <input name="UpdateEmail"type="submit" value="Update" /> 
               <text>{this.state.error}</text>
             </form>
             </div>
+          </div>  
         );
     }
   
