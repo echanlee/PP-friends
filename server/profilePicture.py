@@ -25,7 +25,10 @@ def deletePreviousImage(userId, testing = False):
             connection.commit()
             if result is not None:
                 if not testing:
-                    os.remove("../public/"+result)
+                    try:
+                        os.remove("../public/"+result)
+                    except:
+                        pass
                     return None
                 return "../public/"+result
     except mysql.connector.Error as err:
