@@ -20,45 +20,33 @@ def getPotentialMatchList(currentUserId):
 
             if(len(potentialListId) != 0):
 
-                findLocation = "SELECT longitude, latitude FROM Users WHERE id = %s"
+                findLocation = "SELECT Users.longitude, Users.latitude, Profile.maxDistance FROM Users INNER JOIN Profile ON Users.id=Profile.userId WHERE Users.id = %s"
                 cursor.execute(findLocation, userID)
-                currentUserLocation = cursor.fetchall()
+                currentUserLocation = cursor.fetchone()
+                currentUserLongitude = readLocation(currentUserLocation)[0]
+                currentUserLatitude = readLocation(currentUserLocation)[1]
+                currentUserMaxDistance = readLocation(currentUserLocation)[2]
 
-                if(currentUserLocation[0][0] != None):
-                    for i in currentUserLocation:
-                        currentUserLongitude = float(i[0])
-                        currentUserLatitude = float(i[1])
+                if(currentUserLongitude != None):
 
                     for pmatch in range(len(potentialListId)):
                         ID = (potentialListId[pmatch],)
                         cursor.execute(findLocation, ID)
-                        potentialMatchLocation = cursor.fetchall()  
+                        potentialMatchLocation = cursor.fetchone() 
+                        potentialMatchLongitude = readLocation(potentialMatchLocation)[0]
+                        potentialMatchLatitude = readLocation(potentialMatchLocation)[1]
+                        potentialMatchMaxDistance = readLocation(potentialMatchLocation)[2]
 
-                        if(potentialMatchLocation[0][0] != None):
+                        if(potentialMatchLongitude != None):
+                            distance = calculateDistance(currentUserLongitude, currentUserLatitude, potentialMatchLongitude, potentialMatchLatitude)
 
-                            for i in potentialMatchLocation:
-                                potentialMatchLongitude = float(i[0])
-                                potentialMatchLatitude = float(i[1])
-                                
-                            p = pi/180
-                            a = 0.5 - cos((currentUserLatitude-potentialMatchLatitude)*p)/2 + cos(potentialMatchLatitude*p) * cos(currentUserLatitude*p) * (1-cos((currentUserLongitude-potentialMatchLongitude)*p))/2
-                            distance = 12742 * asin(sqrt(a)) 
-
-                            findMaxDistance = "SELECT maxDistance FROM Profile WHERE userId = %s"
-                            cursor.execute(findMaxDistance, userID)
-                            maxDistanceCurrentUser = cursor.fetchone()[0]
-                            cursor.execute(findMaxDistance, (potentialListId[pmatch],))
-                            maxDistancePotentialUser = cursor.fetchone()[0]
-
-                            if ((distance <= maxDistanceCurrentUser) & (distance <= maxDistancePotentialUser)):
+                            if ((distance <= currentUserMaxDistance) & (distance <= potentialMatchMaxDistance)):
                                 newPotentialMatchList.append(potentialListId[pmatch])
                                 
                             else:
                                 pass
-
                         else:
-                            newPotentialMatchList.append(potentialListId[pmatch])
-                            
+                            newPotentialMatchList.append(potentialListId[pmatch])       
                 else:
                     newPotentialMatchList = potentialListId
             else:
@@ -73,6 +61,20 @@ def getPotentialMatchList(currentUserId):
         return {"response": err.msg }
 
     return{"response": "Something went wrong"}
+
+def readLocation(location):
+
+    longitude = float(location[0]) 
+    latitude = float(location[1])
+    maxDistance = int(location[2])
+
+    return longitude, latitude, maxDistance
+
+def calculateDistance(long1, lat1, long2, lat2):
+    p = pi/180
+    a = 0.5 - cos((lat1-lat2)*p)/2 + cos(lat2*p) * cos(lat1*p) * (1-cos((long1-long2)*p))/2
+    distance = 12742 * asin(sqrt(a))
+    return distance
 
 def showProfile(shownUserId):
     try:
@@ -157,3 +159,5 @@ def swipeDecision(currentUserId, shownUserId, userDecision):
         return {"response": err.msg }
 
     return{"response": "Something went wrong"}
+
+getPotentialMatchList(25)
