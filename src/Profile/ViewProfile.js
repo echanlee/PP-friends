@@ -101,19 +101,19 @@ class ViewProfile extends React.Component {
                 <br></br>
 
                 <label for="Education">Education/Work 💻</label>
-                {this.state.education}
+                <text>{this.state.education}</text>
 
                 <br></br>
                 <br></br>
 
                 <label for="Interests">Your interests 🎨</label>
-                {this.state.interests}
+                <text class= "bigText">{this.state.interests}</text>
 
                 <br></br>
                 <br></br>
 
                 <label for="Bio">Bio 😶</label>
-                {this.state.bio}
+                <text class= "bigText">{this.state.bio}</text>
                 
                 <br></br>
                 <br></br>

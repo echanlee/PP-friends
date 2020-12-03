@@ -121,6 +121,7 @@ class EditProfile extends React.Component {
   };
 
   removePicture = () => {
+    document.querySelector('input[type=file]').value = '';
     this.setState({
       profilePicture: null,
     });
@@ -180,9 +181,9 @@ class EditProfile extends React.Component {
                         accept="image/*">
                       </input>
                     <br></br>
-                  <button class = "removepic" onClick = {this.removePicture}>Remove picture</button>
+                  <text class = "removepic" onClick = {this.removePicture}>Remove picture</text>
                   <div class="updateProfileButton">
-                    <input type="submit" value="Update Profile" />
+                    <input type="submit" value="Save Profile" />
                     {this.state.updatedMessage}
                   </div>
                 </div>
@@ -266,7 +267,7 @@ class EditProfile extends React.Component {
 
                   <label for="Interests">Your interests 🎨</label>
 
-                  <input
+                  <textarea 
                     type="text"
                     name="interests"
                     value={this.state.interests}
@@ -278,7 +279,7 @@ class EditProfile extends React.Component {
                   <br></br>
 
                   <label for="Bio">Bio 😶</label>
-                  <input
+                  <textarea 
                     type="text"
                     name="bio"
                     value={this.state.bio}
