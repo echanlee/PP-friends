@@ -49,7 +49,6 @@ def calculateDistance(long1, lat1, long2, lat2):
 def getMatchWithinMaxDistance(potentialMatchList, currentUserLongitude, currentUserLatitude, currentUserMaxDistance):
     newPotentialMatchList = []
 
-
     for pmatch in range(len(potentialMatchList)):
         if(potentialMatchList[pmatch][1] != None):
             potentialMatchLongitude = float(potentialMatchList[pmatch][1])
@@ -64,8 +63,6 @@ def getMatchWithinMaxDistance(potentialMatchList, currentUserLongitude, currentU
             newPotentialMatchList.append(potentialMatchList[pmatch][0])
 
     return newPotentialMatchList
-
-getPotentialMatchList(25)
 
 def showProfile(shownUserId):
     try:
