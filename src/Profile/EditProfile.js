@@ -293,8 +293,4 @@ class EditProfile extends React.Component {
   }
 }
 
-    );
-  }
-}
-
 export default withRouter(EditProfile);
