@@ -25,7 +25,7 @@ def getPotentialMatchList(currentUserId):
 
     return{"response": "Something went wrong"}
 
-def showProfile(shownUserId):
+def showProfile(currentUserId, shownUserId):
     try:
         connection = connectToDB()
         if(connection != False):
@@ -44,9 +44,11 @@ def showProfile(shownUserId):
                 age = row[3]
                 gender = row[4]
                 workPlace = row[5]
+            
+            # currentUserMatchSet = getMatchIds
                 
-            connection.commit()
-            cursor.close()
+            # connection.commit()
+            # cursor.close()
 
             return {"response": "Success", 
             "firstName": firstName, 
@@ -60,6 +62,14 @@ def showProfile(shownUserId):
         return {"response": err.msg }
 
     return{"response": "Something went wrong"}
+
+#gets all current matches that a user has
+def getMatchIds(id, cursor, connection):
+    sql = f"SELECT userTwo FROM Conversation WHERE userOne = {id};"
+    cursor.execute(sql)
+
+    idList = [ids[0] for ids in cursor.fetchall()]
+    return set(idList)
 
 def insertConvo(userOne, userTwo):
     try:

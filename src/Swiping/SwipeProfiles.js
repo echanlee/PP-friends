@@ -62,9 +62,11 @@ class SwipeProfiles extends React.Component {
 
   displayProfile() {
     const displayId = this.state.displayedUserId;
+    const currentUserId = this.state.id;
     if (displayId) {
       var formData = new FormData();
-      formData.append("userId", displayId);
+      formData.append("currentUserId", currentUserId);
+      formData.append("shownUserId", displayId);
       const myRequest = new Request("http://127.0.0.1:5000/displayProfile", {
         method: "POST",
         body: formData,
