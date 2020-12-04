@@ -57,7 +57,8 @@ class Messages extends React.Component {
                     messageSender: res.fromNames,
                     timeStamps: res.timeStamps,
                   });
-
+                  
+                  console.log(socket.connect());
                   socket.emit("room", currentConvoId);
                   socket.on("message", msg => {
                     this.setState({

@@ -133,7 +133,7 @@ def sendMessage():
 
 @socketIo.on('connect')
 def on_Connect():
-    return None
+    return {"test": "connected"}
 
 @socketIo.on("message")
 def handleMessage(data):
