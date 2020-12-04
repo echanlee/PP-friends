@@ -240,7 +240,7 @@ class SwipeProfiles extends React.Component {
         <br></br>
         <br></br>
         {loading ? (
-          <LoadingSpinner /> && <div className="Loading"></div>
+          <LoadingSpinner />
         ) : (
           <div>
             <img src="ppFriendsLogo.png"></img>

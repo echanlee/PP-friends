@@ -66,7 +66,7 @@ class ViewProfile extends React.Component {
         <Header id={this.state.userId} />
         <div className="Profile">
           {loading ? (
-            <LoadingSpinner /> && <div className="Loading"></div>
+            <LoadingSpinner />
           ) : (
             <form id="profileForm">
               <h1>View My Profile</h1>

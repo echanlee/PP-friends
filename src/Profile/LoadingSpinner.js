@@ -3,7 +3,7 @@ import "./LoadingSpinner.css";
 
 class LoadingSpinner extends React.Component {
   render() {
-    return <div id="Loading"></div>;
+    return <div className="Loading"></div>;
   }
 }
 export default LoadingSpinner;
