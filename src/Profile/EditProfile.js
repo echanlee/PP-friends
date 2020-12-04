@@ -22,6 +22,7 @@ class EditProfile extends React.Component {
       maxDistance: 10,
       updateStatus: "",
       loading: true,
+      profilePicture: null,
     };
 
     this.handleUpdate = this.handleUpdate.bind(this);
@@ -45,6 +46,7 @@ class EditProfile extends React.Component {
           interests: res.interests,
           maxDistance: res.maxDistance,
           birthday: res.birthday,
+          profilePicture: res.profilePicture,
           updatedMessage: "",
           loading: false,
         })
@@ -67,8 +69,6 @@ class EditProfile extends React.Component {
           method: "POST",
           body: myForm,
         });
-        /*his.setState(state => 
-  ({ style: Object.assign(state.style, { backgroundColor: 'red' } })) */
 
         fetch(myRequest)
           .then((res) => res.json())
@@ -78,6 +78,7 @@ class EditProfile extends React.Component {
                 updatedMessage: (
                   <p>You have successfully updated your profile!</p>
                 ),
+                profilePicture: res.imageURL,
               });
             } else {
               this.setState({
@@ -119,6 +120,13 @@ class EditProfile extends React.Component {
 
     this.setState({
       [name]: value,
+    });
+  };
+
+  removePicture = () => {
+    document.querySelector("input[type=file]").value = "";
+    this.setState({
+      profilePicture: null,
     });
   };
 
