@@ -4,6 +4,7 @@ import "./SwipeProfile.css";
 import { withRouter, Link } from "react-router-dom";
 import { getCookie, setCookie } from "../cookies";
 import { getLocation } from "../GetLocation";
+import LoadingSpinner from "../Profile/LoadingSpinner";
 
 class SwipeProfiles extends React.Component {
   constructor(props) {
@@ -16,9 +17,13 @@ class SwipeProfiles extends React.Component {
       interests: "",
       gender: "",
       workplace: "",
+      profilePicture: null,
       potentialFriends: [],
       displayedUserId: "",
       error: "",
+      loading: true,
+      mutualFriendAmount: 0,
+      mutualFriendNames: null
     };
 
     this.getPotentialFriendList = this.getPotentialFriendList.bind(this);
@@ -44,6 +49,7 @@ class SwipeProfiles extends React.Component {
             potentialFriends: potentialFriendsList,
             displayedUserId: displayProfileId,
             error: "",
+            loading: false,
           });
 
           this.displayProfile();
@@ -82,6 +88,9 @@ class SwipeProfiles extends React.Component {
               interests: res.interests,
               gender: res.gender,
               workplace: res.workPlace,
+              profilePicture: res.profilePicture,
+              mutualFriendAmount: res.mutualFriendAmount,
+              mutualFriendNames: res.mutualFriendNames,
               error: "",
             });
           } else {
@@ -202,10 +211,12 @@ class SwipeProfiles extends React.Component {
   }
 
   render() {
+    const loading = this.state.loading;
     const id = this.state.id;
     const potentialFriends = this.state.potentialFriends;
     const displayedUserId = this.state.displayedUserId;
     const error = this.state.error;
+    const profilePicture = this.state.profilePicture
 
     if (id === "") {
       this.props.history.push({
@@ -228,14 +239,14 @@ class SwipeProfiles extends React.Component {
 
         <br></br>
         <header class="pageTitle">Potential Friends!</header>
+
         <br></br>
 
         <br></br>
         <br></br>
         <br></br>
-
-        {error ? (
-          <text>{error}</text>
+        {loading ? (
+          <LoadingSpinner /> && <div className="Loading"></div>
         ) : (
           <div>
             <img src="ppFriendsLogo.png"></img>
@@ -243,7 +254,10 @@ class SwipeProfiles extends React.Component {
             <div class="row">
               <div class="column left">
                 <div class="profileLeft">
-                  <img src="profilepic.png" alt="profilepic" width="150"></img>
+                  {profilePicture 
+                  ? <img src={profilePicture} alt="profilepic"></img>
+                  :<img src="profilepic.png" alt="profilepic"></img>
+                  }
                   <h1>
                     {this.state.firstName}, ({this.state.age})
                   </h1>

@@ -73,7 +73,7 @@ class TestMatch(unittest.TestCase):
         connection = connectToDB()
         cursor = connection.cursor(buffered=True)
         userId = 132
-        exp_res = ([133], ['testmelo2'])
+        exp_res = ([133, 134], ['testmelo2', 'testmelo3'])
         res = getNotMessagedUsers(userId, cursor)
         print(res)
         self.assertEqual(exp_res, res)

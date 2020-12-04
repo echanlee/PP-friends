@@ -2,6 +2,7 @@ import React from "react";
 import { withRouter, Link } from "react-router-dom";
 import { getCookie } from "../cookies";
 import Header from "../Header/Header";
+import LoadingSpinner from "./LoadingSpinner";
 
 import "./ViewProfile.css";
 
@@ -20,6 +21,8 @@ class ViewProfile extends React.Component {
       interests: "",
       error: "",
       maxDistance: 10,
+      loading: true,
+      profilePicture: null,
     };
   }
   componentDidMount() {
@@ -41,6 +44,8 @@ class ViewProfile extends React.Component {
           interests: res.interests,
           birthday: res.birthday,
           maxDistance: res.maxDistance,
+          loading: false,
+          profilePicture: res.profilePicture,
         })
       )
       .catch((error) => {
@@ -49,6 +54,7 @@ class ViewProfile extends React.Component {
   }
 
   render() {
+    const loading = this.state.loading;
     if (this.state.userId === "") {
       this.props.history.push({
         pathname: "/login",
@@ -58,9 +64,10 @@ class ViewProfile extends React.Component {
     return (
       <div>
         <Header id={this.state.userId} />
-        <div>
-          {" "}
-          <div className="Profile">
+        <div className="Profile">
+          {loading ? (
+            <LoadingSpinner /> && <div className="Loading"></div>
+          ) : (
             <form id="profileForm">
               <h1>View My Profile</h1>
               <img src="ppFriendsLogo.png"></img>
@@ -149,7 +156,7 @@ class ViewProfile extends React.Component {
                 <p>Profile Picture</p>
               </div>
             </form>
-          </div>
+          )}
         </div>
       </div>
     );

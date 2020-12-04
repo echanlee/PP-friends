@@ -30,7 +30,7 @@ def showProfile(currentUserId, shownUserId):
         connection = connectToDB()
         if(connection != False):
             cursor = connection.cursor(buffered=True)
-            shownUserProfileQuery = "SELECT firstname, interests, description, age, gender, workPlace FROM Profile WHERE userId = %s"
+            shownUserProfileQuery = "SELECT firstname, interests, description, age, gender, workPlace, picture FROM Profile WHERE userId = %s"
             userID = (shownUserId,) 
             cursor.execute(shownUserProfileQuery, userID)
             if(cursor.rowcount<1):
@@ -44,11 +44,32 @@ def showProfile(currentUserId, shownUserId):
                 age = row[3]
                 gender = row[4]
                 workPlace = row[5]
+                profile = row[6]
             
-            # currentUserMatchSet = getMatchIds
-                
-            # connection.commit()
-            # cursor.close()
+            #uses set intersection to compare matches of each user to get a mutual friends list
+            currentUserMatchSet = getMatchIds(currentUserId, cursor, connection)
+            shownUserMatchSet = getMatchIds(shownUserId, cursor, connection)
+            mutualFriendIdList = currentUserMatchSet.intersection(shownUserMatchSet)
+
+            # if the user does not have a any mutual friends, don't run the name query, and return the request
+            if len(mutualFriendIdList) == 0:
+                connection.commit()
+                cursor.close()
+                return {"response": "Success", 
+                "firstName": firstName, 
+                "interests": interests, 
+                "description": description, 
+                "age": age, 
+                "gender": gender,
+                "workPlace": workPlace,
+                "profilePicture": profile,
+                "mutualFriendAmount": 0,
+                "mutualFriendNames": None}
+
+            mutualFriendNames = getMutualFriendNames(mutualFriendIdList, cursor, connection)
+
+            connection.commit()
+            cursor.close()
 
             return {"response": "Success", 
             "firstName": firstName, 
@@ -56,7 +77,10 @@ def showProfile(currentUserId, shownUserId):
             "description": description, 
             "age": age, 
             "gender": gender,
-            "workPlace": workPlace}
+            "workPlace": workPlace,
+            "profilePicture": profile,
+            "mutualFriendAmount": len(mutualFriendIdList),
+            "mutualFriendNames": mutualFriendNames}
     
     except mysql.connector.Error as err:
         return {"response": err.msg }
@@ -70,6 +94,15 @@ def getMatchIds(id, cursor, connection):
 
     idList = [ids[0] for ids in cursor.fetchall()]
     return set(idList)
+
+# gets the names of friends to be outputted in the json response
+def getMutualFriendNames(mutualFriendsIdList, cursor, connection):
+    formattedList = ','.join(map(str, mutualFriendsIdList))
+    sql = f"SELECT firstname FROM Profile WHERE userId IN ({formattedList})"
+    cursor.execute(sql)
+
+    mutualFriendNames = [names[0] for names in cursor.fetchall()]
+    return mutualFriendNames
 
 def insertConvo(userOne, userTwo):
     try:
