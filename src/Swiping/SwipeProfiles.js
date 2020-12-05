@@ -75,6 +75,7 @@ class SwipeProfiles extends React.Component {
       fetch(myRequest)
         .then((res) => res.json())
         .then((res) => {
+          this.setState({ loading: false });
           if (res.response === "Success") {
             this.setState({
               age: res.age,
@@ -85,7 +86,6 @@ class SwipeProfiles extends React.Component {
               workplace: res.workPlace,
               profilePicture: res.profilePicture,
               error: "",
-              loading: false,
             });
           } else {
             this.setState({
@@ -233,12 +233,12 @@ class SwipeProfiles extends React.Component {
 
         <br></br>
         <header class="pageTitle">Potential Friends!</header>
-
         <br></br>
 
         <br></br>
         <br></br>
         <br></br>
+
         {loading ? (
           <LoadingSpinner />
         ) : (
@@ -263,6 +263,7 @@ class SwipeProfiles extends React.Component {
                     Let's Talk
                   </button>
                   <br></br>
+
                   <button
                     class="button notInterestedButton"
                     onClick={() => this.handleSwipe(false)}
