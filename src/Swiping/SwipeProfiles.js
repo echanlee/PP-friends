@@ -59,14 +59,17 @@ class SwipeProfiles extends React.Component {
       .catch((error) => {
         this.setState({
           error: "Error connecting to backend",
+          loading: false,
         });
       });
   }
 
   displayProfile() {
     const displayId = this.state.displayedUserId;
+    this.setState({ loading: false });
     if (displayId) {
       var formData = new FormData();
+
       formData.append("userId", displayId);
       const myRequest = new Request("http://127.0.0.1:5000/displayProfile", {
         method: "POST",
@@ -86,16 +89,19 @@ class SwipeProfiles extends React.Component {
               workplace: res.workPlace,
               profilePicture: res.profilePicture,
               error: "",
+              loading: false,
             });
           } else {
             this.setState({
               error: res.response,
+              loading: false,
             });
           }
         })
         .catch((error) => {
           this.setState({
             error: "Error connecting to backend",
+            loading: false,
           });
         });
     } else {
@@ -113,6 +119,7 @@ class SwipeProfiles extends React.Component {
   }
 
   handleSwipe(choice) {
+    this.state = { loading: true };
     const displayId = this.state.displayedUserId;
     const currentUserId = this.state.id;
     var formData = new FormData();
@@ -133,17 +140,20 @@ class SwipeProfiles extends React.Component {
             potentialFriends: potentialList,
             displayedUserId: newPotentialUserId,
             error: "",
+            loading: false,
           });
           this.displayProfile();
         } else {
           this.setState({
             error: res.response,
+            loading: false,
           });
         }
       })
       .catch((error) => {
         this.setState({
           error: "Error connecting to backend",
+          loading: false,
         });
       });
   }
@@ -195,6 +205,7 @@ class SwipeProfiles extends React.Component {
             .catch((error) => {
               this.setState({
                 error: "Error connecting to backend",
+                loading: false,
               });
             });
         }
