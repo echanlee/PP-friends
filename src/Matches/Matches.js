@@ -82,6 +82,7 @@ class Matches extends React.Component {
             })
           : this.setState({
               matchesExist: "not exists",
+              loading: false,
             })
       )
       .catch((error) => {
