@@ -1,1 +1,1 @@
-web: bin/proximo gunicorn --worker-class evetlet -w 1 server.myapp:app
+web: bin/proximo gunicorn --worker-class eventlet -w 1 server.myapp:app
