@@ -3,4 +3,4 @@ flask_cors
 flask_socketio
 mysql.connector
 gunicorn
-gevent
+eventlet
