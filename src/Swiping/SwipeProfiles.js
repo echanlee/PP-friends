@@ -252,6 +252,8 @@ class SwipeProfiles extends React.Component {
 
         {loading ? (
           <LoadingSpinner />
+        ) : error ? (
+          <text>{error}</text>
         ) : (
           <div>
             <img src="ppFriendsLogo.png"></img>
