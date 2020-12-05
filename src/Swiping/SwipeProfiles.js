@@ -49,19 +49,20 @@ class SwipeProfiles extends React.Component {
             potentialFriends: potentialFriendsList,
             displayedUserId: displayProfileId,
             error: "",
-            loading: false,
           });
 
           this.displayProfile();
         } else {
           this.setState({
             error: res.response,
+            loading: false,
           });
         }
       })
       .catch((error) => {
         this.setState({
           error: "Error connecting to backend",
+          loading: false,
         });
       });
   }
@@ -92,20 +93,24 @@ class SwipeProfiles extends React.Component {
               mutualFriendAmount: res.mutualFriendAmount,
               mutualFriendNames: res.mutualFriendNames,
               error: "",
+              loading: false,
             });
           } else {
             this.setState({
               error: res.response,
+              loading: false,
             });
           }
         })
         .catch((error) => {
           this.setState({
+            loading: false,
             error: "Error connecting to backend",
           });
         });
     } else {
       this.setState({
+        loading: false,
         error: (
           <p>
             <img src="sad-penguin.svg"></img>
@@ -139,16 +144,19 @@ class SwipeProfiles extends React.Component {
             potentialFriends: potentialList,
             displayedUserId: newPotentialUserId,
             error: "",
+            loading: false,
           });
           this.displayProfile();
         } else {
           this.setState({
             error: res.response,
+            loading: false,
           });
         }
       })
       .catch((error) => {
         this.setState({
+          loading: false,
           error: "Error connecting to backend",
         });
       });
