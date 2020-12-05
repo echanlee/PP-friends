@@ -1,5 +1,5 @@
 import unittest
-from server.matches import matchUser, getNotMessagedUsers, getMessagedUsers
+from server.matches import matchUser, getNotMessagedUsers, getMessagedUsers, unmatch, undo_unmatch
 from server.connect import connectToDB
 import datetime
 
@@ -75,7 +75,6 @@ class TestMatch(unittest.TestCase):
         userId = 132
         exp_res = ([133, 134], ['testmelo2', 'testmelo3'])
         res = getNotMessagedUsers(userId, cursor)
-        print(res)
         self.assertEqual(exp_res, res)
     
     def test_getMessagedUsers_not_exist(self):
@@ -86,6 +85,40 @@ class TestMatch(unittest.TestCase):
         res = getNotMessagedUsers(userId, cursor)
         self.assertEqual(exp_res, res)
 
+    # testing result of unmatching with users current users has not messaged yet
+    def test_unmatch_not_messaged(self):
+        userOne = 148
+        userTwo = 166
+        exp_res = {'response': 'Success', 'userIds': [], 'currentName': 'die', 'notMessagedUserIds': [], 'messagedUserIds': [], 'notMessagedUserNames': [], 'messagedUserNames': [], 'messageIds': [], 'messageSender': [], 'messageContent': [], 'timeStamp': []}
+        res = unmatch(userOne, userTwo)
+        self.assertEqual(exp_res, res)
+        undo_unmatch(userOne, userTwo)
+
+    # testing result of unmatching with users current users has already messaged
+    def test_unmatch_messaged(self):
+        userOne = 239
+        userTwo = 240
+        exp_res = {'response': 'Success', 'userIds': [], 'currentName': 'testmelo5', 'notMessagedUserIds': [], 'messagedUserIds': [], 'notMessagedUserNames': [], 'messagedUserNames': [], 'messageIds': [], 'messageSender': [], 'messageContent': [], 'timeStamp': []}
+        res = unmatch(userOne, userTwo)
+        self.assertEqual(exp_res, res)
+        undo_unmatch(userOne, userTwo)
+
+    # testing unmatching with users current user has already unmatched with
+    def test_unmatch_already_unmatched(self):
+        userOne = 11
+        userTwo = 220
+        exp_res = {'response': 'Success', 'userIds': [12, 10], 'currentName': 'Melody Lui', 'notMessagedUserIds': [], 'messagedUserIds': [12, 10], 'notMessagedUserNames': [], 'messagedUserNames': ['Melody the 3rd', 'Santa Claus'], 'messageIds': [745, 542], 'messageSender': [12, 11], 'messageContent': ['test @11:51', 'v sad'], 'timeStamp': [datetime.datetime(2020, 12, 5, 16, 51, 59), datetime.datetime(2020, 12, 5, 3, 28, 19)]}
+        res = unmatch(userOne, userTwo)
+        self.assertEqual(exp_res, res)
+        undo_unmatch(userOne, userTwo)
+
+    # testing unmatching with users the current user has never matched with
+    def test_unmatch_not_matched(self):
+        userOne = 10
+        userTwo = 220
+        exp_res = {'response': 'Success', 'userIds': [11], 'currentName': 'Santa Claus', 'notMessagedUserIds': [], 'messagedUserIds': [11], 'notMessagedUserNames': [], 'messagedUserNames': ['Melody Lui'], 'messageIds': [543], 'messageSender': [11], 'messageContent': ['v sad'], 'timeStamp': [datetime.datetime(2020, 12, 5, 3, 28, 19)]}
+        res = unmatch(userOne, userTwo)
+        self.assertEqual(exp_res, res)
 
 if __name__ == '__main__':
     unittest.main()
