@@ -22,8 +22,6 @@ class SwipeProfiles extends React.Component {
       displayedUserId: "",
       error: "",
       loading: true,
-      mutualFriendAmount: 0,
-      mutualFriendNames: null,
     };
 
     this.getPotentialFriendList = this.getPotentialFriendList.bind(this);
@@ -56,23 +54,25 @@ class SwipeProfiles extends React.Component {
         } else {
           this.setState({
             error: res.response,
+            loading: false,
           });
         }
       })
       .catch((error) => {
         this.setState({
           error: "Error connecting to backend",
+          loading: false,
         });
       });
   }
 
   displayProfile() {
     const displayId = this.state.displayedUserId;
-    const currentUserId = this.state.id;
+    this.setState({ loading: false });
     if (displayId) {
       var formData = new FormData();
-      formData.append("currentUserId", currentUserId);
-      formData.append("shownUserId", displayId);
+
+      formData.append("userId", displayId);
       const myRequest = new Request("http://127.0.0.1:5000/displayProfile", {
         method: "POST",
         body: formData,
@@ -80,6 +80,7 @@ class SwipeProfiles extends React.Component {
       fetch(myRequest)
         .then((res) => res.json())
         .then((res) => {
+          this.setState({ loading: false });
           if (res.response === "Success") {
             this.setState({
               age: res.age,
@@ -89,8 +90,6 @@ class SwipeProfiles extends React.Component {
               gender: res.gender,
               workplace: res.workPlace,
               profilePicture: res.profilePicture,
-              mutualFriendAmount: res.mutualFriendAmount,
-              mutualFriendNames: res.mutualFriendNames,
               error: "",
             });
           } else {
@@ -101,11 +100,13 @@ class SwipeProfiles extends React.Component {
         })
         .catch((error) => {
           this.setState({
+            loading: false,
             error: "Error connecting to backend",
           });
         });
     } else {
       this.setState({
+        loading: false,
         error: (
           <p>
             <img src="sad-penguin.svg"></img>
@@ -119,6 +120,7 @@ class SwipeProfiles extends React.Component {
   }
 
   handleSwipe(choice) {
+    this.setState({loading: true});
     const displayId = this.state.displayedUserId;
     const currentUserId = this.state.id;
     var formData = new FormData();
@@ -134,22 +136,41 @@ class SwipeProfiles extends React.Component {
       .then((res) => {
         if (res.response === "Success") {
           var potentialList = this.state.potentialFriends;
-          var newPotentialUserId = potentialList.pop();
-          this.setState({
-            potentialFriends: potentialList,
-            displayedUserId: newPotentialUserId,
-            error: "",
-          });
-          this.displayProfile();
+          if(potentialList) {
+            var newPotentialUserId = potentialList.pop();
+            this.setState({
+              potentialFriends: potentialList,
+              displayedUserId: newPotentialUserId,
+              error: "",
+              loading: false,
+            });
+            this.displayProfile();
+          }
+          else {
+            this.setState({
+              error: (
+                <p>
+                  <img src="sad-penguin.svg"></img>
+                  <br></br>
+                  There are no more potential friends for you within the area.{" "}
+                  <br></br>Try updating your profile or come back later!
+                </p>
+              ),
+              loading: false,
+            });
+          }
         } else {
           this.setState({
             error: res.response,
+            loading: false,
           });
         }
       })
       .catch((error) => {
         this.setState({
+          loading: false,
           error: "Error connecting to backend",
+          loading: false,
         });
       });
   }
@@ -201,6 +222,7 @@ class SwipeProfiles extends React.Component {
             .catch((error) => {
               this.setState({
                 error: "Error connecting to backend",
+                loading: false,
               });
             });
         }
@@ -217,23 +239,6 @@ class SwipeProfiles extends React.Component {
     const displayedUserId = this.state.displayedUserId;
     const error = this.state.error;
     const profilePicture = this.state.profilePicture;
-
-    let mutualFriendNames = this.state.mutualFriendNames;
-    let mutualFriendSection;
-    if (this.state.mutualFriendAmount == 0) {
-      mutualFriendSection = (
-        <div className="noMutualFriends">
-          <p>No Mutual Friends</p>
-        </div>
-      );
-    } else if (this.state.mutualFriendAmount > 0) {
-      mutualFriendSection = (
-        <div className="mutualFriendSection">
-          <p>Your Mutual Friends:</p>
-          <text>{this.state.mutualFriendNames}</text>
-        </div>
-      );
-    }
 
     if (id === "") {
       this.props.history.push({
@@ -264,10 +269,9 @@ class SwipeProfiles extends React.Component {
 
         {loading ? (
           <LoadingSpinner />
-        ) : error ? (
-          <text>{error}</text>
-        ) : (
-          <div>
+        ) : error
+          ? <text>{error}</text> :
+          (<div>
             <img src="ppFriendsLogo.png"></img>
             <h1>A potential Friend!</h1>
             <div class="row">
@@ -281,8 +285,6 @@ class SwipeProfiles extends React.Component {
                   <h1>
                     {this.state.firstName}, ({this.state.age})
                   </h1>
-                  {mutualFriendSection}
-
                   <button
                     class="button letsTalkButton"
                     onClick={() => this.handleSwipe(true)}
