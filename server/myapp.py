@@ -161,8 +161,8 @@ def handleMessage(room):
 if __name__ == "__main__":
     socketIo.run(
         app,
-        host=os.getenv('IP', '174.129.240.180'),
-        port=int(os.getenv('PORT', 1080)),
+        host=os.getenv('IP', '0.0.0.0'),
+        port=int(os.getenv('PORT', 80)),
         debug=False
     )
 
