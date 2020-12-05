@@ -221,7 +221,11 @@ class SwipeProfiles extends React.Component {
     let mutualFriendNames = this.state.mutualFriendNames;
     let mutualFriendSection;
     if (this.state.mutualFriendAmount == 0) {
-      mutualFriendSection = <p>No Mutual Friends</p>;
+      mutualFriendSection = (
+        <div className="noMutualFriends">
+          <p>No Mutual Friends</p>
+        </div>
+      );
     } else if (this.state.mutualFriendAmount > 0) {
       mutualFriendSection = (
         <div className="mutualFriendSection">
