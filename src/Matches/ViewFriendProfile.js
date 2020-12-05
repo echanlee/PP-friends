@@ -16,6 +16,7 @@ class ViewFriendProfile extends React.Component {
         education: "",
         interests: "",
         error: "",
+        profilePicture: null, 
       };
       this.selectUserMessage = this.selectUserMessage.bind(this);
       this.unmatchUser = this.unmatchUser.bind(this);
@@ -37,6 +38,7 @@ class ViewFriendProfile extends React.Component {
                     education: res.education, 
                     interests: res.interests,
                     birthday: res.birthday,
+                    profilePicture: res.profilePicture,
                 })
         ).catch((error) => {
             console.error(error)
@@ -108,6 +110,9 @@ class ViewFriendProfile extends React.Component {
           </button>  
           <form id="profileForm">
             <h1>View {displayName} Profile</h1>
+            {this.state.profilePicture 
+                      && <img src={this.state.profilePicture}></img>
+            }
             <p>Name:</p>
 
             {this.state.name}
@@ -139,7 +144,7 @@ class ViewFriendProfile extends React.Component {
             {this.state.bio}
           </form>
           <button className='unmatch-button'
-              onClick = {this.unmatchUser}
+              onClick = {(e) => { if (window.confirm('Are you sure you wish to unmatch with this user? You cannot undo this action')) this.unmatchUser(e) } }
           >
               Unmatch
           </button>

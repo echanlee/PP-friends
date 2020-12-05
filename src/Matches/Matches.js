@@ -172,7 +172,7 @@ class Matches extends React.Component {
                                 <button className='unmatch-button'
                                     key={pos_user+"match"}
                                     value = {this.state.messagedUserIds[i]+"|"+this.state.messagedUserNames[i]} 
-                                    onClick = {this.unmatchUser}
+                                    onClick = {(e) => { if (window.confirm('Are you sure you wish to unmatch with this user? You cannot undo this action')) this.unmatchUser(e) } }
                                 >
                                     Unmatch
                                 </button>
@@ -198,7 +198,7 @@ class Matches extends React.Component {
                                 <button className='unmatch-button'
                                     key={pos_user+"match"}
                                     value = {this.state.notMessagedUserIds[i]+"|"+this.state.notMessagedUserNames[i]}
-                                    onClick = {this.unmatchUser}
+                                    onClick = {(e) => { if (window.confirm('Are you sure you wish to unmatch with this user? You cannot undo this action')) this.unmatchUser(e) } }
                                 >
                                     Unmatch
                                 </button>
