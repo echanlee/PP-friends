@@ -64,7 +64,7 @@ def getMatchWithinMaxDistance(potentialMatchList, currentUserLongitude, currentU
 
     return newPotentialMatchList
 
-def showProfile(shownUserId):
+def showProfile(currentUserId, shownUserId):
     try:
         connection = connectToDB()
         if(connection != False):
