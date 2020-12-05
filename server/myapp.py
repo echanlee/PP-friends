@@ -142,12 +142,12 @@ def handleMessage(data):
     return None
 
 @socketIo.on("room")
-def handleMessage(room):
+def joinRoom(room):
     join_room(room)
     return None
 
 @socketIo.on("leaveRoom")
-def handleMessage(room):
+def leaveRoom(room):
     leave_room(room)
     return None
 
