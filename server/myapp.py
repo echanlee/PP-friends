@@ -133,7 +133,7 @@ def sendMessage():
 
 @socketIo.on('connect')
 def on_Connect():
-    return {"test": "connected"}
+    return None
 
 @socketIo.on("message")
 def handleMessage(data):
@@ -159,9 +159,5 @@ def handleMessage(room):
 
 # makes app run on the standard port
 if __name__ == "__main__":
-    socketIo.run(
-        app,
-        host=os.getenv('IP', '174.129.240.180'),
-        port=int(os.getenv('PORT', 1080)),
-        debug=False
-    )
+    app.run(host='174.129.240.180', debug=False, port=os.environ.get('PORT', 1080))
+    socketIo.run(app)
