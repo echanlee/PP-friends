@@ -47,7 +47,6 @@ class SwipeProfiles extends React.Component {
             potentialFriends: potentialFriendsList,
             displayedUserId: displayProfileId,
             error: "",
-            loading: false,
           });
 
           this.displayProfile();
@@ -80,7 +79,6 @@ class SwipeProfiles extends React.Component {
       fetch(myRequest)
         .then((res) => res.json())
         .then((res) => {
-          this.setState({ loading: false });
           if (res.response === "Success") {
             this.setState({
               age: res.age,
@@ -91,10 +89,12 @@ class SwipeProfiles extends React.Component {
               workplace: res.workPlace,
               profilePicture: res.profilePicture,
               error: "",
+              loading: false,
             });
           } else {
             this.setState({
               error: res.response,
+              loading: false,
             });
           }
         })
@@ -102,6 +102,7 @@ class SwipeProfiles extends React.Component {
           this.setState({
             loading: false,
             error: "Error connecting to backend",
+            loading: false,
           });
         });
     } else {
@@ -142,7 +143,6 @@ class SwipeProfiles extends React.Component {
               potentialFriends: potentialList,
               displayedUserId: newPotentialUserId,
               error: "",
-              loading: false,
             });
             this.displayProfile();
           }
