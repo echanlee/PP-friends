@@ -2,7 +2,6 @@ import React from "react";
 import { withRouter, Link } from "react-router-dom";
 import { getCookie } from "../cookies";
 import Header from "../Header/Header";
-import LoadingSpinner from "./LoadingSpinner";
 
 import "./ViewProfile.css";
 
@@ -21,7 +20,7 @@ class ViewProfile extends React.Component {
       interests: "",
       error: "",
       maxDistance: 10,
-      loading: true,
+
       profilePicture: null,
     };
   }
@@ -44,7 +43,7 @@ class ViewProfile extends React.Component {
           interests: res.interests,
           birthday: res.birthday,
           maxDistance: res.maxDistance,
-          loading: false,
+
           profilePicture: res.profilePicture,
         })
       )
@@ -54,7 +53,6 @@ class ViewProfile extends React.Component {
   }
 
   render() {
-    const loading = this.state.loading;
     if (this.state.userId === "") {
       this.props.history.push({
         pathname: "/login",
@@ -65,38 +63,31 @@ class ViewProfile extends React.Component {
       <div>
         <Header id={this.state.userId} />
         <div className="Profile">
-          {loading ? (
-            <LoadingSpinner />
-          ) : (
-            <form id="profileForm">
-              <h1>View My Profile</h1>
-              <img src="ppFriendsLogo.png"></img>
-              <br></br>
-              <br></br>
+          <h1>View My Profile</h1>
+          <img src="ppFriendsLogo.png"></img>
+          <div class="row">
+            <div class="column left">
+              <div class="profilepic">
+                <p>Profile Picture</p>
+                {this.state.profilePicture && (
+                  <img src={this.state.profilePicture}></img>
+                )}
+              </div>
+            </div>
+            <div class="column right">
               <div class="rectangle">
                 <label for="User">Name 😀</label>
-                <input name={this.state.name} value={this.state.name} />
-
+                {this.state.name}
                 <br></br>
                 <br></br>
 
                 <label for="Birthday">Birthday 🎂</label>
-                <input
-                  type="date"
-                  name="birthday"
-                  value={this.state.birthday}
-                  placeholder="YYYY-MM-DD"
-                />
-
+                {this.state.birthday}
                 <br></br>
                 <br></br>
 
                 <label for="Gender">Gender 👫</label>
-                <select name="gender" value={this.state.gender}>
-                  <option value="Female">Female</option>
-                  <option value="Male">Male</option>
-                  <option value="Other">Other</option>
-                </select>
+                {this.state.gender}
 
                 <br></br>
                 <br></br>
@@ -104,38 +95,26 @@ class ViewProfile extends React.Component {
                 <label for="GenderPreference">
                   Your Preferred Gender for friends 🎎
                 </label>
-                <select
-                  name="genderPreference"
-                  value={this.state.genderPreference}
-                >
-                  <option value="Female">Female</option>
-                  <option value="Male">Male</option>
-                  <option value="Both">Both</option>
-                </select>
+                {this.state.genderPreference}
 
+                <br></br>
                 <br></br>
                 <br></br>
 
                 <label for="Education">Education/Work 💻</label>
-                <input
-                  name={this.state.education}
-                  value={this.state.education}
-                />
+                <text>{this.state.education}</text>
 
                 <br></br>
                 <br></br>
 
                 <label for="Interests">Your interests 🎨</label>
-                <input
-                  name={this.state.interests}
-                  value={this.state.interests}
-                />
+                <text class="bigText">{this.state.interests}</text>
 
                 <br></br>
                 <br></br>
 
                 <label for="Bio">Bio 😶</label>
-                <input name={this.state.bio} value={this.state.bio} />
+                <text class="bigText">{this.state.bio}</text>
 
                 <br></br>
                 <br></br>
@@ -146,17 +125,15 @@ class ViewProfile extends React.Component {
                   name="maxDistance"
                   value={this.state.maxDistance}
                   min="1"
-                  max="99999"
+                  max="500"
                 />
                 <text>{this.state.maxDistance}KM</text>
                 <text>{this.state.error}</text>
                 <br></br>
                 <br></br>
-
-                <p>Profile Picture</p>
               </div>
-            </form>
-          )}
+            </div>
+          </div>
         </div>
       </div>
     );

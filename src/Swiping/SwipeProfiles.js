@@ -4,7 +4,6 @@ import "./SwipeProfile.css";
 import { withRouter, Link } from "react-router-dom";
 import { getCookie, setCookie } from "../cookies";
 import { getLocation } from "../GetLocation";
-import LoadingSpinner from "../Profile/LoadingSpinner";
 
 class SwipeProfiles extends React.Component {
   constructor(props) {
@@ -21,7 +20,7 @@ class SwipeProfiles extends React.Component {
       potentialFriends: [],
       displayedUserId: "",
       error: "",
-      loading: true,
+
       mutualFriendAmount: 0,
       mutualFriendNames: null,
     };
@@ -49,7 +48,6 @@ class SwipeProfiles extends React.Component {
             potentialFriends: potentialFriendsList,
             displayedUserId: displayProfileId,
             error: "",
-            loading: false,
           });
 
           this.displayProfile();
@@ -211,7 +209,6 @@ class SwipeProfiles extends React.Component {
   }
 
   render() {
-    const loading = this.state.loading;
     const id = this.state.id;
     const potentialFriends = this.state.potentialFriends;
     const displayedUserId = this.state.displayedUserId;
@@ -262,57 +259,52 @@ class SwipeProfiles extends React.Component {
         <br></br>
         <br></br>
         <br></br>
-        {loading ? (
-          <LoadingSpinner />
-        ) : error ? (
-          <text>{error}</text>
-        ) : (
-          <div>
-            <img src="ppFriendsLogo.png"></img>
-            <h1>A potential Friend!</h1>
-            <div class="row">
-              <div class="column left">
-                <div class="profileLeft">
-                  {profilePicture ? (
-                    <img src={profilePicture} alt="profilepic"></img>
-                  ) : (
-                    <img src="profilepic.png" alt="profilepic"></img>
-                  )}
-                  <h1>
-                    {this.state.firstName}, ({this.state.age})
-                  </h1>
-                  {mutualFriendSection}
 
-                  <button
-                    class="button letsTalkButton"
-                    onClick={() => this.handleSwipe(true)}
-                  >
-                    Let's Talk
-                  </button>
-                  <br></br>
-                  <button
-                    class="button notInterestedButton"
-                    onClick={() => this.handleSwipe(false)}
-                  >
-                    Not Interested
-                  </button>
-                </div>
+        <div>
+          <img src="ppFriendsLogo.png"></img>
+          <h1>A potential Friend!</h1>
+          <div class="row">
+            <div class="column left">
+              <div class="profileLeft">
+                {profilePicture ? (
+                  <img src={profilePicture} alt="profilepic"></img>
+                ) : (
+                  <img src="profilepic.png" alt="profilepic"></img>
+                )}
+                <h1>
+                  {this.state.firstName}, ({this.state.age})
+                </h1>
+                {mutualFriendSection}
+
+                <button
+                  class="button letsTalkButton"
+                  onClick={() => this.handleSwipe(true)}
+                >
+                  Let's Talk
+                </button>
+                <br></br>
+                <button
+                  class="button notInterestedButton"
+                  onClick={() => this.handleSwipe(false)}
+                >
+                  Not Interested
+                </button>
               </div>
-              <div class="column right">
-                <div class="profileIntroSection">
-                  <p>Gender 👫 </p>
-                  <text>{this.state.gender}</text>
-                  <p>Biography 😶 </p>
-                  <text>{this.state.description}</text>
-                  <p>Interests 🎨 </p>
-                  <text>{this.state.interests}</text>
-                  <p>Education / Work 💻 </p>
-                  <text>{this.state.workplace}</text>
-                </div>
+            </div>
+            <div class="column right">
+              <div class="profileIntroSection">
+                <p>Gender 👫 </p>
+                <text>{this.state.gender}</text>
+                <p>Biography 😶 </p>
+                <text>{this.state.description}</text>
+                <p>Interests 🎨 </p>
+                <text>{this.state.interests}</text>
+                <p>Education / Work 💻 </p>
+                <text>{this.state.workplace}</text>
               </div>
             </div>
           </div>
-        )}
+        </div>
       </div>
     );
   }

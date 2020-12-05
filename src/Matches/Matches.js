@@ -2,7 +2,6 @@ import React from "react";
 import "./Matches.css";
 import { withRouter, Link } from "react-router-dom";
 import { getCookie } from "../cookies";
-import LoadingSpinner from "../Profile/LoadingSpinner";
 
 class Matches extends React.Component {
   constructor(props) {
@@ -22,7 +21,6 @@ class Matches extends React.Component {
       messageSender: [],
       messageContent: [],
       timeStamp: [],
-      loading: true,
     };
     this.selectUser = this.selectUser.bind(this);
   }
@@ -78,11 +76,9 @@ class Matches extends React.Component {
               messageSender: res.messageSender,
               messageContent: res.messageContent,
               timeStamp: res.timeStamp,
-              loading: false,
             })
           : this.setState({
               matchesExist: "not exists",
-              loading: false,
             })
       )
       .catch((error) => {
@@ -111,7 +107,6 @@ class Matches extends React.Component {
     return buttonColour;
   }
   render() {
-    const loading = this.state.loading;
     if (this.state.userId === "") {
       this.props.history.push({
         pathname: "/login",
@@ -250,21 +245,17 @@ class Matches extends React.Component {
     }
     return (
       <div className="matchingComponent">
-        {loading ? (
-          <LoadingSpinner />
-        ) : (
-          <div id="Matches-section">
-            {matchingSection}
+        <div id="Matches-section">
+          {matchingSection}
 
-            <div class="swipingButton" id="swipingButton">
-              <Link to={{ pathname: "/main" }}>Keep Swiping</Link>
-            </div>
-            <br></br>
-            <div class="viewProfileButton" id="viewProfileButton">
-              <Link to={{ pathname: "/viewprofile" }}>View Profile</Link>
-            </div>
+          <div class="swipingButton" id="swipingButton">
+            <Link to={{ pathname: "/main" }}>Keep Swiping</Link>
           </div>
-        )}
+          <br></br>
+          <div class="viewProfileButton" id="viewProfileButton">
+            <Link to={{ pathname: "/viewprofile" }}>View Profile</Link>
+          </div>
+        </div>
       </div>
     );
   }
