@@ -2,6 +2,7 @@ import mysql.connector
 from mysql.connector import errorcode
 from connect import connectToDB
 from potentialMatch import findPotentialMatches 
+from math import cos, asin, sqrt, pi
 
 
 def getPotentialMatchList(currentUserId):
@@ -10,13 +11,27 @@ def getPotentialMatchList(currentUserId):
         if(connection != False):
             cursor = connection.cursor(buffered=True)
             findPotentialMatches(currentUserId)
-            PotentialMatchQuery = "SELECT shownUser FROM PotentialMatch WHERE currentUser = %s and matchDecision IS NULL"
+            PotentialMatchQuery = "SELECT shownUser, u.longitude, u.latitude, p.maxDistance FROM PotentialMatch pm, Users u, Profile p WHERE currentUser = %s and matchDecision IS NULL and u.id = pm.shownUser and p.userId = u.id"
             userID = (currentUserId,)    
             cursor.execute(PotentialMatchQuery, userID)
+            potentialMatchList = cursor.fetchall()
+
             potentialListId = [i[0] for i in cursor.fetchall()]
+
+            findLocation = "SELECT Users.longitude, Users.latitude, Profile.maxDistance FROM Users INNER JOIN Profile ON Users.id=Profile.userId WHERE Users.id = %s"
+            cursor.execute(findLocation, userID)
+            currentUserLocation = cursor.fetchone()
+            if(currentUserLocation[0] != None):
+                currentUserLongitude = float(currentUserLocation[0])
+                currentUserLatitude = float(currentUserLocation[1])
+                currentUserMaxDistance = float(currentUserLocation[2])
+
+                if(len(potentialMatchList) != 0):
+                    potentialListId = getMatchWithinMaxDistance(potentialMatchList, currentUserLongitude, currentUserLatitude, currentUserMaxDistance)  
 
             connection.commit()
             cursor.close()
+
             return {"response": "Success", 
             "potentialListId": potentialListId}
     
