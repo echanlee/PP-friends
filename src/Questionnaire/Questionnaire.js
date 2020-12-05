@@ -33,7 +33,6 @@ class Questionnaire extends Component {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ responses: this.state.response, userId: id }),
       });
-
       fetch(myRequest)
         .then((res) => res.json())
         .then((res) => {
@@ -107,7 +106,7 @@ class Questionnaire extends Component {
           <h1>PP Friends Questionnaire</h1>
           <img src="question-penguin.svg"></img>
           <h2>Let's get to know you!</h2>
-          <h4>Please answer all questions before submitting</h4>
+          <h2>Please answer all questions before submitting</h2>
         </div>
         <div className="boxed">
           <br></br>

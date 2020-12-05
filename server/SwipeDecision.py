@@ -69,7 +69,7 @@ def showProfile(shownUserId):
         connection = connectToDB()
         if(connection != False):
             cursor = connection.cursor(buffered=True)
-            shownUserProfileQuery = "SELECT firstname, interests, description, age, gender, workPlace FROM Profile WHERE userId = %s"
+            shownUserProfileQuery = "SELECT firstname, interests, description, age, gender, workPlace, picture FROM Profile WHERE userId = %s"
             userID = (shownUserId,) 
             cursor.execute(shownUserProfileQuery, userID)
             if(cursor.rowcount<1):
@@ -83,6 +83,7 @@ def showProfile(shownUserId):
                 age = row[3]
                 gender = row[4]
                 workPlace = row[5]
+                profile = row[6]
                 
             connection.commit()
             cursor.close()
@@ -93,7 +94,8 @@ def showProfile(shownUserId):
             "description": description, 
             "age": age, 
             "gender": gender,
-            "workPlace": workPlace}
+            "workPlace": workPlace,
+            "profilePicture": profile}
     
     except mysql.connector.Error as err:
         return {"response": err.msg }
