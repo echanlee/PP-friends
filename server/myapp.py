@@ -59,7 +59,7 @@ def get_matches():
         return response
 
 @app.route('/unmatch', methods=['POST'])
-def unmath():
+def unmatch():
     if request.method == 'POST':
         param = request.get_json('userId')
         return matches.unmatch(param['userId'], param['friendId'])  
