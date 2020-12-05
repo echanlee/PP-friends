@@ -20,7 +20,6 @@ cors = CORS(app)
 app.config['SECRET_KEY'] = 'mysecret'
 
 socketIo = SocketIO(app, cors_allowed_origins="*")
-socketIo.run(app)
 
 @app.route('/')
 def home():
@@ -159,11 +158,11 @@ def handleMessage(room):
 #     socketIo.run(app)
 
 # makes app run on the standard port
-# if __name__ == "__main__":
-#     socketIo.run(
-#         app,
-#         host=os.getenv('IP', '0.0.0.0'),
-#         port=int(os.getenv('PORT', 8080)),
-#         debug=True
-#     )
+if __name__ == "__main__":
+    socketIo.run(
+        app,
+        host=os.getenv('IP', '0.0.0.0'),
+        port=int(os.getenv('PORT', 8080)),
+        debug=True
+    )
 
