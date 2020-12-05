@@ -22,6 +22,8 @@ class SwipeProfiles extends React.Component {
       displayedUserId: "",
       error: "",
       loading: true,
+      mutualFriendAmount: 0,
+      mutualFriendNames: null,
     };
 
     this.getPotentialFriendList = this.getPotentialFriendList.bind(this);
@@ -66,11 +68,11 @@ class SwipeProfiles extends React.Component {
 
   displayProfile() {
     const displayId = this.state.displayedUserId;
-    this.setState({ loading: false });
+    const currentUserId = this.state.id;
     if (displayId) {
       var formData = new FormData();
-
-      formData.append("userId", displayId);
+      formData.append("currentUserId", currentUserId);
+      formData.append("shownUserId", displayId);
       const myRequest = new Request("http://127.0.0.1:5000/displayProfile", {
         method: "POST",
         body: formData,
@@ -88,6 +90,8 @@ class SwipeProfiles extends React.Component {
               gender: res.gender,
               workplace: res.workPlace,
               profilePicture: res.profilePicture,
+              mutualFriendAmount: res.mutualFriendAmount,
+              mutualFriendNames: res.mutualFriendNames,
               error: "",
               loading: false,
             });
@@ -223,6 +227,23 @@ class SwipeProfiles extends React.Component {
     const error = this.state.error;
     const profilePicture = this.state.profilePicture;
 
+    let mutualFriendNames = this.state.mutualFriendNames;
+    let mutualFriendSection;
+    if (this.state.mutualFriendAmount == 0) {
+      mutualFriendSection = (
+        <div className="noMutualFriends">
+          <p>No Mutual Friends</p>
+        </div>
+      );
+    } else if (this.state.mutualFriendAmount > 0) {
+      mutualFriendSection = (
+        <div className="mutualFriendSection">
+          <p>Your Mutual Friends:</p>
+          <text>{this.state.mutualFriendNames}</text>
+        </div>
+      );
+    }
+
     if (id === "") {
       this.props.history.push({
         pathname: "/login",
@@ -252,6 +273,8 @@ class SwipeProfiles extends React.Component {
 
         {loading ? (
           <LoadingSpinner />
+        ) : error ? (
+          <text>{error}</text>
         ) : (
           <div>
             <img src="ppFriendsLogo.png"></img>
@@ -267,6 +290,8 @@ class SwipeProfiles extends React.Component {
                   <h1>
                     {this.state.firstName}, ({this.state.age})
                   </h1>
+                  {mutualFriendSection}
+
                   <button
                     class="button letsTalkButton"
                     onClick={() => this.handleSwipe(true)}
