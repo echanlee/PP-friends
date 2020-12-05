@@ -13,16 +13,13 @@ import server.messages
 from server.GetLocation import getLocation
 import server.updateEmail
 import server.updatePassword
-import eventlet
-eventlet.monkey_patch()
 
 app = Flask(__name__, static_folder='../build', static_url_path='')
 cors = CORS(app)
 
 app.config['SECRET_KEY'] = 'mysecret'
 
-# socketIo = SocketIO(app, cors_allowed_origins="*")
-socketIo = SocketIO(app, async_mode='eventlet')
+socketIo = SocketIO(app, cors_allowed_origins="*")
 
 @app.route('/')
 def home():
@@ -164,3 +161,4 @@ def handleMessage(room):
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=False, port=os.environ.get('PORT', 80))
     socketIo.run(app)
+

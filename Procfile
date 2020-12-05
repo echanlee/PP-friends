@@ -1,1 +1,1 @@
-web: bin/proximo python server/myapp.py
+web: bin/proximo gunicorn --worker-class evetlet -w 1 server.myapp:app
