@@ -81,7 +81,7 @@ def getFriends():
 @app.route('/displayProfile', methods=['POST'])
 def displayProfile():
     if request.method == 'POST':
-        return SwipeDecision.showProfile(request.form['currentUserId'], request.form['shownUserId'])
+        return SwipeDecision.showProfile(request.form['userId'])
 
 @app.route('/swipe', methods=['POST'])
 def inputSwipe():
