@@ -1,1 +1,1 @@
-web: bin/proximo python server/myapp.py
+web: bin/proximo gunicorn server.myapp:app
