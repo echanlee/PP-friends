@@ -47,7 +47,6 @@ class Matches extends React.Component {
             friendName: userSelected[1],
             currentConvoId: res.currentConvoId,
             friendConvoId: res.friendConvoId,
-            loading: false,
           },
         });
       })
@@ -83,6 +82,7 @@ class Matches extends React.Component {
             })
           : this.setState({
               matchesExist: "not exists",
+              loading: false,
             })
       )
       .catch((error) => {
