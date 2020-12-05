@@ -2,6 +2,8 @@ import React from "react";
 import "./Matches.css";
 import { withRouter, Link } from "react-router-dom";
 import { getCookie } from "../cookies";
+import Header from "../Header/Header";
+
 
 class Matches extends React.Component {
     constructor(props){
@@ -114,6 +116,7 @@ class Matches extends React.Component {
       });
       return null;
     }
+
         let matchingSection;
         if (this.state.matchesExist == "exists"){
             let messagedUserItems = [];
@@ -162,12 +165,21 @@ class Matches extends React.Component {
             if (this.state.messagedUserIds.length !== 0 && this.state.notMessagedUserIds.length !== 0){
                 matchingSection = (
                     <h3 id="Matches-congrats">
+                        <div className = "row">
                       <img src="happy-penguin.svg"></img>
-                      <p>Congratulations, you have a match!</p>
-                      <h2>Messaged Users</h2>
-                      <h3>{messagedUserItems}</h3>
-                      <p>Not Messaged Users</p>
-                      <p>{notMessagedUserItems}</p>
+                      <p>Congratulations, you have a match! ahhhh</p>
+                      
+                          <div className = "column left">
+                            <h2>Messaged Users</h2>
+                            <h3>{messagedUserItems}</h3>
+                          </div>
+                          <div className = "right">
+                            <p>Not Messaged Users</p>
+                            <p>{notMessagedUserItems}</p>
+                          </div>
+                      </div>
+
+
                     </h3>
                   );
             }
@@ -175,13 +187,21 @@ class Matches extends React.Component {
                 matchingSection =  
                     <h3 id="Matches-congrats">
                         <img src="happy-penguin.svg"></img>
-                        <h4>Congratulations, you have a match!</h4>
-                        <h6>You don't have any new matches</h6>
-                        <h6>Please keep swiping or check back later!</h6>
-                        <h6>Messaged Users</h6>
-                        <div className="containerBox">
-                        <p>{messagedUserItems}</p>
-                        </div>
+                        <h4>Congratulations, you have a match! ahhhhhhh</h4>
+                        <div className = "row">
+                          <div className = "column left">
+                            <h6>You don't have any new matches</h6>
+                            <h6>Please keep swiping or check back later!</h6>
+                          </div>
+                          <div className = "column right">
+                            <h6>Messaged Users</h6>
+                            <div className="containerBox">
+                                <p>{messagedUserItems}</p>
+                            </div>
+                          </div>
+                      </div>
+
+
                     </h3>
             }
             else if (notMessagedUserItems.length > 0) {
@@ -209,6 +229,8 @@ class Matches extends React.Component {
             matchingSection = <h2></h2>;
             }
     return (
+      <div>
+        <Header id={this.state.userId} />
       <div id="Matches-section">
         {matchingSection}
 
@@ -219,6 +241,7 @@ class Matches extends React.Component {
         <div class="viewProfileButton" id="viewProfileButton">
           <Link to={{ pathname: "/viewprofile" }}>View Profile</Link>
         </div>
+      </div>
       </div>
     );
   }
