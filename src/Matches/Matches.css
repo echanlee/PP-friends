@@ -67,11 +67,12 @@
 
 #Matches-congrats p {
   color: black;
+  text-align: left;
 }
 
 .containerBox {
-  background-color: #3680a3b9;
-  width: 1000px;
+  background-color: #ffffff;
+  /* width: 1000px; */
   border-radius: 15px;
 }
 
@@ -93,22 +94,18 @@ h3 p {
 
 #viewProfileButton {
   background-color: #e0786c;
-  color: white;
-
-  display: inline-block;
   border-radius: 5px;
-  padding: 5px;
+  padding: 1%;
   width: 175px;
   text-align: center;
+  margin: 10px;
 }
 
 #swipingButton {
   background-color: #c4c4c4;
-  color: white;
-
-  display: inline-block;
   border-radius: 5px;
-  padding: 5px;
+  padding: 1%;
   width: 175px;
   text-align: center;
+  margin: 10px;
 }

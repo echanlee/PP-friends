@@ -133,6 +133,7 @@ class Matches extends React.Component {
                     }
                     messagedUserItems.push(
                         <div>
+                            <h3>{messageSenderName}</h3>
                             <Link to={{pathname: '/viewfriendprofile', state: {id: this.state.userId, friendId: this.state.messagedUserIds[i]}}}>{this.state.messagedUserNames[i]}</Link>
                             <button className={[this.get_button_colour(i), 'pos-user'].join(' ')}
                                     key={pos_user}
@@ -231,13 +232,15 @@ class Matches extends React.Component {
     return (
       <div>
         <Header id={this.state.userId} />
+        <br></br>
+        <br></br>
+
       <div id="Matches-section">
         {matchingSection}
 
         <div class="swipingButton" id="swipingButton">
           <Link to={{ pathname: "/main" }}>Keep Swiping</Link>
         </div>
-        <br></br>
         <div class="viewProfileButton" id="viewProfileButton">
           <Link to={{ pathname: "/viewprofile" }}>View Profile</Link>
         </div>
