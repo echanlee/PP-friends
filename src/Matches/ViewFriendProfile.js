@@ -16,8 +16,10 @@ class ViewFriendProfile extends React.Component {
         education: "",
         interests: "",
         error: "",
+        profilePicture: null, 
       };
       this.selectUserMessage = this.selectUserMessage.bind(this);
+      this.unmatchUser = this.unmatchUser.bind(this);
     }
     componentDidMount(){
       const myRequest = new Request('http://127.0.0.1:5000/viewprofile', {
@@ -36,6 +38,7 @@ class ViewFriendProfile extends React.Component {
                     education: res.education, 
                     interests: res.interests,
                     birthday: res.birthday,
+                    profilePicture: res.profilePicture,
                 })
         ).catch((error) => {
             console.error(error)
@@ -70,6 +73,30 @@ class ViewFriendProfile extends React.Component {
           console.error(error)
       });
   }
+    unmatchUser(event) {
+      const myRequest = new Request('http://127.0.0.1:5000/unmatch', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+              "userId": this.state.userId,
+              "friendId": this.state.friendId,
+          }),
+      });
+      fetch(myRequest)
+      .then(response => response.json())
+      .then(res => {
+          this.props
+          .history.push({
+            pathname: "/matches",
+            state: {
+                id: this.state.userId,
+          }});
+      })
+      .catch((error) => {
+          alert("Something went wrong");
+          console.error(error)
+      });
+    }
     render() {
       var displayName = this.state.name+"'s";
       return (
@@ -83,6 +110,9 @@ class ViewFriendProfile extends React.Component {
           </button>  
           <form id="profileForm">
             <h1>View {displayName} Profile</h1>
+            {this.state.profilePicture 
+                      && <img src={this.state.profilePicture}></img>
+            }
             <p>Name:</p>
 
             {this.state.name}
@@ -113,6 +143,11 @@ class ViewFriendProfile extends React.Component {
             <p>Bio:</p>
             {this.state.bio}
           </form>
+          <button className='unmatch-button'
+              onClick = {(e) => { if (window.confirm('Are you sure you wish to unmatch with this user? You cannot undo this action')) this.unmatchUser(e) } }
+          >
+              Unmatch
+          </button>
           <text>{this.state.error}</text>
         </div>
       );

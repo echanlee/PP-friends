@@ -32,6 +32,7 @@ h1 {
 h2 {
   /*let's get to know you*/
   font-weight: bold;
+  line-height: 40%;
   font-size: 25px;
   color: grey;
   text-align: center;
@@ -55,19 +56,32 @@ div.boxed {
 }
 
 .boxed {
+  margin-top: 30px;
   background-color: #f8dabb;
   align-items: left;
   text-align: left;
   margin-right: auto;
   margin-left: auto;
   padding: 2%;
-  width: 40%;
+  width: 60%;
+  min-width: 600px;
+  max-width: 1000px;
   line-height: 35px;
-  border-radius: 15px;
+  border-radius: 10px;
+  overflow: auto;
+  height: 400px;
 }
 
+
+
 .Questions {
-  font-size: 20px;
+  font-size: 18px;
+  font-weight:600;
+}
+.boxed p {
+  text-align: left;
+  font-size: 16px;
+  font-weight: 500;
 }
 
 .submitButton {
@@ -83,7 +97,8 @@ div.boxed {
   font-size: 20px;
   margin: 0;
   position: absolute;
-  left: 47%;
+  width:20%;
+  left: 40%;
 }
 
 .submitButton:hover {

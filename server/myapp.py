@@ -36,7 +36,7 @@ def create_profile():
         return profile.createProfile(request.form['name'], request.form['birthday'],
                              request.form['bio'], request.form['gender'], request.form['education'],
                              request.form['interests'], request.form['genderPreference'], request.form['maxDistance'],  
-                             request.form['age'], request.form['id'])
+                             request.form['age'], request.form['id'], request.files['img'])
 
 @app.route('/viewprofile', methods=['POST'])
 def viewProfile():
@@ -50,7 +50,7 @@ def edit_profile():
         return profile.updateProfile(request.form['name'], request.form['birthday'],
                              request.form['bio'], request.form['gender'], request.form['education'],
                              request.form['interests'], request.form['genderPreference'], request.form['maxDistance'],  
-                             request.form['age'], request.form['id'])
+                             request.form['age'], request.form['id'], request.files["img"])
 
 @app.route('/matches', methods=['POST'])
 def get_matches():
@@ -58,6 +58,12 @@ def get_matches():
         param = request.get_json('userId')
         response = matches.matchUser(param['userId'])
         return response
+
+@app.route('/unmatch', methods=['POST'])
+def unmatch():
+    if request.method == 'POST':
+        param = request.get_json('userId')
+        return matches.unmatch(param['userId'], param['friendId'])  
 
 @app.route('/register', methods=['POST'])
 def register():
@@ -143,12 +149,12 @@ def handleMessage(data):
     return None
 
 @socketIo.on("room")
-def handleMessage(room):
+def joinRoom(room):
     join_room(room)
     return None
 
 @socketIo.on("leaveRoom")
-def handleMessage(room):
+def leaveRoom(room):
     leave_room(room)
     return None
 
