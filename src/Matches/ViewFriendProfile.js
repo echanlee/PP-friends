@@ -1,6 +1,8 @@
 import React from "react";
 import {withRouter, Link} from 'react-router-dom'
 import Header from '../Header/Header'
+import "../Profile/profile.css";
+
 
 class ViewFriendProfile extends React.Component {
     constructor(props) {
@@ -75,51 +77,73 @@ class ViewFriendProfile extends React.Component {
     render() {
       var displayName = this.state.name+"'s";
       return (
-        <div className="Profile">
+        <div>
           <Header id={this.state.userId}/>
-          <button className='pos-user' 
-              key={this.state.friendId+"|message"}
-              value = {this.state.friendId+"|"+this.state.name} 
-              onClick = {this.selectUserMessage}>
-            message {this.state.name}
-          </button>  
-          <form id="profileForm">
-            <h1>View {displayName} Profile</h1>
-            {this.state.profilePicture 
-                      && <img src={this.state.profilePicture}></img>
-            }
-            <p>Name:</p>
+          <div className="Profile">
+            
 
-            {this.state.name}
+            <form id="profileForm">
+            < h1>View {displayName} Profile</h1>
+              <div class = "row">
+                <button className='pos-user' 
+                  key={this.state.friendId+"|message"}
+                  value = {this.state.friendId+"|"+this.state.name} 
+                  onClick = {this.selectUserMessage}>
+                  message {this.state.name}
+                </button>  
+                <div class = "column left">
+                  <div class = "profilepic">
+                    {this.state.profilePicture 
+                    && <img src={this.state.profilePicture}></img>
+                    }     
+                  </div>
+           
+                </div>
+                <div class = "column right">
+                  <div class= "rectangle">
+                    <label for="User">Name 😀</label>
+                    {this.state.name}
+                    <br></br>
+                    <br></br>
 
-            <p>Birthday:</p>
-            <input type="date" name="birthday"
-              value={this.state.birthday}
-              placeholder = "YYYY-MM-DD"
-              />
+                    <label for="Birthday">Birthday 🎂</label>
+                      {this.state.birthday}
+                    <br></br>
+                    <br></br>
 
-            <p>{displayName} Gender:</p>
+                    <label for="Gender">Gender 👫</label>
+                    {this.state.gender}
 
-            <select
-              name = "gender"
-              value = {this.state.gender}
-            >
-              <option value="Female">Female</option>
-              <option value ="Male">Male</option>
-              <option value ="Other">Other</option>
-            </select>
+                    <br></br>
+                    <br></br>
 
-            <p>Education/Work:</p>
-            {this.state.education}
+                    <label for="Education">Education/Work 💻</label>
+                    <text>{this.state.education}</text>
 
-            <p>{displayName} interests:</p>
-            {this.state.interests}
+                    <br></br>
+                    <br></br>
 
-            <p>Bio:</p>
-            {this.state.bio}
-          </form>
-          <text>{this.state.error}</text>
+                    <label for="Interests">Your interests 🎨</label>
+                    <text class= "bigText">{this.state.interests}</text>
+
+                    <br></br>
+                    <br></br>
+
+                    <label for="Bio">Bio 😶</label>
+                    <text class= "bigText">{this.state.bio}</text>
+                    
+                    <br></br>
+                    <br></br>
+                  </div>              
+                </div>
+              </div>
+
+
+            </form>
+            <text>{this.state.error}</text>
+          </div>
         </div>
+
       );
   };
 }
