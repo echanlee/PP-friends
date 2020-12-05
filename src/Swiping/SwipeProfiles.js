@@ -22,6 +22,8 @@ class SwipeProfiles extends React.Component {
       displayedUserId: "",
       error: "",
       loading: true,
+      mutualFriendAmount: 0,
+      mutualFriendNames: null,
     };
 
     this.getPotentialFriendList = this.getPotentialFriendList.bind(this);
@@ -66,9 +68,11 @@ class SwipeProfiles extends React.Component {
 
   displayProfile() {
     const displayId = this.state.displayedUserId;
+    const currentUserId = this.state.id;
     if (displayId) {
       var formData = new FormData();
-      formData.append("userId", displayId);
+      formData.append("currentUserId", currentUserId);
+      formData.append("shownUserId", displayId);
       const myRequest = new Request("http://127.0.0.1:5000/displayProfile", {
         method: "POST",
         body: formData,
@@ -85,7 +89,10 @@ class SwipeProfiles extends React.Component {
               gender: res.gender,
               workplace: res.workPlace,
               profilePicture: res.profilePicture,
+              mutualFriendAmount: res.mutualFriendAmount,
+              mutualFriendNames: res.mutualFriendNames,
               error: "",
+              loading: false,
             });
           } else {
             this.setState({
@@ -210,7 +217,7 @@ class SwipeProfiles extends React.Component {
     const potentialFriends = this.state.potentialFriends;
     const displayedUserId = this.state.displayedUserId;
     const error = this.state.error;
-    const profilePicture = this.state.profilePicture
+    const profilePicture = this.state.profilePicture;
 
     if (id === "") {
       this.props.history.push({
@@ -240,7 +247,7 @@ class SwipeProfiles extends React.Component {
         <br></br>
         <br></br>
         {loading ? (
-          <LoadingSpinner /> && <div className="Loading"></div>
+          <LoadingSpinner />
         ) : (
           <div>
             <img src="ppFriendsLogo.png"></img>
@@ -248,10 +255,11 @@ class SwipeProfiles extends React.Component {
             <div class="row">
               <div class="column left">
                 <div class="profileLeft">
-                  {profilePicture 
-                  ? <img src={profilePicture} alt="profilepic"></img>
-                  :<img src="profilepic.png" alt="profilepic"></img>
-                  }
+                  {profilePicture ? (
+                    <img src={profilePicture} alt="profilepic"></img>
+                  ) : (
+                    <img src="profilepic.png" alt="profilepic"></img>
+                  )}
                   <h1>
                     {this.state.firstName}, ({this.state.age})
                   </h1>

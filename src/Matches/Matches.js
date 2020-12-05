@@ -47,6 +47,7 @@ class Matches extends React.Component {
             friendName: userSelected[1],
             currentConvoId: res.currentConvoId,
             friendConvoId: res.friendConvoId,
+            loading: false,
           },
         });
       })
@@ -250,7 +251,7 @@ class Matches extends React.Component {
     return (
       <div className="matchingComponent">
         {loading ? (
-          <LoadingSpinner /> && <div className="Loading"></div>
+          <LoadingSpinner />
         ) : (
           <div id="Matches-section">
             {matchingSection}

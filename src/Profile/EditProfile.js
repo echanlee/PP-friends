@@ -168,7 +168,7 @@ class EditProfile extends React.Component {
         <Header id={this.state.userId} />
         <div className="Profile">
           {loading ? (
-            <LoadingSpinner /> && <div className="Loading"></div>
+            <LoadingSpinner />
           ) : (
             <form id="profileForm" onSubmit={this.handleUpdate}>
               <h1>Update My Profile 👋</h1>
