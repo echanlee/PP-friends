@@ -164,6 +164,6 @@ if __name__ == "__main__":
         app,
         host=os.getenv('IP', '174.129.240.180'),
         port=int(os.getenv('PORT', 1080)),
-        debug=True
+        debug=False
     )
 
