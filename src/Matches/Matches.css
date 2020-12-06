@@ -35,6 +35,8 @@
   margin-right: auto;
 }
 
+
+
 * {
   font-family: "Montserrat", sans-serif;
 }
@@ -115,4 +117,21 @@ h3 p {
 
 .MessagedUsers{
   min-width: 400px;
+}
+.unmatch-button{
+  border: none;
+  background-color: #ffffff;
+  color: black;
+  text-decoration:none;
+  font-weight:600;
+  padding: 5px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.unmatch-button:hover{
+  background-color: #f07167;
+  color:white;
+  border-radius: 5px;
+  transition:0.3s;
 }
