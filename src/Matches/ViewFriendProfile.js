@@ -80,7 +80,6 @@ class ViewFriendProfile extends React.Component {
         <div>
           <Header id={this.state.userId}/>
           <div className="Profile">
-            
 
             <form id="profileForm">
             < h1>View {displayName} Profile</h1>

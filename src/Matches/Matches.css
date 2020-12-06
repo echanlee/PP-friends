@@ -5,12 +5,14 @@
 
 .left {
   width: 50%;
-  /* background-color:grey; */
+  padding: 20px;
+  padding-top: 0px;
 }
 
 .right {
   width: 50%;
-  /* background-color:blue; */
+  padding: 20px;
+  padding-top: 0px;
 }
 
 .row:after {
@@ -20,27 +22,17 @@
 }
 
 .pos-user {
-  margin: auto;
   width: 100%;
+  max-width: 500px;
+  background-color: #F8DABB;
   padding: 12px;
   display: block;
   border-radius: 15px;
-
-  margin-top: 10px;
+  border:none;
+  margin: 10px;
   font-size: 20px;
-}
-
-.convoSection,
-.timeSection {
-  display: inline;
-}
-
-.convoSection {
-  float: left;
-}
-
-.timeSection {
-  float: right;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 * {
@@ -49,31 +41,38 @@
 
 #Matches-header {
   margin: auto;
-  padding: 20px;
+  padding: 50px;
 }
 
 #Matches-section {
   min-height: 25vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
   font-size: 30px;
-  background-color: white;
   line-height: 25px;
   color: #3680a3;
   text-align: center;
 }
 
+#Matches-section p{
+  color: black;
+  font-size: 16px;
+  text-align: left;
+  font-weight: 600;
+}
+
+#Matches-section i{
+  color: black;
+  font-size: 16px;
+  text-align: left;
+  font-weight: 500;
+}
+
+
 #Matches-congrats p {
   color: black;
   text-align: left;
-}
-
-.containerBox {
-  background-color: #ffffff;
-  /* width: 1000px; */
-  border-radius: 15px;
 }
 
 h3 p {
@@ -99,6 +98,8 @@ h3 p {
   width: 175px;
   text-align: center;
   margin: 10px;
+  margin-left:auto;
+  margin-right:auto;
 }
 
 #swipingButton {
@@ -108,4 +109,10 @@ h3 p {
   width: 175px;
   text-align: center;
   margin: 10px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.MessagedUsers{
+  min-width: 400px;
 }

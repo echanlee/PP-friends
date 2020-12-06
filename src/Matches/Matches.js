@@ -132,17 +132,21 @@ class Matches extends React.Component {
                         messageSenderName = this.state.messagedUserNames[i]
                     }
                     messagedUserItems.push(
-                        <div>
-                            <h3>{messageSenderName}</h3>
-                            <Link to={{pathname: '/viewfriendprofile', state: {id: this.state.userId, friendId: this.state.messagedUserIds[i]}}}>{this.state.messagedUserNames[i]}</Link>
+                        <div className = "MessagedUsers">
+                            <p1>{messageSenderName} | </p1>
+                            <Link to={{pathname: '/viewfriendprofile', state: {id: this.state.userId, friendId: this.state.messagedUserIds[i]}}}>View Profile</Link>
                             <button className={[this.get_button_colour(i), 'pos-user'].join(' ')}
                                     key={pos_user}
                                     value = {this.state.messagedUserIds[i]+"|"+this.state.messagedUserNames[i]} 
                                     onClick = {this.selectUser}>
-
-                                {messageSenderName}: {this.state.messageContent[i]}
-                                timestamp: {this.state.timeStamp[i]}
+                              Message {messageSenderName}
                             </button>  
+                            <i>{messageSenderName}: {this.state.messageContent[i]} </i>
+                            <br></br>
+                            <i>{this.state.timeStamp[i]}
+                            </i>
+                            <br></br>
+                            <br></br>
                         </div>
                     )
                 }
@@ -152,12 +156,13 @@ class Matches extends React.Component {
                     var pos_user = this.state.notMessagedUserIds[i];
                     notMessagedUserItems.push(
                         <div>
-                            <Link to={{pathname: '/viewfriendprofile', state: {id: this.state.userId, friendId: this.state.notMessagedUserIds[i]}}}>{this.state.notMessagedUserNames[i]}</Link>
+                            <p1>{this.state.notMessagedUserNames} | </p1>
+                            <Link to={{pathname: '/viewfriendprofile', state: {id: this.state.userId, friendId: this.state.notMessagedUserIds[i]}}}>View Profile</Link>
                             <button className={[this.get_button_colour(i), 'pos-user'].join(' ')}
                                     key={pos_user} 
                                     value = {this.state.notMessagedUserIds[i]+"|"+this.state.notMessagedUserNames[i]} 
                                     onClick = {this.selectUser}>
-                                {this.state.notMessagedUserNames[i]}
+                                Message {this.state.notMessagedUserNames[i]}
                             </button>  
                         </div>
                     )
@@ -165,45 +170,40 @@ class Matches extends React.Component {
             }
             if (this.state.messagedUserIds.length !== 0 && this.state.notMessagedUserIds.length !== 0){
                 matchingSection = (
-                    <h3 id="Matches-congrats">
-                        <div className = "row">
+                  <div className= "UserContainers">
+                  <div className = "row">
                       <img src="happy-penguin.svg"></img>
-                      <p>Congratulations, you have a match! ahhhh</p>
-                      
+                      <h4>Congratulations, you have a match!</h4>
                           <div className = "column left">
-                            <h2>Messaged Users</h2>
-                            <h3>{messagedUserItems}</h3>
-                          </div>
-                          <div className = "right">
-                            <p>Not Messaged Users</p>
+                            <h2>Not Messaged Users</h2>
                             <p>{notMessagedUserItems}</p>
+                            
+                          </div>
+                          <div className = "column right">
+                            <h2>Messaged Users</h2>
+                            <p>{messagedUserItems}</p>
                           </div>
                       </div>
-
-
-                    </h3>
+                    </div>
                   );
             }
             else if (messagedUserItems.length > 0) {
                 matchingSection =  
-                    <h3 id="Matches-congrats">
+                    <div className= "UserContainers">
                         <img src="happy-penguin.svg"></img>
-                        <h4>Congratulations, you have a match! ahhhhhhh</h4>
                         <div className = "row">
                           <div className = "column left">
-                            <h6>You don't have any new matches</h6>
-                            <h6>Please keep swiping or check back later!</h6>
+                            <h2>You don't have any new matches</h2>
+                            <h2>Please keep swiping or check back later!</h2>
                           </div>
                           <div className = "column right">
-                            <h6>Messaged Users</h6>
+                            <h2>Messaged Users</h2>
                             <div className="containerBox">
                                 <p>{messagedUserItems}</p>
                             </div>
                           </div>
                       </div>
-
-
-                    </h3>
+                    </div>
             }
             else if (notMessagedUserItems.length > 0) {
                 matchingSection =  
@@ -234,17 +234,19 @@ class Matches extends React.Component {
         <Header id={this.state.userId} />
         <br></br>
         <br></br>
+        <br></br>
+        <br></br>
 
-      <div id="Matches-section">
-        {matchingSection}
+        <div id="Matches-section">
+          {matchingSection}
 
-        <div class="swipingButton" id="swipingButton">
-          <Link to={{ pathname: "/main" }}>Keep Swiping</Link>
+          <div class="swipingButton" id="swipingButton">
+            <Link to={{ pathname: "/main" }}>Keep Swiping</Link>
+          </div>
+          <div class="viewProfileButton" id="viewProfileButton">
+            <Link to={{ pathname: "/viewprofile" }}>View Profile</Link>
+          </div>
         </div>
-        <div class="viewProfileButton" id="viewProfileButton">
-          <Link to={{ pathname: "/viewprofile" }}>View Profile</Link>
-        </div>
-      </div>
       </div>
     );
   }
