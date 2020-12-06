@@ -20,6 +20,7 @@ class ViewProfile extends React.Component {
       interests: "",
       error: "",
       maxDistance: 10,
+
       profilePicture: null,
     };
   }
@@ -42,6 +43,7 @@ class ViewProfile extends React.Component {
           interests: res.interests,
           birthday: res.birthday,
           maxDistance: res.maxDistance,
+
           profilePicture: res.profilePicture,
         })
       )
@@ -60,20 +62,19 @@ class ViewProfile extends React.Component {
     return (
       <div>
         <Header id={this.state.userId} />
-          <div className="Profile">
-            <h1>View My Profile</h1>
-            <img src="ppFriendsLogo.png"></img>
-          <div class = "row">
-            <div class = "column left">
-              <div class = "profilepic">
+        <div className="Profile">
+          <h1>View My Profile</h1>
+          <img src="ppFriendsLogo.png"></img>
+          <div class="row">
+            <div class="column left">
+              <div class="profilepic">
                 <p>Profile Picture</p>
-                {this.state.profilePicture 
-                && <img src={this.state.profilePicture}></img>
-                }
+                {this.state.profilePicture && (
+                  <img src={this.state.profilePicture}></img>
+                )}
               </div>
-                                  
             </div>
-              <div class = "column right">
+            <div class="column right">
               <div class="rectangle">
                 <label for="User">Name 😀</label>
                 {this.state.name}
@@ -81,7 +82,7 @@ class ViewProfile extends React.Component {
                 <br></br>
 
                 <label for="Birthday">Birthday 🎂</label>
-                  {this.state.birthday}
+                {this.state.birthday}
                 <br></br>
                 <br></br>
 
@@ -107,14 +108,14 @@ class ViewProfile extends React.Component {
                 <br></br>
 
                 <label for="Interests">Your interests 🎨</label>
-                <text class= "bigText">{this.state.interests}</text>
+                <text class="bigText">{this.state.interests}</text>
 
                 <br></br>
                 <br></br>
 
                 <label for="Bio">Bio 😶</label>
-                <text class= "bigText">{this.state.bio}</text>
-                
+                <text class="bigText">{this.state.bio}</text>
+
                 <br></br>
                 <br></br>
 
@@ -130,10 +131,10 @@ class ViewProfile extends React.Component {
                 <text>{this.state.error}</text>
                 <br></br>
                 <br></br>
-                </div>
               </div>
             </div>
           </div>
+        </div>
       </div>
     );
   }

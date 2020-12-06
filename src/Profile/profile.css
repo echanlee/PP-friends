@@ -2,9 +2,9 @@
   /*all elements to inherit same font*/
   font-family: "Montserrat", sans-serif;
 }
-.Profile{
+.Profile {
   text-align: center;
-  margin-top:50px;
+  margin-top: 50px;
 }
 .Profile input {
   height: 7%;
@@ -35,16 +35,16 @@
   color: black;
 }
 
-.profilepic{
+.profilepic {
   margin-left: 20%;
-  min-width:400px;
+  min-width: 400px;
 }
 
-.profilepic img{
-  object-fit:cover;
+.profilepic img {
+  object-fit: cover;
   border-radius: 50%;
-  width:200px;
-  height:200px;
+  width: 200px;
+  height: 200px;
 }
 
 .updatedMessage {
@@ -62,9 +62,9 @@
   width: 20%;
   min-width: 150px;
   margin-top: 20px;
-  margin-right:30%;
+  margin-right: 30%;
   text-align: center;
-  margin-left:30%;
+  margin-left: 30%;
 }
 
 .updateProfileButton input[value="Save Profile"] {
@@ -78,12 +78,12 @@
   width: 20%;
   min-width: 150px;
   margin-top: 20px;
-  margin-right:30%;
+  margin-right: 30%;
   text-align: center;
-  margin-left:30%;
+  margin-left: 30%;
 }
 
-.profilepic input[value="Let's get started"]{
+.profilepic input[value="Let's get started"] {
   color: white;
   letter-spacing: 1px;
   background-color: #3680a3;
@@ -94,12 +94,12 @@
   width: 40%;
   min-width: 200px;
   margin-top: 20px;
-  margin-right:30%;
+  margin-right: 30%;
   text-align: center;
-  margin-left:30%;
+  margin-left: 30%;
 }
 
-.removepic{
+.removepic {
   color: white;
   letter-spacing: 1px;
   background-color: #7e7e7e;
@@ -113,7 +113,7 @@
   text-align: center;
 }
 
-.profilepic input[type="file"]{
+.profilepic input[type="file"] {
   color: white;
   letter-spacing: 1px;
   background-color: #7e7e7e;
@@ -126,12 +126,11 @@
   text-align: center;
 }
 
-
-.Profile input[type = "text"]{
-  width:50%;
+.Profile input[type="text"] {
+  width: 50%;
 }
 
-.Profile textarea{
+.Profile textarea {
   width: 50%;
   height: 100px;
 }
@@ -146,11 +145,11 @@ select {
   width: 30%;
 }
 
-.Profile input{
+.Profile input {
   font-size: 16px;
 }
 
-.Profile textarea{
+.Profile textarea {
   font-size: 16px;
 }
 .rectangle2 {
@@ -167,12 +166,11 @@ select {
 
 .rectangle3 {
   background-color: #f8dabb;
-  padding:10%;
+  padding: 10%;
   text-align: left;
   border-radius: 10px;
   width: 70%;
   min-width: 600px;
-
 }
 
 select option {

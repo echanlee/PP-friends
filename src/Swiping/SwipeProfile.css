@@ -44,10 +44,10 @@
 }
 
 .profileLeft img {
-  object-fit:cover;
+  object-fit: cover;
   border-radius: 50%;
-  width:200px;
-  height:200px;
+  width: 200px;
+  height: 200px;
 }
 
 .profileIntroSection {
@@ -85,9 +85,20 @@
 }
 
 .letsTalkButton {
-  margin-top: 40%;
+  margin-top: 10%;
 
   background-color: #4dadb7;
+}
+.mutualFriendSection p {
+  color: black;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.noMutualFriends {
+  color: black;
+  font-weight: bold;
+  font-size: 20px;
 }
 
 .pageTitle {

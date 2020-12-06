@@ -4,123 +4,122 @@ import { withRouter, Link } from "react-router-dom";
 import { getCookie } from "../cookies";
 
 class Matches extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            userId: getCookie("userId"),
-            userIds: [],
-            matchesExist: "not set",
-            firstnames: [],
-            name: "",
-            userIds: [],
-            notMessagedUserIds: [],
-            notMessagedUserNames: [],
-            messagedUserIds: [],
-            messagedUserNames: [],
-            messageIds: [],
-            messageSender: [],
-            messageContent: [],
-            timeStamp: [],
-        }
-        this.selectUser = this.selectUser.bind(this);
-        this.unmatchUser = this.unmatchUser.bind(this);
-    }
-    selectUser(event) {
-        const userSelected = event.target.value.split("|");
-        const myRequest = new Request('http://127.0.0.1:5000/conversationId', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                "userId": this.state.userId,
-                "friendId": userSelected[0],
-            }),});
-        fetch(myRequest)
-            .then(response => response.json())
-            .then(res => {
-                this.props
-                .history.push({
-                  pathname: "/messages",
-                  state: {
-                      friendId: userSelected[0],
-                      currentName: this.state.name,
-                      friendName: userSelected[1],
-                      currentConvoId: res.currentConvoId,
-                      friendConvoId: res.friendConvoId
-                }});
+  constructor(props) {
+    super(props);
+    this.state = {
+      userId: getCookie("userId"),
+      userIds: [],
+      matchesExist: "not set",
+      firstnames: [],
+      name: "",
+      userIds: [],
+      notMessagedUserIds: [],
+      notMessagedUserNames: [],
+      messagedUserIds: [],
+      messagedUserNames: [],
+      messageIds: [],
+      messageSender: [],
+      messageContent: [],
+      timeStamp: [],
+    };
+    this.selectUser = this.selectUser.bind(this);
+    this.unmatchUser = this.unmatchUser.bind(this);
+  }
+  selectUser(event) {
+    const userSelected = event.target.value.split("|");
+    const myRequest = new Request("http://127.0.0.1:5000/conversationId", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        userId: this.state.userId,
+        friendId: userSelected[0],
+      }),
+    });
+    fetch(myRequest)
+      .then((response) => response.json())
+      .then((res) => {
+        this.props.history.push({
+          pathname: "/messages",
+          state: {
+            friendId: userSelected[0],
+            currentName: this.state.name,
+            friendName: userSelected[1],
+            currentConvoId: res.currentConvoId,
+            friendConvoId: res.friendConvoId,
+          },
+        });
+      })
+      .catch((error) => {
+        alert("Something went wrong");
+        console.error(error);
+      });
+  }
+  unmatchUser(event) {
+    const userSelected = event.target.value.split("|");
+    const myRequest = new Request("http://127.0.0.1:5000/unmatch", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        userId: this.state.userId,
+        friendId: userSelected[0],
+      }),
+    });
+    fetch(myRequest)
+      .then((response) => response.json())
+      .then((res) =>
+        res.userIds && res.userIds.length != 0
+          ? this.setState({
+              name: res.currentName,
+              matchesExist: "exists",
+              userIds: res.userIds,
+              notMessagedUserIds: res.notMessagedUserIds,
+              notMessagedUserNames: res.notMessagedUserNames,
+              messagedUserIds: res.messagedUserIds,
+              messagedUserNames: res.messagedUserNames,
+              messageIds: res.messageIds,
+              messageSender: res.messageSender,
+              messageContent: res.messageContent,
+              timeStamp: res.timeStamp,
             })
-        .catch((error) => {
-            alert("Something went wrong");
-            console.error(error)
-        });
-    }
-    unmatchUser(event) {
-        const userSelected = event.target.value.split("|");
-        const myRequest = new Request('http://127.0.0.1:5000/unmatch', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                "userId": this.state.userId,
-                "friendId": userSelected[0],
-            }),
-        });
-        fetch(myRequest)
-        .then(response => response.json())
-        .then(res => 
-            (res.userIds && res.userIds.length != 0) ?
-                this.setState({
-                    name: res.currentName,
-                    matchesExist: "exists", 
-                    userIds: res.userIds,
-                    notMessagedUserIds: res.notMessagedUserIds,
-                    notMessagedUserNames: res.notMessagedUserNames,
-                    messagedUserIds: res.messagedUserIds,
-                    messagedUserNames: res.messagedUserNames,
-                    messageIds: res.messageIds,
-                    messageSender: res.messageSender,
-                    messageContent: res.messageContent,
-                    timeStamp: res.timeStamp,
-                })
-                :
-                this.setState({
-                    matchesExist: "not exists"
-                })
-        )
-        .catch((error) => {
-            console.error(error)
-        })
-    }
+          : this.setState({
+              matchesExist: "not exists",
+            })
+      )
+      .catch((error) => {
+        console.error(error);
+      });
+  }
 
-    get_matches(){
-        const myRequest = new Request('http://127.0.0.1:5000/matches', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({"userId": this.state.userId}),
-            });
-        fetch(myRequest)
-            .then(response => response.json())
-            .then(res => 
-                (res.userIds && res.userIds.length != 0) ?
-                    this.setState({
-                        name: res.currentName,
-                        matchesExist: "exists", 
-                        userIds: res.userIds,
-                        notMessagedUserIds: res.notMessagedUserIds,
-                        notMessagedUserNames: res.notMessagedUserNames,
-                        messagedUserIds: res.messagedUserIds,
-                        messagedUserNames: res.messagedUserNames,
-                        messageIds: res.messageIds,
-                        messageSender: res.messageSender,
-                        messageContent: res.messageContent,
-                        timeStamp: res.timeStamp,
-                    })
-                    :
-                    this.setState({
-                        matchesExist: "not exists"
-                    })
-            )
-            .catch((error) => {
-                console.error(error)
+  get_matches() {
+    const myRequest = new Request("http://127.0.0.1:5000/matches", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId: this.state.userId }),
+    });
+    fetch(myRequest)
+      .then((response) => response.json())
+      .then((res) =>
+        res.userIds && res.userIds.length != 0
+          ? this.setState({
+              name: res.currentName,
+              matchesExist: "exists",
+              userIds: res.userIds,
+              notMessagedUserIds: res.notMessagedUserIds,
+              notMessagedUserNames: res.notMessagedUserNames,
+              messagedUserIds: res.messagedUserIds,
+              messagedUserNames: res.messagedUserNames,
+              messageIds: res.messageIds,
+              messageSender: res.messageSender,
+              messageContent: res.messageContent,
+              timeStamp: res.timeStamp,
             })
+          : this.setState({
+              matchesExist: "not exists",
+            })
+      )
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   componentDidMount() {
@@ -134,15 +133,14 @@ class Matches extends React.Component {
       }
     }
   }
-  get_button_colour(i){
-    let buttonColour
-    if (i%2 == 0){
-        buttonColour = "blue"
+  get_button_colour(i) {
+    let buttonColour;
+    if (i % 2 == 0) {
+      buttonColour = "blue";
+    } else {
+      buttonColour = "yellow";
     }
-    else {
-        buttonColour = "yellow"
-    }
-    return buttonColour
+    return buttonColour;
   }
   render() {
     if (this.state.userId === "") {
@@ -151,126 +149,190 @@ class Matches extends React.Component {
       });
       return null;
     }
-        let matchingSection;
-        if (this.state.matchesExist == "exists"){
-            let messagedUserItems = [];
-            let notMessagedUserItems = [];
-            if (this.state.messagedUserIds && this.state.messagedUserIds.length > 0){
-                for (var i = 0; i < this.state.messagedUserIds.length; i++){
-                    var pos_user = this.state.messagedUserIds[i];
-                    let messageSenderName;
-                    if (this.state.messageSender[i] == this.userId){
-                        messageSenderName = this.state.currentName;
-                    }
-                    else {
-                        messageSenderName = this.state.messagedUserNames[i]
-                    }
-                    messagedUserItems.push(
-                        <div>
-                            <div>
-                                <Link to={{pathname: '/viewfriendprofile', state: {id: this.state.userId, friendId: this.state.messagedUserIds[i], currentName: this.state.name}}}>{this.state.messagedUserNames[i]}</Link>
-                                <button className='unmatch-button'
-                                    key={pos_user+"match"}
-                                    value = {this.state.messagedUserIds[i]+"|"+this.state.messagedUserNames[i]} 
-                                    onClick = {(e) => { if (window.confirm('Are you sure you wish to unmatch with this user? You cannot undo this action')) this.unmatchUser(e) } }
-                                >
-                                    Unmatch
-                                </button>
-                            </div>
-                            <button className={[this.get_button_colour(i), 'pos-user'].join(' ')}
-                                    key={pos_user}
-                                    value = {this.state.messagedUserIds[i]+"|"+this.state.messagedUserNames[i]} 
-                                    onClick = {this.selectUser}>
-
-                                {messageSenderName}: {this.state.messageContent[i]}
-                                timestamp: {this.state.timeStamp[i]}
-                            </button>  
-                        </div>
+    let matchingSection;
+    if (this.state.matchesExist == "exists") {
+      let messagedUserItems = [];
+      let notMessagedUserItems = [];
+      if (this.state.messagedUserIds && this.state.messagedUserIds.length > 0) {
+        for (var i = 0; i < this.state.messagedUserIds.length; i++) {
+          var pos_user = this.state.messagedUserIds[i];
+          let messageSenderName;
+          if (this.state.messageSender[i] == this.userId) {
+            messageSenderName = this.state.currentName;
+          } else {
+            messageSenderName = this.state.messagedUserNames[i];
+          }
+          messagedUserItems.push(
+            <div>
+              <div>
+                <Link
+                  to={{
+                    pathname: "/viewfriendprofile",
+                    state: {
+                      id: this.state.userId,
+                      friendId: this.state.messagedUserIds[i],
+                      currentName: this.state.name,
+                    },
+                  }}
+                >
+                  {this.state.messagedUserNames[i]}
+                </Link>
+                <button
+                  className="unmatch-button"
+                  key={pos_user + "match"}
+                  value={
+                    this.state.messagedUserIds[i] +
+                    "|" +
+                    this.state.messagedUserNames[i]
+                  }
+                  onClick={(e) => {
+                    if (
+                      window.confirm(
+                        "Are you sure you wish to unmatch with this user? You cannot undo this action"
+                      )
                     )
+                      this.unmatchUser(e);
+                  }}
+                >
+                  Unmatch
+                </button>
+              </div>
+              <button
+                className={[this.get_button_colour(i), "pos-user"].join(" ")}
+                key={pos_user}
+                value={
+                  this.state.messagedUserIds[i] +
+                  "|" +
+                  this.state.messagedUserNames[i]
                 }
-            }
-            if (this.state.notMessagedUserIds && this.state.notMessagedUserIds.length > 0){
-                for (var i = 0; i < this.state.notMessagedUserIds.length; i++){
-                    var pos_user = this.state.notMessagedUserIds[i];
-                    notMessagedUserItems.push(
-                        <div>
-                                <Link to={{pathname: '/viewfriendprofile', state: {id: this.state.userId, friendId: this.state.notMessagedUserIds[i], currentName: this.state.name}}}>{this.state.notMessagedUserNames[i]}</Link>
-                                <button className='unmatch-button'
-                                    key={pos_user+"match"}
-                                    value = {this.state.notMessagedUserIds[i]+"|"+this.state.notMessagedUserNames[i]}
-                                    onClick = {(e) => { if (window.confirm('Are you sure you wish to unmatch with this user? You cannot undo this action')) this.unmatchUser(e) } }
-                                >
-                                    Unmatch
-                                </button>
-                            <button className={[this.get_button_colour(i), 'pos-user'].join(' ')}
-                                    key={pos_user} 
-                                    value = {this.state.notMessagedUserIds[i]+"|"+this.state.notMessagedUserNames[i]} 
-                                    onClick = {this.selectUser}>
-                                {this.state.notMessagedUserNames[i]}
-                            </button>  
-                        </div>
+                onClick={this.selectUser}
+              >
+                {messageSenderName}: {this.state.messageContent[i]}
+                timestamp: {this.state.timeStamp[i]}
+              </button>
+            </div>
+          );
+        }
+      }
+      if (
+        this.state.notMessagedUserIds &&
+        this.state.notMessagedUserIds.length > 0
+      ) {
+        for (var i = 0; i < this.state.notMessagedUserIds.length; i++) {
+          var pos_user = this.state.notMessagedUserIds[i];
+          notMessagedUserItems.push(
+            <div>
+              <Link
+                to={{
+                  pathname: "/viewfriendprofile",
+                  state: {
+                    id: this.state.userId,
+                    friendId: this.state.notMessagedUserIds[i],
+                    currentName: this.state.name,
+                  },
+                }}
+              >
+                {this.state.notMessagedUserNames[i]}
+              </Link>
+              <button
+                className="unmatch-button"
+                key={pos_user + "match"}
+                value={
+                  this.state.notMessagedUserIds[i] +
+                  "|" +
+                  this.state.notMessagedUserNames[i]
+                }
+                onClick={(e) => {
+                  if (
+                    window.confirm(
+                      "Are you sure you wish to unmatch with this user? You cannot undo this action"
                     )
+                  )
+                    this.unmatchUser(e);
+                }}
+              >
+                Unmatch
+              </button>
+              <button
+                className={[this.get_button_colour(i), "pos-user"].join(" ")}
+                key={pos_user}
+                value={
+                  this.state.notMessagedUserIds[i] +
+                  "|" +
+                  this.state.notMessagedUserNames[i]
                 }
-            }
-            if (this.state.messagedUserIds.length !== 0 && this.state.notMessagedUserIds.length !== 0){
-                matchingSection = (
-                    <h3 id="Matches-congrats">
-                      <img src="happy-penguin.svg"></img>
-                      <p>Congratulations, you have a match!</p>
-                      <h2>Messaged Users</h2>
-                      <h3>{messagedUserItems}</h3>
-                      <p>Not Messaged Users</p>
-                      <p>{notMessagedUserItems}</p>
-                    </h3>
-                  );
-            }
-            else if (messagedUserItems.length > 0) {
-                matchingSection =  
-                    <h3 id="Matches-congrats">
-                        <img src="happy-penguin.svg"></img>
-                        <h4>Congratulations, you have a match!</h4>
-                        <h6>You don't have any new matches</h6>
-                        <h6>Please keep swiping or check back later!</h6>
-                        <h6>Messaged Users</h6>
-                        <div className="containerBox">
-                        <p>{messagedUserItems}</p>
-                        </div>
-                    </h3>
-            }
-            else if (notMessagedUserItems.length > 0) {
-                matchingSection =  
-                        <h3 id="Matches-congrats">
-                        <img src="happy-penguin.svg"></img>
-                        <p>Congratulations, you have a match!</p>
-                        <p>There are friends you haven't messaged yet :)</p>
-                        <p>Not Messaged Users</p>
-                        <p>{notMessagedUserItems}</p>
-                      </h3>
-            }
-            } else if (this.state.matchesExist == "not exists") {
-            matchingSection = (
-                <h2 id="Matches-none">
-                <p>Sorry, no one met the matching criteria you set.</p>
-                <p>
-                    We suggest you to edit your profile, or wait for more users to join
-                    our community.
-                </p>
-                <p>Please try again later :(</p>
-                </h2>
-            );
-            } else {
-            matchingSection = <h2></h2>;
-            }
+                onClick={this.selectUser}
+              >
+                {this.state.notMessagedUserNames[i]}
+              </button>
+            </div>
+          );
+        }
+      }
+      if (
+        this.state.messagedUserIds.length !== 0 &&
+        this.state.notMessagedUserIds.length !== 0
+      ) {
+        matchingSection = (
+          <h3 id="Matches-congrats">
+            <img src="happy-penguin.svg"></img>
+            <p>Congratulations, you have a match!</p>
+            <h2>Messaged Users</h2>
+            <h3>{messagedUserItems}</h3>
+            <p>Not Messaged Users</p>
+            <p>{notMessagedUserItems}</p>
+          </h3>
+        );
+      } else if (messagedUserItems.length > 0) {
+        matchingSection = (
+          <h3 id="Matches-congrats">
+            <img src="happy-penguin.svg"></img>
+            <h4>Congratulations, you have a match!</h4>
+            <h6>You don't have any new matches</h6>
+            <h6>Please keep swiping or check back later!</h6>
+            <h6>Messaged Users</h6>
+            <div className="containerBox">
+              <p>{messagedUserItems}</p>
+            </div>
+          </h3>
+        );
+      } else if (notMessagedUserItems.length > 0) {
+        matchingSection = (
+          <h3 id="Matches-congrats">
+            <img src="happy-penguin.svg"></img>
+            <p>Congratulations, you have a match!</p>
+            <p>There are friends you haven't messaged yet :)</p>
+            <p>Not Messaged Users</p>
+            <p>{notMessagedUserItems}</p>
+          </h3>
+        );
+      }
+    } else if (this.state.matchesExist == "not exists") {
+      matchingSection = (
+        <h2 id="Matches-none">
+          <p>Sorry, no one met the matching criteria you set.</p>
+          <p>
+            We suggest you to edit your profile, or wait for more users to join
+            our community.
+          </p>
+          <p>Please try again later :(</p>
+        </h2>
+      );
+    } else {
+      matchingSection = <h2></h2>;
+    }
     return (
-      <div id="Matches-section">
-        {matchingSection}
+      <div className="matchingComponent">
+        <div id="Matches-section">
+          {matchingSection}
 
-        <div class="swipingButton" id="swipingButton">
-          <Link to={{ pathname: "/main" }}>Keep Swiping</Link>
-        </div>
-        <br></br>
-        <div class="viewProfileButton" id="viewProfileButton">
-          <Link to={{ pathname: "/viewprofile" }}>View Profile</Link>
+          <div class="swipingButton" id="swipingButton">
+            <Link to={{ pathname: "/main" }}>Keep Swiping</Link>
+          </div>
+          <br></br>
+          <div class="viewProfileButton" id="viewProfileButton">
+            <Link to={{ pathname: "/viewprofile" }}>View Profile</Link>
+          </div>
         </div>
       </div>
     );
