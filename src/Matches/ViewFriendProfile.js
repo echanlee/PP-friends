@@ -61,7 +61,6 @@ class ViewFriendProfile extends React.Component {
               .history.push({
                 pathname: "/messages",
                 state: {
-                    // id: this.state.userId,
                     friendId: userSelected[0],
                     currentName: this.state.currentName,
                     friendName: userSelected[1],
