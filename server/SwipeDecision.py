@@ -16,7 +16,7 @@ def getPotentialMatchList(currentUserId):
             cursor.execute(PotentialMatchQuery, userID)
             potentialMatchList = cursor.fetchall()
 
-            potentialListId = [i[0] for i in cursor.fetchall()]
+            potentialListId = [i[0] for i in potentialMatchList]
 
             findLocation = "SELECT Users.longitude, Users.latitude, Profile.maxDistance FROM Users INNER JOIN Profile ON Users.id=Profile.userId WHERE Users.id = %s"
             cursor.execute(findLocation, userID)

@@ -8,6 +8,7 @@ class ViewFriendProfile extends React.Component {
       this.state = {
         userId: this.props?.location?.state?.id,
         friendId: this.props?.location?.state?.friendId,
+        currentName: this.props?.location?.state?.currentName,
         name: "",
         birthday: "",
         age: 0,
@@ -19,6 +20,7 @@ class ViewFriendProfile extends React.Component {
         profilePicture: null, 
       };
       this.selectUserMessage = this.selectUserMessage.bind(this);
+      this.unmatchUser = this.unmatchUser.bind(this);
     }
     componentDidMount(){
       const myRequest = new Request('http://127.0.0.1:5000/viewprofile', {
@@ -59,9 +61,8 @@ class ViewFriendProfile extends React.Component {
               .history.push({
                 pathname: "/messages",
                 state: {
-                    id: this.state.userId,
                     friendId: userSelected[0],
-                    currentName: this.state.name,
+                    currentName: this.state.currentName,
                     friendName: userSelected[1],
                     currentConvoId: res.currentConvoId,
                     friendConvoId: res.friendConvoId
@@ -72,6 +73,30 @@ class ViewFriendProfile extends React.Component {
           console.error(error)
       });
   }
+    unmatchUser(event) {
+      const myRequest = new Request('http://127.0.0.1:5000/unmatch', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+              "userId": this.state.userId,
+              "friendId": this.state.friendId,
+          }),
+      });
+      fetch(myRequest)
+      .then(response => response.json())
+      .then(res => {
+          this.props
+          .history.push({
+            pathname: "/matches",
+            state: {
+                id: this.state.userId,
+          }});
+      })
+      .catch((error) => {
+          alert("Something went wrong");
+          console.error(error)
+      });
+    }
     render() {
       var displayName = this.state.name+"'s";
       return (
@@ -118,6 +143,11 @@ class ViewFriendProfile extends React.Component {
             <p>Bio:</p>
             {this.state.bio}
           </form>
+          <button className='unmatch-button'
+              onClick = {(e) => { if (window.confirm('Are you sure you wish to unmatch with this user? You cannot undo this action')) this.unmatchUser(e) } }
+          >
+              Unmatch
+          </button>
           <text>{this.state.error}</text>
         </div>
       );

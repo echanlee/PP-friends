@@ -81,4 +81,59 @@ def getConversationIds(currentUser, friendUser):
      except mysql.connector.Error as err:
         return {"response": err.msg }
 
+def unmatch(currentUser, friendUser):
+    try:
+        connection = connectToDB()
+        if(connection != False):
+            cursor = connection.cursor(buffered=True)
+            change_potentialMatch = "UPDATE PotentialMatch SET matchDecision = 0 WHERE currentUser = %s AND shownUser = %s"
+            delete_conversation = "DELETE from Conversation WHERE userOne = %s and userTwo = %s"
+            delete_messages = "DELETE from Messages WHERE fromUser = %s and toUser = %s"
+            insert_unmatch = "INSERT into Unmatch (userOne, userTwo) values (%s, %s)"
+
+            cursor.execute(change_potentialMatch, (currentUser, friendUser))
+            cursor.execute(change_potentialMatch, (friendUser, currentUser))
+
+            cursor.execute(delete_conversation, (currentUser, friendUser))
+            cursor.execute(delete_conversation, (friendUser, currentUser))
+
+            cursor.execute(delete_messages, (currentUser, friendUser))
+            cursor.execute(delete_messages, (friendUser, currentUser))
+
+            cursor.execute(insert_unmatch, (currentUser, friendUser))
+            cursor.execute(insert_unmatch, (friendUser, currentUser))
+
+            connection.commit()
+            cursor.close()
+
+            return matchUser(currentUser)
+
+    except mysql.connector.Error as err:
+        return {"response": err.msg } 
+
+def undo_unmatch(currentUser, friendUser):
+    try:
+        connection = connectToDB()
+        if(connection != False):
+            cursor = connection.cursor(buffered=True)
+            change_potentialMatch = "UPDATE PotentialMatch SET matchDecision = 1 WHERE currentUser = %s AND shownUser = %s"
+            insert_conversation = "INSERT into Conversation (userOne, userTwo) values (%s, %s)"
+            delete_unmatch = "DELETE from Unmatch WHERE userOne = %s and userTwo = %s"
+
+            cursor.execute(change_potentialMatch, (currentUser, friendUser))
+            cursor.execute(change_potentialMatch, (friendUser, currentUser))
+
+            cursor.execute(insert_conversation, (currentUser, friendUser))
+            cursor.execute(insert_conversation, (friendUser, currentUser))
+
+            cursor.execute(delete_unmatch, (currentUser, friendUser))
+            cursor.execute(delete_unmatch, (friendUser, currentUser))
+
+            connection.commit()
+            cursor.close()
+
+            return matchUser(currentUser)
+
+    except mysql.connector.Error as err:
+        return {"response": err.msg } 
 

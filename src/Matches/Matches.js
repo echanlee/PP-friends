@@ -23,6 +23,7 @@ class Matches extends React.Component {
       timeStamp: [],
     };
     this.selectUser = this.selectUser.bind(this);
+    this.unmatchUser = this.unmatchUser.bind(this);
   }
   selectUser(event) {
     const userSelected = event.target.value.split("|");
@@ -50,6 +51,41 @@ class Matches extends React.Component {
       })
       .catch((error) => {
         alert("Something went wrong");
+        console.error(error);
+      });
+  }
+  unmatchUser(event) {
+    const userSelected = event.target.value.split("|");
+    const myRequest = new Request("http://127.0.0.1:5000/unmatch", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        userId: this.state.userId,
+        friendId: userSelected[0],
+      }),
+    });
+    fetch(myRequest)
+      .then((response) => response.json())
+      .then((res) =>
+        res.userIds && res.userIds.length != 0
+          ? this.setState({
+              name: res.currentName,
+              matchesExist: "exists",
+              userIds: res.userIds,
+              notMessagedUserIds: res.notMessagedUserIds,
+              notMessagedUserNames: res.notMessagedUserNames,
+              messagedUserIds: res.messagedUserIds,
+              messagedUserNames: res.messagedUserNames,
+              messageIds: res.messageIds,
+              messageSender: res.messageSender,
+              messageContent: res.messageContent,
+              timeStamp: res.timeStamp,
+            })
+          : this.setState({
+              matchesExist: "not exists",
+            })
+      )
+      .catch((error) => {
         console.error(error);
       });
   }
@@ -128,17 +164,39 @@ class Matches extends React.Component {
           }
           messagedUserItems.push(
             <div>
-              <Link
-                to={{
-                  pathname: "/viewfriendprofile",
-                  state: {
-                    id: this.state.userId,
-                    friendId: this.state.messagedUserIds[i],
-                  },
-                }}
-              >
-                {this.state.messagedUserNames[i]}
-              </Link>
+              <div>
+                <Link
+                  to={{
+                    pathname: "/viewfriendprofile",
+                    state: {
+                      id: this.state.userId,
+                      friendId: this.state.messagedUserIds[i],
+                      currentName: this.state.name,
+                    },
+                  }}
+                >
+                  {this.state.messagedUserNames[i]}
+                </Link>
+                <button
+                  className="unmatch-button"
+                  key={pos_user + "match"}
+                  value={
+                    this.state.messagedUserIds[i] +
+                    "|" +
+                    this.state.messagedUserNames[i]
+                  }
+                  onClick={(e) => {
+                    if (
+                      window.confirm(
+                        "Are you sure you wish to unmatch with this user? You cannot undo this action"
+                      )
+                    )
+                      this.unmatchUser(e);
+                  }}
+                >
+                  Unmatch
+                </button>
+              </div>
               <button
                 className={[this.get_button_colour(i), "pos-user"].join(" ")}
                 key={pos_user}
@@ -170,11 +228,31 @@ class Matches extends React.Component {
                   state: {
                     id: this.state.userId,
                     friendId: this.state.notMessagedUserIds[i],
+                    currentName: this.state.name,
                   },
                 }}
               >
                 {this.state.notMessagedUserNames[i]}
               </Link>
+              <button
+                className="unmatch-button"
+                key={pos_user + "match"}
+                value={
+                  this.state.notMessagedUserIds[i] +
+                  "|" +
+                  this.state.notMessagedUserNames[i]
+                }
+                onClick={(e) => {
+                  if (
+                    window.confirm(
+                      "Are you sure you wish to unmatch with this user? You cannot undo this action"
+                    )
+                  )
+                    this.unmatchUser(e);
+                }}
+              >
+                Unmatch
+              </button>
               <button
                 className={[this.get_button_colour(i), "pos-user"].join(" ")}
                 key={pos_user}

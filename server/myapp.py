@@ -58,6 +58,12 @@ def get_matches():
         response = matches.matchUser(param['userId'])
         return response
 
+@app.route('/unmatch', methods=['POST'])
+def unmatch():
+    if request.method == 'POST':
+        param = request.get_json('userId')
+        return matches.unmatch(param['userId'], param['friendId'])  
+
 @app.route('/register', methods=['POST'])
 def register():
     if request.method == 'POST':
@@ -136,12 +142,12 @@ def handleMessage(data):
     return None
 
 @socketIo.on("room")
-def handleMessage(room):
+def joinRoom(room):
     join_room(room)
     return None
 
 @socketIo.on("leaveRoom")
-def handleMessage(room):
+def leaveRoom(room):
     leave_room(room)
     return None
 
