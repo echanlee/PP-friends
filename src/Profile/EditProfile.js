@@ -20,6 +20,7 @@ class EditProfile extends React.Component {
       error: "",
       maxDistance: 10,
       updateStatus: "",
+
       profilePicture: null,
     };
 
@@ -121,11 +122,11 @@ class EditProfile extends React.Component {
   };
 
   removePicture = () => {
-    document.querySelector('input[type=file]').value = '';
+    document.querySelector("input[type=file]").value = "";
     this.setState({
       profilePicture: null,
     });
-  }
+  };
 
   checkAge = () => {
     const birthday = new Date(this.state.birthday);
@@ -153,6 +154,7 @@ class EditProfile extends React.Component {
 
   render() {
     const id = this.state.id;
+
     if (id === "") {
       this.props.history.push({
         pathname: "/login",
@@ -166,30 +168,32 @@ class EditProfile extends React.Component {
           <form id="profileForm" onSubmit={this.handleUpdate}>
             <h1>Update My Profile 👋</h1>
             <img src="ppFriendsLogo.png"></img>
-            <div class = "row">
-              <div class = "column left">
-                <div class = "profilepic">
-                  <p>Profile Picture</p><br></br>
-                    {this.state.profilePicture 
-                      && <img src={this.state.profilePicture}></img>
-                    }
-                  <p >Upload New image:</p>
-                      <input 
-                        type="file" 
-                        id="img" 
-                        name="img" 
-                        accept="image/*">
-                      </input>
-                    <br></br>
-                  <text class = "removepic" onClick = {this.removePicture}>Remove picture</text>
+            <div class="row">
+              <div class="column left">
+                <div class="profilepic">
+                  <p>Profile Picture</p>
+                  <br></br>
+                  {this.state.profilePicture && (
+                    <img src={this.state.profilePicture}></img>
+                  )}
+                  <p>Upload New image:</p>
+                  <input
+                    type="file"
+                    id="img"
+                    name="img"
+                    accept="image/*"
+                  ></input>
+                  <br></br>
+                  <text class="removepic" onClick={this.removePicture}>
+                    Remove picture
+                  </text>
                   <div class="updateProfileButton">
                     <input type="submit" value="Save Profile" />
                     {this.state.updatedMessage}
                   </div>
                 </div>
-                                  
               </div>
-              <div class = "column right">
+              <div class="column right">
                 <div class="rectangle2">
                   <label for="User">Name 😀</label>
                   <input
@@ -251,7 +255,6 @@ class EditProfile extends React.Component {
                   <br></br>
                   <br></br>
 
-
                   <label for="Education">Education/Work 💻</label>
 
                   <input
@@ -267,7 +270,7 @@ class EditProfile extends React.Component {
 
                   <label for="Interests">Your interests 🎨</label>
 
-                  <textarea 
+                  <textarea
                     type="text"
                     name="interests"
                     value={this.state.interests}
@@ -279,7 +282,7 @@ class EditProfile extends React.Component {
                   <br></br>
 
                   <label for="Bio">Bio 😶</label>
-                  <textarea 
+                  <textarea
                     type="text"
                     name="bio"
                     value={this.state.bio}
@@ -303,11 +306,8 @@ class EditProfile extends React.Component {
                   <text>{this.state.maxDistance}KM</text>
                   <br></br>
                   <br></br>
-
-
                 </div>
               </div>
-
             </div>
           </form>
         </div>
