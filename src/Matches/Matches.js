@@ -184,6 +184,7 @@ class Matches extends React.Component {
                               onClick = {this.selectUser}>
                               Message {messageSenderName}
                             </button>  
+                            <br></br>
                             <i>{messageSenderName}: {this.state.messageContent[i]} </i>
                             <br></br>
                             <i>{this.state.timeStamp[i]}
@@ -199,7 +200,7 @@ class Matches extends React.Component {
                     var pos_user = this.state.notMessagedUserIds[i];
                     notMessagedUserItems.push(
                         <div>
-                            <p1>{this.state.notMessagedUserNames} | </p1>
+                            <p1>{this.state.notMessagedUserNames[i]} | </p1>
                             <Link to={{pathname: '/viewfriendprofile', state: {id: this.state.userId, friendId: this.state.notMessagedUserIds[i], currentName: this.state.name}}}>View Profile | </Link>
                             <button className='unmatch-button'
                               key={pos_user+"match"}
@@ -224,15 +225,15 @@ class Matches extends React.Component {
                   <div className= "UserContainers">
                   <div className = "row">
                       <img src="happy-penguin.svg"></img>
-                      <h4>Congratulations, you have a match!</h4>
+                      <h2>Congratulations, you have a match!</h2>
                           <div className = "column left">
                             <h2>Not Messaged Users</h2>
-                            <p>{notMessagedUserItems}</p>
+                            {notMessagedUserItems}
                             
                           </div>
                           <div className = "column right">
                             <h2>Messaged Users</h2>
-                            <p>{messagedUserItems}</p>
+                            {messagedUserItems}
                           </div>
                       </div>
                     </div>
@@ -242,37 +243,34 @@ class Matches extends React.Component {
                 matchingSection =  
                     <div className= "UserContainers">
                         <img src="happy-penguin.svg"></img>
-                        <div className = "row">
-                          <div className = "column left">
-                            <br></br>
-                            <h2>You don't have any new matches</h2>
-                            <h2>Please keep swiping or check back later!</h2>
-                          </div>
-                          <div className = "column right">
+                        <h2>You don't have any new matches</h2>
+                        <h2>Please keep swiping or check back later!</h2>
+
+                        <br></br>
+
                             <h2>Messaged Users</h2>
-                            <div className="containerBox">
+                            <div className="SingleColumn">
                                 <p>{messagedUserItems}</p>
                             </div>
-                          </div>
-                      </div>
                     </div>
             }
             else if (notMessagedUserItems.length > 0) {
                 matchingSection =  
-                        <h3 id="Matches-congrats">
+                        <div className="UserContainers">
                         <img src="happy-penguin.svg"></img>
-                        <p>Congratulations, you have a match!</p>
-                        <p>There are friends you haven't messaged yet :)</p>
-                        <p>Not Messaged Users</p>
+                        <h2>Congratulations, you have a match!</h2>
+                        <h2>There are friends you haven't messaged yet :)</h2>
+                        <br></br>
+                        <h2>Not Messaged Users</h2>
                         <p>{notMessagedUserItems}</p>
-                      </h3>
+                      </div>
             }
             } else if (this.state.matchesExist == "not exists") {
             matchingSection = (
                 <h2 id="Matches-none">
                 <img src="sad-penguin.svg"></img>
 
-                <p>Sorry, no one met the matching criteria you set.</p>
+                <h2>Sorry, no one met the matching criteria you set.</h2>
                 <br></br>
                 <p>
                     We suggest you to edit your profile, or wait for more users to join

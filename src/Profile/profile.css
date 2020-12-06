@@ -2,6 +2,9 @@
   /*all elements to inherit same font*/
   font-family: "Montserrat", sans-serif;
 }
+.profileForm{
+  margin-top: 20px;
+}
 .Profile{
   text-align: center;
   margin-top:50px;
@@ -43,8 +46,8 @@
 .profilepic img{
   object-fit:cover;
   border-radius: 50%;
-  width:200px;
-  height:200px;
+  width:300px;
+  height:300px;
 }
 
 .updatedMessage {

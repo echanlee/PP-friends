@@ -22,15 +22,32 @@
 }
 
 .pos-user {
-  width: 100%;
+  width: 200px;
   max-width: 500px;
   background-color: #F8DABB;
-  padding: 12px;
-  display: block;
+  padding: 10px;
+  /* display: block; */
   border-radius: 15px;
   border:none;
   margin: 10px;
-  font-size: 20px;
+  font-size: 1vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.pos-user:hover {
+  width: 200px;
+  max-width: 500px;
+  background-color: #f8be84;
+  transition:0.3s;
+
+  padding: 10px;
+  /* display: block; */
+  border-radius: 15px;
+  border:none;
+  margin: 10px;
+  font-size: 1vw;
   margin-left: auto;
   margin-right: auto;
 }
@@ -51,16 +68,20 @@
   margin-left: auto;
   margin-right: auto;
   width: 80%;
-  font-size: 30px;
-  line-height: 25px;
-  color: #3680a3;
+  font-size: 20px;
   text-align: center;
+}
+#Matches-section a{
+  color: rgb(0, 0, 0);
+  font-size: 14px;
+  text-align: center;
+  font-weight: 600;
 }
 
 #Matches-section p{
-  color: black;
-  font-size: 16px;
-  text-align: left;
+  color: rgb(60, 60, 60);
+  font-size: 18px;
+  text-align: center;
   font-weight: 600;
 }
 
@@ -121,12 +142,12 @@ h3 p {
 .unmatch-button{
   border: none;
   background-color: #ffffff;
-  color: black;
+  color: rgb(90, 90, 90);
   text-decoration:none;
   font-weight:600;
   padding: 5px;
-  font-size: 16px;
-  text-align: center;
+  font-size: 14px;
+  margin-right: 2px;
 }
 
 .unmatch-button:hover{
@@ -135,3 +156,4 @@ h3 p {
   border-radius: 5px;
   transition:0.3s;
 }
+
