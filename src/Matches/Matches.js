@@ -171,8 +171,7 @@ class Matches extends React.Component {
                     messagedUserItems.push(
                         <div className = "MessagedUsers">
                             <p1>{messageSenderName} | </p1>
-                            <Link to={{pathname: '/viewfriendprofile', state: {id: this.state.userId, friendId: this.state.messagedUserIds[i]}}}>View Profile | </Link>
-                            <button className='unmatch-button'
+                            <Link to={{pathname: '/viewfriendprofile', state: {id: this.state.userId, friendId: this.state.messagedUserIds[i], currentName: this.state.name}}}>View Profile | </Link>                            <button className='unmatch-button'
                               key={pos_user+"match"}
                               value = {this.state.messagedUserIds[i]+"|"+this.state.messagedUserIds[i]}
                               onClick = {(e) => { if (window.confirm('Are you sure you wish to unmatch with this user? You cannot undo this action')) this.unmatchUser(e) } }
@@ -201,7 +200,7 @@ class Matches extends React.Component {
                     notMessagedUserItems.push(
                         <div>
                             <p1>{this.state.notMessagedUserNames} | </p1>
-                            <Link to={{pathname: '/viewfriendprofile', state: {id: this.state.userId, friendId: this.state.notMessagedUserIds[i]}}}>View Profile | </Link>
+                            <Link to={{pathname: '/viewfriendprofile', state: {id: this.state.userId, friendId: this.state.notMessagedUserIds[i], currentName: this.state.name}}}>View Profile | </Link>
                             <button className='unmatch-button'
                               key={pos_user+"match"}
                               value = {this.state.notMessagedUserIds[i]+"|"+this.state.notMessagedUserNames[i]}
