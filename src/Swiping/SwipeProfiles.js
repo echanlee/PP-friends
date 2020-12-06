@@ -259,7 +259,9 @@ class SwipeProfiles extends React.Component {
         <br></br>
         <br></br>
         <br></br>
-
+        {error ? (
+          <text>{error}</text>
+        ) : (
         <div>
           <img src="ppFriendsLogo.png"></img>
           <h1>A potential Friend!</h1>
@@ -305,7 +307,9 @@ class SwipeProfiles extends React.Component {
             </div>
           </div>
         </div>
+        )}
       </div>
+        
     );
   }
 }
