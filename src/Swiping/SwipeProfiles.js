@@ -229,9 +229,7 @@ class SwipeProfiles extends React.Component {
 
         <br></br>
         <header class="pageTitle">Potential Friends!</header>
-        <br></br>
 
-        <br></br>
         <br></br>
         <br></br>
 

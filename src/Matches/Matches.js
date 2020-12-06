@@ -174,7 +174,7 @@ class Matches extends React.Component {
                             <Link to={{pathname: '/viewfriendprofile', state: {id: this.state.userId, friendId: this.state.messagedUserIds[i]}}}>View Profile | </Link>
                             <button className='unmatch-button'
                               key={pos_user+"match"}
-                              value = {this.state.notMessagedUserIds[i]+"|"+this.state.notMessagedUserNames[i]}
+                              value = {this.state.messagedUserIds[i]+"|"+this.state.messagedUserIds[i]}
                               onClick = {(e) => { if (window.confirm('Are you sure you wish to unmatch with this user? You cannot undo this action')) this.unmatchUser(e) } }
                             >
                               Unmatch
@@ -245,6 +245,7 @@ class Matches extends React.Component {
                         <img src="happy-penguin.svg"></img>
                         <div className = "row">
                           <div className = "column left">
+                            <br></br>
                             <h2>You don't have any new matches</h2>
                             <h2>Please keep swiping or check back later!</h2>
                           </div>
@@ -270,7 +271,10 @@ class Matches extends React.Component {
             } else if (this.state.matchesExist == "not exists") {
             matchingSection = (
                 <h2 id="Matches-none">
+                <img src="sad-penguin.svg"></img>
+
                 <p>Sorry, no one met the matching criteria you set.</p>
+                <br></br>
                 <p>
                     We suggest you to edit your profile, or wait for more users to join
                     our community.
