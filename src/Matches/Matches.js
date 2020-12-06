@@ -168,7 +168,7 @@ class Matches extends React.Component {
                     messagedUserItems.push(
                         <div>
                             <div>
-                                <Link to={{pathname: '/viewfriendprofile', state: {id: this.state.userId, friendId: this.state.messagedUserIds[i]}}}>{this.state.messagedUserNames[i]}</Link>
+                                <Link to={{pathname: '/viewfriendprofile', state: {id: this.state.userId, friendId: this.state.messagedUserIds[i], currentName: this.state.name}}}>{this.state.messagedUserNames[i]}</Link>
                                 <button className='unmatch-button'
                                     key={pos_user+"match"}
                                     value = {this.state.messagedUserIds[i]+"|"+this.state.messagedUserNames[i]} 
@@ -194,7 +194,7 @@ class Matches extends React.Component {
                     var pos_user = this.state.notMessagedUserIds[i];
                     notMessagedUserItems.push(
                         <div>
-                                <Link to={{pathname: '/viewfriendprofile', state: {id: this.state.userId, friendId: this.state.notMessagedUserIds[i]}}}>{this.state.notMessagedUserNames[i]}</Link>
+                                <Link to={{pathname: '/viewfriendprofile', state: {id: this.state.userId, friendId: this.state.notMessagedUserIds[i], currentName: this.state.name}}}>{this.state.notMessagedUserNames[i]}</Link>
                                 <button className='unmatch-button'
                                     key={pos_user+"match"}
                                     value = {this.state.notMessagedUserIds[i]+"|"+this.state.notMessagedUserNames[i]}

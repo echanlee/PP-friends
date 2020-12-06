@@ -8,6 +8,7 @@ class ViewFriendProfile extends React.Component {
       this.state = {
         userId: this.props?.location?.state?.id,
         friendId: this.props?.location?.state?.friendId,
+        currentName: this.props?.location?.state?.currentName,
         name: "",
         birthday: "",
         age: 0,
@@ -60,9 +61,9 @@ class ViewFriendProfile extends React.Component {
               .history.push({
                 pathname: "/messages",
                 state: {
-                    id: this.state.userId,
+                    // id: this.state.userId,
                     friendId: userSelected[0],
-                    currentName: this.state.name,
+                    currentName: this.state.currentName,
                     friendName: userSelected[1],
                     currentConvoId: res.currentConvoId,
                     friendConvoId: res.friendConvoId
