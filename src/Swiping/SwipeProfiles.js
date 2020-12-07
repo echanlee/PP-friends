@@ -41,32 +41,33 @@ class SwipeProfiles extends React.Component {
       body: formData,
     });
     fetch(myRequest)
-    .then((response) => response.json())
-    .then((res) =>
-      res.userIds && res.userIds.length != 0
-        ? this.setState({
-            name: res.currentName,
-            matchesExist: "exists",
-            userIds: res.userIds,
-            notMessagedUserIds: res.notMessagedUserIds,
-            notMessagedUserNames: res.notMessagedUserNames,
-            messagedUserIds: res.messagedUserIds,
-            messagedUserNames: res.messagedUserNames,
-            messageIds: res.messageIds,
-            messageSender: res.messageSender,
-            messageContent: res.messageContent,
-            timeStamp: res.timeStamp,
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.response === "Success") {
+          var potentialFriendsList = res.potentialListId;
+          const displayProfileId = potentialFriendsList.pop();
+          this.setState({
+            potentialFriends: potentialFriendsList,
+            displayedUserId: displayProfileId,
+            error: "",
+          });
+
+          this.displayProfile();
+        } else {
+          this.setState({
+            error: res.response,
             loading: false,
-          })
-        : this.setState({
-            matchesExist: "not exists",
-            loading: false,
-          })
-    )
-    .catch((error) => {
-      console.error(error);
-    });
-}
+          });
+        }
+      })
+      .catch((error) => {
+        this.setState({
+          error: "Error connecting to backend",
+          loading: false,
+        });
+      });
+  }
+
   displayProfile() {
     const displayId = this.state.displayedUserId;
 
