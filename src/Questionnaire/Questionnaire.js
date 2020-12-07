@@ -113,7 +113,7 @@ class Questionnaire extends Component {
           <br></br>
           {this.state.questionBank.length > 0 &&
             this.state.questionBank.map(({ question, answers, questionId }) => (
-              <div className="Questions">
+              <div>
                 <QuestionBox
                   question={question}
                   options={answers}
@@ -129,9 +129,7 @@ class Questionnaire extends Component {
         <button class="submitButton" onClick={this.handleSubmit}>
           Get Started!
         </button>
-        <div class="text">
-            <text>{this.state.error}</text>
-        </div>
+        <h4 class="err">{this.state.error}</h4>
       </div>
     );
   }

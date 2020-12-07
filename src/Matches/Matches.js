@@ -3,126 +3,130 @@ import "./Matches.css";
 import { withRouter, Link } from "react-router-dom";
 import { getCookie } from "../cookies";
 import Header from "../Header/Header";
+import LoadingSpinner from "../Profile/LoadingSpinner";
+
 
 
 class Matches extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            userId: getCookie("userId"),
-            userIds: [],
-            matchesExist: "not set",
-            firstnames: [],
-            name: "",
-            userIds: [],
-            notMessagedUserIds: [],
-            notMessagedUserNames: [],
-            messagedUserIds: [],
-            messagedUserNames: [],
-            messageIds: [],
-            messageSender: [],
-            messageContent: [],
-            timeStamp: [],
-        }
-        this.selectUser = this.selectUser.bind(this);
-        this.unmatchUser = this.unmatchUser.bind(this);
-    }
-    selectUser(event) {
-        const userSelected = event.target.value.split("|");
-        const myRequest = new Request('http://127.0.0.1:5000/conversationId', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                "userId": this.state.userId,
-                "friendId": userSelected[0],
-            }),});
-        fetch(myRequest)
-            .then(response => response.json())
-            .then(res => {
-                this.props
-                .history.push({
-                  pathname: "/messages",
-                  state: {
-                      friendId: userSelected[0],
-                      currentName: this.state.name,
-                      friendName: userSelected[1],
-                      currentConvoId: res.currentConvoId,
-                      friendConvoId: res.friendConvoId
-                }});
+  constructor(props) {
+    super(props);
+    this.state = {
+      userId: getCookie("userId"),
+      userIds: [],
+      matchesExist: "not set",
+      firstnames: [],
+      name: "",
+      userIds: [],
+      notMessagedUserIds: [],
+      notMessagedUserNames: [],
+      messagedUserIds: [],
+      messagedUserNames: [],
+      messageIds: [],
+      messageSender: [],
+      messageContent: [],
+      timeStamp: [],
+      loading: true,
+    };
+    this.selectUser = this.selectUser.bind(this);
+    this.unmatchUser = this.unmatchUser.bind(this);
+  }
+  selectUser(event) {
+    const userSelected = event.target.value.split("|");
+    const myRequest = new Request("http://127.0.0.1:5000/conversationId", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        userId: this.state.userId,
+        friendId: userSelected[0],
+      }),
+    });
+    fetch(myRequest)
+      .then((response) => response.json())
+      .then((res) => {
+        this.props.history.push({
+          pathname: "/messages",
+          state: {
+            friendId: userSelected[0],
+            currentName: this.state.name,
+            friendName: userSelected[1],
+            currentConvoId: res.currentConvoId,
+            friendConvoId: res.friendConvoId,
+          },
+        });
+      })
+      .catch((error) => {
+        alert("Something went wrong");
+        console.error(error);
+      });
+  }
+  unmatchUser(event) {
+    const userSelected = event.target.value.split("|");
+    const myRequest = new Request("http://127.0.0.1:5000/unmatch", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        userId: this.state.userId,
+        friendId: userSelected[0],
+      }),
+    });
+    fetch(myRequest)
+      .then((response) => response.json())
+      .then((res) =>
+        res.userIds && res.userIds.length != 0
+          ? this.setState({
+              name: res.currentName,
+              matchesExist: "exists",
+              userIds: res.userIds,
+              notMessagedUserIds: res.notMessagedUserIds,
+              notMessagedUserNames: res.notMessagedUserNames,
+              messagedUserIds: res.messagedUserIds,
+              messagedUserNames: res.messagedUserNames,
+              messageIds: res.messageIds,
+              messageSender: res.messageSender,
+              messageContent: res.messageContent,
+              timeStamp: res.timeStamp,
             })
-        .catch((error) => {
-            alert("Something went wrong");
-            console.error(error)
-        });
-    }
-    unmatchUser(event) {
-        const userSelected = event.target.value.split("|");
-        const myRequest = new Request('http://127.0.0.1:5000/unmatch', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                "userId": this.state.userId,
-                "friendId": userSelected[0],
-            }),
-        });
-        fetch(myRequest)
-        .then(response => response.json())
-        .then(res => 
-            (res.userIds && res.userIds.length != 0) ?
-                this.setState({
-                    name: res.currentName,
-                    matchesExist: "exists", 
-                    userIds: res.userIds,
-                    notMessagedUserIds: res.notMessagedUserIds,
-                    notMessagedUserNames: res.notMessagedUserNames,
-                    messagedUserIds: res.messagedUserIds,
-                    messagedUserNames: res.messagedUserNames,
-                    messageIds: res.messageIds,
-                    messageSender: res.messageSender,
-                    messageContent: res.messageContent,
-                    timeStamp: res.timeStamp,
-                })
-                :
-                this.setState({
-                    matchesExist: "not exists"
-                })
-        )
-        .catch((error) => {
-            console.error(error)
-        })
-    }
+          : this.setState({
+              matchesExist: "not exists",
+            })
+      )
+      .catch((error) => {
+        console.error(error);
+      });
+  }
 
-    get_matches(){
-        const myRequest = new Request('http://127.0.0.1:5000/matches', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({"userId": this.state.userId}),
-            });
-        fetch(myRequest)
-            .then(response => response.json())
-            .then(res => 
-                (res.userIds && res.userIds.length != 0) ?
-                    this.setState({
-                        name: res.currentName,
-                        matchesExist: "exists", 
-                        userIds: res.userIds,
-                        notMessagedUserIds: res.notMessagedUserIds,
-                        notMessagedUserNames: res.notMessagedUserNames,
-                        messagedUserIds: res.messagedUserIds,
-                        messagedUserNames: res.messagedUserNames,
-                        messageIds: res.messageIds,
-                        messageSender: res.messageSender,
-                        messageContent: res.messageContent,
-                        timeStamp: res.timeStamp,
-                    })
-                    :
-                    this.setState({
-                        matchesExist: "not exists"
-                    })
-            )
-            .catch((error) => {
-                console.error(error)
+  get_matches() {
+    const myRequest = new Request("http://127.0.0.1:5000/matches", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId: this.state.userId }),
+    });
+    fetch(myRequest)
+      .then((response) => response.json())
+      .then((res) =>
+        res.userIds && res.userIds.length != 0
+          ? this.setState({
+              name: res.currentName,
+              matchesExist: "exists",
+              userIds: res.userIds,
+              notMessagedUserIds: res.notMessagedUserIds,
+              notMessagedUserNames: res.notMessagedUserNames,
+              messagedUserIds: res.messagedUserIds,
+              messagedUserNames: res.messagedUserNames,
+              messageIds: res.messageIds,
+              messageSender: res.messageSender,
+              messageContent: res.messageContent,
+              timeStamp: res.timeStamp,
+              loading: false,
             })
+          : this.setState({
+              matchesExist: "not exists",
+              loading: false,
+            })
+      )
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   componentDidMount() {
@@ -136,17 +140,17 @@ class Matches extends React.Component {
       }
     }
   }
-  get_button_colour(i){
-    let buttonColour
-    if (i%2 == 0){
-        buttonColour = "blue"
+  get_button_colour(i) {
+    let buttonColour;
+    if (i % 2 == 0) {
+      buttonColour = "blue";
+    } else {
+      buttonColour = "yellow";
     }
-    else {
-        buttonColour = "yellow"
-    }
-    return buttonColour
+    return buttonColour;
   }
   render() {
+    const loading = this.state.loading;
     if (this.state.userId === "") {
       this.props.history.push({
         pathname: "/login",
@@ -289,7 +293,9 @@ class Matches extends React.Component {
         <br></br>
         <br></br>
         <br></br>
-
+        {loading ? (
+          <LoadingSpinner />
+        ) : (
         <div id="Matches-section">
           {matchingSection}
 
@@ -300,6 +306,7 @@ class Matches extends React.Component {
             <Link to={{ pathname: "/viewprofile" }}>View Profile</Link>
           </div>
         </div>
+        )}
       </div>
     );
   }

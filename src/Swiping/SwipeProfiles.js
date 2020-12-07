@@ -4,6 +4,7 @@ import "./SwipeProfile.css";
 import { withRouter, Link } from "react-router-dom";
 import { getCookie, setCookie } from "../cookies";
 import { getLocation } from "../GetLocation";
+import LoadingSpinner from "../Profile/LoadingSpinner";
 
 class SwipeProfiles extends React.Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class SwipeProfiles extends React.Component {
       potentialFriends: [],
       displayedUserId: "",
       error: "",
+      loading: true,
 
       mutualFriendAmount: 0,
       mutualFriendNames: null,
@@ -39,33 +41,35 @@ class SwipeProfiles extends React.Component {
       body: formData,
     });
     fetch(myRequest)
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.response === "Success") {
-          var potentialFriendsList = res.potentialListId;
-          const displayProfileId = potentialFriendsList.pop();
-          this.setState({
-            potentialFriends: potentialFriendsList,
-            displayedUserId: displayProfileId,
-            error: "",
-          });
-
-          this.displayProfile();
-        } else {
-          this.setState({
-            error: res.response,
-          });
-        }
-      })
-      .catch((error) => {
-        this.setState({
-          error: "Error connecting to backend",
-        });
-      });
-  }
-
+    .then((response) => response.json())
+    .then((res) =>
+      res.userIds && res.userIds.length != 0
+        ? this.setState({
+            name: res.currentName,
+            matchesExist: "exists",
+            userIds: res.userIds,
+            notMessagedUserIds: res.notMessagedUserIds,
+            notMessagedUserNames: res.notMessagedUserNames,
+            messagedUserIds: res.messagedUserIds,
+            messagedUserNames: res.messagedUserNames,
+            messageIds: res.messageIds,
+            messageSender: res.messageSender,
+            messageContent: res.messageContent,
+            timeStamp: res.timeStamp,
+            loading: false,
+          })
+        : this.setState({
+            matchesExist: "not exists",
+            loading: false,
+          })
+    )
+    .catch((error) => {
+      console.error(error);
+    });
+}
   displayProfile() {
     const displayId = this.state.displayedUserId;
+
     const currentUserId = this.state.id;
     if (displayId) {
       var formData = new FormData();
@@ -90,20 +94,24 @@ class SwipeProfiles extends React.Component {
               mutualFriendAmount: res.mutualFriendAmount,
               mutualFriendNames: res.mutualFriendNames,
               error: "",
+              loading: false,
             });
           } else {
             this.setState({
               error: res.response,
+              loading: false,
             });
           }
         })
         .catch((error) => {
           this.setState({
+            loading: false,
             error: "Error connecting to backend",
           });
         });
     } else {
       this.setState({
+        loading: false,
         error: (
           <p>
             <img src="sad-penguin.svg"></img>
@@ -117,6 +125,7 @@ class SwipeProfiles extends React.Component {
   }
 
   handleSwipe(choice) {
+    this.setState({ loading: true });
     const displayId = this.state.displayedUserId;
     const currentUserId = this.state.id;
     var formData = new FormData();
@@ -132,21 +141,37 @@ class SwipeProfiles extends React.Component {
       .then((res) => {
         if (res.response === "Success") {
           var potentialList = this.state.potentialFriends;
-          var newPotentialUserId = potentialList.pop();
-          this.setState({
-            potentialFriends: potentialList,
-            displayedUserId: newPotentialUserId,
-            error: "",
-          });
-          this.displayProfile();
+          if (potentialList) {
+            var newPotentialUserId = potentialList.pop();
+            this.setState({
+              potentialFriends: potentialList,
+              displayedUserId: newPotentialUserId,
+              error: "",
+            });
+            this.displayProfile();
+          } else {
+            this.setState({
+              error: (
+                <p>
+                  <img src="sad-penguin.svg"></img>
+                  <br></br>
+                  There are no more potential friends for you within the area.{" "}
+                  <br></br>Try updating your profile or come back later!
+                </p>
+              ),
+              loading: false,
+            });
+          }
         } else {
           this.setState({
             error: res.response,
+            loading: false,
           });
         }
       })
       .catch((error) => {
         this.setState({
+          loading: false,
           error: "Error connecting to backend",
         });
       });
@@ -199,6 +224,7 @@ class SwipeProfiles extends React.Component {
             .catch((error) => {
               this.setState({
                 error: "Error connecting to backend",
+                loading: false,
               });
             });
         }
@@ -209,6 +235,7 @@ class SwipeProfiles extends React.Component {
   }
 
   render() {
+    const loading = this.state.loading;
     const id = this.state.id;
     const potentialFriends = this.state.potentialFriends;
     const displayedUserId = this.state.displayedUserId;
@@ -257,57 +284,58 @@ class SwipeProfiles extends React.Component {
         <br></br>
         <br></br>
 
-        {error ? (
+        {loading ? (
+          <LoadingSpinner />
+        ) : error ? (
           <text>{error}</text>
         ) : (
-        <div>
-          <img src="ppFriendsLogo.png"></img>
-          <h1>A potential Friend!</h1>
-          <div class="row">
-            <div class="column left">
-              <div class="profileLeft">
-                {profilePicture ? (
-                  <img src={profilePicture} alt="profilepic"></img>
-                ) : (
-                  <img src="profilepic.png" alt="profilepic"></img>
-                )}
-                <h1>
-                  {this.state.firstName}, ({this.state.age})
-                </h1>
-                {mutualFriendSection}
+          <div>
+            <img src="ppFriendsLogo.png"></img>
+            <h1>A potential Friend!</h1>
+            <div class="row">
+              <div class="column left">
+                <div class="profileLeft">
+                  {profilePicture ? (
+                    <img src={profilePicture} alt="profilepic"></img>
+                  ) : (
+                    <img src="profilepic.png" alt="profilepic"></img>
+                  )}
+                  <h1>
+                    {this.state.firstName}, ({this.state.age})
+                  </h1>
+                  {mutualFriendSection}
 
-                <button
-                  class="button letsTalkButton"
-                  onClick={() => this.handleSwipe(true)}
-                >
-                  Let's Talk
-                </button>
-                <br></br>
-                <button
-                  class="button notInterestedButton"
-                  onClick={() => this.handleSwipe(false)}
-                >
-                  Not Interested
-                </button>
+                  <button
+                    class="button letsTalkButton"
+                    onClick={() => this.handleSwipe(true)}
+                  >
+                    Let's Talk
+                  </button>
+                  <br></br>
+                  <button
+                    class="button notInterestedButton"
+                    onClick={() => this.handleSwipe(false)}
+                  >
+                    Not Interested
+                  </button>
+                </div>
               </div>
-            </div>
-            <div class="column right">
-              <div class="profileIntroSection">
-                <p>Gender 👫 </p>
-                <text>{this.state.gender}</text>
-                <p>Biography 😶 </p>
-                <text>{this.state.description}</text>
-                <p>Interests 🎨 </p>
-                <text>{this.state.interests}</text>
-                <p>Education / Work 💻 </p>
-                <text>{this.state.workplace}</text>
+              <div class="column right">
+                <div class="profileIntroSection">
+                  <p>Gender 👫 </p>
+                  <text>{this.state.gender}</text>
+                  <p>Biography 😶 </p>
+                  <text>{this.state.description}</text>
+                  <p>Interests 🎨 </p>
+                  <text>{this.state.interests}</text>
+                  <p>Education / Work 💻 </p>
+                  <text>{this.state.workplace}</text>
+                </div>
               </div>
             </div>
           </div>
-        </div>
         )}
       </div>
-        
     );
   }
 }

@@ -142,6 +142,8 @@ def swipeDecision(currentUserId, shownUserId, userDecision):
             cursor = connection.cursor(buffered=True)
             updateSwipeDecisionQuery = "UPDATE PotentialMatch SET matchDecision = %s WHERE shownUser = %s and currentUser = %s"
             insertRow = (userDecisionCast, shownUserId, currentUserId,)
+            print(updateSwipeDecisionQuery)
+            print(f"{userDecisionCast}   {shownUserId}   {currentUserId}")
             cursor.execute(updateSwipeDecisionQuery, insertRow)
 
             connection.commit()
