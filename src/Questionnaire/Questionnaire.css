@@ -3,63 +3,85 @@
   font-family: "Montserrat", sans-serif;
 }
 
-.header h1 {
+.ppQuestionnaire img {
+  display: block;
+  width: 8%;
+  margin-left:47%;
+}
+
+h1 {
   /*Questionnaire title*/
   text-align: center;
   margin: auto;
+  padding: 1%;
   font-weight: bolder;
-  font-size: 50px;
+  font-size: 30px;
   color: #e0786c;
 }
 
-.questionnaireBox {
+.questionBox {
+  text-align: left;
+  font-weight: bold;
+  margin-top: -10%;
+  padding: 2%;
+  background-color: #ffe2c7 ;
+  margin-bottom: 7%;
+  border-radius: 10px;
+}
+
+h2 {
+  /*let's get to know you*/
+  font-weight: bold;
+  line-height: 40%;
+  font-size: 25px;
+  color: grey;
   text-align: center;
 }
 
-input[type="radio"] {
-  /*make radio buttons bigger by scaling the size*/
-  transform: scale(2.5);
-  margin-right: 20px;
+h4.err{
+  margin-top: 4%;
 }
 
-.header h2 {
-  /*let's get to know you*/
-  font-weight: bold;
-  font-size: 25px;
-  color: grey;
-}
-
-.header h4 {
+h4 {
   /*please fill out the form*/
   font-weight: bold;
-  font-size: 25px;
+  font-size: 20px;
   color: #4dadb7;
+  text-align: center;
 }
 
 div.boxed {
   overflow: auto;
-  height: 300px;
+  height: 350px;
 }
 
 .boxed {
-  /*turqouise box section/background */
+  margin-top: 30px;
   background-color: #f8dabb;
   align-items: left;
   text-align: left;
   margin-right: auto;
   margin-left: auto;
   padding: 2%;
-  width: 30em;
+  width: 60%;
+  min-width: 600px;
+  max-width: 1000px;
   line-height: 35px;
   border-radius: 10px;
+  overflow: auto;
+  height: 400px;
 }
 
-.boxed p {
-  text-align: left;
-}
+
 
 .Questions {
-  font-size: 25px;
+  font-size: 18px;
+  font-weight:600;
+}
+.boxed p {
+  text-align: left;
+  font-size: 16px;
+  font-weight: 500;
 }
 
 .submitButton {
@@ -67,12 +89,16 @@ div.boxed {
   letter-spacing: 1px;
   background-color: #3680a3;
   border: 3px solid #3680a3;
-  display: inline-block;
+  align-items: center;
+  align-content: center;
   border-radius: 5px;
   padding: 5px;
-  width: 175px;
   text-align: center;
   font-size: 20px;
+  margin: 0;
+  position: absolute;
+  width:20%;
+  left: 40%;
 }
 
 .submitButton:hover {
@@ -82,20 +108,83 @@ div.boxed {
   display: inline-block;
   border-radius: 5px;
   padding: 5px;
-  width: 175px;
+  min-width: 50px;
   text-align: center;
 }
-.submitButton:focus {
-  background-color: #3680a3;
-  color: white;
-  border: 3px solid;
-  width: 240px;
-  padding: 10px 35px;
-  text-align: center;
-  font-size: 20px;
+
+.container {
+  display: block;
   position: relative;
-  margin: 1px 1px;
-  text-decoration: none;
+  padding-top: 10px;
+  padding-left: 35px;
+  margin-bottom: 12px;
   cursor: pointer;
-  border-radius: 5px; /*added rounded corners to buttons*/
+  font-size: 20px;
+  font-weight: normal;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkmark {
+  position: absolute;
+  top: 13px;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+.container input:checked ~ .checkmark {
+  background-color: #4dadb7;
+}
+
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.container .checkmark:after {
+ 	top: 9px;
+	left: 9px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: white;
+}
+
+.boxed::-webkit-scrollbar {
+  width: 20px;
+}
+
+.boxed::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+ 
+.boxed::-webkit-scrollbar-thumb {
+  background: #3680a3; 
+  border-radius: 10px;
+}
+
+.boxed::-webkit-scrollbar-thumb:hover {
+  background: #2a637e; 
 }

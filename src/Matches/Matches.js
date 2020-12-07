@@ -2,6 +2,8 @@ import React from "react";
 import "./Matches.css";
 import { withRouter, Link } from "react-router-dom";
 import { getCookie } from "../cookies";
+import LoadingSpinner from "../Profile/LoadingSpinner";
+import Header from "../Header/Header";
 
 class Matches extends React.Component {
   constructor(props) {
@@ -21,11 +23,12 @@ class Matches extends React.Component {
       messageSender: [],
       messageContent: [],
       timeStamp: [],
+      loading: true,
     };
-    this.selectUserMessage = this.selectUserMessage.bind(this);
+    this.selectUser = this.selectUser.bind(this);
+    this.unmatchUser = this.unmatchUser.bind(this);
   }
-  selectUserMessage(event) {
-    console.log(event.target.value);
+  selectUser(event) {
     const userSelected = event.target.value.split("|");
     const myRequest = new Request("http://127.0.0.1:5000/conversationId", {
       method: "POST",
@@ -54,12 +57,15 @@ class Matches extends React.Component {
         console.error(error);
       });
   }
-
-  get_matches() {
-    const myRequest = new Request("http://127.0.0.1:5000/matches", {
+  unmatchUser(event) {
+    const userSelected = event.target.value.split("|");
+    const myRequest = new Request("http://127.0.0.1:5000/unmatch", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userId: this.state.userId }),
+      body: JSON.stringify({
+        userId: this.state.userId,
+        friendId: userSelected[0],
+      }),
     });
     fetch(myRequest)
       .then((response) => response.json())
@@ -87,6 +93,40 @@ class Matches extends React.Component {
       });
   }
 
+  get_matches() {
+    const myRequest = new Request("http://127.0.0.1:5000/matches", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId: this.state.userId }),
+    });
+    fetch(myRequest)
+      .then((response) => response.json())
+      .then((res) =>
+        res.userIds && res.userIds.length != 0
+          ? this.setState({
+              name: res.currentName,
+              matchesExist: "exists",
+              userIds: res.userIds,
+              notMessagedUserIds: res.notMessagedUserIds,
+              notMessagedUserNames: res.notMessagedUserNames,
+              messagedUserIds: res.messagedUserIds,
+              messagedUserNames: res.messagedUserNames,
+              messageIds: res.messageIds,
+              messageSender: res.messageSender,
+              messageContent: res.messageContent,
+              timeStamp: res.timeStamp,
+              loading: false,
+            })
+          : this.setState({
+              matchesExist: "not exists",
+              loading: false,
+            })
+      )
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
   componentDidMount() {
     this.get_matches();
   }
@@ -98,17 +138,24 @@ class Matches extends React.Component {
       }
     }
   }
-
+  get_button_colour(i) {
+    let buttonColour;
+    if (i % 2 == 0) {
+      buttonColour = "blue";
+    } else {
+      buttonColour = "yellow";
+    }
+    return buttonColour;
+  }
   render() {
+    const loading = this.state.loading;
     if (this.state.userId === "") {
       this.props.history.push({
         pathname: "/login",
       });
       return null;
     }
-
     let matchingSection;
-
     if (this.state.matchesExist == "exists") {
       let messagedUserItems = [];
       let notMessagedUserItems = [];
@@ -134,22 +181,18 @@ class Matches extends React.Component {
               >
                 {this.state.messagedUserNames[i]}
               </Link>
-
               <button
-                className="pos-user"
-                key={pos_user + "|message"}
+                className={[this.get_button_colour(i), "pos-user"].join(" ")}
+                key={pos_user}
                 value={
                   this.state.messagedUserIds[i] +
                   "|" +
                   this.state.messagedUserNames[i]
                 }
-                onClick={this.selectUserMessage}
+                onClick={this.selectUser}
               >
-                <p class="convoSection">
-                  {" "}
-                  {messageSenderName}: {this.state.messageContent[i]}
-                </p>
-                <p class="timeSection">{this.state.timeStamp[i]}</p>
+                {messageSenderName}: {this.state.messageContent[i]}
+                timestamp: {this.state.timeStamp[i]}
               </button>
             </div>
           );
@@ -162,26 +205,38 @@ class Matches extends React.Component {
         for (var i = 0; i < this.state.notMessagedUserIds.length; i++) {
           var pos_user = this.state.notMessagedUserIds[i];
           notMessagedUserItems.push(
-            <button
-              className="pos-user"
-              key={pos_user}
-              value={
-                this.state.notMessagedUserIds[i] +
-                "|" +
-                this.state.notMessagedUserNames[i]
-              }
-              onClick={this.selectUserMessage}
-            >
-              {this.state.notMessagedUserNames[i]}
-            </button>
+            <div>
+              <Link
+                to={{
+                  pathname: "/viewfriendprofile",
+                  state: {
+                    id: this.state.userId,
+                    friendId: this.state.notMessagedUserIds[i],
+                  },
+                }}
+              >
+                {this.state.notMessagedUserNames[i]}
+              </Link>
+              <button
+                className={[this.get_button_colour(i), "pos-user"].join(" ")}
+                key={pos_user}
+                value={
+                  this.state.notMessagedUserIds[i] +
+                  "|" +
+                  this.state.notMessagedUserNames[i]
+                }
+                onClick={this.selectUser}
+              >
+                {this.state.notMessagedUserNames[i]}
+              </button>
+            </div>
           );
         }
       }
       if (
-        this.state.messagedUserIds.length > 0 &&
-        this.state.notMessagedUserIds.length > 0
+        this.state.messagedUserIds.length !== 0 &&
+        this.state.notMessagedUserIds.length !== 0
       ) {
-        console.log(this.state.messagedUserIds, this.state.notMessagedUserIds);
         matchingSection = (
           <h3 id="Matches-congrats">
             <img src="happy-penguin.svg"></img>
@@ -197,6 +252,8 @@ class Matches extends React.Component {
           <h3 id="Matches-congrats">
             <img src="happy-penguin.svg"></img>
             <h4>Congratulations, you have a match!</h4>
+            <h6>You don't have any new matches</h6>
+            <h6>Please keep swiping or check back later!</h6>
             <h6>Messaged Users</h6>
             <div className="containerBox">
               <p>{messagedUserItems}</p>
@@ -208,6 +265,7 @@ class Matches extends React.Component {
           <h3 id="Matches-congrats">
             <img src="happy-penguin.svg"></img>
             <p>Congratulations, you have a match!</p>
+            <p>There are friends you haven't messaged yet :)</p>
             <p>Not Messaged Users</p>
             <p>{notMessagedUserItems}</p>
           </h3>
@@ -228,16 +286,22 @@ class Matches extends React.Component {
       matchingSection = <h2></h2>;
     }
     return (
-      <div id="Matches-section">
-        {matchingSection}
+      <div className="matchingComponent">
+        {loading ? (
+          <LoadingSpinner />
+        ) : (
+          <div id="Matches-section">
+            {matchingSection}
 
-        <div class="swipingButton" id="swipingButton">
-          <Link to={{ pathname: "/main" }}>Keep Swiping</Link>
-        </div>
-        <br></br>
-        <div class="viewProfileButton" id="viewProfileButton">
-          <Link to={{ pathname: "/viewprofile" }}>View Profile</Link>
-        </div>
+            <div class="swipingButton" id="swipingButton">
+              <Link to={{ pathname: "/main" }}>Keep Swiping</Link>
+            </div>
+            <br></br>
+            <div class="viewProfileButton" id="viewProfileButton">
+              <Link to={{ pathname: "/viewprofile" }}>View Profile</Link>
+            </div>
+          </div>
+        )}
       </div>
     );
   }

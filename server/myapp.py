@@ -6,10 +6,13 @@ import profile
 import matches
 from login import loginUser
 import SwipeDecision
-from questionnaire import updateQuestionnaire
+from questionnaire import addQuestionnaire
+from questionnaire import editQuestionnaire
 from potentialMatch import findPotentialMatches
 import messages
 from GetLocation import getLocation
+import updateEmail
+import updatePassword
 
 app = Flask(__name__)
 CORS(app)
@@ -33,7 +36,7 @@ def create_profile():
         return profile.createProfile(request.form['name'], request.form['birthday'],
                              request.form['bio'], request.form['gender'], request.form['education'],
                              request.form['interests'], request.form['genderPreference'], request.form['maxDistance'],  
-                             request.form['age'], request.form['id'])
+                             request.form['age'], request.form['id'], request.files['img'])
 
 @app.route('/viewprofile', methods=['POST'])
 def viewProfile():
@@ -47,7 +50,7 @@ def edit_profile():
         return profile.updateProfile(request.form['name'], request.form['birthday'],
                              request.form['bio'], request.form['gender'], request.form['education'],
                              request.form['interests'], request.form['genderPreference'], request.form['maxDistance'],  
-                             request.form['age'], request.form['id'])
+                             request.form['age'], request.form['id'], request.files["img"])
 
 @app.route('/matches', methods=['POST'])
 def get_matches():
@@ -56,10 +59,26 @@ def get_matches():
         response = matches.matchUser(param['userId'])
         return response
 
+@app.route('/unmatch', methods=['POST'])
+def unmatch():
+    if request.method == 'POST':
+        param = request.get_json('userId')
+        return matches.unmatch(param['userId'], param['friendId'])  
+
 @app.route('/register', methods=['POST'])
 def register():
     if request.method == 'POST':
         return registerUser(request.form['email'], request.form['password'])
+
+@app.route('/updateEmail', methods=['POST'])
+def update_Email():
+    if request.method == 'POST':
+        return updateEmail.updateEmail(request.form['id'], request.form['email'])
+
+@app.route('/updatePassword', methods=['POST'])
+def update_Password():
+    if request.method == 'POST':
+        return updatePassword.updatePassword(request.form['id'], request.form['oldPassword'], request.form['newPassword'])
 
 @app.route('/getPotentialFriends', methods=['POST'])
 def getFriends():
@@ -69,7 +88,7 @@ def getFriends():
 @app.route('/displayProfile', methods=['POST'])
 def displayProfile():
     if request.method == 'POST':
-        return SwipeDecision.showProfile(request.form['userId'])
+        return SwipeDecision.showProfile(request.form['currentUserId'], request.form['shownUserId'])
 
 @app.route('/swipe', methods=['POST'])
 def inputSwipe():
@@ -80,7 +99,13 @@ def inputSwipe():
 def questionnaire():
     if request.method == 'POST':
         param = request.get_json('responses')
-        return updateQuestionnaire(param['responses'], param['userId']) 
+        return addQuestionnaire(param['responses'], param['userId'])
+
+@app.route('/updateQuestionnaire', methods=['POST'])
+def updateQuestionnaire():
+    if request.method == 'POST':
+        param = request.get_json('responses')
+        return editQuestionnaire(param['responses'], param['userId'])
 
 @app.route('/potentialMatch', methods=['POST'])
 def potentialMatch():
@@ -124,12 +149,12 @@ def handleMessage(data):
     return None
 
 @socketIo.on("room")
-def handleMessage(room):
+def joinRoom(room):
     join_room(room)
     return None
 
 @socketIo.on("leaveRoom")
-def handleMessage(room):
+def leaveRoom(room):
     leave_room(room)
     return None
 

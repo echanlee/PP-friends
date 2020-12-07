@@ -6,7 +6,6 @@
 
 .p {
   font-size: 20px;
-
 }
 
 .column {
@@ -45,14 +44,15 @@
 }
 
 .profileLeft img {
+  object-fit: cover;
   border-radius: 50%;
+  width: 200px;
+  height: 200px;
 }
->>>>>>> development
 
 .profileIntroSection {
   /*coral section that includes other info in smaller font*/
   background-color: #f8dabb;
-
   margin-left: 0;
   margin-right: auto;
   padding: 5%;
@@ -62,7 +62,6 @@
   border-radius: 10px;
 }
 
->>>>>>> development
 .profileIntroSection p {
   color: black;
   font-weight: bold;
@@ -77,19 +76,29 @@
   width: 200px;
   height: 50px;
   font-size: 20px;
-
 }
 
 .notInterestedButton {
   /*"no, reject match" button*/
   background-color: #e0786c;
+  margin-top: 2%;
 }
 
 .letsTalkButton {
-
-  margin-top: 40%;
+  margin-top: 10%;
 
   background-color: #4dadb7;
+}
+.mutualFriendSection p {
+  color: black;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.noMutualFriends {
+  color: black;
+  font-weight: bold;
+  font-size: 20px;
 }
 
 .pageTitle {
@@ -111,13 +120,11 @@
 }
 
 .notInterestedButton:hover {
-
   background-color: #b9645b;
   color: white;
 }
 
 .notInterestedButton:focus {
-
   background-color: #e0786c;
 
   color: white;

@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
+import "./Questionnaire.css";
 
 const QuestionBox = ({ question, options, ID, selected }) => {
   return (
-    <div>
-      <div>
+    <div class="questionBox">
+      <div class="Questions">
         {ID}. {question}
       </div>
       {options.map((text, index) => (
-        <p>
+        <label class="container">
           <input
             type="radio"
             value={text}
@@ -17,7 +18,8 @@ const QuestionBox = ({ question, options, ID, selected }) => {
             }}
           />
           {text}
-        </p>
+          <span class="checkmark"></span>
+        </label>
       ))}
     </div>
   );
