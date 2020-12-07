@@ -12,6 +12,7 @@ import Login from "./Login/Login";
 import SwipeProfiles from "./Swiping/SwipeProfiles";
 import Matches from "./Matches/Matches";
 import Questionnaire from './Questionnaire/Questionnaire';
+import UpdateQuestionnaire from './Questionnaire/UpdateQuestionnaire';
 import Messages from './Messaging/Messages';
 import ViewProfile from './Profile/ViewProfile';
 import EditProfile from './Profile/EditProfile';
@@ -50,6 +51,9 @@ export default class App extends React.Component {
                         </Route>
                         <Route path="/questionnaire">
                             <Questionnaire />
+                        </Route>
+                        <Route path="/updateQuestionnaire">
+                            <UpdateQuestionnaire />
                         </Route>
                         <Route path="/messages">
                             <Messages />

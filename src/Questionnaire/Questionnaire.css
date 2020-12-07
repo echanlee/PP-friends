@@ -6,8 +6,7 @@
 .ppQuestionnaire img {
   display: block;
   width: 8%;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left:47%;
 }
 
 h1 {
@@ -20,14 +19,14 @@ h1 {
   color: #e0786c;
 }
 
-.questionnaireBox {
-  text-align: center;
-}
-
-input[type="radio"] {
-  /*make radio buttons bigger by scaling the size*/
-  transform: scale(1.3);
-  margin-right: 20px;
+.questionBox {
+  text-align: left;
+  font-weight: bold;
+  margin-top: -10%;
+  padding: 2%;
+  background-color: #ffe2c7 ;
+  margin-bottom: 7%;
+  border-radius: 10px;
 }
 
 h2 {
@@ -37,6 +36,23 @@ h2 {
   font-size: 25px;
   color: grey;
   text-align: center;
+}
+
+h4.err{
+  margin-top: 4%;
+}
+
+h4 {
+  /*please fill out the form*/
+  font-weight: bold;
+  font-size: 20px;
+  color: #4dadb7;
+  text-align: center;
+}
+
+div.boxed {
+  overflow: auto;
+  height: 350px;
 }
 
 .boxed {
@@ -96,7 +112,79 @@ h2 {
   text-align: center;
 }
 
-.text {
-  text-align: center;
-  margin-top: 5%;
+.container {
+  display: block;
+  position: relative;
+  padding-top: 10px;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: normal;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkmark {
+  position: absolute;
+  top: 13px;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+.container input:checked ~ .checkmark {
+  background-color: #4dadb7;
+}
+
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.container .checkmark:after {
+ 	top: 9px;
+	left: 9px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: white;
+}
+
+.boxed::-webkit-scrollbar {
+  width: 20px;
+}
+
+.boxed::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+ 
+.boxed::-webkit-scrollbar-thumb {
+  background: #3680a3; 
+  border-radius: 10px;
+}
+
+.boxed::-webkit-scrollbar-thumb:hover {
+  background: #2a637e; 
 }
