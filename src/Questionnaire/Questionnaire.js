@@ -12,6 +12,7 @@ class Questionnaire extends Component {
       id: getCookie("userId"),
       questionBank: [],
       response: [],
+      error:"",
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -19,7 +20,7 @@ class Questionnaire extends Component {
   handleSubmit(event) {
     console.log(this.state.response.length)
     event.preventDefault();
-    if (this.state.response.length >= 16) {
+    if (this.checkResponses()) {
       //checks if all questions have been answered
       console.log(this.state.response.length)
       const id = this.state.id;
@@ -34,7 +35,6 @@ class Questionnaire extends Component {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ responses: this.state.response, userId: id }),
       });
-
       fetch(myRequest)
         .then((res) => res.json())
         .then((res) => {
@@ -73,6 +73,16 @@ class Questionnaire extends Component {
     }
   }
 
+  checkResponses(){
+    var countanswer=0;
+    this.state.response.map(answer=>{
+      if(answer == 0 || answer == 1){
+        countanswer++
+      }
+    })
+    return countanswer==16
+}
+
   getQuestions = () => {
     questions().then((question) => {
       this.setState({
@@ -100,14 +110,14 @@ class Questionnaire extends Component {
           <h1>PP Friends Questionnaire</h1>
           <img src="question-penguin.svg"></img>
           <h2>Let's get to know you!</h2>
-          <h4>Please answer all questions before submitting</h4>
+          <h2>Please answer all questions before submitting</h2>
         </div>
         <div className="boxed">
           <br></br>
           <br></br>
           {this.state.questionBank.length > 0 &&
             this.state.questionBank.map(({ question, answers, questionId }) => (
-              <div className="Questions">
+              <div>
                 <QuestionBox
                   question={question}
                   options={answers}
@@ -123,6 +133,7 @@ class Questionnaire extends Component {
         <button class="submitButton" onClick={this.handleSubmit}>
           Get Started!
         </button>
+        <h4 class="err">{this.state.error}</h4>
       </div>
     );
   }

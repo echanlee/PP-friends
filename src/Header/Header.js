@@ -2,6 +2,8 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 import './Header.css';
 
+
+
 const Header = (props) => {
     return(
         <nav>
@@ -16,13 +18,21 @@ const Header = (props) => {
                     <NavLink to={{
                         pathname:'/viewprofile',
                         state:{id: props.id, friendId: -1}}} className='inactive' activeClassName="active" replace>View Profile</NavLink>
-                    <NavLink to={{
-                        pathname:'/editprofile',
-                        state:{id: props.id}}} className='inactive' activeClassName="active">Edit Profile</NavLink>
-                    <NavLink to={{
-                        pathname:'/updateEmail'}} className='inactive' activeClassName="active">Change Email</NavLink>
-                    <NavLink to={{
-                        pathname:'/updatePassword'}} className='inactive' activeClassName="active">Change Password</NavLink>
+                    <div class = "dropdown">
+                        <button class="dropbtn">Settings<i class="arrow down"></i></button>
+                        <div class="dropdown-content">
+                            <NavLink to={{
+                                pathname:'/editprofile',
+                                state:{id: props.id}}} className='inactive' activeClassName="active">Edit Profile</NavLink>
+                            <NavLink to={{
+                                pathname:'/updateEmail'}} className='inactive' activeClassName="active">Change Email</NavLink>
+                            <NavLink to={{
+                                pathname:'/updatePassword'}} className='inactive' activeClassName="active">Change Password</NavLink>
+                            <NavLink to={{
+                                pathname:'/updateQuestionnaire'}} className='inactive' activeClassName="active">Re-answer Questionnaire</NavLink>
+                            </div>
+                    </div>
+
                 </div>
                 <div class="navbar">
                     <NavLink to={{

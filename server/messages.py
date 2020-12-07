@@ -40,8 +40,6 @@ def sendMessage(convoId, friendConvoId, currentId, friendId, message):
             cursor.close()
             return {"response": "Success"}
 
-        
-
     except mysql.connector.Error as err:
         return {"response": err.msg }
 

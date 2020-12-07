@@ -1,10 +1,10 @@
 
 .PageContainer{
 	font-size: 15px;
-	font-weight: 600;
-	padding: 2%;
-	width:50%;
-	height:70%;
+	font-weight: 500;
+	padding-top: 2%;
+	width:70%;
+	min-width: 600px;
 	margin-left:auto;
 	margin-right:auto;
 	align-items: center;
@@ -12,11 +12,8 @@
 
 .MessageContainer{
 	background-color: #f3f3f3;
-	height:500px;
+	height:525px;
 	margin-top:5%;
-	margin-bottom:10%;
-	margin-left:auto;
-	margin-right:auto;
 	overflow: auto;
 	font-weight: 600;
 	border-radius: 10px;
@@ -26,7 +23,7 @@
 	background-color: #F8DABB;
 	padding: 15px;
 	width: 70%;
-	margin: 0;
+	margin: 10px;
 	border-radius: 8px;
 	float:right;
 	color: #303030;
@@ -46,7 +43,7 @@
 
 .MessageContainer input[name="message"] {
 	bottom: 5px;
-	width: 70%;
+	width: 73%;
 	padding: 5px;
 	margin-left: 5px;
 	border-radius: 5px;
@@ -73,4 +70,9 @@
 
 .PageContainer h1{
 	color: #f07167;
+}
+
+.PageContainer h2{
+	text-align: center;
+	font-size: 16px;
 }
