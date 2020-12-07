@@ -50,11 +50,9 @@ class SwipeProfiles extends React.Component {
             potentialFriends: potentialFriendsList,
             displayedUserId: displayProfileId,
             error: "",
-            loading: false,
           });
 
           this.displayProfile();
-          this.setState({ loading: false });
         } else {
           this.setState({
             error: res.response,
@@ -72,7 +70,6 @@ class SwipeProfiles extends React.Component {
 
   displayProfile() {
     const displayId = this.state.displayedUserId;
-    this.setState({ loading: false });
 
     const currentUserId = this.state.id;
     if (displayId) {
