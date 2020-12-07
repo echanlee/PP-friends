@@ -16,7 +16,7 @@ def getPotentialMatchList(currentUserId):
             cursor.execute(PotentialMatchQuery, userID)
             potentialMatchList = cursor.fetchall()
 
-            potentialListId = [i[0] for i in cursor.fetchall()]
+            potentialListId = [i[0] for i in potentialMatchList]
 
             findLocation = "SELECT Users.longitude, Users.latitude, Profile.maxDistance FROM Users INNER JOIN Profile ON Users.id=Profile.userId WHERE Users.id = %s"
             cursor.execute(findLocation, userID)
@@ -64,7 +64,7 @@ def getMatchWithinMaxDistance(potentialMatchList, currentUserLongitude, currentU
 
     return newPotentialMatchList
 
-def showProfile(shownUserId):
+def showProfile(currentUserId, shownUserId):
     try:
         connection = connectToDB()
         if(connection != False):
@@ -84,7 +84,9 @@ def showProfile(shownUserId):
                 gender = row[4]
                 workPlace = row[5]
                 profile = row[6]
-                
+            
+            mutualFriendNames = getMutualFriendNames(currentUserId, shownUserId, cursor)
+
             connection.commit()
             cursor.close()
 
@@ -95,12 +97,25 @@ def showProfile(shownUserId):
             "age": age, 
             "gender": gender,
             "workPlace": workPlace,
-            "profilePicture": profile}
+            "profilePicture": profile,
+            "mutualFriendAmount": len(mutualFriendNames),
+            "mutualFriendNames": mutualFriendNames}
     
     except mysql.connector.Error as err:
         return {"response": err.msg }
 
     return{"response": "Something went wrong"}
+
+# gets the names of friends to be outputted in the json response
+def getMutualFriendNames(currentUser, shownUser, cursor):
+    sql = f"SELECT p.firstname FROM Profile p where p.userId IN \
+            (SELECT userTwo FROM Conversation WHERE userOne = {currentUser} \
+                AND userTwo IN \
+                    (SELECT userTwo FROM Conversation WHERE userOne ={shownUser}))"
+    cursor.execute(sql)
+
+    mutualFriendNames = [names[0] for names in cursor.fetchall()]
+    return mutualFriendNames
 
 def insertConvo(userOne, userTwo):
     try:

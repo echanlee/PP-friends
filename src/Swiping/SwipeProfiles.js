@@ -22,6 +22,9 @@ class SwipeProfiles extends React.Component {
       displayedUserId: "",
       error: "",
       loading: true,
+
+      mutualFriendAmount: 0,
+      mutualFriendNames: null,
     };
 
     this.getPotentialFriendList = this.getPotentialFriendList.bind(this);
@@ -47,9 +50,11 @@ class SwipeProfiles extends React.Component {
             potentialFriends: potentialFriendsList,
             displayedUserId: displayProfileId,
             error: "",
+            loading: false,
           });
 
           this.displayProfile();
+          this.setState({ loading: false });
         } else {
           this.setState({
             error: res.response,
@@ -68,10 +73,12 @@ class SwipeProfiles extends React.Component {
   displayProfile() {
     const displayId = this.state.displayedUserId;
     this.setState({ loading: false });
+
+    const currentUserId = this.state.id;
     if (displayId) {
       var formData = new FormData();
-
-      formData.append("userId", displayId);
+      formData.append("currentUserId", currentUserId);
+      formData.append("shownUserId", displayId);
       const myRequest = new Request("http://127.0.0.1:5000/displayProfile", {
         method: "POST",
         body: formData,
@@ -88,6 +95,8 @@ class SwipeProfiles extends React.Component {
               gender: res.gender,
               workplace: res.workPlace,
               profilePicture: res.profilePicture,
+              mutualFriendAmount: res.mutualFriendAmount,
+              mutualFriendNames: res.mutualFriendNames,
               error: "",
               loading: false,
             });
@@ -121,7 +130,7 @@ class SwipeProfiles extends React.Component {
   }
 
   handleSwipe(choice) {
-    this.setState({loading: true});
+    this.setState({ loading: true });
     const displayId = this.state.displayedUserId;
     const currentUserId = this.state.id;
     var formData = new FormData();
@@ -137,16 +146,17 @@ class SwipeProfiles extends React.Component {
       .then((res) => {
         if (res.response === "Success") {
           var potentialList = this.state.potentialFriends;
-          if(potentialList) {
+          if (potentialList) {
             var newPotentialUserId = potentialList.pop();
             this.setState({
               potentialFriends: potentialList,
               displayedUserId: newPotentialUserId,
               error: "",
+              loading: false,
             });
             this.displayProfile();
-          }
-          else {
+            this.setState({ loading: false });
+          } else {
             this.setState({
               error: (
                 <p>
@@ -240,6 +250,23 @@ class SwipeProfiles extends React.Component {
     const error = this.state.error;
     const profilePicture = this.state.profilePicture;
 
+    let mutualFriendNames = this.state.mutualFriendNames;
+    let mutualFriendSection;
+    if (this.state.mutualFriendAmount == 0) {
+      mutualFriendSection = (
+        <div className="noMutualFriends">
+          <p>No Mutual Friends</p>
+        </div>
+      );
+    } else if (this.state.mutualFriendAmount > 0) {
+      mutualFriendSection = (
+        <div className="mutualFriendSection">
+          <p>Your Mutual Friends:</p>
+          <text>{this.state.mutualFriendNames}</text>
+        </div>
+      );
+    }
+
     if (id === "") {
       this.props.history.push({
         pathname: "/login",
@@ -261,17 +288,16 @@ class SwipeProfiles extends React.Component {
 
         <br></br>
         <header class="pageTitle">Potential Friends!</header>
-        <br></br>
 
-        <br></br>
         <br></br>
         <br></br>
 
         {loading ? (
           <LoadingSpinner />
-        ) : error
-          ? <text>{error}</text> :
-          (<div>
+        ) : error ? (
+          <text>{error}</text>
+        ) : (
+          <div>
             <img src="ppFriendsLogo.png"></img>
             <h1>A potential Friend!</h1>
             <div class="row">
@@ -285,6 +311,8 @@ class SwipeProfiles extends React.Component {
                   <h1>
                     {this.state.firstName}, ({this.state.age})
                   </h1>
+                  {mutualFriendSection}
+
                   <button
                     class="button letsTalkButton"
                     onClick={() => this.handleSwipe(true)}
@@ -292,7 +320,6 @@ class SwipeProfiles extends React.Component {
                     Let's Talk
                   </button>
                   <br></br>
-
                   <button
                     class="button notInterestedButton"
                     onClick={() => this.handleSwipe(false)}

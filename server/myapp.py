@@ -6,7 +6,8 @@ import profile
 import matches
 from login import loginUser
 import SwipeDecision
-from questionnaire import updateQuestionnaire
+from questionnaire import addQuestionnaire
+from questionnaire import editQuestionnaire
 from potentialMatch import findPotentialMatches
 import messages
 from GetLocation import getLocation
@@ -58,6 +59,12 @@ def get_matches():
         response = matches.matchUser(param['userId'])
         return response
 
+@app.route('/unmatch', methods=['POST'])
+def unmatch():
+    if request.method == 'POST':
+        param = request.get_json('userId')
+        return matches.unmatch(param['userId'], param['friendId'])  
+
 @app.route('/register', methods=['POST'])
 def register():
     if request.method == 'POST':
@@ -81,7 +88,7 @@ def getFriends():
 @app.route('/displayProfile', methods=['POST'])
 def displayProfile():
     if request.method == 'POST':
-        return SwipeDecision.showProfile(request.form['userId'])
+        return SwipeDecision.showProfile(request.form['currentUserId'], request.form['shownUserId'])
 
 @app.route('/swipe', methods=['POST'])
 def inputSwipe():
@@ -92,7 +99,13 @@ def inputSwipe():
 def questionnaire():
     if request.method == 'POST':
         param = request.get_json('responses')
-        return updateQuestionnaire(param['responses'], param['userId']) 
+        return addQuestionnaire(param['responses'], param['userId'])
+
+@app.route('/updateQuestionnaire', methods=['POST'])
+def updateQuestionnaire():
+    if request.method == 'POST':
+        param = request.get_json('responses')
+        return editQuestionnaire(param['responses'], param['userId'])
 
 @app.route('/potentialMatch', methods=['POST'])
 def potentialMatch():

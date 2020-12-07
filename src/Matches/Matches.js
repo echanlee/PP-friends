@@ -3,6 +3,7 @@ import "./Matches.css";
 import { withRouter, Link } from "react-router-dom";
 import { getCookie } from "../cookies";
 import LoadingSpinner from "../Profile/LoadingSpinner";
+import Header from "../Header/Header";
 
 class Matches extends React.Component {
   constructor(props) {
@@ -25,6 +26,7 @@ class Matches extends React.Component {
       loading: true,
     };
     this.selectUser = this.selectUser.bind(this);
+    this.unmatchUser = this.unmatchUser.bind(this);
   }
   selectUser(event) {
     const userSelected = event.target.value.split("|");
@@ -52,6 +54,41 @@ class Matches extends React.Component {
       })
       .catch((error) => {
         alert("Something went wrong");
+        console.error(error);
+      });
+  }
+  unmatchUser(event) {
+    const userSelected = event.target.value.split("|");
+    const myRequest = new Request("http://127.0.0.1:5000/unmatch", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        userId: this.state.userId,
+        friendId: userSelected[0],
+      }),
+    });
+    fetch(myRequest)
+      .then((response) => response.json())
+      .then((res) =>
+        res.userIds && res.userIds.length != 0
+          ? this.setState({
+              name: res.currentName,
+              matchesExist: "exists",
+              userIds: res.userIds,
+              notMessagedUserIds: res.notMessagedUserIds,
+              notMessagedUserNames: res.notMessagedUserNames,
+              messagedUserIds: res.messagedUserIds,
+              messagedUserNames: res.messagedUserNames,
+              messageIds: res.messageIds,
+              messageSender: res.messageSender,
+              messageContent: res.messageContent,
+              timeStamp: res.timeStamp,
+            })
+          : this.setState({
+              matchesExist: "not exists",
+            })
+      )
+      .catch((error) => {
         console.error(error);
       });
   }

@@ -28,6 +28,8 @@ const Header = (props) => {
                                 pathname:'/updateEmail'}} className='inactive' activeClassName="active">Change Email</NavLink>
                             <NavLink to={{
                                 pathname:'/updatePassword'}} className='inactive' activeClassName="active">Change Password</NavLink>
+                            <NavLink to={{
+                                pathname:'/updateQuestionnaire'}} className='inactive' activeClassName="active">Re-answer Questionnaire</NavLink>
                             </div>
                     </div>
 

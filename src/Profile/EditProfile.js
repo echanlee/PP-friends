@@ -22,6 +22,7 @@ class EditProfile extends React.Component {
       maxDistance: 10,
       updateStatus: "",
       loading: true,
+
       profilePicture: null,
     };
 

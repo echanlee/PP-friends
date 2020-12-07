@@ -22,6 +22,7 @@ class ViewProfile extends React.Component {
       error: "",
       maxDistance: 10,
       loading: true,
+
       profilePicture: null,
     };
   }
@@ -45,6 +46,7 @@ class ViewProfile extends React.Component {
           birthday: res.birthday,
           maxDistance: res.maxDistance,
           loading: false,
+
           profilePicture: res.profilePicture,
         })
       )
