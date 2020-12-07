@@ -2,6 +2,7 @@ import React from "react";
 import { withRouter, Link } from "react-router-dom";
 import { getCookie } from "../cookies";
 import Header from "../Header/Header";
+import LoadingSpinner from "./LoadingSpinner";
 
 import "./ViewProfile.css";
 
@@ -20,6 +21,7 @@ class ViewProfile extends React.Component {
       interests: "",
       error: "",
       maxDistance: 10,
+      loading: true,
 
       profilePicture: null,
     };
@@ -43,6 +45,7 @@ class ViewProfile extends React.Component {
           interests: res.interests,
           birthday: res.birthday,
           maxDistance: res.maxDistance,
+          loading: false,
 
           profilePicture: res.profilePicture,
         })
@@ -53,6 +56,8 @@ class ViewProfile extends React.Component {
   }
 
   render() {
+    const error = this.state.error;
+    const loading = this.state.loading;
     if (this.state.userId === "") {
       this.props.history.push({
         pathname: "/login",
@@ -62,81 +67,86 @@ class ViewProfile extends React.Component {
     return (
       <div>
         <Header id={this.state.userId} />
-        <div className="Profile">
-          <h1>View My Profile</h1>
-          <img src="ppFriendsLogo.png"></img>
-          <div class="row">
-            <div class="column left">
-              <div class="profilepic">
-                <p>Profile Picture</p>
-                {this.state.profilePicture && (
-                  <img src={this.state.profilePicture}></img>
-                )}
+        {loading ? (
+          <LoadingSpinner />
+        ) : (
+          <div className="Profile">
+            <h1>View My Profile</h1>
+            <img src="ppFriendsLogo.png"></img>
+            <div class="row">
+              <div class="column left">
+                <div class="profilepic">
+                  <p>Profile Picture</p>
+                  {this.state.profilePicture && (
+                    <img src={this.state.profilePicture}></img>
+                  )}
+                </div>
               </div>
-            </div>
-            <div class="column right">
-              <div class="rectangle">
-                <label for="User">Name 😀</label>
-                {this.state.name}
-                <br></br>
-                <br></br>
+              <div class="column right">
+                <div class="rectangle">
+                  <label for="User">Name 😀</label>
+                  {this.state.name}
+                  <br></br>
+                  <br></br>
 
-                <label for="Birthday">Birthday 🎂</label>
-                {this.state.birthday}
-                <br></br>
-                <br></br>
+                  <label for="Birthday">Birthday 🎂</label>
+                  {this.state.birthday}
+                  <br></br>
+                  <br></br>
 
-                <label for="Gender">Gender 👫</label>
-                {this.state.gender}
+                  <label for="Gender">Gender 👫</label>
+                  {this.state.gender}
 
-                <br></br>
-                <br></br>
+                  <br></br>
+                  <br></br>
 
-                <label for="GenderPreference">
-                  Your Preferred Gender for friends 🎎
-                </label>
-                {this.state.genderPreference}
+                  <label for="GenderPreference">
+                    Your Preferred Gender for friends 🎎
+                  </label>
+                  {this.state.genderPreference}
 
-                <br></br>
-                <br></br>
-                <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
 
-                <label for="Education">Education/Work 💻</label>
-                <text>{this.state.education}</text>
+                  <label for="Education">Education/Work 💻</label>
+                  <text>{this.state.education}</text>
 
-                <br></br>
-                <br></br>
+                  <br></br>
+                  <br></br>
 
-                <label for="Interests">Your interests 🎨</label>
-                <text class="bigText">{this.state.interests}</text>
+                  <label for="Interests">Your interests 🎨</label>
+                  <text class="bigText">{this.state.interests}</text>
 
-                <br></br>
-                <br></br>
+                  <br></br>
+                  <br></br>
 
-                <label for="Bio">Bio 😶</label>
-                <text class="bigText">{this.state.bio}</text>
+                  <label for="Bio">Bio 😶</label>
+                  <text class="bigText">{this.state.bio}</text>
 
-                <br></br>
-                <br></br>
+                  <br></br>
+                  <br></br>
 
-                <label for="Distance">Max Distance 🌎</label>
-                <input
-                  type="range"
-                  name="maxDistance"
-                  value={this.state.maxDistance}
-                  min="1"
-                  max="500"
-                />
-                <text>{this.state.maxDistance}KM</text>
-                <text>{this.state.error}</text>
-                <br></br>
-                <br></br>
+                  <label for="Distance">Max Distance 🌎</label>
+                  <input
+                    type="range"
+                    name="maxDistance"
+                    value={this.state.maxDistance}
+                    min="1"
+                    max="500"
+                  />
+                  <text>{this.state.maxDistance}KM</text>
+                  <text>{this.state.error}</text>
+                  <br></br>
+                  <br></br>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     );
   }
 }
+
 export default withRouter(ViewProfile);
